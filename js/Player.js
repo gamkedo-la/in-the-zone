@@ -1,6 +1,7 @@
 const PLAYER_MOVE_SPEED = 5.0;
 const PLAYER_MOVE_SPEED_CHANGE = 3.0
 var currentFrame = 0;
+//
 
 function playerClass(startingX,startingY,isAI) {
 	this.x = startingX;
