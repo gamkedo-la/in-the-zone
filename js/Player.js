@@ -43,6 +43,20 @@ function playerClass(startingX,startingY,isAI) {
 		var nextY = this.y;
     // currentFrame++;
     // console.log(currentFrame);
+
+    if (nextX > canvas.width) {
+      nextX = canvas.width;
+    }
+    if (nextX < 0) {
+      nextX = 0;
+    }
+    if (nextY > canvas.height) {
+      nextY = canvas.height;
+    }
+    if (nextY < 0) {
+      nextY = 0;
+    }
+
     if (!this.isAI) {
       if(this.keyHeld_North) {
   			nextY -= PLAYER_MOVE_SPEED;
