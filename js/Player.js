@@ -86,42 +86,29 @@ function playerClass(startingX,startingY,isAI) {
     }
     else {
       if (this.shootingTime>0) {
+        this.ballToHold.beingShot = true;
+        this.ballToHold.isHeld = false;
+        this.ballToHold.isHeldBy = null;
+        // console.log(this.ballToHold.x);
+        // console.log(HOOP_X);
+        var a = HOOP_X-this.x;
+        var b = HOOP_Y-this.y;
+        this.ballToHold.startingDistanceFromHoop =Math.sqrt(a*a + b*b);
         if (this.shootingTime > 10 && this.shootingTime < 15) {
-          this.ballToHold.beingShot = true;
-          this.ballToHold.isHeld = false;
-          this.ballToHold.isHeldBy = null;
-          // console.log(this.ballToHold.x);
-          // console.log(HOOP_X);
-					var a = HOOP_X-this.x;
-          var b = HOOP_Y-this.y;
-          this.ballToHold.startingDistanceFromHoop =Math.sqrt(a*a + b*b);
           var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
-          // console.log(direction);
-          this.ballToHold.shootingX = Math.cos(direction) * this.ballToHold.startingDistanceFromHoop/30;
-          this.ballToHold.shootingY = Math.sin(direction) * this.ballToHold.startingDistanceFromHoop/30;
-
-          this.ballToHold.ballPower = -16;
-          // console.log(this.ballToHold.shootingX);
-          this.ballToHold = null;
           console.log("success");
         }
         else {
-          // console.log("not a good shot");
-          this.ballToHold.beingShot = true;
-          this.ballToHold.isHeld = false;
-          this.ballToHold.isHeldBy = null;
-          // console.log(this.ballToHold.x);
-          // console.log(HOOP_X);
           var direction = Math.atan2(HOOP_Y+20 - this.y, HOOP_X+20 - this.x);
-          // console.log(direction);
-          this.ballToHold.shootingX = Math.cos(direction) * BALL_SHOOT_SPEED;
-          this.ballToHold.shootingY = Math.sin(direction) * BALL_SHOOT_SPEED;
-          var a = HOOP_X-this.x;
-          var b = HOOP_Y-this.y;
-          this.ballToHold.startingDistanceFromHoop =Math.sqrt(a*a + b*b);
-          // console.log(this.ballToHold.shootingX);
-          this.ballToHold = null;
         }
+
+        // console.log(direction);
+        this.ballToHold.shootingX = Math.cos(direction) * this.ballToHold.startingDistanceFromHoop/30;
+        this.ballToHold.shootingY = Math.sin(direction) * this.ballToHold.startingDistanceFromHoop/30;
+
+        this.ballToHold.ballPower = -16;
+        // console.log(this.ballToHold.shootingX);
+        this.ballToHold = null;
       }
       this.shootingTime = 0;
     }
