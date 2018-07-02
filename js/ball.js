@@ -24,7 +24,7 @@ function ballClass(startingX,startingY){
   this.move = function(){
     // console.log(this.x);
     // console.log(this.shootingX);
-    console.log(this.ballPower);
+    // console.log(this.ballPower);
     this.ballPower = this.ballPower + GRAVITY_MULTIPLIER;
     this.height = this.height - this.ballPower;
     this.x += this.shootingX;
@@ -58,8 +58,12 @@ function ballClass(startingX,startingY){
       // this.y += this.shootingY + ballRiseValue;
 
       if (this.x < HOOP_X +10 && this.y < HOOP_Y +10 &&
-          this.x > HOOP_X -10 && this.y > HOOP_Y -10) {
+          this.x > HOOP_X -10 && this.y > HOOP_Y -10 &&
+          this.z < HOOP_H +10 && this.z > HOOP_H -10) {
+        this.shootingX =0;
+        this.shootingY =0;
         this.beingShot = false;
+        console.log("Yay!");
       }
     }
   }

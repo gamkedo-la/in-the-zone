@@ -1,16 +1,5 @@
 var basketballCourt = document.createElement("img");
 var player1 = document.createElement("img");
-var player2 = document.createElement("img");
-var player3 = document.createElement("img");
-var player4 = document.createElement("img");
-var player5 = document.createElement("img");
-var player6 = document.createElement("img");
-var player7 = document.createElement("img");
-var player8 = document.createElement("img");
-var player9 = document.createElement("img");
-var player10 = document.createElement("img");
-var player11 = document.createElement("img");
-var player12 = document.createElement("img");
 
 
 var worldPics = [];
@@ -26,7 +15,7 @@ function countLoadedImagesAndLaunchIfReady() {
 }
 
 function beginLoadingImage(imgVar, fileName) {
-	console.log(imgVar);
+	// console.log(imgVar);
 	imgVar.onload = countLoadedImagesAndLaunchIfReady;
 	imgVar.src = "images/"+fileName;
 }
@@ -41,18 +30,7 @@ function loadImages() {
 	var imageList = [
 		{varName: basketballCourt, theFile: "court.png"},
 
-    {varName: player1, theFile:"player1.png"},
-    {varName: player2, theFile:"player2.png"},
-    {varName: player3, theFile:"player3.png"},
-    {varName: player4, theFile:"player4.png"},
-    {varName: player5, theFile:"player5.png"},
-    {varName: player6, theFile:"player6.png"},
-    {varName: player7, theFile:"player7.png"},
-    {varName: player8, theFile:"player8.png"},
-    {varName: player9, theFile:"player9.png"},
-    {varName: player10, theFile:"player10.png"},
-    {varName: player11, theFile:"player11.png"},
-    {varName: player12, theFile:"player12.png"}
+    {varName: player1, theFile:"player1.png"}
 		];
 
 
