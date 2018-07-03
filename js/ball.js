@@ -34,6 +34,8 @@ function ballClass(startingX,startingY){
     if (this.isHeld) {
       this.x = this.isHeldBy.x;
       this.y = this.isHeldBy.y;
+      this.z = this.y ;
+      this.ballPower = 0;
     }
     if (this.height < 0) {
       this.height =0;
