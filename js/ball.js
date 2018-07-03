@@ -69,8 +69,8 @@ function ballClass(startingX,startingY){
       else if (this.x < HOOP_X +15 && this.y < HOOP_Y +15 &&
               this.x > HOOP_X -15 && this.y > HOOP_Y -15 &&
               this.z < HOOP_H +10 && this.z > HOOP_H -10 && !this.goingIn) {
-        this.shootingX = this.x-HOOP_X;
-        this.shootingY = this.y-HOOP_Y;
+        this.shootingX = (this.x-HOOP_X)/3;
+        this.shootingY = (this.y-HOOP_Y)/3;
         this.ballPower = Math.abs(this.z- HOOP_H);
         this.beingShot = false;
       }
