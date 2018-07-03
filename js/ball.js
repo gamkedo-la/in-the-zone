@@ -18,6 +18,7 @@ function ballClass(startingX,startingY){
   this.height = 10;
   this.ballPower = -10;
   this.startingDistanceFromHoop;
+  this.goingIn;
 
   ballArray.push(this);
 
@@ -57,13 +58,21 @@ function ballClass(startingX,startingY){
       // this.x += this.shootingX;
       // this.y += this.shootingY + ballRiseValue;
 
-      if (this.x < HOOP_X +10 && this.y < HOOP_Y +10 &&
-          this.x > HOOP_X -10 && this.y > HOOP_Y -10 &&
-          this.z < HOOP_H +10 && this.z > HOOP_H -10) {
+      if (this.x < HOOP_X +5 && this.y < HOOP_Y +5 &&
+          this.x > HOOP_X -5 && this.y > HOOP_Y -5 &&
+          this.z < HOOP_H +10 && this.z > HOOP_H -10 && this.goingIn) {
         this.shootingX =0;
         this.shootingY =0;
         this.beingShot = false;
         console.log("Yay!");
+      }
+      else if (this.x < HOOP_X +15 && this.y < HOOP_Y +15 &&
+              this.x > HOOP_X -15 && this.y > HOOP_Y -15 &&
+              this.z < HOOP_H +10 && this.z > HOOP_H -10 && !this.goingIn) {
+        this.shootingX = this.x-HOOP_X;
+        this.shootingY = this.y-HOOP_Y;
+        this.ballPower = Math.abs(this.z- HOOP_H);
+        this.beingShot = false;
       }
     }
   }

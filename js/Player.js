@@ -94,9 +94,11 @@ function playerClass(startingX,startingY,isAI) {
     if (this.x == nextX && this.y == nextY) {
       currentPic = player1;
     }
-    // TODO:
 		if (this.keyHeld_Shoot && this.ballToHold != null) {
       this.shootingTime++;
+			if (this.shootingTime > 25) {
+				this.shootingTime = 25;
+			}
     }
     else {
       if (this.shootingTime>0) {
@@ -109,12 +111,41 @@ function playerClass(startingX,startingY,isAI) {
 				var b = HOOP_Y-this.y;
 				this.ballToHold.startingDistanceFromHoop =Math.sqrt(a*a + b*b);
         if (this.shootingTime > 10 && this.shootingTime < 15) {
+					this.ballToHold.goingIn = true;
           var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
 					this.ballToHold.ballPower = -16;
+					console.log("perfect");
         }
-				else {
-					var direction = Math.atan2(HOOP_Y - this.y, HOOP_X+(Math.floor(Math.random() * 101) -50) - this.x);
-					this.ballToHold.ballPower = Math.floor(Math.random()*11) -20;
+				else if (this.shootingTime<10)
+				 {
+					 console.log(this.shootingTime);
+					 var random = Math.floor(Math.random()*10) +1;
+					 console.log(random);
+					 if (random <this.shootingTime) {
+						 this.ballToHold.goingIn = true;
+						 var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
+						 this.ballToHold.ballPower = -16;
+						 console.log("short but lucky");
+					 }
+					 else {
+						 this.ballToHold.goingIn = false;
+ 						var direction = Math.atan2(HOOP_Y - this.y, HOOP_X+(Math.floor(Math.random() * 51) -25) - this.x);
+						this.ballToHold.ballPower = Math.floor(Math.random()*2) -16;
+					 }
+				}
+				else if (this.shootingTime > 15) {
+					console.log(this.shootingTime);
+					if (random < this.shootingTime -15) {
+						this.ballToHold.goingIn = true;
+						var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
+						this.ballToHold.ballPower = -16;
+						console.log("long but lucky");
+					}
+					else {
+						this.ballToHold.goingIn = false;
+					 var direction = Math.atan2(HOOP_Y - this.y, HOOP_X+(Math.floor(Math.random() * 51) -25) - this.x);
+					 this.ballToHold.ballPower = Math.floor(Math.random()*2) -17;
+					}
 				}
 				// console.log(direction);
 				this.ballToHold.shootingX = Math.cos(direction) * this.ballToHold.startingDistanceFromHoop/30;
@@ -127,13 +158,6 @@ function playerClass(startingX,startingY,isAI) {
     this.x = nextX;
     this.y = nextY;
 
-    // TODO:
-    // if (this.x < canvas.width-10 && this.y < canvas.height-10 &&
-    //     this.x > 0               && this.y >0) {
-    //   this.x = nextX;
-    //   this.y = nextY;
-    //   console.log(this.x);
-    //     }
 
     for (var i = 0; i < ballArray.length; i++) {
       if (ballArray[i].x - this.x <30 && this.x - ballArray[i].x < 30 &&
