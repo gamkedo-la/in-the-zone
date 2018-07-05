@@ -38,8 +38,14 @@ function ballClass(startingX,startingY){
       this.ballPower = 0;
     }
     if (this.height < 0) {
+      console.log(this.ballPower);
       this.height =0;
       this.ballPower = -this.ballPower * GRAVITY_MULTIPLIER;
+
+      if (this.ballPower < -0.5) {
+          ballBouncing2.play();
+      }
+
     }
     if (this.beingShot) {
     //   console.log(this.shootingX);
@@ -75,6 +81,13 @@ function ballClass(startingX,startingY){
         this.shootingY = (this.y-HOOP_Y)/3;
         this.ballPower = Math.abs(this.z- HOOP_H);
         this.beingShot = false;
+        var random = Math.random();
+        if (random > 0.5) {
+          ballRebound1.play();
+        }
+        else {
+          ballRebound2.play();
+        }
       }
     }
   }
