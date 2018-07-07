@@ -7,7 +7,7 @@ function playerClass(startingX,startingY,isAI) {
 	this.x = startingX;
 	this.y = startingY;
 	this.myWarriorPic; // which picture to use
-  this.facingDirection= 2;//0 = north, 1 = east, 2 = south, 3 = west,4=ne, 5 = se, 6 = sw, 7 = nw
+  // this.facingDirection= 2;//0 = north, 1 = east, 2 = south, 3 = west,4=ne, 5 = se, 6 = sw, 7 = nw
   this.ang;
   this.isAI = isAI;
   this.ballToHold;
@@ -60,33 +60,33 @@ function playerClass(startingX,startingY,isAI) {
     if (!this.isAI) {
       if(this.keyHeld_North) {
   			nextY -= PLAYER_MOVE_SPEED;
-        this.facingDirection = 0;
+        // this.facingDirection = 0;
 
   		}
   		if(this.keyHeld_East) {
   			nextX += PLAYER_MOVE_SPEED;
-        this.facingDirection = 1;
+        // this.facingDirection = 1;
   		}
   		if(this.keyHeld_South) {
   			nextY += PLAYER_MOVE_SPEED;
-        this.facingDirection = 2;
+        // this.facingDirection = 2;
   		}
   		if(this.keyHeld_West) {
   			nextX -= PLAYER_MOVE_SPEED;
-        this.facingDirection = 3;
+        // this.facingDirection = 3;
   		}
-  		if(this.keyHeld_West && this.keyHeld_North) {
-        this.facingDirection = 7;
-  		}
-  		if(this.keyHeld_West && this.keyHeld_South) {
-        this.facingDirection = 6;
-  		}
-  		if(this.keyHeld_East && this.keyHeld_North) {
-        this.facingDirection = 4;
-  		}
-  		if(this.keyHeld_East && this.keyHeld_South) {
-        this.facingDirection = 5;
-  		}
+  		// if(this.keyHeld_West && this.keyHeld_North) {
+      //   this.facingDirection = 7;
+  		// }
+  		// if(this.keyHeld_West && this.keyHeld_South) {
+      //   this.facingDirection = 6;
+  		// }
+  		// if(this.keyHeld_East && this.keyHeld_North) {
+      //   this.facingDirection = 4;
+  		// }
+  		// if(this.keyHeld_East && this.keyHeld_South) {
+      //   this.facingDirection = 5;
+  		// }
     }
 
     //0 = north, 1 = east, 2 = south, 3 = west,4=ne, 5 = se, 6 = sw, 7 = nw
@@ -173,32 +173,32 @@ function playerClass(startingX,startingY,isAI) {
   }
 
 	this.draw = function() {
-    switch (this.facingDirection) {//0 = north, 1 = east, 2 = south, 3 = west,4=ne, 5 = se, 6 = sw, 7 = nw
-      case 0:
-        this.ang =Math.PI;
-        break;
-      case 1:
-        this.ang = 3*Math.PI/2;
-        break;
-      case 2:
-        this.ang = 0;
-        break;
-      case 3:
-        this.ang = Math.PI/2;
-        break;
-      case 4:
-        this.ang = Math.PI/4;
-        break;
-      case 5:
-        this.ang = 3*Math.PI/4;
-        break;
-      case 6:
-        this.ang = 5*Math.PI/4;
-        break;
-      case 7:
-        this.ang = 7*Math.PI/4;
-        break;
-    }
+    // switch (this.facingDirection) {//0 = north, 1 = east, 2 = south, 3 = west,4=ne, 5 = se, 6 = sw, 7 = nw
+    //   case 0:
+    //     this.ang =Math.PI;
+    //     break;
+    //   case 1:
+    //     this.ang = 3*Math.PI/2;
+    //     break;
+    //   case 2:
+    //     this.ang = 0;
+    //     break;
+    //   case 3:
+    //     this.ang = Math.PI/2;
+    //     break;
+    //   case 4:
+    //     this.ang = Math.PI/4;
+    //     break;
+    //   case 5:
+    //     this.ang = 3*Math.PI/4;
+    //     break;
+    //   case 6:
+    //     this.ang = 5*Math.PI/4;
+    //     break;
+    //   case 7:
+    //     this.ang = 7*Math.PI/4;
+    //     break;
+    // }
 		drawBitmapCenteredWithRotation(currentPic, this.x,this.y, this.ang);
 
     if (this.shootingTime > 0) {

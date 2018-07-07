@@ -101,14 +101,22 @@ function ballClass(startingX,startingY){
     }
   }
   this.draw = function(){
-    colorCircle(this.x,this.y,5,"black");
     colorCircle(this.x,this.z,5,"yellow");
+  }
+  this.drawShadow = function(){
+    colorCircle(this.x,this.y,5,"black");
   }
 }
 
 function drawBalls(ballArray){
   for (var i = 0; i < ballArray.length; i++) {
-    ballArray[i].draw();
+    if (!ballArray[i].isHeld) {
+      ballArray[i].drawShadow();
+      ballArray[i].draw();
+    }
+    else {
+      //ballArray[i].drawShadow();
+    }
   }
 }
 function moveBalls(ballArray){
