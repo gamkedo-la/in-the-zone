@@ -111,7 +111,7 @@ function playerClass(startingX,startingY,isAI) {
 				var b = HOOP_Y-this.y;
 				this.ballToHold.startingDistanceFromHoop =Math.sqrt(a*a + b*b);
 				var random = Math.floor(Math.random()*10) +1;
-        if (this.shootingTime > 10 && this.shootingTime < 15) {
+        if (this.shootingTime >= 10 && this.shootingTime <= 15) {
 					this.ballToHold.goingIn = true;
           var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
 					this.ballToHold.ballPower = -16;
