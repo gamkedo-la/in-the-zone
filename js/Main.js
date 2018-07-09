@@ -6,6 +6,7 @@ var character2 = new playerClass(150,75,true);
 
 var ballArray = [];
 var ball1 = new ballClass(400,300);
+var ball2 = new ballClass(500,400);
 
 
 window.onload = function() {
@@ -41,6 +42,7 @@ function drawAll() {
 	drawWorld();
   character1.draw();
   character2.draw();
+	drawBallShadows(ballArray);
   drawBalls(ballArray);
 }
 

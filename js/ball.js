@@ -111,7 +111,6 @@ function ballClass(startingX,startingY){
 function drawBalls(ballArray){
   for (var i = 0; i < ballArray.length; i++) {
     if (!ballArray[i].isHeld) {
-      ballArray[i].drawShadow();
       ballArray[i].draw();
     }
     else {
@@ -119,6 +118,18 @@ function drawBalls(ballArray){
     }
   }
 }
+
+function drawBallShadows(ballArray){
+  for (var i = 0; i < ballArray.length; i++) {
+    if (!ballArray[i].isHeld) {
+      ballArray[i].drawShadow();
+    }
+    else {
+      //ballArray[i].drawShadow();
+    }
+  }
+}
+
 function moveBalls(ballArray){
   for (var i = 0; i < ballArray.length; i++) {
     ballArray[i].move();
