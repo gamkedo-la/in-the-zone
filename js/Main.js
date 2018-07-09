@@ -5,8 +5,8 @@ var character1 = new playerClass(75,75,false);
 var character2 = new playerClass(150,75,true);
 
 var ballArray = [];
-var ball1 = new ballClass(400,300);
-var ball2 = new ballClass(500,400);
+var ball1 = new ballClass(700,100);
+var ball2 = new ballClass(500,600);
 
 
 window.onload = function() {
