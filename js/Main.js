@@ -12,6 +12,11 @@ var ball2 = new ballClass(500,600);
 window.onload = function() {
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
+	canvas.onmousemove = (evt) => {//gathering mouse coordinates for easy reference during game dev in game play,
+		                             //current use is to outline zones
+		 mouseX = evt.pageX;
+		 mouseY = evt.pageY;
+	}
 
 	colorRect(0,0, canvas.width,canvas.height, 'black');
 	colorText("LOADING IMAGES", canvas.width/2, canvas.height/2, 'white');
@@ -44,6 +49,7 @@ function drawAll() {
   character2.draw();
 	drawBallShadows(ballArray);
   drawBalls(ballArray);
+	drawGrid();
 }
 
 
