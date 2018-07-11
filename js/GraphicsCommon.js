@@ -43,8 +43,29 @@ function drawBitmapWithRotation(useBitmap, atX, atY, withAng) {
 	canvasContext.restore();
 
 }
+function SpriteSheetClass(sheetIn, widthIn, heightIn){
+  var sheet = sheetIn;
+  var width = widthIn;
+  var height = heightIn;
 
-// Accepted formats for fillColorAlpha: standard named color string (alpha = 1) or [r,g,b,a] 
+  this.draw = function(col, row, atX, atY, ang) {
+    canvasContext.save();
+    canvasContext.translate(atX, atY);
+    canvasContext.rotate(ang);
+    canvasContext.drawImage(sheet,
+                            col * width,//x coordinate to where you start clipping
+														row * height,//y coordinate to where you start clipping
+                            width,//width of the clipped image
+														height,// height of the clipped image
+                            -width/2,//x coordinate where to place image on canvas
+														-height/2,//y coordinate where to place image on canvas
+                            width,//width of the image to use
+														height);//height of the image to use
+    canvasContext.restore();
+  }
+}
+
+// Accepted formats for fillColorAlpha: standard named color string (alpha = 1) or [r,g,b,a]
 //Used in conjunction with the ParticleRenderer
 function colorCircleAlpha(centerX, centerY, radius, fillColorAlpha) {
 

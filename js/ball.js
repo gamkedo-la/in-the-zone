@@ -109,10 +109,10 @@ function ballClass(startingX, startingY) {
     }
   }
   this.draw = function () {
-    colorCircle(this.x, this.z, 5, "yellow");
+    colorCircle(this.x, this.z, 6, "yellow");
   }
   this.drawShadow = function () {
-    colorCircle(this.x, this.y, 5, "black");
+    colorCircle(this.x, this.y, 6, "black");
   }
 }
 

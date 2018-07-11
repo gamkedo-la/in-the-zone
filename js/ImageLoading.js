@@ -1,5 +1,6 @@
 var basketballCourt = document.createElement("img");
 var player1 = document.createElement("img");
+var currySpriteSheet = document.createElement("img");
 
 var dustParticle = document.createElement("img");
 var sparkParticle = document.createElement("img");
@@ -35,6 +36,7 @@ function loadImages() {
 		{ varName: basketballCourt, theFile: "court.png" },
 
 		{ varName: player1, theFile: "player1.png" },
+		{varName: currySpriteSheet, theFile : "currySpriteSheet.png"},
 
 		{ varName: dustParticle, theFile: "dustParticle.png" },
 		{ varName: sparkParticle, theFile: "sparkParticle.png" },

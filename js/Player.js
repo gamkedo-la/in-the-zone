@@ -15,6 +15,20 @@ function playerClass(startingX, startingY, isAI) {
 	this.inShootingMotion = false;
 	this.shootingTime = 0;
 	this.ballToChase; // it is for ai
+
+	this.width = 64;
+	this.height = 64;
+	this.tickCount = 0;
+	this.ticksPerFrame = 5;
+	this.frameRow = 0;
+	this.framesAnim = 10;
+	this.walkSprite = new SpriteSheetClass(currySpriteSheet,this.width, this.height);
+
+	this.states = {
+		isIdle: true,
+		isShooting: false
+	};
+
 	if (!this.isAI) {
 		this.keyHeld_North = false;
 		this.keyHeld_South = false;
@@ -37,6 +51,15 @@ function playerClass(startingX, startingY, isAI) {
 		}
 
 	}
+
+	this.incrementTick = function () {
+
+		this.tickCount++;
+
+		if (this.tickCount / this.ticksPerFrame >= this.framesAnim) {
+			this.tickCount = 0;
+		}
+	};
 
 
 	this.move = function () {
@@ -93,12 +116,21 @@ function playerClass(startingX, startingY, isAI) {
 			// }
 
 			if (this.keyHeld_Shoot && this.ballToHold != null) {
-				this.shootingTime++;
+	      this.shootingTime++;
+				this.states.isShooting = true;
+				this.states.isIdle = false;
 				if (this.shootingTime > 25) {
 					this.shootingTime = 25;
 				}
-			}
+				if (this.shootingTime > 15) {
+					this.tickCount = 25;
+				}
+	    }
 			else {
+				if (this.tickCount == 0) {
+					this.states.isShooting = false;
+					this.states.isIdle = true;
+				}
 				if (this.shootingTime > 0) {
 					this.ballToHold.beingShot = true;
 					this.ballToHold.isHeld = false;
@@ -110,6 +142,7 @@ function playerClass(startingX, startingY, isAI) {
 					this.ballToHold.startingDistanceFromHoop = Math.sqrt(a * a + b * b);
 					var random = Math.floor(Math.random() * 10) + 1;
 					if (this.shootingTime >= 10 && this.shootingTime <= 15) {
+						this.tickCount = 35;
 						this.ballToHold.goingIn = true;
 						var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
 						this.ballToHold.ballPower = -16;
@@ -118,6 +151,7 @@ function playerClass(startingX, startingY, isAI) {
 					else if (this.shootingTime < 10) {
 						// console.log(this.shootingTime);
 						// console.log(random);
+						this.tickCount = 35;
 						if (random < this.shootingTime) {
 							this.ballToHold.goingIn = true;
 							var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
@@ -259,7 +293,13 @@ function playerClass(startingX, startingY, isAI) {
 		//     this.ang = 7*Math.PI/4;
 		//     break;
 		// }
-		drawBitmapCenteredWithRotation(currentPic, this.x, this.y, this.ang);
+		if (this.states.isShooting) {
+			this.incrementTick();
+			this.walkSprite.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.x, this.y, this.ang);
+		}
+		if (this.states.isIdle) {
+			drawBitmapCenteredWithRotation(currentPic, this.x,this.y, this.ang);
+		}
 
 		if (this.shootingTime > 0) {
 			colorRect(this.x, this.y + 20, this.shootingTime, 10, "red");
