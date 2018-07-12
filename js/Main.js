@@ -26,6 +26,7 @@ window.onload = function () {
 
 function imageLoadingDoneSoStartGame() {
 	var framesPerSecond = 30;
+	initializeArrayOfZones();
 	setInterval(updateAll, 1000 / framesPerSecond);
 	setAudioFormat();
 	loadAudios();
@@ -40,7 +41,9 @@ function updateAll() {
 
 function moveAll() {
 	character1.move();
+	character1.updateEdgesOfFeet();
 	character2.move();
+	character2.updateEdgesOfFeet();
 	moveBalls(ballArray);
 }
 
@@ -51,10 +54,11 @@ function drawAll() {
 	character2.draw();
 	drawBallShadows(ballArray);
 	drawBalls(ballArray);
-	drawGrid();
+	
 }
 
 
 function drawWorld() {
 	drawBitmapCenteredWithRotation(basketballCourt, canvas.width / 2, canvas.height / 2, 0);
+	drawZones();
 }

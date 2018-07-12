@@ -123,6 +123,4 @@ drawZones = () => {
     updateZoneStatus(zoneIndex);
     arrayOfZones[zoneIndex].draw();
   }
-  canvasContext.fillStyle = "blue";
-	canvasContext.fillRect(canvas.width/2,canvas.height/2, 100,100);
 }

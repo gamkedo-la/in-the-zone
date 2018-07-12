@@ -7,6 +7,10 @@ var distanceToTheClosestBall;
 function playerClass(startingX, startingY, isAI) {
 	this.x = startingX;
 	this.y = startingY;
+	this.leftEdgeOfFeet = this.x + 19;
+	this.topEdgeOfFeet = this.y + 59;
+	this.rightEdgeOfFeet = this.x + 39;
+	this.bottomEdgeOfFeet = this.y + 61;
 	this.myWarriorPic; // which picture to use
 	// this.facingDirection= 2;//0 = north, 1 = east, 2 = south, 3 = west,4=ne, 5 = se, 6 = sw, 7 = nw
 	this.ang;
@@ -266,6 +270,13 @@ function playerClass(startingX, startingY, isAI) {
 		}
 	}
 
+	this.updateEdgesOfFeet = function() {
+		this.leftEdgeOfFeet = this.x + 19;
+		this.topEdgeOfFeet = this.y + 59;
+		this.rightEdgeOfFeet = this.x + 39;
+		this.bottomEdgeOfFeet = this.y + 61;
+	}
+	
 	this.draw = function () {
 		// switch (this.facingDirection) {//0 = north, 1 = east, 2 = south, 3 = west,4=ne, 5 = se, 6 = sw, 7 = nw
 		//   case 0:
