@@ -16,6 +16,8 @@ window.onload = function () {
 		//current use is to outline zones
 		mouseX = evt.pageX;
 		mouseY = evt.pageY;
+		//character2.x = mouseX;
+		//character2.y = mouseY;
 	}
 
 	colorRect(0, 0, canvas.width, canvas.height, 'black');
@@ -54,7 +56,7 @@ function drawAll() {
 	character2.draw();
 	drawBallShadows(ballArray);
 	drawBalls(ballArray);
-	
+
 }
 
 
