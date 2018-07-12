@@ -156,6 +156,18 @@ function playerClass(startingX, startingY, isAI) {
 					}
 				}
 			}
+
+			for (var i = 0; i < ballArray.length; i++) {
+				if (ballArray[i].x - this.x < 30 && this.x - ballArray[i].x < 30 &&
+					ballArray[i].y - this.y < 30 && this.y - ballArray[i].y < 30 &&
+					ballArray[i].height < 10 && !ballArray[i].beingShot && !this.isHoldingBall) {
+					this.isHoldingBall = true;
+					ballArray[i].isHeld = true;
+					ballArray[i].isHeldBy = this;
+					this.ballToHold = ballArray[i];
+				}
+			}
+			
 			if (this.previousfacingDirection != this.facingDirection) {
 				//console.log("just changed directions");
 				if (Math.random() > 0.5) { // not every time
@@ -239,23 +251,6 @@ function playerClass(startingX, startingY, isAI) {
 				this.shootingTime = 0;
 			}
 		}
-		if (!this.isAI) {
-
-			// if(this.keyHeld_West && this.keyHeld_North) {
-			//   this.facingDirection = 7;
-			// }
-			// if(this.keyHeld_West && this.keyHeld_South) {
-			//   this.facingDirection = 6;
-			// }
-			// if(this.keyHeld_East && this.keyHeld_North) {
-			//   this.facingDirection = 4;
-			// }
-			// if(this.keyHeld_East && this.keyHeld_South) {
-			//   this.facingDirection = 5;
-			// }
-
-
-		}
 
 
 		//0 = north, 1 = east, 2 = south, 3 = west,4=ne, 5 = se, 6 = sw, 7 = nw
@@ -267,17 +262,6 @@ function playerClass(startingX, startingY, isAI) {
 		this.x = nextX;
 		this.y = nextY;
 
-
-		for (var i = 0; i < ballArray.length; i++) {
-			if (ballArray[i].x - this.x < 30 && this.x - ballArray[i].x < 30 &&
-				ballArray[i].y - this.y < 30 && this.y - ballArray[i].y < 30 &&
-				ballArray[i].height < 10 && !ballArray[i].beingShot && !this.isHoldingBall) {
-				this.isHoldingBall = true;
-				ballArray[i].isHeld = true;
-				ballArray[i].isHeldBy = this;
-				this.ballToHold = ballArray[i];
-			}
-		}
 	}
 
 	this.updateEdgesOfFeet = function() {
