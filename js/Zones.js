@@ -41,7 +41,7 @@ function updateZoneStatus(zoneIndex) {
         //  arrayOfZones[zoneIndex].claimStatus = 1;
         player1Here = true;
         if (player1Here) {
-          console.log(arrayOfZones[zoneIndex]);
+          //console.log(arrayOfZones[zoneIndex]);
           character1.currentZone = arrayOfZones[zoneIndex].zoneNumber;
         }
         if (player2Here) {

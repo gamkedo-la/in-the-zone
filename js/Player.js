@@ -21,6 +21,8 @@ function playerClass(startingX, startingY, isAI) {
 	this.ballToChase; // it is for ai
 
 	this.currentZone;
+	this.jumpingHeight = 0;
+	this.DistanceFromHoopWhileDunking;
 
 	this.width = 64;
 	this.height = 64;
@@ -90,6 +92,7 @@ function playerClass(startingX, startingY, isAI) {
 		}
 
 		this.previousfacingDirection = this.facingDirection;
+
 		if (this.states.isIdle) {
 			if (!this.isAI) {
 				if (this.keyHeld_North) {
@@ -109,8 +112,17 @@ function playerClass(startingX, startingY, isAI) {
 					this.facingDirection = 3;
 				}
 				if (this.keyHeld_Shoot && this.ballToHold != null){
-					this.states.isIdle = false;
-					this.states.isShooting = true;
+					if (this.currentZone == 4 || this.currentZone == 5 || this.currentZone == 12 || this.currentZone == 13) {
+						this.states.isIdle = false;
+						this.states.isDunking = true;
+						var a = HOOP_X - this.x;
+						var b = HOOP_Y - this.y;
+						this.startingDistanceFromHoop = Math.sqrt(a * a + b * b);
+					}
+					else {
+						this.states.isIdle = false;
+						this.states.isShooting = true;
+					}
 				}
 			}
 			else {		//AI movement
@@ -167,7 +179,7 @@ function playerClass(startingX, startingY, isAI) {
 					this.ballToHold = ballArray[i];
 				}
 			}
-			
+
 			if (this.previousfacingDirection != this.facingDirection) {
 				//console.log("just changed directions");
 				if (Math.random() > 0.5) { // not every time
@@ -178,6 +190,7 @@ function playerClass(startingX, startingY, isAI) {
 				}
 			}
 		}
+
 		if (this.states.isShooting) {
 			if (this.keyHeld_Shoot && this.ballToHold != null) {
 	      this.shootingTime++;
@@ -253,7 +266,37 @@ function playerClass(startingX, startingY, isAI) {
 		}
 
 
-		//0 = north, 1 = east, 2 = south, 3 = west,4=ne, 5 = se, 6 = sw, 7 = nw
+
+		if (this.states.isDunking) {
+			var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
+		 	var dunkingX= Math.cos(direction) * this.startingDistanceFromHoop / 30;
+			var dunkingY= Math.sin(direction) * this.startingDistanceFromHoop / 30;
+			var dunkingHeight = -5;
+			nextX += dunkingX;
+			nextY += dunkingY;
+			if (this.jumpingHeight < HOOP_H) {
+				this.jumpingHeight -= dunkingHeight;
+			}
+			if (this.jumpingHeight+ 10 > HOOP_H) {
+				this.jumpingHeight += dunkingHeight;
+			}
+			this.z = this.y - this.jumpingHeight;
+			if (this.x < HOOP_X + 10 && this.y < HOOP_Y + 10 &&
+        this.x > HOOP_X - 10 && this.y > HOOP_Y - 10) {
+				console.log(this.ballToHold.jumpingHeight);
+				this.jumpingHeight = 0;
+				this.ballToHold.jumpingHeight = HOOP_H;
+				this.ballToHold.x = HOOP_X;
+				this.ballToHold.y = HOOP_Y;
+				this.ballToHold.isHeld = false;
+				this.ballToHold.isHeldBy = null;
+				this.ballToHold = null;
+				this.isHoldingBall = false;
+				this.states.isDunking = false;
+				this.states.isIdle = true;
+			}
+		}
+
 
 		if (this.x == nextX && this.y == nextY) {
 			currentPic = player1;
@@ -304,6 +347,9 @@ function playerClass(startingX, startingY, isAI) {
 		}
 		if (this.states.isIdle) {
 			drawBitmapCenteredWithRotation(currentPic, this.x,this.y, this.ang);
+		}
+		if (this.states.isDunking) {
+			drawBitmapCenteredWithRotation(dunkingPic, this.x,this.z, this.ang);
 		}
 
 		if (this.shootingTime > 0) {
