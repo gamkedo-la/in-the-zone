@@ -20,6 +20,8 @@ function playerClass(startingX, startingY, isAI) {
 	this.shootingTime = 0;
 	this.ballToChase; // it is for ai
 
+	this.currentZone;
+
 	this.width = 64;
 	this.height = 64;
 	this.tickCount = 0;
@@ -30,7 +32,8 @@ function playerClass(startingX, startingY, isAI) {
 
 	this.states = {
 		isIdle: true,
-		isShooting: false
+		isShooting: false,
+		isDunking: false
 	};
 
 	if (!this.isAI) {
@@ -87,42 +90,85 @@ function playerClass(startingX, startingY, isAI) {
 		}
 
 		this.previousfacingDirection = this.facingDirection;
-
-		if (!this.isAI) {
-
-			if (this.keyHeld_North) {
+		if (this.states.isIdle) {
+			if (!this.isAI) {
+				if (this.keyHeld_North) {
 				nextY -= PLAYER_MOVE_SPEED;
 				this.facingDirection = 0;
+				}
+				if (this.keyHeld_East) {
+					nextX += PLAYER_MOVE_SPEED;
+					this.facingDirection = 1;
+				}
+				if (this.keyHeld_South) {
+					nextY += PLAYER_MOVE_SPEED;
+					this.facingDirection = 2;
+				}
+				if (this.keyHeld_West) {
+					nextX -= PLAYER_MOVE_SPEED;
+					this.facingDirection = 3;
+				}
+				if (this.keyHeld_Shoot && this.ballToHold != null){
+					this.states.isIdle = false;
+					this.states.isShooting = true;
+				}
 			}
-			if (this.keyHeld_East) {
-				nextX += PLAYER_MOVE_SPEED;
-				this.facingDirection = 1;
+			else {		//AI movement
+				if (!this.isHoldingBall) {//movement towards the ball
+					for (var i = 0; i < ballArray.length; i++) {
+						if (!ballArray[i].beingShot) {
+							var a = ballArray[i].x - this.x;
+							var b = ballArray[i].y - this.y;
+							var distance = Math.sqrt(a * a + b * b);
+							if (distance < distanceToTheClosestBall || distanceToTheClosestBall == null) {
+								distanceToTheClosestBall = distance;
+								this.ballToChase = ballArray[i];
+							}
+						}
+					}
+					if (nextX != this.x && nextY != this.y) {
+						if (this.x < this.ballToChase.x) {
+							nextX += PLAYER_MOVE_SPEED * Math.cos(45);
+						}
+						if (this.y < this.ballToChase.y) {
+							nextY += PLAYER_MOVE_SPEED * Math.cos(45);
+						}
+						if (this.x > this.ballToChase.x) {
+							nextX -= PLAYER_MOVE_SPEED * Math.cos(45);
+						}
+						if (this.y > this.ballToChase.y) {
+							nextY -= PLAYER_MOVE_SPEED * Math.cos(45);
+						}
+					}
+					else {
+						if (this.x < this.ballToChase.x) {
+							nextX += PLAYER_MOVE_SPEED;
+						}
+						if (this.y < this.ballToChase.y) {
+							nextY += PLAYER_MOVE_SPEED;
+						}
+						if (this.x > this.ballToChase.x) {
+							nextX -= PLAYER_MOVE_SPEED;
+						}
+						if (this.y > this.ballToChase.y) {
+							nextY -= PLAYER_MOVE_SPEED;
+						}
+					}
+				}
 			}
-			if (this.keyHeld_South) {
-				nextY += PLAYER_MOVE_SPEED;
-				this.facingDirection = 2;
+			if (this.previousfacingDirection != this.facingDirection) {
+				//console.log("just changed directions");
+				if (Math.random() > 0.5) { // not every time
+					// play a random sound from this list (see Audio.js)
+					var randomSound = shoeSounds[Math.floor(Math.random() * shoeSounds.length)];
+					randomSound.volume = 0.3;
+					randomSound.play();
+				}
 			}
-			if (this.keyHeld_West) {
-				nextX -= PLAYER_MOVE_SPEED;
-				this.facingDirection = 3;
-			}
-			// if(this.keyHeld_West && this.keyHeld_North) {
-			//   this.facingDirection = 7;
-			// }
-			// if(this.keyHeld_West && this.keyHeld_South) {
-			//   this.facingDirection = 6;
-			// }
-			// if(this.keyHeld_East && this.keyHeld_North) {
-			//   this.facingDirection = 4;
-			// }
-			// if(this.keyHeld_East && this.keyHeld_South) {
-			//   this.facingDirection = 5;
-			// }
-
+		}
+		if (this.states.isShooting) {
 			if (this.keyHeld_Shoot && this.ballToHold != null) {
 	      this.shootingTime++;
-				this.states.isShooting = true;
-				this.states.isIdle = false;
 				if (this.shootingTime > 25) {
 					this.shootingTime = 25;
 				}
@@ -193,62 +239,26 @@ function playerClass(startingX, startingY, isAI) {
 				this.shootingTime = 0;
 			}
 		}
-		//AI movement
-		else {
-			if (!this.isHoldingBall) {//movement towards the ball
-				for (var i = 0; i < ballArray.length; i++) {
-					if (!ballArray[i].beingShot) {
-						var a = ballArray[i].x - this.x;
-						var b = ballArray[i].y - this.y;
-						var distance = Math.sqrt(a * a + b * b);
-						if (distance < distanceToTheClosestBall || distanceToTheClosestBall == null) {
-							distanceToTheClosestBall = distance;
-							this.ballToChase = ballArray[i];
-						}
-					}
-				}
-				if (nextX != this.x && nextY != this.y) {
-					if (this.x < this.ballToChase.x) {
-						nextX += PLAYER_MOVE_SPEED * Math.cos(45);
-					}
-					if (this.y < this.ballToChase.y) {
-						nextY += PLAYER_MOVE_SPEED * Math.cos(45);
-					}
-					if (this.x > this.ballToChase.x) {
-						nextX -= PLAYER_MOVE_SPEED * Math.cos(45);
-					}
-					if (this.y > this.ballToChase.y) {
-						nextY -= PLAYER_MOVE_SPEED * Math.cos(45);
-					}
-				}
-				else {
-					if (this.x < this.ballToChase.x) {
-						nextX += PLAYER_MOVE_SPEED;
-					}
-					if (this.y < this.ballToChase.y) {
-						nextY += PLAYER_MOVE_SPEED;
-					}
-					if (this.x > this.ballToChase.x) {
-						nextX -= PLAYER_MOVE_SPEED;
-					}
-					if (this.y > this.ballToChase.y) {
-						nextY -= PLAYER_MOVE_SPEED;
-					}
-				}
-			}
+		if (!this.isAI) {
+
+			// if(this.keyHeld_West && this.keyHeld_North) {
+			//   this.facingDirection = 7;
+			// }
+			// if(this.keyHeld_West && this.keyHeld_South) {
+			//   this.facingDirection = 6;
+			// }
+			// if(this.keyHeld_East && this.keyHeld_North) {
+			//   this.facingDirection = 4;
+			// }
+			// if(this.keyHeld_East && this.keyHeld_South) {
+			//   this.facingDirection = 5;
+			// }
+
+
 		}
+
 
 		//0 = north, 1 = east, 2 = south, 3 = west,4=ne, 5 = se, 6 = sw, 7 = nw
-
-		if (this.previousfacingDirection != this.facingDirection) {
-			//console.log("just changed directions");
-			if (Math.random() > 0.5) { // not every time
-				// play a random sound from this list (see Audio.js)
-				var randomSound = shoeSounds[Math.floor(Math.random() * shoeSounds.length)];
-				randomSound.volume = 0.3;
-				randomSound.play();
-			}
-		}
 
 		if (this.x == nextX && this.y == nextY) {
 			currentPic = player1;
@@ -276,7 +286,7 @@ function playerClass(startingX, startingY, isAI) {
 		this.rightEdgeOfFeet = this.x + 39;
 		this.bottomEdgeOfFeet = this.y + 61;
 	}
-	
+
 	this.draw = function () {
 		// switch (this.facingDirection) {//0 = north, 1 = east, 2 = south, 3 = west,4=ne, 5 = se, 6 = sw, 7 = nw
 		//   case 0:

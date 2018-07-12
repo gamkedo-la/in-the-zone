@@ -40,6 +40,13 @@ function updateZoneStatus(zoneIndex) {
         character1.topEdgeOfFeet - 25 >= arrayOfZones[zoneIndex].topEdge && character1.bottomEdgeOfFeet - 29 <= arrayOfZones[zoneIndex].bottomEdge) {
         //  arrayOfZones[zoneIndex].claimStatus = 1;
         player1Here = true;
+        if (player1Here) {
+          console.log(arrayOfZones[zoneIndex]);
+          character1.currentZone = arrayOfZones[zoneIndex].zoneNumber;
+        }
+        if (player2Here) {
+          character2.currentZone = arrayOfZones[zoneIndex].zoneNumber;
+        }
         }
         //console.log(arrayOfZones[0].claimStatus);
     //if either of character 1's feet are outside a zone, establish they are not in that zone, mainly for exiting zones
@@ -99,32 +106,32 @@ function updateZoneStatus(zoneIndex) {
 //}
 
 initializeArrayOfZones = () => {
-    arrayOfZones.push(new zoneClass(2,205, 72,205, 45,278, 2,278, undefined,undefined, 1));
-    arrayOfZones.push(new zoneClass(79,205, 190,205, 190,278, 54,278, undefined,undefined, 2));
-    arrayOfZones.push(new zoneClass(190,205, 322,205, 310,278, 190,278, undefined,undefined, 3));
-    arrayOfZones.push(new zoneClass(330,205, 400,205, 400,278, 320,278, undefined,undefined, 4));
-    arrayOfZones.push(new zoneClass(400,205, 471,205, 481,278, 400,278, undefined,undefined,5));
-    arrayOfZones.push(new zoneClass(481,205, 602,205, 602,278, 490,278, undefined,undefined, 6));
-    arrayOfZones.push(new zoneClass(602,205, 724,205, 752,278, 602,278, undefined,undefined,7));
-    arrayOfZones.push(new zoneClass(732,205, 798,205, 798,278, 761,278, undefined,undefined,8));
-    arrayOfZones.push(new zoneClass(2,278, 45,278, 40,315, 55,350, 2,350, 9));
-    arrayOfZones.push(new zoneClass(55,278, 190,278, 190,350, 65,350, 50,315, 10));
+    arrayOfZones.push(new zoneClass(0,203, 72,203, 45,278, 0,278, undefined,undefined, 1));
+    arrayOfZones.push(new zoneClass(72,203, 190,203, 190,278, 45,278, undefined,undefined, 2));
+    arrayOfZones.push(new zoneClass(190,203, 322,203, 310,278, 190,278, undefined,undefined, 3));
+    arrayOfZones.push(new zoneClass(322,203, 400,203, 400,278, 310,278, undefined,undefined, 4));
+    arrayOfZones.push(new zoneClass(400,203, 480,203, 490,278, 400,278, undefined,undefined,5));
+    arrayOfZones.push(new zoneClass(480,205, 602,203, 602,278, 490,278, undefined,undefined, 6));
+    arrayOfZones.push(new zoneClass(602,203, 730,203, 760,278, 602,278, undefined,undefined,7));
+    arrayOfZones.push(new zoneClass(730,203, 800,203, 800,278, 760,278, undefined,undefined,8));
+    arrayOfZones.push(new zoneClass(0,278, 45,278, 40,315, 55,350, 0,350, 9));
+    arrayOfZones.push(new zoneClass(45,278, 190,278, 190,350, 55,350, 40,315, 10));
     arrayOfZones.push(new zoneClass(190,278, 310,278, 300,350, 190,350, undefined,undefined, 11));
-    arrayOfZones.push(new zoneClass(318,278, 400,278, 400,350, 307,350, undefined,undefined, 12));
-    arrayOfZones.push(new zoneClass(400,278, 481,278, 491,350, 400,350, undefined,undefined, 13));
+    arrayOfZones.push(new zoneClass(310,278, 400,278, 400,350, 300,350, undefined,undefined, 12));
+    arrayOfZones.push(new zoneClass(400,278, 490,278, 502,350, 400,350, undefined,undefined, 13));
     arrayOfZones.push(new zoneClass(490,278, 602,278, 602,350, 502,350, undefined,undefined, 14));
-    arrayOfZones.push(new zoneClass(602,278, 752,278, 755,315, 740,350, 600,350, 15));
-    arrayOfZones.push(new zoneClass(761,278, 798,278, 798,350, 752,350, 764,318, 16));
-    arrayOfZones.push(new zoneClass(2,350, 50,350, 115,415, 200,455, 2,455, 17));
-    arrayOfZones.push(new zoneClass(65,350, 190,350, 190,438, 117,400, undefined,undefined, 18));
-    arrayOfZones.push(new zoneClass(190,350, 300,350, 287,438, 190,438, undefined,undefined, 19));
-    arrayOfZones.push(new zoneClass(307,350, 491,350, 494,470, 304,470, undefined,undefined, 20));
-    arrayOfZones.push(new zoneClass(502,350, 602,350, 602,440, 525,460, undefined,undefined, 21));
-    arrayOfZones.push(new zoneClass(600,350, 740,350, 690,395, 602,440, undefined,undefined, 22));
-    arrayOfZones.push(new zoneClass(752,350, 798,350, 798,460, 602,457, 705,410, 23));
-    arrayOfZones.push(new zoneClass(130,430, 310,480, 310,520, 130,520, undefined,undefined, 24));
-    arrayOfZones.push(new zoneClass(310,480, 494,470, 494,520, 310,520, undefined,undefined, 25));
-    arrayOfZones.push(new zoneClass(494,470, 680,430, 680,520, 494,520, undefined,undefined, 26));
+    arrayOfZones.push(new zoneClass(602,278, 760,278, 760,315, 750,350, 602,350, 15));
+    arrayOfZones.push(new zoneClass(760,278, 800,278, 800,350, 750,350, 760,315, 16));
+    arrayOfZones.push(new zoneClass(0,350, 50,350, 115,412, 190,450, 0,450, 17));
+    arrayOfZones.push(new zoneClass(50,350, 190,350, 190,450, 115,412, undefined,undefined, 18));
+    arrayOfZones.push(new zoneClass(190,350, 300,350, 280,468, 190,450, undefined,undefined, 19));
+    arrayOfZones.push(new zoneClass(300,350, 502,350, 517,468, 400,478, 280,468, 20));
+    arrayOfZones.push(new zoneClass(502,350, 602,350, 602,448, 517,468, undefined,undefined, 21));
+    arrayOfZones.push(new zoneClass(602,350, 750,350, 693,408, 602,448, undefined,undefined, 22));
+    arrayOfZones.push(new zoneClass(750,350, 800,350, 800,448, 602,448, 693,408, 23));
+    arrayOfZones.push(new zoneClass(190,450, 280,468, 280,520, 190,520, undefined,undefined, 24));
+    arrayOfZones.push(new zoneClass(280,468, 400,478, 517,468, 517,520, 280,520, 25));
+    arrayOfZones.push(new zoneClass(517,468, 602,448, 602,520, 517,520, undefined,undefined, 26));
 }
 
 drawZones = () => {
