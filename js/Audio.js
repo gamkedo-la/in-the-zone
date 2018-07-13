@@ -18,6 +18,8 @@ var shoe10 = new Audio();
 // an array for easy random
 var shoeSounds = [shoe1, shoe2, shoe3, shoe4, shoe5, shoe6, shoe7, shoe8, shoe9, shoe10];
 
+var backgroundMusic = new Audio();
+
 function setAudioFormat() {
   var audio = new Audio();
   if (audio.canPlayType) {
@@ -33,7 +35,8 @@ var audios = [{}];
 
 
 function loadAudios() {
-  audios = [{
+  audios = [
+  {
     name: ballBouncing1,
     source: "audio/basketball_bounce" + audioFormat
   },
@@ -88,8 +91,11 @@ function loadAudios() {
   {
     name: shoe10,
     source: "audio/shoe-10" + audioFormat
+  },
+  {
+    name: backgroundMusic,
+    source: "audio/Sweet Georgia Brown" + audioFormat
   }
-
 
   ];
 
@@ -99,5 +105,7 @@ function loadAudios() {
   for (var i = 0; i < audios.length; i++) {
     audios[i].name.src = audios[i].source;
   }
+  backgroundMusic.play();
+  backgroundMusic.loop = true;
   console.log(ballRebound1.source);
 }
