@@ -16,8 +16,8 @@ window.onload = function () {
 		//current use is to outline zones
 		mouseX = evt.pageX;
 		mouseY = evt.pageY;
-		//character2.x = mouseX;
-		//character2.y = mouseY;
+		character2.x = mouseX;
+		character2.y = mouseY;
 	}
 
 	colorRect(0, 0, canvas.width, canvas.height, 'black');
@@ -32,7 +32,7 @@ function imageLoadingDoneSoStartGame() {
 	setInterval(updateAll, 1000 / framesPerSecond);
 	setAudioFormat();
 	loadAudios();
-	
+
 	setupInput();
 }
 

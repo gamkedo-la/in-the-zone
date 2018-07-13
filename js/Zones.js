@@ -20,7 +20,7 @@ function zoneClass(x1,y1, x2,y2, x3,y3, x4,y4, x5,y5, zoneNumber) {
 
   this.draw = function() {
 
-    //console.log(this.claimStatus, this.zoneNumber);
+
     if (this.x5 === undefined && this.y5 === undefined) {
       drawQuadrilateralZone(this.x1,this.y1, this.x2,this.y2, this.x3,this.y3, this.x4,this.y4, zoneNumber, this.claimStatus);
     } else {
@@ -31,79 +31,34 @@ function zoneClass(x1,y1, x2,y2, x3,y3, x4,y4, x5,y5, zoneNumber) {
 
 //establish position of each character relative to the zones and set the appropriate zone status
 function updateZoneStatus(zoneIndex) {
-  //for (let i = 0; i < 26; i++) {
 
-    //if the character 1's feet are both within the edges, they are in that zone and draw associated color
     var player1Here = false;
     var player2Here = false;
+
+    //if both players' feet are in a zone, the associated zone status
     if (character1.leftEdgeOfFeet - 20 >= arrayOfZones[zoneIndex].leftEdge && character1.rightEdgeOfFeet - 27 <= arrayOfZones[zoneIndex].rightEdge &&
         character1.topEdgeOfFeet - 25 >= arrayOfZones[zoneIndex].topEdge && character1.bottomEdgeOfFeet - 29 <= arrayOfZones[zoneIndex].bottomEdge) {
-        //  arrayOfZones[zoneIndex].claimStatus = 1;
         player1Here = true;
-        if (player1Here) {
-          //console.log(arrayOfZones[zoneIndex]);
-          character1.currentZone = arrayOfZones[zoneIndex].zoneNumber;
-        }
-        if (player2Here) {
-          character2.currentZone = arrayOfZones[zoneIndex].zoneNumber;
-        }
-        }
-        //console.log(arrayOfZones[0].claimStatus);
-    //if either of character 1's feet are outside a zone, establish they are not in that zone, mainly for exiting zones
-    //if (character1.leftEdgeOfFeet - 20 <= arrayOfZones[i].leftEdge || character1.rightEdgeOfFeet - 27 || arrayOfZones[i].rightEdge &&
-    //    character1.topEdgeOfFeet - 25 || arrayOfZones[i].topEdge || character1.bottomEdgeOfFeet - 29 || arrayOfZones[i].bottomEdge) {
-    //      arrayOfZones[i].character1InTheZone = false;
-    //    }
+    }
 
-    //same as above for character 2
+
     if (character2.leftEdgeOfFeet -20 >= arrayOfZones[zoneIndex].leftEdge && character2.rightEdgeOfFeet -27 <= arrayOfZones[zoneIndex].rightEdge &&
         character2.topEdgeOfFeet - 25 >= arrayOfZones[zoneIndex].topEdge && character2.bottomEdgeOfFeet - 29 <= arrayOfZones[zoneIndex].bottomEdge) {
           player2Here = true;
         }
+        //checks zone status and changes to appropriate color
         if (player1Here && player2Here) {
-          arrayOfZones[zoneIndex].claimStatus = 3;
+          arrayOfZones[zoneIndex].claimStatus = 3;//if both players are in the zone, zone is red
         } else if (player1Here) {
-          arrayOfZones[zoneIndex].claimStatus = 1;
+          arrayOfZones[zoneIndex].claimStatus = 1;//if only player1 is here, zone is blue
         } else if (player2Here) {
-          arrayOfZones[zoneIndex].claimStatus = 2;
+          arrayOfZones[zoneIndex].claimStatus = 2;//if only player 2 is here, zone is green
         } else {
-          arrayOfZones[zoneIndex].claimStatus = 0;
+          arrayOfZones[zoneIndex].claimStatus = 0;//if neither player is here, zone has no fillStyle
         }
-    //else if (character2.leftEdgeOfFeet -20 >= arrayOfZones[i].leftEdge && character2.rightEdgeOfFeet -27 <= arrayOfZones[i].rightEdge &&
-    //    character2.topEdgeOfFeet - 25 >= arrayOfZones[i].topEdge && character2.bottomEdgeOfFeet - 29 <= arrayOfZones[i].bottomEdge) {
-    //      arrayOfZones[i].character2InTheZone = false;
-    //    }*/
 
-    //set appropriate zone status
-
-    /*if ( arrayOfZones[i].character2InTheZone === true ) {
-      arrayOfZones[i].claimStatus = "character2InTheZone";
-    }
-    if ( arrayOfZones[i].character1InTheZone === true && arrayOfZones[i].character2InTheZone === true ) {
-      arrayOfZones[i].claimStatus = "claimDanger";
-    }
-    if ( arrayOfZones[i].character1InTheZone !== true && arrayOfZones[i].character2InTheZone !== true) {
-      arrayOfZones[i].claimStatus = "empty";
-    }
-
-    //if ( arrayOfZones[i].character1InTheZone === false && arrayOfZones[i].character2InTheZone === false) {
-    //     arrayOfZones[i].claimStatus = "empty";
-    //}
-    //else {
-    //    arrayOfZones[i].character1IntheZone = false;
-    //    arrayOfZones[i].character2IntheZone = false;
-    //    arrayOfZones[i].claimStatus = "empty";
-    //}
-
-    /*if ( (arrayOfZones[i].character1InTheZone === true && arrayOfZones[i].character2InTheZone === true) ||
-         (arrayOfZones[i].character1InTheZone === true && arrayOfZones[i].character2Claimed === true) ||
-         (arrayOfZones[i].character2InTheZone === true && arrayOfZones[i].character1Claimed === true) ) {
-
-         arrayOfZones[i].claimDanger = true;
-         arrayOfZones[i].claimStatus = "claimDanger";*/
-//    }
   }
-//}
+
 
 initializeArrayOfZones = () => {
     arrayOfZones.push(new zoneClass(0,203, 72,203, 45,278, 0,278, undefined,undefined, 1));
@@ -136,7 +91,6 @@ initializeArrayOfZones = () => {
 
 drawZones = () => {
   for (let zoneIndex = 0; zoneIndex<26; zoneIndex++) {
-    //console.log(canvasContext.fillStyle);
     updateZoneStatus(zoneIndex);
     arrayOfZones[zoneIndex].draw();
   }
