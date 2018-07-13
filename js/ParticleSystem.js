@@ -45,7 +45,7 @@ function twoPointsFX(x, y) {
         startColorVar: [0, 0, 0, 0],
         endColor: [224, 68, 6, 0.75],
         endColorVar: [0, 0, 0, 0],
-        duration: 1.5,
+        duration: 0.2,
         emissionRate: 500,
         fadeAlpha: true,
         fadeSize: true,
@@ -64,7 +64,7 @@ function twoPointsFX(x, y) {
         xVar: 0,
         yVar: 0
     };
-    var fx = new ParticleEmitter(x, y, BOOM_FX);
+    var fx = new ParticleEmitter(x +32, y +32, BOOM_FX);
 }
 
 function reboundFX(x, y) {
@@ -144,7 +144,7 @@ function ParticleEmitter(x, y, config) {
 
     this.isActive = true;
 
-    //Avoids error and lets us set to default configs 
+    //Avoids error and lets us set to default configs
     if (typeof config === "undefined") {
         config = {};
     }
@@ -208,7 +208,7 @@ function ParticleEmitter(x, y, config) {
             }
         }
 
-        //Emit new particles if needed           
+        //Emit new particles if needed
         if (this.emissionRate != 0 && this.isActive) {
 
             var rate = 1 / this.emissionRate;
@@ -397,7 +397,7 @@ function updateAllEmitters() {
 }
 
 
-// The ParticleRenderer, as the name implies, renders particles! 
+// The ParticleRenderer, as the name implies, renders particles!
 // Here you will find all the methods needed to draw flashy stuff on screen,
 // as well as some graphics tricks to allow for colors.
 
@@ -436,7 +436,7 @@ ParticleRenderer = {
 
             } else {
                 drawBitmapWithRotation(particle.texture, particle.x - particle.texture.width, particle.y - particle.texture.height, particle.angle);
-                //context.drawImage(particle.texture, particle.x-particle.size/2, particle.y-particle.size/2, particle.size, particle.size);               
+                //context.drawImage(particle.texture, particle.x-particle.size/2, particle.y-particle.size/2, particle.size, particle.size);
             }
 
             context.globalAlpha = 1;
@@ -484,4 +484,3 @@ function randomMin1To1() {
 // empty class - all properties injected at init
 function Particle() {
 };
-

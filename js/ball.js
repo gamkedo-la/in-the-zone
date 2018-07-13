@@ -76,16 +76,20 @@ function ballClass(startingX, startingY) {
       //   }
       // this.x += this.shootingX;
       // this.y += this.shootingY + ballRiseValue;
+      if (this.goingIn) {
+        twoPointsFX(this.x, this.z);
+      }
 
       if (this.x < HOOP_X + 5 && this.y < HOOP_Y + 5 &&
         this.x > HOOP_X - 5 && this.y > HOOP_Y - 5 &&
         this.z < HOOP_H + 10 && this.z > HOOP_H - 10 && this.goingIn) {
+        this.goingIn = false;
         this.shootingX = 0;
         this.shootingY = 0;
         this.beingShot = false;
         console.log("Yay!");
 
-        twoPointsFX(HOOP_X, HOOP_Y);
+
 
       }
       else if (this.x < HOOP_X + 15 && this.y < HOOP_Y + 15 &&
