@@ -217,6 +217,7 @@ function playerClass(startingX, startingY, isAI) {
 					this.ballToHold.startingDistanceFromHoop = Math.sqrt(a * a + b * b);
 					var random = Math.floor(Math.random() * 10) + 1;
 					if (this.shootingTime >= 10 && this.shootingTime <= 15) {
+						twoPointsFX(this.ballToHold.x, this.ballToHold.y);
 						this.tickCount = 35;
 						this.ballToHold.goingIn = true;
 						var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
@@ -286,8 +287,9 @@ function playerClass(startingX, startingY, isAI) {
 				console.log(this.ballToHold.jumpingHeight);
 				this.jumpingHeight = 0;
 				this.ballToHold.jumpingHeight = HOOP_H;
-				this.ballToHold.x = HOOP_X;
-				this.ballToHold.y = HOOP_Y;
+				this.ballToHold.shootingX = 0;
+				this.ballToHold.shootingY = 0;
+				this.ballToHold.height = HOOP_H;
 				this.ballToHold.isHeld = false;
 				this.ballToHold.isHeldBy = null;
 				this.ballToHold = null;
