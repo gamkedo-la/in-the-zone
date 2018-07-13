@@ -47,8 +47,19 @@ function updateZoneStatus(zoneIndex) {
           player2Here = true;
         }
         //checks zone status and changes to appropriate color
-        if (player1Here && player2Here) {
-          arrayOfZones[zoneIndex].claimStatus = 3;//if both players are in the zone, zone is red
+
+        /* was thinking of adding these bits to upgrade zone status, but references to character1.ballToHold.isGoingIn comes back undefined
+        if (player1Here  && character1.ballToHold.goingIn) {
+          arrayOfZones[zoneIndex].claimStatus = 5;//if player1 is in the zone and the ball goes in, zone is claimed by player1 and colored blue;
+        } else if (player2Here && character2.ballToHold.goingIn) {
+          arrayOfZones[zoneIndex].claimStatus = 4;//if player2 is in the zone ond the ball goes in, zone is claimed by player2 and colored green;
+
+        this part would be added the red zone condition, claimStatus 3
+        || (player1Here && arrayOfZones[zoneIndex].claimStatus === 4) || (player2Here && arrayOfZones[zoneIndex].claimStatus === 5) )
+        */
+
+        if (player1Here && player2Here)  {
+          arrayOfZones[zoneIndex].claimStatus = 3;//if both players are in the zone or if either zone is already claimed while other player is in that zone, zone is colored red
         } else if (player1Here) {
           arrayOfZones[zoneIndex].claimStatus = 1;//if only player1 is here, zone is blue
         } else if (player2Here) {

@@ -1,4 +1,4 @@
-var claimColor = [undefined,"blue","green","red"];
+var claimColor = [undefined,"blue","green","red","green","blue"];
 function drawQuadrilateralZone(x1,y1, x2,y2, x3,y3, x4,y4, zoneNumber, claimedByPlayerNumber) {
   canvasContext.beginPath();
   canvasContext.moveTo(x1,y1);
