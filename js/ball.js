@@ -61,23 +61,6 @@ function ballClass(startingX, startingY) {
 
     }
     if (this.beingShot) {
-      //   console.log(this.shootingX);
-      //   var a = HOOP_X-this.x;
-      //   var b = HOOP_Y-this.y;
-      //   currentDistanceFromHoop = Math.sqrt(a*a + b*b);
-      //   if (currentDistanceFromHoop > this.startingDistanceFromHoop/2) {
-      //     ballRiseValue = 0.03*(this.startingDistanceFromHoop /2 - currentDistanceFromHoop);
-      //     console.log("increasing");
-      //   }
-      //   else {
-      //     ballRiseValue = 0.03*(this.startingDistanceFromHoop /2 - currentDistanceFromHoop);
-      //     console.log("decreasing");
-      //     if (this.shootingY + ballRiseValue > this.shootingY && this.shootingX < 3 && this.shootingX >-3 ) {
-      //       ballRiseValue = 0;
-      //     }
-      //   }
-      // this.x += this.shootingX;
-      // this.y += this.shootingY + ballRiseValue;
       if (this.goingIn) {
         twoPointsFX(this.x, this.z);
       }

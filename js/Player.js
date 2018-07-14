@@ -73,7 +73,7 @@ function playerClass(startingX, startingY, isAI) {
 
 	this.move = function () {
 		// console.log(this.ballToHold);
-		console.log(this.currentZone);
+		//console.log(this.currentZone);
 		var nextX = this.x;
 		var nextY = this.y;
 		// currentFrame++;
@@ -278,18 +278,19 @@ function playerClass(startingX, startingY, isAI) {
 			var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
 		 	var dunkingX= Math.cos(direction) * this.startingDistanceFromHoop / 30;
 			var dunkingY= Math.sin(direction) * this.startingDistanceFromHoop / 30;
-			var dunkingHeight = -5;
+			var dunkingHeight = 5;
 			nextX += dunkingX;
 			nextY += dunkingY;
 			if (this.jumpingHeight < HOOP_H) {
-				this.jumpingHeight -= dunkingHeight;
+				this.jumpingHeight += dunkingHeight;
 			}
 			if (this.jumpingHeight+ 10 > HOOP_H) {
-				this.jumpingHeight += dunkingHeight;
+				this.jumpingHeight -= dunkingHeight;
 			}
 			this.z = this.y - this.jumpingHeight;
 			if (this.x < HOOP_X + 10 && this.y < HOOP_Y + 10 &&
-        this.x > HOOP_X - 10 && this.y > HOOP_Y - 10) {
+        this.x > HOOP_X - 10 && this.y > HOOP_Y - 10 &&
+				this.jumpingHeight< HOOP_H +30 && this.jumpingHeight > HOOP_H -30) {
 				console.log(this.ballToHold.jumpingHeight);
 				this.jumpingHeight = 0;
 				this.ballToHold.jumpingHeight = HOOP_H;
