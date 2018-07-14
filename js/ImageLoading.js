@@ -8,6 +8,18 @@ var sparkParticle = document.createElement("img");
 var fireParticle = document.createElement("img");
 var smokeParticle = document.createElement("img");
 
+var scoreboard = document.createElement("img");
+var number0 = document.createElement("img");
+var number1 = document.createElement("img");
+var number2 = document.createElement("img");
+var number3 = document.createElement("img");
+var number4 = document.createElement("img");
+var number5 = document.createElement("img");
+var number6 = document.createElement("img");
+var number7 = document.createElement("img");
+var number8 = document.createElement("img");
+var number9 = document.createElement("img");
+
 var worldPics = [];
 
 var picsToLoad = 0; // set automatically based on imageList in loadImages()
@@ -39,6 +51,18 @@ function loadImages() {
 		{ varName: player1, theFile: "player1.png" },
 		{ varName: currySpriteSheet, theFile : "currySpriteSheet.png"},
 		{ varName: dunkingPic, theFile : "tempDunking.png"},
+
+		{varName: scoreboard, theFile: "scoreboard.png"},
+		{varName: number0, theFile: "0.png"},
+		{varName: number1, theFile: "1.png"},
+		{varName: number2, theFile: "2.png"},
+		{varName: number3, theFile: "3.png"},
+		{varName: number4, theFile: "4.png"},
+		{varName: number5, theFile: "5.png"},
+		{varName: number6, theFile: "6.png"},
+		{varName: number7, theFile: "7.png"},
+		{varName: number8, theFile: "8.png"},
+		{varName: number9, theFile: "9.png"},
 
 		{ varName: dustParticle, theFile: "dustParticle.png" },
 		{ varName: sparkParticle, theFile: "sparkParticle.png" },

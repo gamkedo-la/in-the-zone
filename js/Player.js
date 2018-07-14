@@ -1,5 +1,5 @@
 const PLAYER_MOVE_SPEED = 5.0;
-const PLAYER_MOVE_SPEED_CHANGE = 3.0
+const PLAYER_MOVE_SPEED_CHANGE = 3.0;
 var currentFrame = 0;
 var distanceToTheClosestBall;
 //
@@ -19,6 +19,7 @@ function playerClass(startingX, startingY, isAI) {
 	this.inShootingMotion = false;
 	this.shootingTime = 0;
 	this.ballToChase; // it is for ai
+	this.score = 0;
 
 	this.currentZone;
 	this.jumpingHeight = 0;
@@ -62,7 +63,6 @@ function playerClass(startingX, startingY, isAI) {
 	}
 
 	this.incrementTick = function () {
-
 		this.tickCount++;
 
 		if (this.tickCount / this.ticksPerFrame >= this.framesAnim) {

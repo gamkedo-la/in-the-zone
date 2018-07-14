@@ -64,4 +64,5 @@ function drawAll() {
 function drawWorld() {
 	drawBitmapCenteredWithRotation(basketballCourt, canvas.width / 2, canvas.height / 2, 0);
 	drawZones();
+	drawScoreboard();
 }
