@@ -39,12 +39,14 @@ function updateZoneStatus(zoneIndex) {
     if (character1.leftEdgeOfFeet - 20 >= arrayOfZones[zoneIndex].leftEdge && character1.rightEdgeOfFeet - 27 <= arrayOfZones[zoneIndex].rightEdge &&
         character1.topEdgeOfFeet - 25 >= arrayOfZones[zoneIndex].topEdge && character1.bottomEdgeOfFeet - 29 <= arrayOfZones[zoneIndex].bottomEdge) {
         player1Here = true;
+        character1.currentZone = arrayOfZones[zoneIndex].zoneNumber;
     }
 
 
     if (character2.leftEdgeOfFeet -20 >= arrayOfZones[zoneIndex].leftEdge && character2.rightEdgeOfFeet -27 <= arrayOfZones[zoneIndex].rightEdge &&
         character2.topEdgeOfFeet - 25 >= arrayOfZones[zoneIndex].topEdge && character2.bottomEdgeOfFeet - 29 <= arrayOfZones[zoneIndex].bottomEdge) {
           player2Here = true;
+          character2.currentZone = arrayOfZones[zoneIndex].zoneNumber;
         }
         //checks zone status and changes to appropriate color
 

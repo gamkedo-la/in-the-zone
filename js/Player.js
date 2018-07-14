@@ -73,6 +73,7 @@ function playerClass(startingX, startingY, isAI) {
 
 	this.move = function () {
 		// console.log(this.ballToHold);
+		console.log(this.currentZone);
 		var nextX = this.x;
 		var nextY = this.y;
 		// currentFrame++;

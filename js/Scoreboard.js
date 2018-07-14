@@ -16,10 +16,10 @@ const PLAYER2_ONES_PLACE_NUMBER_POSITION_Y = 50;
 var numberArray = [number0,number1,number2,number3,number4,number5,number6,number7,number8,number9];
 
 function drawScoreboard(){
-  console.log(numberArray[1]);
+  //console.log(numberArray[1]);
   var player1TensPlace =  Math.floor(character1.score/10);
   var player1OnesPlace = character1.score % 10;
-  console.log(player1TensPlace);
+  //console.log(player1TensPlace);
 
   var player2TensPlace = Math.floor(character2.score/10);
   var player2OnesPlace = character2.score % 10;
