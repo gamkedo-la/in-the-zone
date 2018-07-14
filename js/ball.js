@@ -19,6 +19,8 @@ function ballClass(startingX, startingY) {
   this.ballPower = -10;
   this.startingDistanceFromHoop;
   this.goingIn;
+  this.isShotBy;// which player shot the ball
+  this.gotShotFrom;// zone
 
   ballArray.push(this);
 
@@ -83,6 +85,14 @@ function ballClass(startingX, startingY) {
       if (this.x < HOOP_X + 5 && this.y < HOOP_Y + 5 &&
         this.x > HOOP_X - 5 && this.y > HOOP_Y - 5 &&
         this.z < HOOP_H + 10 && this.z > HOOP_H - 10 && this.goingIn) {
+        if (this.gotShotFrom ==1 || this.gotShotFrom ==9 || this.gotShotFrom ==17 ||
+            this.gotShotFrom ==24 || this.gotShotFrom ==25 || this.gotShotFrom ==26 ||
+             this.gotShotFrom ==23 || this.gotShotFrom ==16 || this.gotShotFrom ==8) {
+          this.isShotBy.score += 3;
+        }
+        else {
+          this.isShotBy.score += 2;
+        }
         this.goingIn = false;
         this.shootingX = 0;
         this.shootingY = 0;

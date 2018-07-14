@@ -221,6 +221,8 @@ function playerClass(startingX, startingY, isAI) {
 						twoPointsFX(this.ballToHold.x, this.ballToHold.y);
 						this.tickCount = 35;
 						this.ballToHold.goingIn = true;
+						this.ballToHold.isShotBy = this;
+						this.ballToHold.gotShotFrom = this.currentZone;
 						var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
 						this.ballToHold.ballPower = -16;
 						console.log("perfect");
