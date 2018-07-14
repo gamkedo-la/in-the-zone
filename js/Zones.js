@@ -48,25 +48,31 @@ function updateZoneStatus(zoneIndex) {
         }
         //checks zone status and changes to appropriate color
 
-        /* was thinking of adding these bits to upgrade zone status, but references to character1.ballToHold.isGoingIn comes back undefined
-        if (player1Here  && character1.ballToHold.goingIn) {
-          arrayOfZones[zoneIndex].claimStatus = 5;//if player1 is in the zone and the ball goes in, zone is claimed by player1 and colored blue;
-        } else if (player2Here && character2.ballToHold.goingIn) {
-          arrayOfZones[zoneIndex].claimStatus = 4;//if player2 is in the zone ond the ball goes in, zone is claimed by player2 and colored green;
-
-        this part would be added the red zone condition, claimStatus 3
-        || (player1Here && arrayOfZones[zoneIndex].claimStatus === 4) || (player2Here && arrayOfZones[zoneIndex].claimStatus === 5) )
-        */
-
-        if (player1Here && player2Here)  {
-          arrayOfZones[zoneIndex].claimStatus = 3;//if both players are in the zone or if either zone is already claimed while other player is in that zone, zone is colored red
-        } else if (player1Here) {
-          arrayOfZones[zoneIndex].claimStatus = 1;//if only player1 is here, zone is blue
-        } else if (player2Here) {
-          arrayOfZones[zoneIndex].claimStatus = 2;//if only player 2 is here, zone is green
-        } else {
-          arrayOfZones[zoneIndex].claimStatus = 0;//if neither player is here, zone has no fillStyle
+        // was thinking of adding these bits to upgrade zone status, but references to character1.ballToHold.isGoingIn comes back undefined
+        if (character1.ballToHold != null) {
+          if (player1Here  && character1.ballToHold.goingIn) {
+            console.log(character1.ballToHold.goingIn);
+            arrayOfZones[zoneIndex].claimStatus = 5;//if player1 is in the zone and the ball goes in, zone is claimed by player1 and colored blue;
+            console.log(arrayOfZones[zoneIndex].claimStatus);
+          } else if (player2Here && character2.ballToHold.goingIn) {
+            arrayOfZones[zoneIndex].claimStatus = 4;//if player2 is in the zone ond the ball goes in, zone is claimed by player2 and colored green;
+          }
         }
+        //this part would be added the red zone condition, claimStatus 3
+        //|| (player1Here && arrayOfZones[zoneIndex].claimStatus === 4) || (player2Here && arrayOfZones[zoneIndex].claimStatus === 5) )
+
+        if (arrayOfZones[zoneIndex].claimStatus != 5 && arrayOfZones[zoneIndex].claimStatus != 4) {
+          if (player1Here && player2Here)  {
+            arrayOfZones[zoneIndex].claimStatus = 3;//if both players are in the zone or if either zone is already claimed while other player is in that zone, zone is colored red
+          } else if (player1Here) {
+            arrayOfZones[zoneIndex].claimStatus = 1;//if only player1 is here, zone is blue
+          } else if (player2Here) {
+            arrayOfZones[zoneIndex].claimStatus = 2;//if only player 2 is here, zone is green
+          } else {
+            arrayOfZones[zoneIndex].claimStatus = 0;//if neither player is here, zone has no fillStyle
+          }
+        }
+
 
   }
 
@@ -104,5 +110,11 @@ drawZones = () => {
   for (let zoneIndex = 0; zoneIndex<26; zoneIndex++) {
     updateZoneStatus(zoneIndex);
     arrayOfZones[zoneIndex].draw();
+    //console.log(arrayOfZones[19]);
+  }
+}
+updateZones = () => {
+  for (let zoneIndex = 0; zoneIndex<26; zoneIndex++) {
+    updateZoneStatus(zoneIndex);
   }
 }
