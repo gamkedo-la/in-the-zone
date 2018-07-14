@@ -224,11 +224,6 @@ function playerClass(startingX, startingY, isAI) {
 						this.ballToHold.ballPower = -16;
 						console.log("perfect");
 						updateZones();
-
-						// for (let zoneIndex = 0; zoneIndex<26; zoneIndex++) {
-					  //   updateZoneStatus(zoneIndex);
-					  // }
-
 					}
 					else if (this.shootingTime < 10) {
 						// console.log(this.shootingTime);
@@ -239,7 +234,6 @@ function playerClass(startingX, startingY, isAI) {
 							var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
 							this.ballToHold.ballPower = -16;
 							console.log("short but lucky");
-
 							updateZones();
 						}
 						else {
@@ -257,10 +251,6 @@ function playerClass(startingX, startingY, isAI) {
 							this.ballToHold.ballPower = -16;
 							console.log("long but lucky");
 							updateZones();
-
-							// for (let zoneIndex = 0; zoneIndex<26; zoneIndex++) {
-						  //   updateZoneStatus(zoneIndex);
-						  // }
 						}
 						else {
 							this.ballToHold.goingIn = false;

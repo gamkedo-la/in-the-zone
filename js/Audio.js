@@ -24,7 +24,6 @@ function setAudioFormat() {
   var audio = new Audio();
   if (audio.canPlayType) {
     if (audio.canPlayType("audio/mp3")) {
-      console.log("ses");
       audioFormat = ".mp3";
     } else {
       audioFormat = ".ogg";
