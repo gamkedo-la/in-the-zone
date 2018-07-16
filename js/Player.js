@@ -217,7 +217,7 @@ function playerClass(startingX, startingY, isAI) {
 					var b = HOOP_Y - this.y;
 					this.ballToHold.startingDistanceFromHoop = Math.sqrt(a * a + b * b);
 					var random = Math.floor(Math.random() * 10) + 1;
-					if (this.shootingTime >= 10 && this.shootingTime <= 15) {
+					if (this.shootingTime >= 14 && this.shootingTime <= 15) {//if player menages to hits the green area. His shot will go in
 						twoPointsFX(this.ballToHold.x, this.ballToHold.y);
 						this.tickCount = 35;
 						this.ballToHold.goingIn = true;
@@ -228,37 +228,57 @@ function playerClass(startingX, startingY, isAI) {
 						console.log("perfect");
 						updateZones();
 					}
-					else if (this.shootingTime < 10) {
+					else if (this.shootingTime < 14) {//player did not press enough
 						// console.log(this.shootingTime);
 						// console.log(random);
-						this.tickCount = 35;
-						if (random < this.shootingTime) {
-							this.ballToHold.goingIn = true;
-							var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
-							this.ballToHold.ballPower = -16;
-							console.log("short but lucky");
-							updateZones();
+						this.tickCount = 35;//increasing the tickCount to be end of the animation.
+						if (this.shootingTime>= 10) {
+							if (random + 9 <= this.shootingTime) {
+								this.ballToHold.goingIn = true;
+								var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
+								this.ballToHold.ballPower = -16;
+								console.log("short,yellow and lucky");
+								updateZones();
+							}
+							else {
+								this.ballToHold.goingIn = false;
+								var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
+								this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
+								console.log("yellow and unlucky");
+							}
 						}
 						else {
 							this.ballToHold.goingIn = false;
 							var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
 							this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
+							console.log("way off");
 						}
+
+
 					}
 					else if (this.shootingTime > 15) {
 						// console.log(this.shootingTime);
 						// console.log(random);
-						if (random < this.shootingTime - 15) {
-							this.ballToHold.goingIn = true;
-							var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
-							this.ballToHold.ballPower = -16;
-							console.log("long but lucky");
-							updateZones();
+						if (this.shootingTime <= 19) {
+							if (this.shootingTime<= random +9) {
+								this.ballToHold.goingIn = true;
+								var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
+								this.ballToHold.ballPower = -16;
+								console.log("long,yellow and lucky");
+								updateZones();
+							}
+							else {
+								this.ballToHold.goingIn = false;
+								var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
+								this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
+								console.log("yellow and unlucky");
+							}
 						}
 						else {
 							this.ballToHold.goingIn = false;
 							var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
-							this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 17;
+							this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
+							console.log("way off");
 						}
 					}
 					// console.log(direction);
@@ -362,8 +382,9 @@ function playerClass(startingX, startingY, isAI) {
 		}
 
 		if (this.shootingTime > 0) {
+			colorRect(this.x+10, this.y + 20, 9, 10, "yellow");
+			colorRect(this.x + 14, this.y + 20, 1, 10, "green");
 			colorRect(this.x, this.y + 20, this.shootingTime, 10, "red");
-			colorRect(this.x + 10, this.y + 20, 5, 10, "green");
 		}
 	}
 }
