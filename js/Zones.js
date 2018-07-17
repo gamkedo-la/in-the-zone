@@ -49,17 +49,19 @@ function updateZoneStatus(zoneIndex) {
           character2.currentZone = arrayOfZones[zoneIndex].zoneNumber;
         }
         //checks zone status and changes to appropriate color
-
-        // was thinking of adding these bits to upgrade zone status, but references to character1.ballToHold.isGoingIn comes back undefined
         if (character1.ballToHold != null) {
-          if (player1Here  && character1.ballToHold.goingIn) {
+          if (player1Here && character1.ballToHold.goingIn) {
             console.log(character1.ballToHold.goingIn);
             arrayOfZones[zoneIndex].claimStatus = 5;//if player1 is in the zone and the ball goes in, zone is claimed by player1 and colored blue;
             console.log(arrayOfZones[zoneIndex].claimStatus);
-          } else if (player2Here && character2.ballToHold.goingIn) {
+          }
+        }
+        if (character2.ballToHold != null) {
+          if (player2Here && character2.ballToHold.goingIn) {
             arrayOfZones[zoneIndex].claimStatus = 4;//if player2 is in the zone ond the ball goes in, zone is claimed by player2 and colored green;
           }
         }
+
         //this part would be added the red zone condition, claimStatus 3
         //|| (player1Here && arrayOfZones[zoneIndex].claimStatus === 4) || (player2Here && arrayOfZones[zoneIndex].claimStatus === 5) )
 

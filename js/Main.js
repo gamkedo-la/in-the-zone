@@ -2,7 +2,7 @@ var canvas, canvasContext;
 var currentPic = player1;
 
 var character1 = new playerClass(75, 75, false);
-var character2 = new playerClass(150, 75, true);
+var character2 = new playerClass(150, 75,false);
 
 var ballArray = [];
 var ball1 = new ballClass(700, 100);
@@ -16,8 +16,8 @@ window.onload = function () {
 		//current use is to outline zones
 		mouseX = evt.pageX;
 		mouseY = evt.pageY;
-		character2.x = mouseX;
-		character2.y = mouseY;
+		//character2.x = mouseX;
+		//character2.y = mouseY;
 	}
 
 	colorRect(0, 0, canvas.width, canvas.height, 'black');

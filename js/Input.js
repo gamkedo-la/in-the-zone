@@ -9,6 +9,7 @@ const KEY_S = 83;
 const KEY_D = 68;
 
 const KEY_SPACE = 32;
+const KEY_X = 88;
 
 var mouseX = 0;
 var mouseY = 0;
@@ -16,8 +17,17 @@ var mouseY = 0;
 function setupInput() {
 	document.addEventListener('keydown', keyPressed);
 	document.addEventListener('keyup', keyReleased);
-
-	character1.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW, KEY_SPACE);
+	if (!character1.isAI && !character2.isAI) {
+		console.log("both are not ai");
+		character1.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW, KEY_SPACE);
+		character2.setupInput(KEY_W, KEY_D, KEY_S, KEY_A, KEY_X);
+	}
+	else if (character1.isAI) {
+		character2.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW, KEY_SPACE);
+	}
+	else if (character2.isAI) {
+		character1.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW, KEY_SPACE);
+	}
 }
 
 
@@ -36,6 +46,22 @@ function keySet(keyEvent, setTo) {
 	}
 	if(keyEvent.keyCode == character1.controlShootKey) {
 		character1.keyHeld_Shoot = setTo;
+	}
+
+	if(keyEvent.keyCode == character2.controlKeyLeft) {
+		character2.keyHeld_West = setTo;
+	}
+	if(keyEvent.keyCode == character2.controlKeyRight) {
+		character2.keyHeld_East = setTo;
+	}
+	if(keyEvent.keyCode == character2.controlKeyUp) {
+		character2.keyHeld_North = setTo;
+	}
+	if(keyEvent.keyCode == character2.controlKeyDown) {
+		character2.keyHeld_South = setTo;
+	}
+	if(keyEvent.keyCode == character2.controlShootKey) {
+		character2.keyHeld_Shoot = setTo;
 	}
 }
 
