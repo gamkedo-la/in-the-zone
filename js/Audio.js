@@ -105,7 +105,9 @@ function loadAudios() {
     audios[i].name.src = audios[i].source;
   }
   //console.log(backgroundMusic);
-  backgroundMusic.play();
-  backgroundMusic.loop = true;
   //console.log(ballRebound1);
+}
+function playAndLoopMusic(music){
+  music.play();
+  music.loop = true;
 }

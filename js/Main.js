@@ -40,6 +40,7 @@ function updateAll() {
 	moveAll();
 	updateAllEmitters(); // see ParticleSystem.js
 	drawAll();
+	playAndLoopMusic(backgroundMusic);
 }
 
 function moveAll() {
