@@ -21,9 +21,13 @@ function playerClass(startingX, startingY, isAI) {
 	this.ballToChase; // it is for ai
 	this.score = 0;
 
+	this.shootingStartingX;
+	this.shootingStartingY;
+
 	this.currentZone;
 	this.jumpingHeight = 0;
 	this.DistanceFromHoopWhileDunking;
+
 	this.startedDunking = false;
 
 	this.width = 64;
@@ -126,6 +130,8 @@ function playerClass(startingX, startingY, isAI) {
 					else {
 						this.states.isIdle = false;
 						this.states.isShooting = true;
+						this.shootingStartingX = this.x;
+						this.shootingStartingY = this.y;
 					}
 					updateZones();
 				}
