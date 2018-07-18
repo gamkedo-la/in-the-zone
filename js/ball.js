@@ -114,9 +114,6 @@ function ballClass(startingX, startingY) {
         this.shootingY = 0;
         this.beingShot = false;
         console.log("Yay!");
-
-
-
       }
       else if (this.x < HOOP_X + 15 && this.y < HOOP_Y + 15 &&
         this.x > HOOP_X - 15 && this.y > HOOP_Y - 15 &&
@@ -124,8 +121,9 @@ function ballClass(startingX, startingY) {
           this.ballPower = Math.abs(this.z - HOOP_H);
           var reboundDirection = rebound(this);
           console.log(reboundDirection);
-          this.shootingX = reboundDirection[0];
-          this.shootingY = reboundDirection[1];
+          this.shootingX = reboundDirection[0] * BALL_SHOOT_SPEED
+          this.shootingY = reboundDirection[1] * BALL_SHOOT_SPEED;
+
           this.beingShot = false;
           var random = Math.random();
           if (random > 0.5) {
@@ -134,12 +132,11 @@ function ballClass(startingX, startingY) {
           else {
             ballRebound2.play();
           }
-
           reboundFX(HOOP_X, HOOP_Y);
-
       }
     }
   }
+
   this.draw = function () {
     colorCircle(this.x, this.z, 6, "yellow");
   }
@@ -190,7 +187,6 @@ function rebound(ball){
   reboundDirection[0] = 2 * (rimDot) * (rimNormal[0] - shotDirection[0]);
   reboundDirection[1] = 2 * (rimDot) * (rimNormal[1] - shotDirection[1]);
   reboundDirection = normalize(reboundDirection[0],reboundDirection[1]);
-  console.log(reboundDirection);
   return reboundDirection;
 }
 
