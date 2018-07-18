@@ -9,6 +9,20 @@ var ballShootingStartingY;
 //only need to calculate once.
 var rimNormal = calculateRimNormal();
 
+//closures Dot Product calculations.
+//will use a dot product to determine the angle to rebound the ball towards
+var dot = function(vectorP,vectorQ){
+  return vectorP[0]*vectorQ[0] + vectorP[1]*vectorQ[1];  
+}
+
+var dotAngle = function(vectorP,vectorQ){
+  var PQ = this.dot(vectorP,vectorQ);
+  //find the angle
+  var PMagnitudes = Math.sqrt( (vectorP[0]*vectorP[0]) + (vectorP[1]*vectorP[1]));
+  var QMagnitudes = Math.sqrt( (vectorP[0]*vectorP[0]) + (vectorP[1]*vectorP[1]));
+  return Math.acos( PQ / PMagnitudes* QMagnitudes);
+}
+
 function ballClass(startingX, startingY) {
   this.x = startingX;
   this.y = startingY;
@@ -63,8 +77,6 @@ function ballClass(startingX, startingY) {
 
     }
     if (this.beingShot) {
-      ballShootingStartingX = this.x;
-      ballShootingStartingY = this.y;
       if (this.goingIn) {
         twoPointsFX(this.x, this.z);
       }
@@ -94,6 +106,7 @@ function ballClass(startingX, startingY) {
         this.z < HOOP_H + 10 && this.z > HOOP_H - 10 && !this.goingIn) {
           this.ballPower = Math.abs(this.z - HOOP_H);
           var reboundDirection = rebound(this);
+          console.log(reboundDirection);
           this.shootingX = reboundDirection[0];
           this.shootingY = reboundDirection[1];
           this.beingShot = false;
@@ -152,38 +165,22 @@ function moveBalls(ballArray) {
 //or rotate on the rim normal by the dotProduct angle.
 function rebound(ball){
   var dotProductFromRimCenter = 0 ; //detect if the forward is right or left
-  var playerPos = [ballShootingStartingX,ballShootingStartingY];
-  var ballPos = [ball.x,ball.y];
-  var shotDirection = [playerPos[0] - ballPos[0],playerPos[1] - ballPos[1]] ; //vector2 
+  var shotDirection = [ball.isShotBy.shootingStartingX - HOOP_X,ball.isShotBy.shootingStartingY - HOOP_Y]; //vector2 
   // need to know, how tall is the RIM.
  
-  var reboundDirection = 2 * (this.dot(shotDirection,rimNormal)) * rimNormal - shotDirection;
+  var reboundDirection = 2 * (dot(shotDirection,rimNormal)) * rimNormal - shotDirection;
   console.log(reboundDirection);
   return reboundDirection;
 }
 
-//Dot Product calculations.
-//will use a dot product to determine the angle to rebound the ball towards
-this.dot = function(vectorP,vectorQ){
-  return vectorP[0]*vectorQ[0] + vectorP[1]*vectorP[1];  
-}
 
-this.dotAngle = function(vectorP,vectorQ){
-  var PQ = this.dot(vectorP,vectorQ);
-  //find the angle
-  var PMagnitudes = Math.sqrt( (vectorP[0]*vectorP[0]) + (vectorP[1]*vectorP[1]));
-  var QMagnitudes = Math.sqrt( (vectorP[0]*vectorP[0]) + (vectorP[1]*vectorP[1]));
-  return Math.acos( PQ / PMagnitudes* QMagnitudes);
-}
 
 function calculateRimNormal(){
-  var nx = -this.HOOP_Y;
-  var ny = this.HOOP_X;
-  var length = Math.sqrt( (this.HOOP_X * this.HOOP_X) + (this.HOOP_Y + this.HOOP_Y) );
+  var nx = -HOOP_Y;
+  var ny = HOOP_X;
+  var length = Math.sqrt( (HOOP_X * HOOP_X) + (HOOP_Y + HOOP_Y) );
    
   nx /= length;
   ny /= length;
-  var normal = [nx,ny];
-  return normal;
-
+  return [nx,ny];
 }
