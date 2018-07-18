@@ -15,13 +15,30 @@ var dot = function(vectorP,vectorQ){
   return vectorP[0]*vectorQ[0] + vectorP[1]*vectorQ[1];  
 }
 
+
+var magnitude = function(x,y){
+  return Math.sqrt(x*x + y*y);
+}
+var normalize = function(x,y){
+    var length = magnitude(x,y);
+    var divX = 0;
+    var divY = 0;
+    if(length > 0){
+      var divX = x/length;
+      var divY = y/length;
+    }
+    return [divX,divY];
+}
 var dotAngle = function(vectorP,vectorQ){
   var PQ = this.dot(vectorP,vectorQ);
   //find the angle
-  var PMagnitudes = Math.sqrt( (vectorP[0]*vectorP[0]) + (vectorP[1]*vectorP[1]));
-  var QMagnitudes = Math.sqrt( (vectorP[0]*vectorP[0]) + (vectorP[1]*vectorP[1]));
+  var PMagnitudes = magnitude(vectorP[0],vectorP[1]);
+  var QMagnitudes = magnitude(vectorQ[0],vectorQ[1]);
+
   return Math.acos( PQ / PMagnitudes* QMagnitudes);
 }
+
+
 
 function ballClass(startingX, startingY) {
   this.x = startingX;
@@ -167,8 +184,12 @@ function rebound(ball){
   var dotProductFromRimCenter = 0 ; //detect if the forward is right or left
   var shotDirection = [ball.isShotBy.shootingStartingX - HOOP_X,ball.isShotBy.shootingStartingY - HOOP_Y]; //vector2 
   // need to know, how tall is the RIM.
- 
-  var reboundDirection = 2 * (dot(shotDirection,rimNormal)) * rimNormal - shotDirection;
+  var reboundDirection = [0,0];
+  var rimDot = dot(shotDirection,rimNormal);
+  
+  reboundDirection[0] = 2 * (rimDot) * (rimNormal[0] - shotDirection[0]);
+  reboundDirection[1] = 2 * (rimDot) * (rimNormal[1] - shotDirection[1]);
+  reboundDirection = normalize(reboundDirection[0],reboundDirection[1]);
   console.log(reboundDirection);
   return reboundDirection;
 }
