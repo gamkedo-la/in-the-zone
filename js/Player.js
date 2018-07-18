@@ -209,6 +209,7 @@ function playerClass(startingX, startingY, isAI) {
 					this.states.isIdle = true;
 				}
 				if (this.shootingTime > 0) {
+					this.ballToHold.isShotBy = this;
 					this.ballToHold.beingShot = true;
 					this.ballToHold.isHeld = false;
 					this.ballToHold.isHeldBy = null;
