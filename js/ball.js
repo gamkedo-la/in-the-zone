@@ -120,10 +120,10 @@ function ballClass(startingX, startingY) {
         this.z < HOOP_H + 10 && this.z > HOOP_H - 10 && !this.goingIn) {
           this.ballPower = Math.abs(this.z - HOOP_H);
           var reboundDirection = rebound(this);
-          console.log(reboundDirection);
-          this.shootingX = reboundDirection[0] * BALL_SHOOT_SPEED
-          this.shootingY = reboundDirection[1] * BALL_SHOOT_SPEED;
-
+          
+          this.shootingX = reboundDirection[0] * this.ballPower;
+          this.shootingY = reboundDirection[1] * this.ballPower;
+          console.log(this.shootingX + " , " + this.shootingY);
           this.beingShot = false;
           var random = Math.random();
           if (random > 0.5) {
@@ -180,13 +180,18 @@ function moveBalls(ballArray) {
 function rebound(ball){
   var dotProductFromRimCenter = 0 ; //detect if the forward is right or left
   var shotDirection = [ball.isShotBy.shootingStartingX - HOOP_X,ball.isShotBy.shootingStartingY - HOOP_Y]; //vector2 
-  // need to know, how tall is the RIM.
+  
   var reboundDirection = [0,0];
   var rimDot = dot(shotDirection,rimNormal);
   
   reboundDirection[0] = 2 * (rimDot) * (rimNormal[0] - shotDirection[0]);
   reboundDirection[1] = 2 * (rimDot) * (rimNormal[1] - shotDirection[1]);
   reboundDirection = normalize(reboundDirection[0],reboundDirection[1]);
+
+  var distanceFromHoop = magnitude(shotDirection[0],shotDirection[1]);
+  console.log(distanceFromHoop);
+  // reboundDirection[0] *= distanceFromHoop/3;
+  // reboundDirection[1] *= distanceFromHoop/3;
   return reboundDirection;
 }
 
