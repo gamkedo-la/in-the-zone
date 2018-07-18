@@ -24,6 +24,7 @@ function playerClass(startingX, startingY, isAI) {
 	this.currentZone;
 	this.jumpingHeight = 0;
 	this.DistanceFromHoopWhileDunking;
+	this.startedDunking = false;
 
 	this.width = 64;
 	this.height = 64;
@@ -117,6 +118,7 @@ function playerClass(startingX, startingY, isAI) {
 					if (this.currentZone == 4 || this.currentZone == 5 || this.currentZone == 12 || this.currentZone == 13) {
 						this.states.isIdle = false;
 						this.states.isDunking = true;
+						this.startedDunking = true;
 						var a = HOOP_X - this.x;
 						var b = HOOP_Y - this.y;
 						this.startingDistanceFromHoop = Math.sqrt(a * a + b * b);
@@ -125,6 +127,7 @@ function playerClass(startingX, startingY, isAI) {
 						this.states.isIdle = false;
 						this.states.isShooting = true;
 					}
+					updateZones();
 				}
 			}
 			else {		//AI movement
@@ -297,6 +300,7 @@ function playerClass(startingX, startingY, isAI) {
 
 
 		if (this.states.isDunking) {
+			this.startedDunking = false;
 			var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
 		 	var dunkingX= Math.cos(direction) * this.startingDistanceFromHoop / 30;
 			var dunkingY= Math.sin(direction) * this.startingDistanceFromHoop / 30;

@@ -50,13 +50,19 @@ function updateZoneStatus(zoneIndex) {
         }
         //checks zone status and changes to appropriate color
         if (character1.ballToHold != null) {
+          if (character1.startedDunking && player1Here) {
+            arrayOfZones[zoneIndex].claimStatus = 5;
+          }
           if (player1Here && character1.ballToHold.goingIn) {
-            console.log(character1.ballToHold.goingIn);
+            //console.log(character1.ballToHold.goingIn);
             arrayOfZones[zoneIndex].claimStatus = 5;//if player1 is in the zone and the ball goes in, zone is claimed by player1 and colored blue;
-            console.log(arrayOfZones[zoneIndex].claimStatus);
+            //console.log(arrayOfZones[zoneIndex].claimStatus);
           }
         }
         if (character2.ballToHold != null) {
+          if (character2.startedDunking && player2Here) {
+            arrayOfZones[zoneIndex].claimStatus = 4;
+          }
           if (player2Here && character2.ballToHold.goingIn) {
             arrayOfZones[zoneIndex].claimStatus = 4;//if player2 is in the zone ond the ball goes in, zone is claimed by player2 and colored green;
           }
