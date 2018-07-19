@@ -11,8 +11,12 @@ const KEY_D = 68;
 const KEY_SPACE = 32;
 const KEY_X = 88;
 
+const KEY_ESC = 27;
+
 var mouseX = 0;
 var mouseY = 0;
+
+var escKey;
 
 function setupInput() {
 	document.addEventListener('keydown', keyPressed);
@@ -32,6 +36,9 @@ function setupInput() {
 
 
 function keySet(keyEvent, setTo) {
+	if (keyEvent.keyCode == KEY_ESC) {
+		escKey = setTo;
+	}
 	if(keyEvent.keyCode == character1.controlKeyLeft) {
 		character1.keyHeld_West = setTo;
 	}

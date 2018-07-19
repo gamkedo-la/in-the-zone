@@ -19,7 +19,7 @@ const TIMER_Y = 16;
 const TIMER_MIN_ONES_PLACE_NUMBER_POSITION_X = CANVAS_WIDTH-63;
 const TIMER_SEC_TENS_PLACE_NUMBER_POSITION_X = CANVAS_WIDTH-37;
 const TIMER_SEC_ONES_PLACE_NUMBER_POSITION_X = CANVAS_WIDTH-24
-var min = 1;
+var min = 0;
 var sec = 30;
 var frameNumber= 0;
 var numberArray = [number0,number1,number2,number3,number4,number5,number6,number7,number8,number9];
@@ -38,6 +38,8 @@ function drawScoreboard(){
     if (sec == 0 && min == 0) {
       min = 0;
       sec = 0;
+      mainStates.inGame = false;
+      mainStates.gameOver = true;
       console.log("time is up");
     }
     else {
