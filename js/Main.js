@@ -2,7 +2,7 @@ var canvas, canvasContext;
 var currentPic = player1;
 
 var character1 = new playerClass(75, 75, false);
-var character2 = new playerClass(150, 75,false);
+var character2 = new playerClass(150, 75,true);
 
 var ballArray = [];
 var ball1 = new ballClass(700, 100);

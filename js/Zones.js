@@ -17,6 +17,7 @@ function zoneClass(x1,y1, x2,y2, x3,y3, x4,y4, x5,y5, zoneNumber) {
   this.x1 = x1; this.x2 = x2; this.x3 = x3; this.x4 = x4; this.x5 = x5;
   this.y1 = y1; this.y2 = y2; this.y3 = y3, this.y4 = y4; this.y5 = y5;
   this.topEdge = this.y1; this.rightEdge = this.x2; this.bottomEdge = this.y4; this.leftEdge = this.x1;
+  this.middle = [(this.x2-this.x1)/2 + this.x1,(this.y3-this.y2)/2 + this.y1];
 
   this.draw = function() {
 
