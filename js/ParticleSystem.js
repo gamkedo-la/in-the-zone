@@ -155,6 +155,124 @@ function gainPossessionFX(x, y) {
     var flare = new ParticleEmitter(x, y + 10, FLARE_FX);
 }
 
+function startThrowBallFX(x, y) {
+    var FX = {
+        angle: 90,
+        angleVar: 30,
+        color: [0, 255, 255, 1],
+        startColorVar: [32, 32, 32, 0],
+        endColor: [255, 255, 255, 0],
+        endColorVar: [255, 255, 255, 0],
+        duration: 0.5,
+        emissionRate: 200,
+        fadeAlpha: true,
+        fadeSize: true,
+        fadeSpeed: true,
+        gravity: 0,
+        particleLife: 0.75,
+        particleLifeVar: 0.1,
+        size: 2,
+        sizeVar: 1,
+        speed: 75,
+        speedVar: 50,
+        texture: sparkParticle,
+        textureAdditive: false,
+        tint: false,
+        useTexture: false,
+        xVar: 0,
+        yVar: 0
+    };
+    var fx = new ParticleEmitter(x, y - 16, FX);
+}
+
+function chargingUpThrowBallFX(x, y) {
+    var FX = {
+        angle: 0,
+        angleVar: 0,
+        color: [255, 255, 0, 1],
+        startColorVar: [0, 0, 0, 0],
+        endColor: [224, 255, 255, 0],
+        endColorVar: [0, 0, 0, 0],
+        duration: 0.2,
+        emissionRate: 20,
+        fadeAlpha: true,
+        fadeSize: true,
+        fadeSpeed: true,
+        gravity: 0,
+        particleLife: 0.25,
+        particleLifeVar: 0.05,
+        size: 2,
+        sizeVar: 0.5,
+        speed: 20,
+        speedVar: 5,
+        texture: sparkParticle,
+        textureAdditive: false,
+        tint: false,
+        useTexture: false,
+        xVar: 0,
+        yVar: 0
+    };
+    var fx = new ParticleEmitter(x, y, FX);
+}
+
+function endThrowBallFX(x, y) {
+    var FX = {
+        angle: 90,
+        angleVar: 30,
+        color: [252, 244, 194, 1],
+        startColorVar: [20, 20, 20, 0],
+        endColor: [0, 0, 0, 0],
+        endColorVar: [0, 0, 0, 0],
+        duration: 0.1,
+        emissionRate: 200,
+        fadeAlpha: true,
+        fadeSize: true,
+        fadeSpeed: true,
+        gravity: 0,
+        particleLife: 1.0,
+        particleLifeVar: 0.25,
+        size: 4,
+        sizeVar: 2.0,
+        speed: 250,
+        speedVar: 100,
+        texture: sparkParticle,
+        textureAdditive: false,
+        tint: false,
+        useTexture: false,
+        xVar: 0,
+        yVar: 0
+    };
+    var fx = new ParticleEmitter(x, y, FX);
+
+    var FLARE_FX = {
+        angle: 90,
+        angleVar: 90,
+        color: [255, 255, 255, 0.25],
+        startColorVar: [32, 32, 32, 0],
+        endColor: [255, 255, 255, 0],
+        endColorVar: [0, 0, 0, 0],
+        duration: 0.3,
+        emissionRate: 100,
+        fadeAlpha: true,
+        fadeSize: true,
+        fadeSpeed: true,
+        gravity: 0,
+        particleLife: 0.75,
+        particleLifeVar: 0,
+        size: 24,
+        sizeVar: 0,
+        speed: 50,
+        speedVar: 0,
+        texture: sparkParticle,
+        textureAdditive: false,
+        tint: false,
+        useTexture: false,
+        xVar: 0,
+        yVar: 0
+    };
+    var flare = new ParticleEmitter(x, y + 10, FLARE_FX);
+}
+
 function dribbleFX(x, y) {
     var DUST_FX = {
         angle: 0,
@@ -217,6 +335,35 @@ function walkFX(x, y) {
     var fx = new ParticleEmitter(x + FOOT_OFFSET_X, y + FOOT_OFFSET_Y, DUST_FX);
 }
 
+function thrownBallFX(x, y) {
+    var FX = {
+        angle: 0,
+        angleVar: 0,
+        color: [252, 244, 194, 0.333],
+        startColorVar: [0, 0, 0, 0],
+        endColor: [224, 68, 6, 0],
+        endColorVar: [0, 0, 0, 0],
+        duration: 0.1,
+        particleLife: 1.0,
+        emissionRate: 1,
+        fadeAlpha: false,
+        fadeSize: true,
+        fadeSpeed: true,
+        gravity: 1,
+        particleLifeVar: 0,
+        size: 2.0,
+        sizeVar: 0.5,
+        speed: 15,
+        speedVar: 10,
+        texture: dustParticle,
+        textureAdditive: false,
+        tint: false,
+        useTexture: false,
+        xVar: 8,
+        yVar: 0
+    };
+    var fx = new ParticleEmitter(x, y, FX);
+}
 
 
 
