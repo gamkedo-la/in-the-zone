@@ -41,7 +41,7 @@ function playerClass(startingX, startingY, isAI) {
 	this.ticksPerFrame = 5;
 	this.frameRow = 0;
 	this.framesAnim = 10;
-	this.walkSprite = new SpriteSheetClass(currySpriteSheet,this.width, this.height);
+	this.walkSprite = new SpriteSheetClass(currySpriteSheet, this.width, this.height);
 
 	this.states = {
 		isIdle: true,
@@ -108,8 +108,8 @@ function playerClass(startingX, startingY, isAI) {
 		if (this.states.isIdle) {
 			if (!this.isAI) {
 				if (this.keyHeld_North) {
-				nextY -= PLAYER_MOVE_SPEED;
-				this.facingDirection = 0;
+					nextY -= PLAYER_MOVE_SPEED;
+					this.facingDirection = 0;
 				}
 				if (this.keyHeld_East) {
 					nextX += PLAYER_MOVE_SPEED;
@@ -123,7 +123,7 @@ function playerClass(startingX, startingY, isAI) {
 					nextX -= PLAYER_MOVE_SPEED;
 					this.facingDirection = 3;
 				}
-				if (this.keyHeld_Shoot && this.ballToHold != null){
+				if (this.keyHeld_Shoot && this.ballToHold != null) {
 					if (this.currentZone == 4 || this.currentZone == 5 || this.currentZone == 12 || this.currentZone == 13) {
 						this.states.isIdle = false;
 						this.states.isDunking = true;
@@ -187,14 +187,14 @@ function playerClass(startingX, startingY, isAI) {
 					for (var i = 0; i < arrayOfZones.length; i++) {
 						var a = this.x - arrayOfZones[i].middle[0];
 						var b = this.y - arrayOfZones[i].middle[1];
-						var distance = Math.sqrt(a*a + b*b);
+						var distance = Math.sqrt(a * a + b * b);
 						if (this.distanceToClosestZone == undefined || distance < this.distanceToClosestZone) {
 							this.distanceToClosestZone = distance;
 							this.zoneToGo = arrayOfZones[i];
 							//console.log(this.zoneToGo);
 						}
 					}
-				if (this.currentZone != this.zoneToGo.zoneNumber) {
+					if (this.currentZone != this.zoneToGo.zoneNumber) {
 						console.log(this.zoneToGo);
 						console.log(this.currentZone);
 						if (this.x < this.zoneToGo.middle[0]) {
@@ -209,24 +209,24 @@ function playerClass(startingX, startingY, isAI) {
 						if (this.y > this.zoneToGo.middle[1]) {
 							nextY -= PLAYER_MOVE_SPEED * Math.cos(45);
 						}
-					else {
-						if (this.x < this.zoneToGo.middle[0]) {
-							nextX += PLAYER_MOVE_SPEED;
-						}
-						if (this.y < this.zoneToGo.middle[1]) {
-							nextY += PLAYER_MOVE_SPEED;
-						}
-						if (this.x > this.zoneToGo.middle[0]) {
-							nextX -= PLAYER_MOVE_SPEED;
-						}
-						if (this.y > this.zoneToGo.middle[1]) {
-							nextY -= PLAYER_MOVE_SPEED;
+						else {
+							if (this.x < this.zoneToGo.middle[0]) {
+								nextX += PLAYER_MOVE_SPEED;
+							}
+							if (this.y < this.zoneToGo.middle[1]) {
+								nextY += PLAYER_MOVE_SPEED;
+							}
+							if (this.x > this.zoneToGo.middle[0]) {
+								nextX -= PLAYER_MOVE_SPEED;
+							}
+							if (this.y > this.zoneToGo.middle[1]) {
+								nextY -= PLAYER_MOVE_SPEED;
+							}
 						}
 					}
-				}
-				else {
-					console.log("can shoot now");
-				}
+					else {
+						console.log("can shoot now");
+					}
 				}
 			}
 
@@ -254,14 +254,14 @@ function playerClass(startingX, startingY, isAI) {
 
 		if (this.states.isShooting) {
 			if (this.keyHeld_Shoot && this.ballToHold != null) {
-	      this.shootingTime++;
+				this.shootingTime++;
 				if (this.shootingTime > 25) {
 					this.shootingTime = 25;
 				}
 				if (this.shootingTime > 15) {
 					this.tickCount = 25;
 				}
-	    }
+			}
 			else {
 				if (this.tickCount == 0) {
 					this.states.isShooting = false;
@@ -293,7 +293,7 @@ function playerClass(startingX, startingY, isAI) {
 						// console.log(this.shootingTime);
 						// console.log(random);
 						this.tickCount = 35;//increasing the tickCount to be end of the animation.
-						if (this.shootingTime>= 10) {
+						if (this.shootingTime >= 10) {
 							if (random + 9 <= this.shootingTime) {
 								this.ballToHold.goingIn = true;
 								var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
@@ -321,7 +321,7 @@ function playerClass(startingX, startingY, isAI) {
 						// console.log(this.shootingTime);
 						// console.log(random);
 						if (this.shootingTime <= 19) {
-							if (this.shootingTime<= random +9) {
+							if (this.shootingTime <= random + 9) {
 								this.ballToHold.goingIn = true;
 								var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
 								this.ballToHold.ballPower = -16;
@@ -358,21 +358,21 @@ function playerClass(startingX, startingY, isAI) {
 		if (this.states.isDunking) {
 			this.startedDunking = false;
 			var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
-		 	var dunkingX= Math.cos(direction) * this.startingDistanceFromHoop / 30;
-			var dunkingY= Math.sin(direction) * this.startingDistanceFromHoop / 30;
+			var dunkingX = Math.cos(direction) * this.startingDistanceFromHoop / 30;
+			var dunkingY = Math.sin(direction) * this.startingDistanceFromHoop / 30;
 			var dunkingHeight = 5;
 			nextX += dunkingX;
 			nextY += dunkingY;
 			if (this.jumpingHeight < HOOP_H) {
 				this.jumpingHeight += dunkingHeight;
 			}
-			if (this.jumpingHeight+ 10 > HOOP_H) {
+			if (this.jumpingHeight + 10 > HOOP_H) {
 				this.jumpingHeight -= dunkingHeight;
 			}
 			this.z = this.y - this.jumpingHeight;
 			if (this.x < HOOP_X + 10 && this.y < HOOP_Y + 10 &&
-        this.x > HOOP_X - 10 && this.y > HOOP_Y - 10 &&
-				this.jumpingHeight< HOOP_H +30 && this.jumpingHeight > HOOP_H -30) {
+				this.x > HOOP_X - 10 && this.y > HOOP_Y - 10 &&
+				this.jumpingHeight < HOOP_H + 30 && this.jumpingHeight > HOOP_H - 30) {
 				console.log(this.ballToHold.jumpingHeight);
 				this.jumpingHeight = 0;
 				this.ballToHold.jumpingHeight = HOOP_H;
@@ -393,12 +393,15 @@ function playerClass(startingX, startingY, isAI) {
 			currentPic = player1;
 		}
 
+		var isMoving = ((this.x != nextX) || (this.y != nextY));
+		if (isMoving) walkFX(this.x, this.y); // dust on the floor / footsteps
+
 		this.x = nextX;
 		this.y = nextY;
 
 	}
 
-	this.updateEdgesOfFeet = function() {
+	this.updateEdgesOfFeet = function () {
 		this.leftEdgeOfFeet = this.x + 19;
 		this.topEdgeOfFeet = this.y + 59;
 		this.rightEdgeOfFeet = this.x + 39;
@@ -437,14 +440,14 @@ function playerClass(startingX, startingY, isAI) {
 			this.walkSprite.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.x, this.y, this.ang);
 		}
 		if (this.states.isIdle) {
-			drawBitmapCenteredWithRotation(currentPic, this.x,this.y, this.ang);
+			drawBitmapCenteredWithRotation(currentPic, this.x, this.y, this.ang);
 		}
 		if (this.states.isDunking) {
-			drawBitmapCenteredWithRotation(dunkingPic, this.x,this.z, this.ang);
+			drawBitmapCenteredWithRotation(dunkingPic, this.x, this.z, this.ang);
 		}
 
 		if (this.shootingTime > 0) {
-			colorRect(this.x+10, this.y + 20, 9, 10, "yellow");
+			colorRect(this.x + 10, this.y + 20, 9, 10, "yellow");
 			colorRect(this.x + 14, this.y + 20, 1, 10, "green");
 			colorRect(this.x, this.y + 20, this.shootingTime, 10, "red");
 		}

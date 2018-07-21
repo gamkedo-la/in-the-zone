@@ -64,7 +64,7 @@ function twoPointsFX(x, y) {
         xVar: 0,
         yVar: 0
     };
-    var fx = new ParticleEmitter(x +32, y +32, BOOM_FX);
+    var fx = new ParticleEmitter(x + 32, y + 32, BOOM_FX);
 }
 
 function reboundFX(x, y) {
@@ -127,6 +127,37 @@ function dribbleFX(x, y) {
     var fx = new ParticleEmitter(x, y, DUST_FX);
 }
 
+function walkFX(x, y) {
+    var DUST_FX = {
+        angle: 0,
+        angleVar: 0,
+        color: [252, 244, 194, 0.333],
+        startColorVar: [0, 0, 0, 0],
+        endColor: [224, 68, 6, 0],
+        endColorVar: [0, 0, 0, 0],
+        duration: 0.1,
+        particleLife: 1.0,
+        emissionRate: 1,
+        fadeAlpha: false,
+        fadeSize: true,
+        fadeSpeed: true,
+        gravity: 1,
+        particleLifeVar: 0,
+        size: 2.0,
+        sizeVar: 0.5,
+        speed: 15,
+        speedVar: 10,
+        texture: dustParticle,
+        textureAdditive: false,
+        tint: false,
+        useTexture: false,
+        xVar: 8,
+        yVar: 0
+    };
+    const FOOT_OFFSET_X = 0;
+    const FOOT_OFFSET_Y = 30;
+    var fx = new ParticleEmitter(x + FOOT_OFFSET_X, y + FOOT_OFFSET_Y, DUST_FX);
+}
 
 
 
