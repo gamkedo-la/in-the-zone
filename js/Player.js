@@ -225,8 +225,21 @@ function playerClass(startingX, startingY, isAI) {
 						}
 					}
 					else {
-						this.states.isShooting = true;
-						this.states.isIdle = false;
+						if (this.currentZone == 4 || this.currentZone == 5 || this.currentZone == 12 || this.currentZone == 13) {
+							this.states.isIdle = false;
+							this.states.isDunking = true;
+							this.startedDunking = true;
+							var a = HOOP_X - this.x;
+							var b = HOOP_Y - this.y;
+							this.startingDistanceFromHoop = Math.sqrt(a * a + b * b);
+						}
+						else {
+							this.states.isIdle = false;
+							this.states.isShooting = true;
+							this.shootingStartingX = this.x;
+							this.shootingStartingY = this.y;
+						}
+						updateZones();
 					}
 				}
 			}
