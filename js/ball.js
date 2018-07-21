@@ -96,6 +96,8 @@ function ballClass(startingX, startingY) {
     if (this.beingShot) {
       if (this.goingIn) {
         twoPointsFX(this.x, this.z);
+      } else {
+        thrownBallFX(this.x, this.z);
       }
 
       if (this.x < HOOP_X + 5 && this.y < HOOP_Y + 5 &&

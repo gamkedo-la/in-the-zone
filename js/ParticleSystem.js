@@ -339,19 +339,19 @@ function thrownBallFX(x, y) {
     var FX = {
         angle: 0,
         angleVar: 0,
-        color: [252, 244, 194, 0.333],
+        color: [255, 255, 255, 0.333],
         startColorVar: [0, 0, 0, 0],
-        endColor: [224, 68, 6, 0],
+        endColor: [0, 0, 0, 0],
         endColorVar: [0, 0, 0, 0],
         duration: 0.1,
-        particleLife: 1.0,
-        emissionRate: 1,
+        particleLife: 2.5,
+        emissionRate: 30,
         fadeAlpha: false,
         fadeSize: true,
         fadeSpeed: true,
-        gravity: 1,
+        gravity: 0,
         particleLifeVar: 0,
-        size: 2.0,
+        size: 1.0,
         sizeVar: 0.5,
         speed: 15,
         speedVar: 10,
@@ -359,8 +359,8 @@ function thrownBallFX(x, y) {
         textureAdditive: false,
         tint: false,
         useTexture: false,
-        xVar: 8,
-        yVar: 0
+        xVar: 2,
+        yVar: 2
     };
     var fx = new ParticleEmitter(x, y, FX);
 }
