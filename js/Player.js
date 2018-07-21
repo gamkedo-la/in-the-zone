@@ -133,10 +133,12 @@ function playerClass(startingX, startingY, isAI) {
 						this.startingDistanceFromHoop = Math.sqrt(a * a + b * b);
 					}
 					else {
+						// start a regular shot - begin the wind up
 						this.states.isIdle = false;
 						this.states.isShooting = true;
 						this.shootingStartingX = this.x;
 						this.shootingStartingY = this.y;
+						startThrowBallFX(this.x, this.y);
 					}
 					updateZones();
 				}
@@ -370,9 +372,12 @@ function playerClass(startingX, startingY, isAI) {
 					}
 					this.shootingTime = 0;
 				}
+
+				chargingUpThrowBallFX(this.x, this.y);
+
 			}
 			else {
-				var randomShootingTime = Math.floor(Math.random()* 10) +11;
+				var randomShootingTime = Math.floor(Math.random() * 10) + 11;
 				if (this.ballToHold != null && this.shootingTime < randomShootingTime) {
 					this.shootingTime++;
 				}
@@ -382,6 +387,7 @@ function playerClass(startingX, startingY, isAI) {
 						this.states.isIdle = true;
 					}
 					if (this.shootingTime > 0) {
+						endThrowBallFX(this.x, this.y); // release the ball: throw some fx too
 						this.ballToHold.isShotBy = this;
 						this.ballToHold.beingShot = true;
 						this.ballToHold.isHeld = false;
