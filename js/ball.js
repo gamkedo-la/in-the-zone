@@ -136,6 +136,8 @@ function ballClass(startingX, startingY) {
         }
         reboundFX(HOOP_X, HOOP_Y);
       }
+    } else { // not beingShot
+      bouncingBallFX(this.x, this.z);
     }
   }
 

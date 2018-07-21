@@ -365,6 +365,35 @@ function thrownBallFX(x, y) {
     var fx = new ParticleEmitter(x, y, FX);
 }
 
+function bouncingBallFX(x, y) {
+    var FX = {
+        angle: 0,
+        angleVar: 0,
+        color: [0, 0, 0, 0.15],
+        startColorVar: [0, 0, 0, 0],
+        endColor: [0, 0, 0, 0],
+        endColorVar: [0, 0, 0, 0],
+        duration: 0.1,
+        particleLife: 1.0,
+        emissionRate: 1,
+        fadeAlpha: false,
+        fadeSize: true,
+        fadeSpeed: true,
+        gravity: 0,
+        particleLifeVar: 0,
+        size: 1.0,
+        sizeVar: 0.25,
+        speed: 10,
+        speedVar: 5,
+        texture: dustParticle,
+        textureAdditive: false,
+        tint: false,
+        useTexture: false,
+        xVar: 2,
+        yVar: 2
+    };
+    var fx = new ParticleEmitter(x, y, FX);
+}
 
 
 
