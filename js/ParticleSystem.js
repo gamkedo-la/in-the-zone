@@ -97,6 +97,64 @@ function reboundFX(x, y) {
     var fx = new ParticleEmitter(x, y, SPARKS_FX);
 }
 
+function gainPossessionFX(x, y) {
+    var FX = {
+        angle: 90,
+        angleVar: 90,
+        color: [252, 244, 194, 1],
+        startColorVar: [255, 255, 255, 1],
+        endColor: [224, 68, 6, 0],
+        endColorVar: [0, 0, 0, 0],
+        duration: 0.1,
+        emissionRate: 200,
+        fadeAlpha: true,
+        fadeSize: true,
+        fadeSpeed: true,
+        gravity: 0,
+        particleLife: 0.25,
+        particleLifeVar: 0.05,
+        size: 2,
+        sizeVar: 0.5,
+        speed: 250,
+        speedVar: 100,
+        texture: sparkParticle,
+        textureAdditive: false,
+        tint: false,
+        useTexture: false,
+        xVar: 0,
+        yVar: 0
+    };
+    var fx = new ParticleEmitter(x, y, FX);
+
+    var FLARE_FX = {
+        angle: 90,
+        angleVar: 90,
+        color: [255, 255, 255, 0.25],
+        startColorVar: [0, 0, 0, 0],
+        endColor: [255, 255, 255, 0],
+        endColorVar: [0, 0, 0, 0],
+        duration: 0.1,
+        emissionRate: 1,
+        fadeAlpha: true,
+        fadeSize: true,
+        fadeSpeed: true,
+        gravity: 0,
+        particleLife: 0.5,
+        particleLifeVar: 0,
+        size: 32,
+        sizeVar: 0,
+        speed: 0,
+        speedVar: 0,
+        texture: sparkParticle,
+        textureAdditive: false,
+        tint: false,
+        useTexture: false,
+        xVar: 0,
+        yVar: 0
+    };
+    var flare = new ParticleEmitter(x, y + 10, FLARE_FX);
+}
+
 function dribbleFX(x, y) {
     var DUST_FX = {
         angle: 0,

@@ -11,31 +11,31 @@ var rimNormal = calculateRimNormal();
 
 //closures Dot Product calculations.
 //will use a dot product to determine the angle to rebound the ball towards
-var dot = function(vectorP,vectorQ){
-  return vectorP[0]*vectorQ[0] + vectorP[1]*vectorQ[1];  
+var dot = function (vectorP, vectorQ) {
+  return vectorP[0] * vectorQ[0] + vectorP[1] * vectorQ[1];
 }
 
 
-var magnitude = function(x,y){
-  return Math.sqrt(x*x + y*y);
+var magnitude = function (x, y) {
+  return Math.sqrt(x * x + y * y);
 }
-var normalize = function(x,y){
-    var length = magnitude(x,y);
-    var divX = 0;
-    var divY = 0;
-    if(length > 0){
-      var divX = x/length;
-      var divY = y/length;
-    }
-    return [divX,divY];
+var normalize = function (x, y) {
+  var length = magnitude(x, y);
+  var divX = 0;
+  var divY = 0;
+  if (length > 0) {
+    var divX = x / length;
+    var divY = y / length;
+  }
+  return [divX, divY];
 }
-var dotAngle = function(vectorP,vectorQ){
-  var PQ = this.dot(vectorP,vectorQ);
+var dotAngle = function (vectorP, vectorQ) {
+  var PQ = this.dot(vectorP, vectorQ);
   //find the angle
-  var PMagnitudes = magnitude(vectorP[0],vectorP[1]);
-  var QMagnitudes = magnitude(vectorQ[0],vectorQ[1]);
+  var PMagnitudes = magnitude(vectorP[0], vectorP[1]);
+  var QMagnitudes = magnitude(vectorQ[0], vectorQ[1]);
 
-  return Math.acos( PQ / PMagnitudes* QMagnitudes);
+  return Math.acos(PQ / PMagnitudes * QMagnitudes);
 }
 
 
@@ -101,9 +101,9 @@ function ballClass(startingX, startingY) {
       if (this.x < HOOP_X + 5 && this.y < HOOP_Y + 5 &&
         this.x > HOOP_X - 5 && this.y > HOOP_Y - 5 &&
         this.z < HOOP_H + 10 && this.z > HOOP_H - 10 && this.goingIn) {
-        if (this.gotShotFrom ==1 || this.gotShotFrom ==9 || this.gotShotFrom ==17 ||
-            this.gotShotFrom ==24 || this.gotShotFrom ==25 || this.gotShotFrom ==26 ||
-             this.gotShotFrom ==23 || this.gotShotFrom ==16 || this.gotShotFrom ==8) {
+        if (this.gotShotFrom == 1 || this.gotShotFrom == 9 || this.gotShotFrom == 17 ||
+          this.gotShotFrom == 24 || this.gotShotFrom == 25 || this.gotShotFrom == 26 ||
+          this.gotShotFrom == 23 || this.gotShotFrom == 16 || this.gotShotFrom == 8) {
           this.isShotBy.score += 3;
         }
         else {
@@ -118,21 +118,21 @@ function ballClass(startingX, startingY) {
       else if (this.x < HOOP_X + 15 && this.y < HOOP_Y + 15 &&
         this.x > HOOP_X - 15 && this.y > HOOP_Y - 15 &&
         this.z < HOOP_H + 10 && this.z > HOOP_H - 10 && !this.goingIn) {
-          this.ballPower = Math.abs(this.z - HOOP_H);
-          var reboundDirection = rebound(this);
-          
-          this.shootingX = reboundDirection[0] * this.ballPower;
-          this.shootingY = reboundDirection[1] * this.ballPower;
-          console.log(this.shootingX + " , " + this.shootingY);
-          this.beingShot = false;
-          var random = Math.random();
-          if (random > 0.5) {
-            ballRebound1.play();
-          }
-          else {
-            ballRebound2.play();
-          }
-          reboundFX(HOOP_X, HOOP_Y);
+        this.ballPower = Math.abs(this.z - HOOP_H);
+        var reboundDirection = rebound(this);
+
+        this.shootingX = reboundDirection[0] * this.ballPower;
+        this.shootingY = reboundDirection[1] * this.ballPower;
+        console.log(this.shootingX + " , " + this.shootingY);
+        this.beingShot = false;
+        var random = Math.random();
+        if (random > 0.5) {
+          ballRebound1.play();
+        }
+        else {
+          ballRebound2.play();
+        }
+        reboundFX(HOOP_X, HOOP_Y);
       }
     }
   }
@@ -177,32 +177,35 @@ function moveBalls(ballArray) {
 //using the rim center point, create a Up vector to act as it's normal
 //take shooting direction and rotate on the rim 'normal' 180Deg
 //or rotate on the rim normal by the dotProduct angle.
-function rebound(ball){
-  var dotProductFromRimCenter = 0 ; //detect if the forward is right or left
-  var shotDirection = [ball.isShotBy.shootingStartingX - HOOP_X,ball.isShotBy.shootingStartingY - HOOP_Y]; //vector2 
-  
-  var reboundDirection = [0,0];
-  var rimDot = dot(shotDirection,rimNormal);
-  
+function rebound(ball) {
+  var dotProductFromRimCenter = 0; //detect if the forward is right or left
+  var shotDirection = [ball.isShotBy.shootingStartingX - HOOP_X, ball.isShotBy.shootingStartingY - HOOP_Y]; //vector2 
+
+  var reboundDirection = [0, 0];
+  var rimDot = dot(shotDirection, rimNormal);
+
   reboundDirection[0] = 2 * (rimDot) * (rimNormal[0] - shotDirection[0]);
   reboundDirection[1] = 2 * (rimDot) * (rimNormal[1] - shotDirection[1]);
-  reboundDirection = normalize(reboundDirection[0],reboundDirection[1]);
+  reboundDirection = normalize(reboundDirection[0], reboundDirection[1]);
 
-  var distanceFromHoop = magnitude(shotDirection[0],shotDirection[1]);
+  var distanceFromHoop = magnitude(shotDirection[0], shotDirection[1]);
   console.log(distanceFromHoop);
   // reboundDirection[0] *= distanceFromHoop/3;
   // reboundDirection[1] *= distanceFromHoop/3;
+
+  reboundFX(this.x, this.y);
+
   return reboundDirection;
 }
 
 
 
-function calculateRimNormal(){
+function calculateRimNormal() {
   var nx = -HOOP_Y;
   var ny = HOOP_X;
-  var length = Math.sqrt( (HOOP_X * HOOP_X) + (HOOP_Y + HOOP_Y) );
-   
+  var length = Math.sqrt((HOOP_X * HOOP_X) + (HOOP_Y + HOOP_Y));
+
   nx /= length;
   ny /= length;
-  return [nx,ny];
+  return [nx, ny];
 }

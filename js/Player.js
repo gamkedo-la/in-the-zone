@@ -230,14 +230,18 @@ function playerClass(startingX, startingY, isAI) {
 				}
 			}
 
+			// pick up ball if we are touching it
 			for (var i = 0; i < ballArray.length; i++) {
 				if (ballArray[i].x - this.x < 30 && this.x - ballArray[i].x < 30 &&
 					ballArray[i].y - this.y < 30 && this.y - ballArray[i].y < 30 &&
 					ballArray[i].height < 10 && !ballArray[i].beingShot && !this.isHoldingBall) {
+
 					this.isHoldingBall = true;
 					ballArray[i].isHeld = true;
 					ballArray[i].isHeldBy = this;
 					this.ballToHold = ballArray[i];
+
+					gainPossessionFX(this.x, this.y);
 				}
 			}
 
