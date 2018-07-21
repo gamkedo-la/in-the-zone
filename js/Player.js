@@ -225,7 +225,8 @@ function playerClass(startingX, startingY, isAI) {
 						}
 					}
 					else {
-						console.log("can shoot now");
+						this.states.isShooting = true;
+						this.states.isIdle = false;
 					}
 				}
 			}
@@ -257,103 +258,200 @@ function playerClass(startingX, startingY, isAI) {
 		}
 
 		if (this.states.isShooting) {
-			if (this.keyHeld_Shoot && this.ballToHold != null) {
-				this.shootingTime++;
-				if (this.shootingTime > 25) {
-					this.shootingTime = 25;
+			if (!this.isAI) {
+				if (this.keyHeld_Shoot && this.ballToHold != null) {
+					this.shootingTime++;
+					if (this.shootingTime > 25) {
+						this.shootingTime = 25;
+					}
+					if (this.shootingTime > 15) {
+						this.tickCount = 25;
+					}
 				}
-				if (this.shootingTime > 15) {
-					this.tickCount = 25;
+				else {
+					if (this.tickCount == 0) {
+						this.states.isShooting = false;
+						this.states.isIdle = true;
+					}
+					if (this.shootingTime > 0) {
+						this.ballToHold.isShotBy = this;
+						this.ballToHold.beingShot = true;
+						this.ballToHold.isHeld = false;
+						this.ballToHold.isHeldBy = null;
+						// console.log(this.ballToHold.x);
+						// console.log(HOOP_X);
+						var a = HOOP_X - this.x;
+						var b = HOOP_Y - this.y;
+						this.ballToHold.startingDistanceFromHoop = Math.sqrt(a * a + b * b);
+						var random = Math.floor(Math.random() * 10) + 1;
+						if (this.shootingTime >= 14 && this.shootingTime <= 15) {//if player menages to hits the green area. His shot will go in
+							twoPointsFX(this.ballToHold.x, this.ballToHold.y);
+							this.tickCount = 35;
+							this.ballToHold.goingIn = true;
+							this.ballToHold.isShotBy = this;
+							this.ballToHold.gotShotFrom = this.currentZone;
+							var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
+							this.ballToHold.ballPower = -16;
+							console.log("perfect");
+							updateZones();
+						}
+						else if (this.shootingTime < 14) {//player did not press enough
+							// console.log(this.shootingTime);
+							// console.log(random);
+							this.tickCount = 35;//increasing the tickCount to be end of the animation.
+							if (this.shootingTime >= 10) {
+								if (random + 9 <= this.shootingTime) {
+									this.ballToHold.goingIn = true;
+									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
+									this.ballToHold.ballPower = -16;
+									console.log("short,yellow and lucky");
+									updateZones();
+								}
+								else {
+									this.ballToHold.goingIn = false;
+									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
+									this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
+									console.log("yellow and unlucky");
+								}
+							}
+							else {
+								this.ballToHold.goingIn = false;
+								var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
+								this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
+								console.log("way off");
+							}
+
+
+						}
+						else if (this.shootingTime > 15) {
+							// console.log(this.shootingTime);
+							// console.log(random);
+							if (this.shootingTime <= 19) {
+								if (this.shootingTime <= random + 9) {
+									this.ballToHold.goingIn = true;
+									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
+									this.ballToHold.ballPower = -16;
+									console.log("long,yellow and lucky");
+									updateZones();
+								}
+								else {
+									this.ballToHold.goingIn = false;
+									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
+									this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
+									console.log("yellow and unlucky");
+								}
+							}
+							else {
+								this.ballToHold.goingIn = false;
+								var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
+								this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
+								console.log("way off");
+							}
+						}
+						// console.log(direction);
+						this.ballToHold.shootingX = Math.cos(direction) * this.ballToHold.startingDistanceFromHoop / 30;
+						this.ballToHold.shootingY = Math.sin(direction) * this.ballToHold.startingDistanceFromHoop / 30;
+						// console.log(this.ballToHold.shootingX);
+						this.ballToHold = null;
+						this.isHoldingBall = false;
+					}
+					this.shootingTime = 0;
 				}
 			}
 			else {
-				if (this.tickCount == 0) {
-					this.states.isShooting = false;
-					this.states.isIdle = true;
+				var randomShootingTime = Math.floor(Math.random()* 10) +11;
+				if (this.ballToHold != null && this.shootingTime < randomShootingTime) {
+					this.shootingTime++;
 				}
-				if (this.shootingTime > 0) {
-					this.ballToHold.isShotBy = this;
-					this.ballToHold.beingShot = true;
-					this.ballToHold.isHeld = false;
-					this.ballToHold.isHeldBy = null;
-					// console.log(this.ballToHold.x);
-					// console.log(HOOP_X);
-					var a = HOOP_X - this.x;
-					var b = HOOP_Y - this.y;
-					this.ballToHold.startingDistanceFromHoop = Math.sqrt(a * a + b * b);
-					var random = Math.floor(Math.random() * 10) + 1;
-					if (this.shootingTime >= 14 && this.shootingTime <= 15) {//if player menages to hits the green area. His shot will go in
-						twoPointsFX(this.ballToHold.x, this.ballToHold.y);
-						this.tickCount = 35;
-						this.ballToHold.goingIn = true;
+				else {
+					if (this.tickCount == 0) {
+						this.states.isShooting = false;
+						this.states.isIdle = true;
+					}
+					if (this.shootingTime > 0) {
 						this.ballToHold.isShotBy = this;
-						this.ballToHold.gotShotFrom = this.currentZone;
-						var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
-						this.ballToHold.ballPower = -16;
-						console.log("perfect");
-						updateZones();
-					}
-					else if (this.shootingTime < 14) {//player did not press enough
-						// console.log(this.shootingTime);
-						// console.log(random);
-						this.tickCount = 35;//increasing the tickCount to be end of the animation.
-						if (this.shootingTime >= 10) {
-							if (random + 9 <= this.shootingTime) {
-								this.ballToHold.goingIn = true;
-								var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
-								this.ballToHold.ballPower = -16;
-								console.log("short,yellow and lucky");
-								updateZones();
+						this.ballToHold.beingShot = true;
+						this.ballToHold.isHeld = false;
+						this.ballToHold.isHeldBy = null;
+						// console.log(this.ballToHold.x);
+						// console.log(HOOP_X);
+						var a = HOOP_X - this.x;
+						var b = HOOP_Y - this.y;
+						this.ballToHold.startingDistanceFromHoop = Math.sqrt(a * a + b * b);
+						var random = Math.floor(Math.random() * 10) + 1;
+						if (this.shootingTime >= 14 && this.shootingTime <= 15) {//if player menages to hits the green area. His shot will go in
+							twoPointsFX(this.ballToHold.x, this.ballToHold.y);
+							this.tickCount = 35;
+							this.ballToHold.goingIn = true;
+							this.ballToHold.isShotBy = this;
+							this.ballToHold.gotShotFrom = this.currentZone;
+							var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
+							this.ballToHold.ballPower = -16;
+							console.log("perfect");
+							updateZones();
+						}
+						else if (this.shootingTime < 14) {//player did not press enough
+							// console.log(this.shootingTime);
+							// console.log(random);
+							this.tickCount = 35;//increasing the tickCount to be end of the animation.
+							if (this.shootingTime >= 10) {
+								if (random + 9 <= this.shootingTime) {
+									this.ballToHold.goingIn = true;
+									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
+									this.ballToHold.ballPower = -16;
+									console.log("short,yellow and lucky");
+									updateZones();
+								}
+								else {
+									this.ballToHold.goingIn = false;
+									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
+									this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
+									console.log("yellow and unlucky");
+								}
 							}
 							else {
 								this.ballToHold.goingIn = false;
 								var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
 								this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
-								console.log("yellow and unlucky");
+								console.log("way off");
 							}
-						}
-						else {
-							this.ballToHold.goingIn = false;
-							var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
-							this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
-							console.log("way off");
-						}
 
 
-					}
-					else if (this.shootingTime > 15) {
-						// console.log(this.shootingTime);
-						// console.log(random);
-						if (this.shootingTime <= 19) {
-							if (this.shootingTime <= random + 9) {
-								this.ballToHold.goingIn = true;
-								var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
-								this.ballToHold.ballPower = -16;
-								console.log("long,yellow and lucky");
-								updateZones();
+						}
+						else if (this.shootingTime > 15) {
+							// console.log(this.shootingTime);
+							// console.log(random);
+							if (this.shootingTime <= 19) {
+								if (this.shootingTime <= random + 9) {
+									this.ballToHold.goingIn = true;
+									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
+									this.ballToHold.ballPower = -16;
+									console.log("long,yellow and lucky");
+									updateZones();
+								}
+								else {
+									this.ballToHold.goingIn = false;
+									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
+									this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
+									console.log("yellow and unlucky");
+								}
 							}
 							else {
 								this.ballToHold.goingIn = false;
 								var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
 								this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
-								console.log("yellow and unlucky");
+								console.log("way off");
 							}
 						}
-						else {
-							this.ballToHold.goingIn = false;
-							var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
-							this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
-							console.log("way off");
-						}
+						// console.log(direction);
+						this.ballToHold.shootingX = Math.cos(direction) * this.ballToHold.startingDistanceFromHoop / 30;
+						this.ballToHold.shootingY = Math.sin(direction) * this.ballToHold.startingDistanceFromHoop / 30;
+						// console.log(this.ballToHold.shootingX);
+						this.ballToHold = null;
+						this.isHoldingBall = false;
 					}
-					// console.log(direction);
-					this.ballToHold.shootingX = Math.cos(direction) * this.ballToHold.startingDistanceFromHoop / 30;
-					this.ballToHold.shootingY = Math.sin(direction) * this.ballToHold.startingDistanceFromHoop / 30;
-					// console.log(this.ballToHold.shootingX);
-					this.ballToHold = null;
-					this.isHoldingBall = false;
+					this.shootingTime = 0;
 				}
-				this.shootingTime = 0;
 			}
 		}
 
