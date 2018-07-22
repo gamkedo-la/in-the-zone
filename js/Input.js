@@ -10,6 +10,7 @@ const KEY_D = 68;
 
 const KEY_SPACE = 32;
 const KEY_X = 88;
+const KEY_P = 80;
 
 const KEY_ESC = 27;
 
@@ -25,11 +26,9 @@ function setupInput() {
 		console.log("both are not ai");
 		character1.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW, KEY_SPACE);
 		character2.setupInput(KEY_W, KEY_D, KEY_S, KEY_A, KEY_X);
-	}
-	else if (character1.isAI) {
+	} else if (character1.isAI) {
 		character2.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW, KEY_SPACE);
-	}
-	else if (character2.isAI) {
+	} else if (character2.isAI) {
 		character1.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW, KEY_SPACE);
 	}
 }
@@ -39,35 +38,40 @@ function keySet(keyEvent, setTo) {
 	if (keyEvent.keyCode == KEY_ESC) {
 		escKey = setTo;
 	}
-	if(keyEvent.keyCode == character1.controlKeyLeft) {
+	if (keyEvent.keyCode == KEY_P) {
+		if (setTo === true) {
+			mainStates.isPaused = !mainStates.isPaused;
+		}
+	}
+	if (keyEvent.keyCode == character1.controlKeyLeft) {
 		character1.keyHeld_West = setTo;
 	}
-	if(keyEvent.keyCode == character1.controlKeyRight) {
+	if (keyEvent.keyCode == character1.controlKeyRight) {
 		character1.keyHeld_East = setTo;
 	}
-	if(keyEvent.keyCode == character1.controlKeyUp) {
+	if (keyEvent.keyCode == character1.controlKeyUp) {
 		character1.keyHeld_North = setTo;
 	}
-	if(keyEvent.keyCode == character1.controlKeyDown) {
+	if (keyEvent.keyCode == character1.controlKeyDown) {
 		character1.keyHeld_South = setTo;
 	}
-	if(keyEvent.keyCode == character1.controlShootKey) {
+	if (keyEvent.keyCode == character1.controlShootKey) {
 		character1.keyHeld_Shoot = setTo;
 	}
 
-	if(keyEvent.keyCode == character2.controlKeyLeft) {
+	if (keyEvent.keyCode == character2.controlKeyLeft) {
 		character2.keyHeld_West = setTo;
 	}
-	if(keyEvent.keyCode == character2.controlKeyRight) {
+	if (keyEvent.keyCode == character2.controlKeyRight) {
 		character2.keyHeld_East = setTo;
 	}
-	if(keyEvent.keyCode == character2.controlKeyUp) {
+	if (keyEvent.keyCode == character2.controlKeyUp) {
 		character2.keyHeld_North = setTo;
 	}
-	if(keyEvent.keyCode == character2.controlKeyDown) {
+	if (keyEvent.keyCode == character2.controlKeyDown) {
 		character2.keyHeld_South = setTo;
 	}
-	if(keyEvent.keyCode == character2.controlShootKey) {
+	if (keyEvent.keyCode == character2.controlShootKey) {
 		character2.keyHeld_Shoot = setTo;
 	}
 }

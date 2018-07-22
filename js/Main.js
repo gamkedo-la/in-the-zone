@@ -2,7 +2,7 @@ var canvas, canvasContext;
 var currentPic = player1;
 
 var character1 = new playerClass(75, 75, false);
-var character2 = new playerClass(150, 75,true);
+var character2 = new playerClass(150, 75, true);
 
 var ballArray = [];
 var ball1 = new ballClass(700, 100);
@@ -10,9 +10,10 @@ var ball2 = new ballClass(500, 600);
 
 var winner;
 
-var mainStates= {
+var mainStates = {
 	inGame: true,
-	gameOver : false
+	gameOver: false,
+	isPaused: false
 };
 
 
@@ -21,7 +22,7 @@ var mainStates= {
 window.onload = function () {
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
-	canvas.onmousemove = (evt) => {//gathering mouse coordinates for easy reference during game dev in game play,
+	canvas.onmousemove = (evt) => { //gathering mouse coordinates for easy reference during game dev in game play,
 		//current use is to outline zones
 		mouseX = evt.pageX;
 		mouseY = evt.pageY;
@@ -46,16 +47,16 @@ function imageLoadingDoneSoStartGame() {
 }
 
 function updateAll() {
-		moveAll();
-		updateAllEmitters(); // see ParticleSystem.js
-		drawAll();
-		if (mainStates.inGame) {
-				playAndLoopMusic(backgroundMusic);
-		}
+	moveAll();
+	updateAllEmitters(); // see ParticleSystem.js
+	drawAll();
+	if (mainStates.inGame) {
+		playAndLoopMusic(backgroundMusic);
+	}
 }
 
 function moveAll() {
-	if (mainStates.inGame){
+	if (mainStates.inGame === true && mainStates.isPaused === false) {
 		character1.move();
 		character1.updateEdgesOfFeet();
 		character2.move();
@@ -87,26 +88,24 @@ function drawWorld() {
 	}
 }
 
-function drawGameOver(){
+function drawGameOver() {
 	if (character1.score > character2.score) {
-		winner = 1;//character1 won
+		winner = 1; //character1 won
+	} else if (character2.score > character1.score) {
+		winner = 2; //character2 won
+	} else if (character1.score == character2.score) {
+		winner = 0; //tie
 	}
-	else if (character2.score > character1.score) {
-		winner = 2;//character2 won
-	}
-	else if (character1.score == character2.score) {
-		winner = 0;//tie
-	}
-	colorRect(0,0,canvas.width,canvas.height,"black");
+	colorRect(0, 0, canvas.width, canvas.height, "black");
 	switch (winner) {
 		case 0:
-			colorText("The game ended with a tie",350,300,"white");
+			colorText("The game ended with a tie", 350, 300, "white");
 			break;
 		case 1:
-			colorText("player1 has won",350,300,"white");
+			colorText("player1 has won", 350, 300, "white");
 			break;
 		case 2:
-			colorText("player2 has won",350,300,"white");
+			colorText("player2 has won", 350, 300, "white");
 			break;
 	}
 	if (escKey) {
@@ -116,9 +115,9 @@ function drawGameOver(){
 	}
 }
 
-function resetGame(){
-	character1.x =75;
-	character1.y =75;
+function resetGame() {
+	character1.x = 75;
+	character1.y = 75;
 	character1.isHoldingBall = false;
 	character1.ballToHold = false;
 	character1.ballToChase = false;
@@ -129,8 +128,8 @@ function resetGame(){
 	character1.states.isShooting = false;
 	character1.states.isDunking = false;
 
-	character2.x =150;
-	character2.y =75;
+	character2.x = 150;
+	character2.y = 75;
 	character2.isHoldingBall = false;
 	character2.ballToHold = false;
 	character2.ballToChase = false;
@@ -141,8 +140,8 @@ function resetGame(){
 	character2.states.isShooting = false;
 	character2.states.isDunking = false;
 
-	ball1.x =700;
-	ball1.y =100;
+	ball1.x = 700;
+	ball1.y = 100;
 	ball1.isHeld = false
 	ball1.isHeldBy = null;
 	ball1.beingShot = false;
@@ -153,8 +152,8 @@ function resetGame(){
 	ball1.goingIn = false;
 	ball1.isShotBy = null;
 
-	ball2.x =500;
-	ball2.y =600;
+	ball2.x = 500;
+	ball2.y = 600;
 	ball2.isHeld = false
 	ball2.isHeldBy = null;
 	ball2.beingShot = false;
