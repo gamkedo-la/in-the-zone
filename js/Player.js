@@ -2,6 +2,8 @@ const PLAYER_MOVE_SPEED = 5.0;
 const PLAYER_MOVE_SPEED_CHANGE = 3.0;
 var currentFrame = 0;
 var distanceToTheClosestBall;
+var zoneCounter= 0;
+var randomNumberOfZones
 //
 
 function playerClass(startingX, startingY, isAI) {
@@ -22,7 +24,7 @@ function playerClass(startingX, startingY, isAI) {
 	//for ai
 	this.ballToChase;
 	this.distanceToClosestZone;
-	this.zoneToGo;
+	this.zonesToGo = [];
 
 	this.score = 0;
 
@@ -101,6 +103,12 @@ function playerClass(startingX, startingY, isAI) {
 		}
 		if (nextY < 0) {
 			nextY = 0;
+		}
+		if (this.ballToHold != null) {
+			if (this.ballToHold.x != this.x) {
+				this.ballToHold = null;
+				this.isHoldingBall = false;
+			}
 		}
 
 		this.previousfacingDirection = this.facingDirection;
@@ -182,46 +190,55 @@ function playerClass(startingX, startingY, isAI) {
 						}
 					}
 				} else { //if ai holds the ball
-          this.distanceToClosestZone = undefined;
-					for (var i = 0; i < arrayOfZones.length; i++) {
-						var a = this.x - arrayOfZones[i].middle[0];
-						var b = this.y - arrayOfZones[i].middle[1];
-						var distance = Math.sqrt(a * a + b * b);
-						if ((this.distanceToClosestZone == undefined || distance < this.distanceToClosestZone) && arrayOfZones[i].isClaimedBy != this) {
-							this.distanceToClosestZone = distance;
-							this.zoneToGo = arrayOfZones[i];
-							//console.log(this.zoneToGo);
+					if (this.zonesToGo.length == 0) {
+						zoneCounter = 0;
+						randomNumberOfZones = Math.floor(Math.random()* 5) + 1;
+						console.log(randomNumberOfZones);
+						for (var i = 0; i < randomNumberOfZones; i++) {
+							var randomSelection = Math.floor(Math.random() * 25) + 1;
+							console.log(randomSelection);
+							console.log(arrayOfZones[randomSelection]);
+							this.zonesToGo.push(arrayOfZones[randomSelection]);
 						}
 					}
-					if (this.currentZone != this.zoneToGo.zoneNumber) {
-						console.log(this.zoneToGo);
+					if (zoneCounter != randomNumberOfZones-1) {
+						console.log(zoneCounter);
+						console.log(this.zonesToGo);
 						console.log(this.currentZone);
-						if (this.x < this.zoneToGo.middle[0]) {
-							nextX += PLAYER_MOVE_SPEED * Math.cos(45);
+						if (nextX != this.x && nextY != this.y) {
+							if (this.x < this.zonesToGo[zoneCounter].middle[0]) {
+								nextX += PLAYER_MOVE_SPEED * Math.cos(45);
+							}
+							if (this.y < this.zonesToGo[zoneCounter].middle[1]) {
+								nextY += PLAYER_MOVE_SPEED * Math.cos(45);
+							}
+							if (this.x > this.zonesToGo[zoneCounter].middle[0]) {
+								nextX -= PLAYER_MOVE_SPEED * Math.cos(45);
+							}
+							if (this.y > this.zonesToGo[zoneCounter].middle[1]) {
+								nextY -= PLAYER_MOVE_SPEED * Math.cos(45);
+							}
 						}
-						if (this.y < this.zoneToGo.middle[1]) {
-							nextY += PLAYER_MOVE_SPEED * Math.cos(45);
-						}
-						if (this.x > this.zoneToGo.middle[0]) {
-							nextX -= PLAYER_MOVE_SPEED * Math.cos(45);
-						}
-						if (this.y > this.zoneToGo.middle[1]) {
-							nextY -= PLAYER_MOVE_SPEED * Math.cos(45);
-						} else {
-							if (this.x < this.zoneToGo.middle[0]) {
+						else {
+							if (this.x < this.zonesToGo[zoneCounter].middle[0]) {
 								nextX += PLAYER_MOVE_SPEED;
 							}
-							if (this.y < this.zoneToGo.middle[1]) {
+							if (this.y < this.zonesToGo[zoneCounter].middle[1]) {
 								nextY += PLAYER_MOVE_SPEED;
 							}
-							if (this.x > this.zoneToGo.middle[0]) {
+							if (this.x > this.zonesToGo[zoneCounter].middle[0]) {
 								nextX -= PLAYER_MOVE_SPEED;
 							}
-							if (this.y > this.zoneToGo.middle[1]) {
+							if (this.y > this.zonesToGo[zoneCounter].middle[1]) {
 								nextY -= PLAYER_MOVE_SPEED;
 							}
 						}
-					} else {
+						if (this.currentZone == this.zonesToGo[zoneCounter].zoneNumber) {
+							zoneCounter++;
+						}
+					}
+					else {
+						this.zonesToGo = [];
 						if (this.currentZone == 4 || this.currentZone == 5 || this.currentZone == 12 || this.currentZone == 13) {
 							this.states.isIdle = false;
 							this.states.isDunking = true;
