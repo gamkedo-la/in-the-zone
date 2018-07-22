@@ -182,11 +182,12 @@ function playerClass(startingX, startingY, isAI) {
 						}
 					}
 				} else { //if ai holds the ball
+          this.distanceToClosestZone = undefined;
 					for (var i = 0; i < arrayOfZones.length; i++) {
 						var a = this.x - arrayOfZones[i].middle[0];
 						var b = this.y - arrayOfZones[i].middle[1];
 						var distance = Math.sqrt(a * a + b * b);
-						if (this.distanceToClosestZone == undefined || distance < this.distanceToClosestZone) {
+						if ((this.distanceToClosestZone == undefined || distance < this.distanceToClosestZone) && arrayOfZones[i].isClaimedBy != this) {
 							this.distanceToClosestZone = distance;
 							this.zoneToGo = arrayOfZones[i];
 							//console.log(this.zoneToGo);

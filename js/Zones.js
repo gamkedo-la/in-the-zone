@@ -10,8 +10,7 @@ function zoneClass(x1,y1, x2,y2, x3,y3, x4,y4, x5,y5, zoneNumber) {
   this.claimStatus = 0;
   this.character1InTheZone = false;
   this.character2InTheZone = false;
-  this.character1Claimed = false;
-  this.character2Claimed = false;
+  this.isClaimedBy;
   this.claimDanger = false;
 
   this.x1 = x1; this.x2 = x2; this.x3 = x3; this.x4 = x4; this.x5 = x5;
@@ -52,19 +51,25 @@ function updateZoneStatus(zoneIndex) {
         //checks zone status and changes to appropriate color
         if (character1.ballToHold != null) {
           if (character1.startedDunking && player1Here) {
+            arrayOfZones[zoneIndex].isClaimedBy = character1;
             arrayOfZones[zoneIndex].claimStatus = 5;
           }
           if (player1Here && character1.ballToHold.goingIn) {
             //console.log(character1.ballToHold.goingIn);
+            arrayOfZones[zoneIndex].isClaimedBy = character1;
             arrayOfZones[zoneIndex].claimStatus = 5;//if player1 is in the zone and the ball goes in, zone is claimed by player1 and colored blue;
             //console.log(arrayOfZones[zoneIndex].claimStatus);
           }
         }
         if (character2.ballToHold != null) {
           if (character2.startedDunking && player2Here) {
+            //console.log("ai dunking");
+            arrayOfZones[zoneIndex].isClaimedBy = character2;
             arrayOfZones[zoneIndex].claimStatus = 4;
           }
           if (player2Here && character2.ballToHold.goingIn) {
+            //console.log("ai shooting");
+            arrayOfZones[zoneIndex].isClaimedBy = character2;
             arrayOfZones[zoneIndex].claimStatus = 4;//if player2 is in the zone ond the ball goes in, zone is claimed by player2 and colored green;
           }
         }
