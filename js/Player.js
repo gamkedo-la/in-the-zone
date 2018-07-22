@@ -131,8 +131,7 @@ function playerClass(startingX, startingY, isAI) {
 						var a = HOOP_X - this.x;
 						var b = HOOP_Y - this.y;
 						this.startingDistanceFromHoop = Math.sqrt(a * a + b * b);
-					}
-					else {
+					} else {
 						// start a regular shot - begin the wind up
 						this.states.isIdle = false;
 						this.states.isShooting = true;
@@ -142,9 +141,8 @@ function playerClass(startingX, startingY, isAI) {
 					}
 					updateZones();
 				}
-			}
-			else {		//AI movement
-				if (!this.isHoldingBall) {//movement towards the ball
+			} else { //AI movement
+				if (!this.isHoldingBall) { //movement towards the ball
 					for (var i = 0; i < ballArray.length; i++) {
 						if (!ballArray[i].beingShot) {
 							var a = ballArray[i].x - this.x;
@@ -169,8 +167,7 @@ function playerClass(startingX, startingY, isAI) {
 						if (this.y > this.ballToChase.y) {
 							nextY -= PLAYER_MOVE_SPEED * Math.cos(45);
 						}
-					}
-					else {
+					} else {
 						if (this.x < this.ballToChase.x) {
 							nextX += PLAYER_MOVE_SPEED;
 						}
@@ -184,8 +181,7 @@ function playerClass(startingX, startingY, isAI) {
 							nextY -= PLAYER_MOVE_SPEED;
 						}
 					}
-				}
-				else {//if ai holds the ball
+				} else { //if ai holds the ball
 					for (var i = 0; i < arrayOfZones.length; i++) {
 						var a = this.x - arrayOfZones[i].middle[0];
 						var b = this.y - arrayOfZones[i].middle[1];
@@ -210,8 +206,7 @@ function playerClass(startingX, startingY, isAI) {
 						}
 						if (this.y > this.zoneToGo.middle[1]) {
 							nextY -= PLAYER_MOVE_SPEED * Math.cos(45);
-						}
-						else {
+						} else {
 							if (this.x < this.zoneToGo.middle[0]) {
 								nextX += PLAYER_MOVE_SPEED;
 							}
@@ -225,8 +220,7 @@ function playerClass(startingX, startingY, isAI) {
 								nextY -= PLAYER_MOVE_SPEED;
 							}
 						}
-					}
-					else {
+					} else {
 						if (this.currentZone == 4 || this.currentZone == 5 || this.currentZone == 12 || this.currentZone == 13) {
 							this.states.isIdle = false;
 							this.states.isDunking = true;
@@ -234,8 +228,7 @@ function playerClass(startingX, startingY, isAI) {
 							var a = HOOP_X - this.x;
 							var b = HOOP_Y - this.y;
 							this.startingDistanceFromHoop = Math.sqrt(a * a + b * b);
-						}
-						else {
+						} else {
 							this.states.isIdle = false;
 							this.states.isShooting = true;
 							this.shootingStartingX = this.x;
@@ -282,8 +275,7 @@ function playerClass(startingX, startingY, isAI) {
 					if (this.shootingTime > 15) {
 						this.tickCount = 25;
 					}
-				}
-				else {
+				} else {
 					if (this.tickCount == 0) {
 						this.states.isShooting = false;
 						this.states.isIdle = true;
@@ -299,7 +291,7 @@ function playerClass(startingX, startingY, isAI) {
 						var b = HOOP_Y - this.y;
 						this.ballToHold.startingDistanceFromHoop = Math.sqrt(a * a + b * b);
 						var random = Math.floor(Math.random() * 10) + 1;
-						if (this.shootingTime >= 14 && this.shootingTime <= 15) {//if player menages to hits the green area. His shot will go in
+						if (this.shootingTime >= 14 && this.shootingTime <= 15) { //if player menages to hits the green area. His shot will go in
 							twoPointsFX(this.ballToHold.x, this.ballToHold.y);
 							this.tickCount = 35;
 							this.ballToHold.goingIn = true;
@@ -309,11 +301,10 @@ function playerClass(startingX, startingY, isAI) {
 							this.ballToHold.ballPower = -16;
 							console.log("perfect");
 							updateZones();
-						}
-						else if (this.shootingTime < 14) {//player did not press enough
+						} else if (this.shootingTime < 14) { //player did not press enough
 							// console.log(this.shootingTime);
 							// console.log(random);
-							this.tickCount = 35;//increasing the tickCount to be end of the animation.
+							this.tickCount = 35; //increasing the tickCount to be end of the animation.
 							if (this.shootingTime >= 10) {
 								if (random + 9 <= this.shootingTime) {
 									this.ballToHold.goingIn = true;
@@ -321,15 +312,13 @@ function playerClass(startingX, startingY, isAI) {
 									this.ballToHold.ballPower = -16;
 									console.log("short,yellow and lucky");
 									updateZones();
-								}
-								else {
+								} else {
 									this.ballToHold.goingIn = false;
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
 									this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
 									console.log("yellow and unlucky");
 								}
-							}
-							else {
+							} else {
 								this.ballToHold.goingIn = false;
 								var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
 								this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
@@ -337,8 +326,7 @@ function playerClass(startingX, startingY, isAI) {
 							}
 
 
-						}
-						else if (this.shootingTime > 15) {
+						} else if (this.shootingTime > 15) {
 							// console.log(this.shootingTime);
 							// console.log(random);
 							if (this.shootingTime <= 19) {
@@ -348,15 +336,13 @@ function playerClass(startingX, startingY, isAI) {
 									this.ballToHold.ballPower = -16;
 									console.log("long,yellow and lucky");
 									updateZones();
-								}
-								else {
+								} else {
 									this.ballToHold.goingIn = false;
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
 									this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
 									console.log("yellow and unlucky");
 								}
-							}
-							else {
+							} else {
 								this.ballToHold.goingIn = false;
 								var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
 								this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
@@ -375,13 +361,11 @@ function playerClass(startingX, startingY, isAI) {
 
 				chargingUpThrowBallFX(this.x, this.y);
 
-			}
-			else {
+			} else {
 				var randomShootingTime = Math.floor(Math.random() * 10) + 11;
 				if (this.ballToHold != null && this.shootingTime < randomShootingTime) {
 					this.shootingTime++;
-				}
-				else {
+				} else {
 					if (this.tickCount == 0) {
 						this.states.isShooting = false;
 						this.states.isIdle = true;
@@ -398,7 +382,7 @@ function playerClass(startingX, startingY, isAI) {
 						var b = HOOP_Y - this.y;
 						this.ballToHold.startingDistanceFromHoop = Math.sqrt(a * a + b * b);
 						var random = Math.floor(Math.random() * 10) + 1;
-						if (this.shootingTime >= 14 && this.shootingTime <= 15) {//if player menages to hits the green area. His shot will go in
+						if (this.shootingTime >= 14 && this.shootingTime <= 15) { //if player menages to hits the green area. His shot will go in
 							twoPointsFX(this.ballToHold.x, this.ballToHold.y);
 							this.tickCount = 35;
 							this.ballToHold.goingIn = true;
@@ -408,11 +392,10 @@ function playerClass(startingX, startingY, isAI) {
 							this.ballToHold.ballPower = -16;
 							console.log("perfect");
 							updateZones();
-						}
-						else if (this.shootingTime < 14) {//player did not press enough
+						} else if (this.shootingTime < 14) { //player did not press enough
 							// console.log(this.shootingTime);
 							// console.log(random);
-							this.tickCount = 35;//increasing the tickCount to be end of the animation.
+							this.tickCount = 35; //increasing the tickCount to be end of the animation.
 							if (this.shootingTime >= 10) {
 								if (random + 9 <= this.shootingTime) {
 									this.ballToHold.goingIn = true;
@@ -420,15 +403,13 @@ function playerClass(startingX, startingY, isAI) {
 									this.ballToHold.ballPower = -16;
 									console.log("short,yellow and lucky");
 									updateZones();
-								}
-								else {
+								} else {
 									this.ballToHold.goingIn = false;
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
 									this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
 									console.log("yellow and unlucky");
 								}
-							}
-							else {
+							} else {
 								this.ballToHold.goingIn = false;
 								var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
 								this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
@@ -436,8 +417,7 @@ function playerClass(startingX, startingY, isAI) {
 							}
 
 
-						}
-						else if (this.shootingTime > 15) {
+						} else if (this.shootingTime > 15) {
 							// console.log(this.shootingTime);
 							// console.log(random);
 							if (this.shootingTime <= 19) {
@@ -447,15 +427,13 @@ function playerClass(startingX, startingY, isAI) {
 									this.ballToHold.ballPower = -16;
 									console.log("long,yellow and lucky");
 									updateZones();
-								}
-								else {
+								} else {
 									this.ballToHold.goingIn = false;
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
 									this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
 									console.log("yellow and unlucky");
 								}
-							}
-							else {
+							} else {
 								this.ballToHold.goingIn = false;
 								var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
 								this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
@@ -557,7 +535,9 @@ function playerClass(startingX, startingY, isAI) {
 		//     break;
 		// }
 		if (this.states.isShooting) {
-			this.incrementTick();
+			if (mainStates.isPaused === false) {
+				this.incrementTick();
+			}
 			this.walkSprite.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.x, this.y, this.ang);
 		}
 		if (this.states.isIdle) {
