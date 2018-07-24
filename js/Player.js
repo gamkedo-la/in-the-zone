@@ -3,7 +3,8 @@ const PLAYER_MOVE_SPEED_CHANGE = 3.0;
 var currentFrame = 0;
 var distanceToTheClosestBall;
 var zoneCounter= 0;
-var randomNumberOfZones
+var randomNumberOfZones;
+var zonesWithPriority = [];
 
 function playerClass(startingX, startingY, isAI) {
 	this.x = startingX;
@@ -150,6 +151,7 @@ function playerClass(startingX, startingY, isAI) {
 				}
 			} else { //AI movement
 				if (!this.isHoldingBall) { //movement towards the ball
+					zonesWithPriority = [];//cleaning up the variable. When player holds the ball with variable gets sets to some value but it should be resetted when player does not hold the ball anymore.
 					for (var i = 0; i < ballArray.length; i++) {
 						if (!ballArray[i].beingShot) {
 							var a = ballArray[i].x - this.x;
@@ -199,36 +201,58 @@ function playerClass(startingX, startingY, isAI) {
 							console.log(arrayOfZones[randomSelection]);
 							this.zonesToGo.push(arrayOfZones[randomSelection]);
 						}
+						for (var i = 0; i < arrayOfZones.length; i++) {
+							if (arrayOfZones[i].isClaimedBy != this && arrayOfZones[i].isClaimedBy != null) {
+								console.log(arrayOfZones[i].zoneNumber);
+								zonesWithPriority.push(arrayOfZones[i]);// zones that other player holds.
+							}
+						}
+						if (zonesWithPriority.length != 0) {
+							console.log(zonesWithPriority);
+							console.log("hi");
+							randomNumberOfZones++;
+							var finalZoneToGo;
+							var distanceBetweenFinalAndLastZone;// the distance between the random selected zone and the zone with priority(the zone to go)
+							for (var i = 0; i < zonesWithPriority.length; i++) {
+								var a = this.zonesToGo[this.zonesToGo.length -1].middle[0] - zonesWithPriority[i].middle[0];
+								var b = this.zonesToGo[this.zonesToGo.length -1].middle[1] - zonesWithPriority[i].middle[1];
+								var distance = Math.sqrt(a*a + b*b);
+								if (distanceBetweenFinalAndLastZone == null || distance < distanceBetweenFinalAndLastZone) {
+									finalZoneToGo = zonesWithPriority[i];
+								}
+							}
+							this.zonesToGo.push(finalZoneToGo);
+						}
 					}
-					if (zoneCounter != randomNumberOfZones-1) {
-						console.log(zoneCounter);
+					if (zoneCounter != this.zonesToGo.length) {
 						console.log(this.zonesToGo);
-						console.log(this.currentZone);
+						//console.log(this.zonesToGo);
+						//console.log(this.currentZone);
 						if (nextX != this.x && nextY != this.y) {
-							if (this.x < this.zonesToGo[zoneCounter].middle[0] + 5) {
+							if (this.x < this.zonesToGo[zoneCounter].middle[0] + 3) {
 								nextX += PLAYER_MOVE_SPEED * Math.cos(45);
 							}
-							if (this.y < this.zonesToGo[zoneCounter].middle[1 + 5]) {
+							if (this.y < this.zonesToGo[zoneCounter].middle[1 + 3]) {
 								nextY += PLAYER_MOVE_SPEED * Math.cos(45);
 							}
-							if (this.x > this.zonesToGo[zoneCounter].middle[0] -5) {
+							if (this.x > this.zonesToGo[zoneCounter].middle[0] -3) {
 								nextX -= PLAYER_MOVE_SPEED * Math.cos(45);
 							}
-							if (this.y > this.zonesToGo[zoneCounter].middle[1] -5) {
+							if (this.y > this.zonesToGo[zoneCounter].middle[1] -3) {
 								nextY -= PLAYER_MOVE_SPEED * Math.cos(45);
 							}
 						}
 						else {
-							if (this.x < this.zonesToGo[zoneCounter].middle[0] +5) {
+							if (this.x < this.zonesToGo[zoneCounter].middle[0] +3) {
 								nextX += PLAYER_MOVE_SPEED;
 							}
-							if (this.y < this.zonesToGo[zoneCounter].middle[1] +5) {
+							if (this.y < this.zonesToGo[zoneCounter].middle[1] +3) {
 								nextY += PLAYER_MOVE_SPEED;
 							}
-							if (this.x > this.zonesToGo[zoneCounter].middle[0] -5) {
+							if (this.x > this.zonesToGo[zoneCounter].middle[0] -3) {
 								nextX -= PLAYER_MOVE_SPEED;
 							}
-							if (this.y > this.zonesToGo[zoneCounter].middle[1] -5) {
+							if (this.y > this.zonesToGo[zoneCounter].middle[1] -3) {
 								nextY -= PLAYER_MOVE_SPEED;
 							}
 						}
