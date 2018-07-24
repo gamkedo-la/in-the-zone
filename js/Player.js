@@ -194,11 +194,11 @@ function playerClass(startingX, startingY, isAI) {
 					if (this.zonesToGo.length == 0) {
 						zoneCounter = 0;
 						randomNumberOfZones = Math.floor(Math.random()* 5) + 1;
-						console.log(randomNumberOfZones);
+						//console.log(randomNumberOfZones);
 						for (var i = 0; i < randomNumberOfZones; i++) {
 							var randomSelection = Math.floor(Math.random() * 25) + 1;
-							console.log(randomSelection);
-							console.log(arrayOfZones[randomSelection]);
+							//console.log(randomSelection);
+							//console.log(arrayOfZones[randomSelection]);
 							this.zonesToGo.push(arrayOfZones[randomSelection]);
 						}
 						for (var i = 0; i < arrayOfZones.length; i++) {
@@ -208,8 +208,8 @@ function playerClass(startingX, startingY, isAI) {
 							}
 						}
 						if (zonesWithPriority.length != 0) {
-							console.log(zonesWithPriority);
-							console.log("hi");
+							//console.log(zonesWithPriority);
+							//console.log("hi");
 							randomNumberOfZones++;
 							var finalZoneToGo;
 							var distanceBetweenFinalAndLastZone;// the distance between the random selected zone and the zone with priority(the zone to go)
@@ -225,7 +225,7 @@ function playerClass(startingX, startingY, isAI) {
 						}
 					}
 					if (zoneCounter != this.zonesToGo.length) {
-						console.log(this.zonesToGo);
+						//console.log(this.zonesToGo);
 						//console.log(this.zonesToGo);
 						//console.log(this.currentZone);
 						if (nextX != this.x && nextY != this.y) {
