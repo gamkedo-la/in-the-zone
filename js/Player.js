@@ -162,29 +162,29 @@ function playerClass(startingX, startingY, isAI) {
 						}
 					}
 					if (nextX != this.x && nextY != this.y) {
-						if (this.x < this.ballToChase.x) {
+						if (this.x < this.ballToChase.x +5) {
 							nextX += PLAYER_MOVE_SPEED * Math.cos(45);
 						}
-						if (this.y < this.ballToChase.y) {
+						if (this.y < this.ballToChase.y +5) {
 							nextY += PLAYER_MOVE_SPEED * Math.cos(45);
 						}
-						if (this.x > this.ballToChase.x) {
+						if (this.x > this.ballToChase.x -5) {
 							nextX -= PLAYER_MOVE_SPEED * Math.cos(45);
 						}
-						if (this.y > this.ballToChase.y) {
+						if (this.y > this.ballToChase.y -5) {
 							nextY -= PLAYER_MOVE_SPEED * Math.cos(45);
 						}
 					} else {
-						if (this.x < this.ballToChase.x) {
+						if (this.x < this.ballToChase.x +5) {
 							nextX += PLAYER_MOVE_SPEED;
 						}
-						if (this.y < this.ballToChase.y) {
+						if (this.y < this.ballToChase.y +5) {
 							nextY += PLAYER_MOVE_SPEED;
 						}
-						if (this.x > this.ballToChase.x) {
+						if (this.x > this.ballToChase.x -5) {
 							nextX -= PLAYER_MOVE_SPEED;
 						}
-						if (this.y > this.ballToChase.y) {
+						if (this.y > this.ballToChase.y -5) {
 							nextY -= PLAYER_MOVE_SPEED;
 						}
 					}
@@ -205,30 +205,30 @@ function playerClass(startingX, startingY, isAI) {
 						console.log(this.zonesToGo);
 						console.log(this.currentZone);
 						if (nextX != this.x && nextY != this.y) {
-							if (this.x < this.zonesToGo[zoneCounter].middle[0]) {
+							if (this.x < this.zonesToGo[zoneCounter].middle[0] + 5) {
 								nextX += PLAYER_MOVE_SPEED * Math.cos(45);
 							}
-							if (this.y < this.zonesToGo[zoneCounter].middle[1]) {
+							if (this.y < this.zonesToGo[zoneCounter].middle[1 + 5]) {
 								nextY += PLAYER_MOVE_SPEED * Math.cos(45);
 							}
-							if (this.x > this.zonesToGo[zoneCounter].middle[0]) {
+							if (this.x > this.zonesToGo[zoneCounter].middle[0] -5) {
 								nextX -= PLAYER_MOVE_SPEED * Math.cos(45);
 							}
-							if (this.y > this.zonesToGo[zoneCounter].middle[1]) {
+							if (this.y > this.zonesToGo[zoneCounter].middle[1] -5) {
 								nextY -= PLAYER_MOVE_SPEED * Math.cos(45);
 							}
 						}
 						else {
-							if (this.x < this.zonesToGo[zoneCounter].middle[0]) {
+							if (this.x < this.zonesToGo[zoneCounter].middle[0] +5) {
 								nextX += PLAYER_MOVE_SPEED;
 							}
-							if (this.y < this.zonesToGo[zoneCounter].middle[1]) {
+							if (this.y < this.zonesToGo[zoneCounter].middle[1] +5) {
 								nextY += PLAYER_MOVE_SPEED;
 							}
-							if (this.x > this.zonesToGo[zoneCounter].middle[0]) {
+							if (this.x > this.zonesToGo[zoneCounter].middle[0] -5) {
 								nextX -= PLAYER_MOVE_SPEED;
 							}
-							if (this.y > this.zonesToGo[zoneCounter].middle[1]) {
+							if (this.y > this.zonesToGo[zoneCounter].middle[1] -5) {
 								nextY -= PLAYER_MOVE_SPEED;
 							}
 						}
