@@ -4,7 +4,6 @@ var currentFrame = 0;
 var distanceToTheClosestBall;
 var zoneCounter= 0;
 var randomNumberOfZones
-//
 
 function playerClass(startingX, startingY, isAI) {
 	this.x = startingX;
@@ -284,6 +283,15 @@ function playerClass(startingX, startingY, isAI) {
 		}
 
 		if (this.states.isShooting) {
+			if (this.currentZone == 1 || this.currentZone == 9 || this.currentZone == 17 ||
+				this.currentZone == 24 || this.currentZone == 25 || this.currentZone == 26 ||
+				this.currentZone == 23 || this.currentZone == 16 || this.currentZone == 8) {
+				var random = Math.floor(Math.random() *6) + 3;
+			}
+			else {
+				var random = Math.floor(Math.random() * 10) +1;
+			}
+
 			if (!this.isAI) {
 				if (this.keyHeld_Shoot && this.ballToHold != null) {
 					this.shootingTime++;
@@ -308,7 +316,6 @@ function playerClass(startingX, startingY, isAI) {
 						var a = HOOP_X - this.x;
 						var b = HOOP_Y - this.y;
 						this.ballToHold.startingDistanceFromHoop = Math.sqrt(a * a + b * b);
-						var random = Math.floor(Math.random() * 10) + 1;
 						if (this.shootingTime >= 14 && this.shootingTime <= 15) { //if player menages to hits the green area. His shot will go in
 							twoPointsFX(this.ballToHold.x, this.ballToHold.y);
 							this.tickCount = 35;
@@ -399,7 +406,6 @@ function playerClass(startingX, startingY, isAI) {
 						var a = HOOP_X - this.x;
 						var b = HOOP_Y - this.y;
 						this.ballToHold.startingDistanceFromHoop = Math.sqrt(a * a + b * b);
-						var random = Math.floor(Math.random() * 10) + 1;
 						if (this.shootingTime >= 14 && this.shootingTime <= 15) { //if player menages to hits the green area. His shot will go in
 							twoPointsFX(this.ballToHold.x, this.ballToHold.y);
 							this.tickCount = 35;
