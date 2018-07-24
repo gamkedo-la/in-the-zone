@@ -153,7 +153,7 @@ function playerClass(startingX, startingY, isAI) {
 				if (!this.isHoldingBall) { //movement towards the ball
 					zonesWithPriority = [];//cleaning up the variable. When player holds the ball with variable gets sets to some value but it should be resetted when player does not hold the ball anymore.
 					for (var i = 0; i < ballArray.length; i++) {
-						if (!ballArray[i].beingShot) {
+						if (!ballArray[i].beingShot && !ballArray[i].isHeld) {
 							var a = ballArray[i].x - this.x;
 							var b = ballArray[i].y - this.y;
 							var distance = Math.sqrt(a * a + b * b);
@@ -284,7 +284,7 @@ function playerClass(startingX, startingY, isAI) {
 			for (var i = 0; i < ballArray.length; i++) {
 				if (ballArray[i].x - this.x < 30 && this.x - ballArray[i].x < 30 &&
 					ballArray[i].y - this.y < 30 && this.y - ballArray[i].y < 30 &&
-					ballArray[i].height < 10 && !ballArray[i].beingShot && !this.isHoldingBall) {
+					ballArray[i].height < 10 && !ballArray[i].beingShot && !this.isHoldingBall && !ballArray[i].isHeld) {
 
 					this.isHoldingBall = true;
 					ballArray[i].isHeld = true;
