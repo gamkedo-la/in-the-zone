@@ -34,7 +34,7 @@ function bounceFX(x, y) {
         texture: dustParticle,
         useTexture: true
     };
-    var fx = new ParticleEmitter(x + 32, y + 32, BOUNCE_FX);
+    var fx = new ParticleEmitter(x + 16, y + 16, BOUNCE_FX);
 }
 
 function twoPointsFX(x, y) {
@@ -64,7 +64,7 @@ function twoPointsFX(x, y) {
         xVar: 0,
         yVar: 0
     };
-    var fx = new ParticleEmitter(x + 32, y + 32, BOOM_FX);
+    var fx = new ParticleEmitter(x + 16, y + 16, BOOM_FX);
 }
 
 function reboundFX(x, y) {
