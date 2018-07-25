@@ -156,12 +156,14 @@ function ballClass(startingX, startingY) {
 
 function drawBalls(ballArray) {
   for (var i = 0; i < ballArray.length; i++) {
-    if (!ballArray[i].isHeld) {
-      ballArray[i].draw();
-    }
-    else {
-      //ballArray[i].drawShadow();
-    }
+
+    // always gets drawn, even if held (but may be underneath the player sprite)
+    // this is so the trail effect etc gets constant updates
+
+    //if (!ballArray[i].isHeld) {
+    ballArray[i].draw();
+    //}
+
   }
 }
 

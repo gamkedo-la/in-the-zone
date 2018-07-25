@@ -69,10 +69,10 @@ function drawAll() {
 	if (mainStates.inGame) {
 		drawWorld();
 		ParticleRenderer.renderAll(canvasContext); // particle FX
-		character1.draw();
-		character2.draw();
 		drawBallShadows(ballArray);
 		drawBalls(ballArray);
+		character1.draw();
+		character2.draw();
 	}
 	if (mainStates.gameOver) {
 		drawGameOver();
