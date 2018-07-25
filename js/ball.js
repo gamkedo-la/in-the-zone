@@ -55,6 +55,8 @@ function ballClass(startingX, startingY) {
   this.isShotBy;// which player shot the ball
   this.gotShotFrom;// zone
 
+  this.trail = new BallTrail(ballTrailImage);
+
   ballArray.push(this);
 
   this.move = function () {
@@ -142,8 +144,10 @@ function ballClass(startingX, startingY) {
   }
 
   this.draw = function () {
+    if (this.trail) this.trail.draw(this.x, this.z);
     colorCircle(this.x, this.z, 6, "yellow");
   }
+
   this.drawShadow = function () {
     colorCircle(this.x, this.y, 6, "black");
   }

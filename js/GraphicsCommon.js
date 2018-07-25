@@ -43,26 +43,26 @@ function drawBitmapWithRotation(useBitmap, atX, atY, withAng) {
 	canvasContext.restore();
 
 }
-function SpriteSheetClass(sheetIn, widthIn, heightIn){
-  var sheet = sheetIn;
-  var width = widthIn;
-  var height = heightIn;
+function SpriteSheetClass(sheetIn, widthIn, heightIn) {
+	var sheet = sheetIn;
+	var width = widthIn;
+	var height = heightIn;
 
-  this.draw = function(col, row, atX, atY, ang) {
-    canvasContext.save();
-    canvasContext.translate(atX, atY);
-    canvasContext.rotate(ang);
-    canvasContext.drawImage(sheet,
-                            col * width,//x coordinate to where you start clipping
-														row * height,//y coordinate to where you start clipping
-                            width,//width of the clipped image
-														height,// height of the clipped image
-                            -width/2,//x coordinate where to place image on canvas
-														-height/2,//y coordinate where to place image on canvas
-                            width,//width of the image to use
-														height);//height of the image to use
-    canvasContext.restore();
-  }
+	this.draw = function (col, row, atX, atY, ang) {
+		canvasContext.save();
+		canvasContext.translate(atX, atY);
+		canvasContext.rotate(ang);
+		canvasContext.drawImage(sheet,
+			col * width,//x coordinate to where you start clipping
+			row * height,//y coordinate to where you start clipping
+			width,//width of the clipped image
+			height,// height of the clipped image
+			-width / 2,//x coordinate where to place image on canvas
+			-height / 2,//y coordinate where to place image on canvas
+			width,//width of the image to use
+			height);//height of the image to use
+		canvasContext.restore();
+	}
 }
 
 // Accepted formats for fillColorAlpha: standard named color string (alpha = 1) or [r,g,b,a]
@@ -80,4 +80,26 @@ function colorCircleAlpha(centerX, centerY, radius, fillColorAlpha) {
 	canvasContext.arc(centerX, centerY, radius, 0, Math.PI * 2, true); //Début, fin, horaire ou anti horaire
 	canvasContext.fill();
 
+}
+
+// rotates and stretches a bitmap to go from point A to point B, used by Woosh Lines FX
+function drawBitmapLine(useBitmap, startX, startY, endX, endY) {
+	var lineLength = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
+	var lineAngle = Math.atan2(endY - startY, endX - startX);
+	// edge case: avoid floating point imprecision flickering of angle on small values
+	if (lineLength < 1) {
+		// we COULD just not render, but this leaves gaps in the effect
+		// if we are drawing multiple lines close together
+		// return; 
+		lineAngle = 0;
+		lineLength = 1;
+	}
+	canvasContext.save();
+	canvasContext.translate(startX, startY);
+	canvasContext.rotate(lineAngle);
+	canvasContext.translate(0, - useBitmap.height / 2);
+	canvasContext.drawImage(useBitmap,
+		0, 0, useBitmap.width, useBitmap.height, // src 
+		0, 0, lineLength, useBitmap.height);     // dest
+	canvasContext.restore();
 }
