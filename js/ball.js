@@ -145,7 +145,8 @@ function ballClass(startingX, startingY) {
 
   this.draw = function () {
     if (this.trail) this.trail.draw(this.x, this.z);
-    colorCircle(this.x, this.z, 6, "yellow");
+    //colorCircle(this.x, this.z, 6, "yellow");
+    drawBitmapCenteredWithRotation(ballImage, this.x, this.z, 0);
   }
 
   this.drawShadow = function () {

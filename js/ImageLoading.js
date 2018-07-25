@@ -21,6 +21,7 @@ var number8 = document.createElement("img");
 var number9 = document.createElement("img");
 
 var ballTrailImage = document.createElement("img");
+var ballImage = document.createElement("img");
 
 
 var worldPics = [];
@@ -72,6 +73,7 @@ function loadImages() {
 		{ varName: fireParticle, theFile: "fireParticle.png" },
 		{ varName: smokeParticle, theFile: "smokeParticle.png" },
 		{ varName: ballTrailImage, theFile: "ballTrail.png" },
+		{ varName: ballImage, theFile: "ball.png" },
 
 	];
 
