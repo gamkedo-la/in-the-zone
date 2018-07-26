@@ -411,7 +411,13 @@ function playerClass(startingX, startingY, isAI) {
 				chargingUpThrowBallFX(this.x, this.y);
 
 			} else {
-				var randomShootingTime = Math.floor(Math.random() * 10) + 11;
+				if (this.score > character2.score || this.score > character1.score) {
+					var randomShootingTime = Math.floor(Math.random() * 15) + 14;
+					console.log("hello world");
+				}
+				else {
+					var randomShootingTime = Math.floor(Math.random() * 10) + 11;
+				}
 				if (this.ballToHold != null && this.shootingTime < randomShootingTime) {
 					this.shootingTime++;
 				} else {
