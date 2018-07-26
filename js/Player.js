@@ -136,6 +136,7 @@ function playerClass(startingX, startingY, isAI) {
 						this.states.isIdle = false;
 						this.states.isDunking = true;
 						this.startedDunking = true;
+						this.ballToHold.beingDunked = true;
 						var a = HOOP_X - this.x;
 						var b = HOOP_Y - this.y;
 						this.startingDistanceFromHoop = Math.sqrt(a * a + b * b);
@@ -528,6 +529,7 @@ function playerClass(startingX, startingY, isAI) {
 				this.jumpingHeight < HOOP_H + 30 && this.jumpingHeight > HOOP_H - 30) {
 				console.log(this.ballToHold.jumpingHeight);
 				this.jumpingHeight = 0;
+				this.ballToHold.beingDunked = false;
 				this.ballToHold.jumpingHeight = HOOP_H;
 				this.ballToHold.shootingX = 0;
 				this.ballToHold.shootingY = 0;

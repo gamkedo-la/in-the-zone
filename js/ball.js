@@ -45,6 +45,7 @@ function ballClass(startingX, startingY) {
   this.y = startingY;
   this.isHeld = false;
   this.isHeldBy;
+  this.beingDunked;
   this.beingShot = false;
   this.shootingX = 0;
   this.shootingY = 0;
@@ -68,11 +69,16 @@ function ballClass(startingX, startingY) {
     this.x += this.shootingX;
     this.y += this.shootingY;
     this.z = this.y - this.height;
-    if (this.isHeld) {
+    if (this.isHeld && !this.beingDunked) {
       this.x = this.isHeldBy.x;
       this.y = this.isHeldBy.y;
       this.z = this.y;
       this.ballPower = 0;
+    }
+    if (this.beingDunked) {
+      this.x = this.isHeldBy.x;
+      this.y = this.isHeldBy.y;
+      this.z = this.isHeldBy.z;
     }
     if (this.height < 0) {
       //console.log(this.ballPower);
@@ -171,9 +177,6 @@ function drawBallShadows(ballArray) {
   for (var i = 0; i < ballArray.length; i++) {
     if (!ballArray[i].isHeld) {
       ballArray[i].drawShadow();
-    }
-    else {
-      //ballArray[i].drawShadow();
     }
   }
 }
