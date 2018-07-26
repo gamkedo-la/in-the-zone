@@ -20,16 +20,22 @@ function playerClass(startingX, startingY, isAI) {
 	this.ballToHold;
 	this.inShootingMotion = false;
 	this.shootingTime = 0;
+	this.distanceFromHoop;
 
 	//for ai
 	this.ballToChase;
 	this.distanceToClosestZone;
 	this.zonesToGo = [];
+	this.randomShootingTime;
 
 	this.score = 0;
 
 	this.shootingStartingX;
 	this.shootingStartingY;
+	this.shootingRandom;
+	this.shootingDifficulty = 0;// 0: easiest, 3: hardest
+	this.longPressedShotGoingInLimit = 19;
+	this.shortPressedShotGoingInLimit = 10;
 
 	this.currentZone;
 	this.jumpingHeight = 0;
@@ -84,9 +90,11 @@ function playerClass(startingX, startingY, isAI) {
 
 
 	this.move = function () {
+		this.distanceFromHoop = Math.sqrt((HOOP_X - this.x) * (HOOP_X - this.x) + (HOOP_Y - this.y) * (HOOP_Y - this.y))
 		//console.log(this.keyHeld_East);
 		// console.log(this.ballToHold);
 		//console.log(this.currentZone);
+		//console.log(this.shootingDifficulty);
 		var nextX = this.x;
 		var nextY = this.y;
 		// currentFrame++;
@@ -114,6 +122,44 @@ function playerClass(startingX, startingY, isAI) {
 		this.previousfacingDirection = this.facingDirection;
 
 		if (this.states.isIdle) {
+			if (this.ballToHold == null && gameMode.oneOnOne) {//defending. Being close to the other player makes his shots harder
+				if (this.distanceFromHoop < character1.distanceFromHoop || this.distanceFromHoop < character2.distanceFromHoop) {
+					if (this.distanceFromHoop < character1.distanceFromHoop) {
+						var distanceFromEachOther = Math.sqrt((character1.x - this.x) * (character1.x - this.x) + (character1.y - this.y) * (character1.y - this.y));
+						if (distanceFromEachOther < 50) {
+							character1.shootingDifficulty = 3;
+						}
+						else if (distanceFromEachOther < 100) {
+							character1.shootingDifficulty = 2;
+						}
+						else if (distanceFromEachOther < 150) {
+							character1.shootingDifficulty = 1;
+						}
+						else {
+							character1.shootingDifficulty = 0;
+						}
+					}
+					else if (this.distanceFromHoop < character2.distanceFromHoop) {
+						var distanceFromEachOther = Math.sqrt((character2.x - this.x) * (character2.x - this.x) + (character2.y - this.y) * (character2.y - this.y));
+						if (distanceFromEachOther < 50) {
+							character2.shootingDifficulty = 3;
+						}
+						else if (distanceFromEachOther < 100) {
+							character2.shootingDifficulty = 2;
+						}
+						else if (distanceFromEachOther < 150){
+							character2.shootingDifficulty = 1;
+						}
+						else {
+							character2.shootingDifficulty = 0;
+						}
+					}
+				}
+				else {
+					this.shootingDifficulty = 0;
+				}
+			}
+
 			if (!this.isAI) {
 				if (this.keyHeld_North) {
 					nextY -= PLAYER_MOVE_SPEED;
@@ -142,6 +188,25 @@ function playerClass(startingX, startingY, isAI) {
 						this.startingDistanceFromHoop = Math.sqrt(a * a + b * b);
 					} else {
 						// start a regular shot - begin the wind up
+						switch (this.shootingDifficulty) {
+							case 0:
+								this.longPressedShotGoingInLimit = 19;
+								this.shortPressedShotGoingInLimit = 10;
+								break;
+							case 1:
+								this.longPressedShotGoingInLimit = 18;
+								this.shortPressedShotGoingInLimit = 11;
+								break;
+							case 2:
+								this.longPressedShotGoingInLimit = 17;
+								this.shortPressedShotGoingInLimit = 12;
+								break;
+							case 3:
+								this.longPressedShotGoingInLimit = 16;
+								this.shortPressedShotGoingInLimit = 13;
+								break;
+							default:
+						}
 						this.states.isIdle = false;
 						this.states.isShooting = true;
 						this.shootingStartingX = this.x;
@@ -150,7 +215,8 @@ function playerClass(startingX, startingY, isAI) {
 					}
 					updateZones();
 				}
-			} else { //AI movement
+			}
+			else { //AI movement
 				if (!this.isHoldingBall) { //movement towards the ball
 					zonesWithPriority = [];//cleaning up the variable. When player holds the ball with variable gets sets to some value but it should be resetted when player does not hold the ball anymore.
 					for (var i = 0; i < ballArray.length; i++) {
@@ -271,6 +337,25 @@ function playerClass(startingX, startingY, isAI) {
 							var b = HOOP_Y - this.y;
 							this.startingDistanceFromHoop = Math.sqrt(a * a + b * b);
 						} else {
+							switch (this.shootingDifficulty) {
+								case 0:
+									this.longPressedShotGoingInLimit = 19;
+									this.shortPressedShotGoingInLimit = 10;
+									break;
+								case 1:
+									this.longPressedShotGoingInLimit = 18;
+									this.shortPressedShotGoingInLimit = 11;
+									break;
+								case 2:
+									this.longPressedShotGoingInLimit = 17;
+									this.shortPressedShotGoingInLimit = 12;
+									break;
+								case 3:
+									this.longPressedShotGoingInLimit = 16;
+									this.shortPressedShotGoingInLimit = 13;
+									break;
+								default:
+							}
 							this.states.isIdle = false;
 							this.states.isShooting = true;
 							this.shootingStartingX = this.x;
@@ -355,8 +440,8 @@ function playerClass(startingX, startingY, isAI) {
 							// console.log(this.shootingTime);
 							// console.log(random);
 							this.tickCount = 35; //increasing the tickCount to be end of the animation.
-							if (this.shootingTime >= 10) {
-								if (random + 9 <= this.shootingTime) {
+							if (this.shootingTime >= this.shortPressedShotGoingInLimit) {
+								if (this.shootingDifficulty + 9 <= this.shootingTime) {
 									this.ballToHold.goingIn = true;
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
 									this.ballToHold.ballPower = -16.5;
@@ -379,8 +464,8 @@ function playerClass(startingX, startingY, isAI) {
 						} else if (this.shootingTime > 15) {
 							// console.log(this.shootingTime);
 							// console.log(random);
-							if (this.shootingTime <= 19) {
-								if (this.shootingTime <= random + 9) {
+							if (this.shootingTime <= this.longPressedShotGoingInLimit) {
+								if (this.shootingTime <= this.shootingDifficulty + 9) {
 									this.ballToHold.goingIn = true;
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
 									this.ballToHold.ballPower = -16.5;
@@ -413,13 +498,13 @@ function playerClass(startingX, startingY, isAI) {
 
 			} else {
 				if (this.score > character2.score || this.score > character1.score) {
-					var randomShootingTime = Math.floor(Math.random() * 15) + 14;
-					console.log("hello world");
+					this.randomShootingTime = Math.floor(Math.random() * 15) + 14;
+					//console.log("hello world");
 				}
 				else {
-					var randomShootingTime = Math.floor(Math.random() * 10) + 11;
+					this.randomShootingTime = Math.floor(Math.random() * 10) + 11;
 				}
-				if (this.ballToHold != null && this.shootingTime < randomShootingTime) {
+				if (this.ballToHold != null && this.shootingTime < this.randomShootingTime) {
 					this.shootingTime++;
 				} else {
 					if (this.tickCount == 0) {
@@ -604,7 +689,7 @@ function playerClass(startingX, startingY, isAI) {
 		}
 
 		if (this.shootingTime > 0) {
-			colorRect(this.x + 10, this.y + 20, 9, 10, "yellow");
+			colorRect(this.x + this.shortPressedShotGoingInLimit, this.y + 20, this.longPressedShotGoingInLimit - this.shortPressedShotGoingInLimit, 10, "yellow");
 			colorRect(this.x + 14, this.y + 20, 1, 10, "green");
 			colorRect(this.x, this.y + 20, this.shootingTime, 10, "red");
 		}

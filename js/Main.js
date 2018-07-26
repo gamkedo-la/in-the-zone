@@ -16,6 +16,11 @@ var mainStates = {
 	isPaused: false
 };
 
+var gameMode = {
+	shootaround: true,
+	oneOnOne: false
+}
+
 
 
 
