@@ -347,7 +347,7 @@ function playerClass(startingX, startingY, isAI) {
 							this.ballToHold.isShotBy = this;
 							this.ballToHold.gotShotFrom = this.currentZone;
 							var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
-							this.ballToHold.ballPower = -16;
+							this.ballToHold.ballPower = -16.5;
 							console.log("perfect");
 							updateZones();
 						} else if (this.shootingTime < 14) { //player did not press enough
@@ -358,7 +358,7 @@ function playerClass(startingX, startingY, isAI) {
 								if (random + 9 <= this.shootingTime) {
 									this.ballToHold.goingIn = true;
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
-									this.ballToHold.ballPower = -16;
+									this.ballToHold.ballPower = -16.5;
 									console.log("short,yellow and lucky");
 									updateZones();
 								} else {
@@ -382,7 +382,7 @@ function playerClass(startingX, startingY, isAI) {
 								if (this.shootingTime <= random + 9) {
 									this.ballToHold.goingIn = true;
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
-									this.ballToHold.ballPower = -16;
+									this.ballToHold.ballPower = -16.5;
 									console.log("long,yellow and lucky");
 									updateZones();
 								} else {

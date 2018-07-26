@@ -1,6 +1,6 @@
-const HOOP_X = 400;
-const HOOP_Y = 200;
-const HOOP_H = 100;
+const HOOP_X = 575;
+const HOOP_Y = 235;
+const HOOP_H = 120;
 const BALL_SHOOT_SPEED = 8;
 const GRAVITY_MULTIPLIER = 0.8;
 var ballRiseValue = 0;
@@ -190,7 +190,7 @@ function moveBalls(ballArray) {
 //or rotate on the rim normal by the dotProduct angle.
 function rebound(ball) {
   var dotProductFromRimCenter = 0; //detect if the forward is right or left
-  var shotDirection = [ball.isShotBy.shootingStartingX - HOOP_X, ball.isShotBy.shootingStartingY - HOOP_Y]; //vector2 
+  var shotDirection = [ball.isShotBy.shootingStartingX - HOOP_X, ball.isShotBy.shootingStartingY - HOOP_Y]; //vector2
 
   var reboundDirection = [0, 0];
   var rimDot = dot(shotDirection, rimNormal);
