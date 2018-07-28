@@ -218,6 +218,7 @@ function playerClass(startingX, startingY, isAI) {
 			}
 			else { //AI movement
 				if (!this.isHoldingBall) { //movement towards the ball
+					distanceToTheClosestBall = null;
 					zonesWithPriority = [];//cleaning up the variable. When player holds the ball with variable gets sets to some value but it should be resetted when player does not hold the ball anymore.
 					for (var i = 0; i < ballArray.length; i++) {
 						if (!ballArray[i].beingShot && !ballArray[i].isHeld) {
