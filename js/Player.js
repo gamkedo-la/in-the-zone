@@ -27,6 +27,7 @@ function playerClass(startingX, startingY, isAI) {
 	this.distanceToClosestZone;
 	this.zonesToGo = [];
 	this.randomShootingTime;
+	this.closeEnoughToDefend = false;
 
 	this.score = 0;
 
@@ -123,42 +124,114 @@ function playerClass(startingX, startingY, isAI) {
 
 		if (this.states.isIdle) {
 			if (this.ballToHold == null && gameMode.oneOnOne) {//defending. Being close to the other player makes his shots harder
-				if (this.distanceFromHoop < character1.distanceFromHoop || this.distanceFromHoop < character2.distanceFromHoop) {
-					if (this.distanceFromHoop < character1.distanceFromHoop) {
-						var distanceFromEachOther = Math.sqrt((character1.x - this.x) * (character1.x - this.x) + (character1.y - this.y) * (character1.y - this.y));
-						if (distanceFromEachOther < 50) {
-							character1.shootingDifficulty = 3;
-						}
-						else if (distanceFromEachOther < 100) {
-							character1.shootingDifficulty = 2;
-						}
-						else if (distanceFromEachOther < 150) {
-							character1.shootingDifficulty = 1;
-						}
-						else {
-							character1.shootingDifficulty = 0;
-						}
-					}
-					else if (this.distanceFromHoop < character2.distanceFromHoop) {
-						var distanceFromEachOther = Math.sqrt((character2.x - this.x) * (character2.x - this.x) + (character2.y - this.y) * (character2.y - this.y));
-						if (distanceFromEachOther < 50) {
-							character2.shootingDifficulty = 3;
-						}
-						else if (distanceFromEachOther < 100) {
-							character2.shootingDifficulty = 2;
-						}
-						else if (distanceFromEachOther < 150){
-							character2.shootingDifficulty = 1;
-						}
-						else {
-							character2.shootingDifficulty = 0;
-						}
-					}
+				if (this.x != character1.x) {
+					var distanceFromEachOther = Math.sqrt((character1.x - this.x) * (character1.x - this.x) + (character1.y - this.y) * (character1.y - this.y));
 				}
 				else {
-					this.shootingDifficulty = 0;
+					var distanceFromEachOther = Math.sqrt((character2.x - this.x) * (character2.x - this.x) + (character2.y - this.y) * (character2.y - this.y));
 				}
+				if (this.isAI) {
+					console.log(this.distanceFromHoop < character1.distanceFromHoop);
+					if ((this.distanceFromHoop > character1.distanceFromHoop -50 && ball1.isHeldBy == character1) || (this.distanceFromHoop > character2.distanceFromHoop -50 && ball1.isHeldBy == character2)) {// only works with the ball1 since in one-on-one gamemode only ball1 will exist
+						console.log("i am not close enough to the rim to defend");
+						if (nextX != this.x && nextY != this.y) {
+							if (this.x < HOOP_X +5) {
+								nextX += PLAYER_MOVE_SPEED * Math.cos(45);
+							}
+							if (this.y < HOOP_Y +5) {
+								nextY += PLAYER_MOVE_SPEED * Math.cos(45);
+							}
+							if (this.x > HOOP_X -5) {
+								nextX -= PLAYER_MOVE_SPEED * Math.cos(45);
+							}
+							if (this.y > HOOP_Y -5) {
+								nextY -= PLAYER_MOVE_SPEED * Math.cos(45);
+							}
+						} else {
+								if (this.x < HOOP_X +5) {
+									nextX += PLAYER_MOVE_SPEED;
+								}
+								if (this.y < HOOP_Y +5) {
+									nextY += PLAYER_MOVE_SPEED;
+								}
+								if (this.x > HOOP_X -5) {
+									nextX -= PLAYER_MOVE_SPEED;
+								}
+								if (this.y > HOOP_Y -5) {
+									nextY -= PLAYER_MOVE_SPEED;
+								}
+							}
+						}
+					if (this.distanceFromHoop < character1.distanceFromHoop && ball1.isHeldBy == character1 && !this.closeEnoughToDefend) {
+						console.log("ses");
+						if (nextX != this.x && nextY != this.y) {
+							if (this.x < character1.x +5) {
+								nextX += PLAYER_MOVE_SPEED * Math.cos(45);
+							}
+							if (this.y < character1.y +5) {
+								nextY += PLAYER_MOVE_SPEED * Math.cos(45);
+							}
+							if (this.x > character1.x -5) {
+								nextX -= PLAYER_MOVE_SPEED * Math.cos(45);
+							}
+							if (this.y > character1.y -5) {
+								nextY -= PLAYER_MOVE_SPEED * Math.cos(45);
+							}
+					} else {
+							if (this.x < character1.x +5) {
+								nextX += PLAYER_MOVE_SPEED;
+							}
+							if (this.y < character1.y +5) {
+								nextY += PLAYER_MOVE_SPEED;
+							}
+							if (this.x > character1.x -5) {
+								nextX -= PLAYER_MOVE_SPEED;
+							}
+							if (this.y > character1.y -5) {
+								nextY -= PLAYER_MOVE_SPEED;
+							}
+						}
+					}
+					if (distanceFromEachOther < 50) {
+						console.log("hi");
+						this.closeEnoughToDefend = true;
+					}
+					if (distanceFromEachOther > 100) {
+						this.closeEnoughToDefend = false;
+					}
+				}
+				if (this.distanceFromHoop < character1.distanceFromHoop) {
+					if (distanceFromEachOther < 50) {
+						character1.shootingDifficulty = 3;
+					}
+					else if (distanceFromEachOther < 100) {
+						character1.shootingDifficulty = 2;
+					}
+					else if (distanceFromEachOther < 150) {
+						character1.shootingDifficulty = 1;
+					}
+					else {
+						character1.shootingDifficulty = 0;
+					}
+				}
+				else if (this.distanceFromHoop < character2.distanceFromHoop) {
+					if (distanceFromEachOther < 50) {
+						character2.shootingDifficulty = 3;
+					}
+					else if (distanceFromEachOther < 100) {
+						character2.shootingDifficulty = 2;
+					}
+					else if (distanceFromEachOther < 150){
+						character2.shootingDifficulty = 1;
+					}
+					else {
+						character2.shootingDifficulty = 0;
+					}
+				}
+			else {
+				this.shootingDifficulty = 0;
 			}
+		}
 
 			if (!this.isAI) {
 				if (this.keyHeld_North) {
@@ -220,6 +293,7 @@ function playerClass(startingX, startingY, isAI) {
 				if (!this.isHoldingBall) { //movement towards the ball
 					distanceToTheClosestBall = null;
 					zonesWithPriority = [];//cleaning up the variable. When player holds the ball with variable gets sets to some value but it should be resetted when player does not hold the ball anymore.
+					var isThereAnyBallToChase = false;
 					for (var i = 0; i < ballArray.length; i++) {
 						if (!ballArray[i].beingShot && !ballArray[i].isHeld) {
 							var a = ballArray[i].x - this.x;
@@ -227,35 +301,41 @@ function playerClass(startingX, startingY, isAI) {
 							var distance = Math.sqrt(a * a + b * b);
 							if (distance < distanceToTheClosestBall || distanceToTheClosestBall == null) {
 								distanceToTheClosestBall = distance;
+								isThereAnyBallToChase = true;
 								this.ballToChase = ballArray[i];
 							}
 						}
+						if (!isThereAnyBallToChase) {
+							this.ballToChase = null;
+						}
 					}
-					if (nextX != this.x && nextY != this.y) {
-						if (this.x < this.ballToChase.x +5) {
-							nextX += PLAYER_MOVE_SPEED * Math.cos(45);
-						}
-						if (this.y < this.ballToChase.y +5) {
-							nextY += PLAYER_MOVE_SPEED * Math.cos(45);
-						}
-						if (this.x > this.ballToChase.x -5) {
-							nextX -= PLAYER_MOVE_SPEED * Math.cos(45);
-						}
-						if (this.y > this.ballToChase.y -5) {
-							nextY -= PLAYER_MOVE_SPEED * Math.cos(45);
-						}
-					} else {
-						if (this.x < this.ballToChase.x +5) {
-							nextX += PLAYER_MOVE_SPEED;
-						}
-						if (this.y < this.ballToChase.y +5) {
-							nextY += PLAYER_MOVE_SPEED;
-						}
-						if (this.x > this.ballToChase.x -5) {
-							nextX -= PLAYER_MOVE_SPEED;
-						}
-						if (this.y > this.ballToChase.y -5) {
-							nextY -= PLAYER_MOVE_SPEED;
+					if (this.ballToChase != null) {
+						if (nextX != this.x && nextY != this.y) {
+							if (this.x < this.ballToChase.x +5) {
+								nextX += PLAYER_MOVE_SPEED * Math.cos(45);
+							}
+							if (this.y < this.ballToChase.y +5) {
+								nextY += PLAYER_MOVE_SPEED * Math.cos(45);
+							}
+							if (this.x > this.ballToChase.x -5) {
+								nextX -= PLAYER_MOVE_SPEED * Math.cos(45);
+							}
+							if (this.y > this.ballToChase.y -5) {
+								nextY -= PLAYER_MOVE_SPEED * Math.cos(45);
+							}
+						} else {
+							if (this.x < this.ballToChase.x +5) {
+								nextX += PLAYER_MOVE_SPEED;
+							}
+							if (this.y < this.ballToChase.y +5) {
+								nextY += PLAYER_MOVE_SPEED;
+							}
+							if (this.x > this.ballToChase.x -5) {
+								nextX -= PLAYER_MOVE_SPEED;
+							}
+							if (this.y > this.ballToChase.y -5) {
+								nextY -= PLAYER_MOVE_SPEED;
+							}
 						}
 					}
 				} else { //if ai holds the ball

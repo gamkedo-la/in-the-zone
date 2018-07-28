@@ -5,7 +5,7 @@ var character1 = new playerClass(75, 75, false);
 var character2 = new playerClass(150, 75, true);
 
 var ballArray = [];
-var ball1 = new ballClass(700, 100);
+var ball1 = new ballClass(100, 100);
 var ball2 = new ballClass(500, 600);
 
 var winner;
@@ -144,30 +144,20 @@ function resetGame() {
 	character2.states.isIdle = true;
 	character2.states.isShooting = false;
 	character2.states.isDunking = false;
-
-	ball1.x = 700;
-	ball1.y = 100;
-	ball1.isHeld = false
-	ball1.isHeldBy = null;
-	ball1.beingShot = false;
-	ball1.shootingX = 0;
-	ball1.shootingY = 0;
-	ball1.height = 10;
-	ball1.ballPower = -10;
-	ball1.goingIn = false;
-	ball1.isShotBy = null;
-
-	ball2.x = 500;
-	ball2.y = 600;
-	ball2.isHeld = false
-	ball2.isHeldBy = null;
-	ball2.beingShot = false;
-	ball2.shootingX = 0;
-	ball2.shootingY = 0;
-	ball2.height = 10;
-	ball2.ballPower = -10;
-	ball2.goingIn = false;
-	ball2.isShotBy = null;
+	for (var i = 0; i < ballArray.length; i++) {
+		ballArray[i]
+		ballArray[i].x = 700;
+		ballArray[i].y = 100;
+		ballArray[i].isHeld = false
+		ballArray[i].isHeldBy = null;
+		ballArray[i].beingShot = false;
+		ballArray[i].shootingX = 0;
+		ballArray[i].shootingY = 0;
+		ballArray[i].height = 10;
+		ballArray[i].ballPower = -10;
+		ballArray[i].goingIn = false;
+		ballArray[i].isShotBy = null;
+	}
 	min = 0;
 	sec = 30;
 }
