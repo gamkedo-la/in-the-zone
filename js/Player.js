@@ -411,9 +411,11 @@ function playerClass(startingX, startingY, isAI) {
 					else {
 						this.zonesToGo = [];
 						if (this.currentZone == 4 || this.currentZone == 5 || this.currentZone == 12 || this.currentZone == 13) {
+							//console.log("duncking");
 							this.states.isIdle = false;
 							this.states.isDunking = true;
 							this.startedDunking = true;
+							this.ballToHold.beingDunked = true;
 							var a = HOOP_X - this.x;
 							var b = HOOP_Y - this.y;
 							this.startingDistanceFromHoop = Math.sqrt(a * a + b * b);
