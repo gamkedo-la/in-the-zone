@@ -1,12 +1,12 @@
 var canvas, canvasContext;
 var currentPic = player1;
 
-var character1 = new playerClass(75, 75, false);
-var character2 = new playerClass(150, 75, true);
+var character1 = new playerClass(75, 220, false);
+var character2 = new playerClass(1080, 220, true);
 
 var ballArray = [];
-var ball1 = new ballClass(100, 100);
-var ball2 = new ballClass(500, 600);
+var ball1 = new ballClass(200, 550);
+var ball2 = new ballClass(950, 550);
 
 var winner;
 
