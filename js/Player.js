@@ -1,8 +1,8 @@
-const PLAYER_MOVE_SPEED = 5.0;
+const PLAYER_MOVE_SPEED = 7; // original speed was 5.0;
 const PLAYER_MOVE_SPEED_CHANGE = 3.0;
 var currentFrame = 0;
 var distanceToTheClosestBall;
-var zoneCounter= 0;
+var zoneCounter = 0;
 var randomNumberOfZones;
 var zonesWithPriority = [];
 
@@ -132,62 +132,62 @@ function playerClass(startingX, startingY, isAI) {
 				}
 				if (this.isAI) {
 					console.log(this.distanceFromHoop < character1.distanceFromHoop);
-					if ((this.distanceFromHoop > character1.distanceFromHoop -50 && ball1.isHeldBy == character1) || (this.distanceFromHoop > character2.distanceFromHoop -50 && ball1.isHeldBy == character2)) {// only works with the ball1 since in one-on-one gamemode only ball1 will exist
+					if ((this.distanceFromHoop > character1.distanceFromHoop - 50 && ball1.isHeldBy == character1) || (this.distanceFromHoop > character2.distanceFromHoop - 50 && ball1.isHeldBy == character2)) {// only works with the ball1 since in one-on-one gamemode only ball1 will exist
 						console.log("i am not close enough to the rim to defend");
 						if (nextX != this.x && nextY != this.y) {
-							if (this.x < HOOP_X +5) {
+							if (this.x < HOOP_X + 5) {
 								nextX += PLAYER_MOVE_SPEED * Math.cos(45);
 							}
-							if (this.y < HOOP_Y +5) {
+							if (this.y < HOOP_Y + 5) {
 								nextY += PLAYER_MOVE_SPEED * Math.cos(45);
 							}
-							if (this.x > HOOP_X -5) {
+							if (this.x > HOOP_X - 5) {
 								nextX -= PLAYER_MOVE_SPEED * Math.cos(45);
 							}
-							if (this.y > HOOP_Y -5) {
+							if (this.y > HOOP_Y - 5) {
 								nextY -= PLAYER_MOVE_SPEED * Math.cos(45);
 							}
 						} else {
-								if (this.x < HOOP_X +5) {
-									nextX += PLAYER_MOVE_SPEED;
-								}
-								if (this.y < HOOP_Y +5) {
-									nextY += PLAYER_MOVE_SPEED;
-								}
-								if (this.x > HOOP_X -5) {
-									nextX -= PLAYER_MOVE_SPEED;
-								}
-								if (this.y > HOOP_Y -5) {
-									nextY -= PLAYER_MOVE_SPEED;
-								}
+							if (this.x < HOOP_X + 5) {
+								nextX += PLAYER_MOVE_SPEED;
+							}
+							if (this.y < HOOP_Y + 5) {
+								nextY += PLAYER_MOVE_SPEED;
+							}
+							if (this.x > HOOP_X - 5) {
+								nextX -= PLAYER_MOVE_SPEED;
+							}
+							if (this.y > HOOP_Y - 5) {
+								nextY -= PLAYER_MOVE_SPEED;
 							}
 						}
+					}
 					if (this.distanceFromHoop < character1.distanceFromHoop && ball1.isHeldBy == character1 && !this.closeEnoughToDefend) {
 						console.log("ses");
 						if (nextX != this.x && nextY != this.y) {
-							if (this.x < character1.x +5) {
+							if (this.x < character1.x + 5) {
 								nextX += PLAYER_MOVE_SPEED * Math.cos(45);
 							}
-							if (this.y < character1.y +5) {
+							if (this.y < character1.y + 5) {
 								nextY += PLAYER_MOVE_SPEED * Math.cos(45);
 							}
-							if (this.x > character1.x -5) {
+							if (this.x > character1.x - 5) {
 								nextX -= PLAYER_MOVE_SPEED * Math.cos(45);
 							}
-							if (this.y > character1.y -5) {
+							if (this.y > character1.y - 5) {
 								nextY -= PLAYER_MOVE_SPEED * Math.cos(45);
 							}
-					} else {
-							if (this.x < character1.x +5) {
+						} else {
+							if (this.x < character1.x + 5) {
 								nextX += PLAYER_MOVE_SPEED;
 							}
-							if (this.y < character1.y +5) {
+							if (this.y < character1.y + 5) {
 								nextY += PLAYER_MOVE_SPEED;
 							}
-							if (this.x > character1.x -5) {
+							if (this.x > character1.x - 5) {
 								nextX -= PLAYER_MOVE_SPEED;
 							}
-							if (this.y > character1.y -5) {
+							if (this.y > character1.y - 5) {
 								nextY -= PLAYER_MOVE_SPEED;
 							}
 						}
@@ -221,17 +221,17 @@ function playerClass(startingX, startingY, isAI) {
 					else if (distanceFromEachOther < 100) {
 						character2.shootingDifficulty = 2;
 					}
-					else if (distanceFromEachOther < 150){
+					else if (distanceFromEachOther < 150) {
 						character2.shootingDifficulty = 1;
 					}
 					else {
 						character2.shootingDifficulty = 0;
 					}
 				}
-			else {
-				this.shootingDifficulty = 0;
+				else {
+					this.shootingDifficulty = 0;
+				}
 			}
-		}
 
 			if (!this.isAI) {
 				if (this.keyHeld_North) {
@@ -311,29 +311,29 @@ function playerClass(startingX, startingY, isAI) {
 					}
 					if (this.ballToChase != null) {
 						if (nextX != this.x && nextY != this.y) {
-							if (this.x < this.ballToChase.x +5) {
+							if (this.x < this.ballToChase.x + 5) {
 								nextX += PLAYER_MOVE_SPEED * Math.cos(45);
 							}
-							if (this.y < this.ballToChase.y +5) {
+							if (this.y < this.ballToChase.y + 5) {
 								nextY += PLAYER_MOVE_SPEED * Math.cos(45);
 							}
-							if (this.x > this.ballToChase.x -5) {
+							if (this.x > this.ballToChase.x - 5) {
 								nextX -= PLAYER_MOVE_SPEED * Math.cos(45);
 							}
-							if (this.y > this.ballToChase.y -5) {
+							if (this.y > this.ballToChase.y - 5) {
 								nextY -= PLAYER_MOVE_SPEED * Math.cos(45);
 							}
 						} else {
-							if (this.x < this.ballToChase.x +5) {
+							if (this.x < this.ballToChase.x + 5) {
 								nextX += PLAYER_MOVE_SPEED;
 							}
-							if (this.y < this.ballToChase.y +5) {
+							if (this.y < this.ballToChase.y + 5) {
 								nextY += PLAYER_MOVE_SPEED;
 							}
-							if (this.x > this.ballToChase.x -5) {
+							if (this.x > this.ballToChase.x - 5) {
 								nextX -= PLAYER_MOVE_SPEED;
 							}
-							if (this.y > this.ballToChase.y -5) {
+							if (this.y > this.ballToChase.y - 5) {
 								nextY -= PLAYER_MOVE_SPEED;
 							}
 						}
@@ -341,7 +341,7 @@ function playerClass(startingX, startingY, isAI) {
 				} else { //if ai holds the ball
 					if (this.zonesToGo.length == 0) {
 						zoneCounter = 0;
-						randomNumberOfZones = Math.floor(Math.random()* 5) + 1;
+						randomNumberOfZones = Math.floor(Math.random() * 5) + 1;
 						//console.log(randomNumberOfZones);
 						for (var i = 0; i < randomNumberOfZones; i++) {
 							var randomSelection = Math.floor(Math.random() * 25) + 1;
@@ -362,9 +362,9 @@ function playerClass(startingX, startingY, isAI) {
 							var finalZoneToGo;
 							var distanceBetweenFinalAndLastZone;// the distance between the random selected zone and the zone with priority(the zone to go)
 							for (var i = 0; i < zonesWithPriority.length; i++) {
-								var a = this.zonesToGo[this.zonesToGo.length -1].middle[0] - zonesWithPriority[i].middle[0];
-								var b = this.zonesToGo[this.zonesToGo.length -1].middle[1] - zonesWithPriority[i].middle[1];
-								var distance = Math.sqrt(a*a + b*b);
+								var a = this.zonesToGo[this.zonesToGo.length - 1].middle[0] - zonesWithPriority[i].middle[0];
+								var b = this.zonesToGo[this.zonesToGo.length - 1].middle[1] - zonesWithPriority[i].middle[1];
+								var distance = Math.sqrt(a * a + b * b);
 								if (distanceBetweenFinalAndLastZone == null || distance < distanceBetweenFinalAndLastZone) {
 									finalZoneToGo = zonesWithPriority[i];
 								}
@@ -383,24 +383,24 @@ function playerClass(startingX, startingY, isAI) {
 							if (this.y < this.zonesToGo[zoneCounter].middle[1 + 3]) {
 								nextY += PLAYER_MOVE_SPEED * Math.cos(45);
 							}
-							if (this.x > this.zonesToGo[zoneCounter].middle[0] -3) {
+							if (this.x > this.zonesToGo[zoneCounter].middle[0] - 3) {
 								nextX -= PLAYER_MOVE_SPEED * Math.cos(45);
 							}
-							if (this.y > this.zonesToGo[zoneCounter].middle[1] -3) {
+							if (this.y > this.zonesToGo[zoneCounter].middle[1] - 3) {
 								nextY -= PLAYER_MOVE_SPEED * Math.cos(45);
 							}
 						}
 						else {
-							if (this.x < this.zonesToGo[zoneCounter].middle[0] +3) {
+							if (this.x < this.zonesToGo[zoneCounter].middle[0] + 3) {
 								nextX += PLAYER_MOVE_SPEED;
 							}
-							if (this.y < this.zonesToGo[zoneCounter].middle[1] +3) {
+							if (this.y < this.zonesToGo[zoneCounter].middle[1] + 3) {
 								nextY += PLAYER_MOVE_SPEED;
 							}
-							if (this.x > this.zonesToGo[zoneCounter].middle[0] -3) {
+							if (this.x > this.zonesToGo[zoneCounter].middle[0] - 3) {
 								nextX -= PLAYER_MOVE_SPEED;
 							}
-							if (this.y > this.zonesToGo[zoneCounter].middle[1] -3) {
+							if (this.y > this.zonesToGo[zoneCounter].middle[1] - 3) {
 								nextY -= PLAYER_MOVE_SPEED;
 							}
 						}
@@ -479,10 +479,10 @@ function playerClass(startingX, startingY, isAI) {
 			if (this.currentZone == 1 || this.currentZone == 9 || this.currentZone == 17 ||
 				this.currentZone == 24 || this.currentZone == 25 || this.currentZone == 26 ||
 				this.currentZone == 23 || this.currentZone == 16 || this.currentZone == 8) {
-				var random = Math.floor(Math.random() *6) + 3;
+				var random = Math.floor(Math.random() * 6) + 3;
 			}
 			else {
-				var random = Math.floor(Math.random() * 10) +1;
+				var random = Math.floor(Math.random() * 10) + 1;
 			}
 
 			if (!this.isAI) {
