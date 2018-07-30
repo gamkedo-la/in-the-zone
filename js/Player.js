@@ -5,6 +5,7 @@ var distanceToTheClosestBall;
 var zoneCounter = 0;
 var randomNumberOfZones;
 var zonesWithPriority = [];
+var isDunkingEnded = false;
 
 function playerClass(startingX, startingY, isAI) {
 	this.x = startingX;
@@ -51,6 +52,7 @@ function playerClass(startingX, startingY, isAI) {
 	this.frameRow = 0;
 	this.framesAnim = 10;
 	this.walkSprite = new SpriteSheetClass(currySpriteSheet, this.width, this.height);
+	this.dunkSprite = new SpriteSheetClass(player1DunkingSpriteSheet, this.width, this.height);
 
 	this.states = {
 		isIdle: true,
@@ -254,6 +256,7 @@ function playerClass(startingX, startingY, isAI) {
 					if (this.currentZone == 4 || this.currentZone == 5 || this.currentZone == 12 || this.currentZone == 13) {
 						this.states.isIdle = false;
 						this.states.isDunking = true;
+						this.tickCount = 0;
 						this.startedDunking = true;
 						this.ballToHold.beingDunked = true;
 						var a = HOOP_X - this.x;
@@ -414,6 +417,7 @@ function playerClass(startingX, startingY, isAI) {
 							//console.log("duncking");
 							this.states.isIdle = false;
 							this.states.isDunking = true;
+							this.tickCount = 0;
 							this.startedDunking = true;
 							this.ballToHold.beingDunked = true;
 							var a = HOOP_X - this.x;
@@ -676,7 +680,6 @@ function playerClass(startingX, startingY, isAI) {
 		}
 
 
-
 		if (this.states.isDunking) {
 			this.startedDunking = false;
 			var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
@@ -685,18 +688,18 @@ function playerClass(startingX, startingY, isAI) {
 			var dunkingHeight = 5;
 			nextX += dunkingX;
 			nextY += dunkingY;
-			if (this.jumpingHeight < HOOP_H) {
+			if (this.jumpingHeight < HOOP_H && !isDunkingEnded) {
 				this.jumpingHeight += dunkingHeight;
 			}
-			if (this.jumpingHeight + 10 > HOOP_H) {
+			if (this.jumpingHeight + 10 > HOOP_H && !isDunkingEnded) {
 				this.jumpingHeight -= dunkingHeight;
+				this.tickCount = 40;
 			}
 			this.z = this.y - this.jumpingHeight;
 			if (this.x < HOOP_X + 10 && this.y < HOOP_Y + 10 &&
 				this.x > HOOP_X - 10 && this.y > HOOP_Y - 10 &&
-				this.jumpingHeight < HOOP_H + 30 && this.jumpingHeight > HOOP_H - 30) {
-				console.log(this.ballToHold.jumpingHeight);
-				this.jumpingHeight = 0;
+				this.jumpingHeight < HOOP_H + 30 && this.jumpingHeight > HOOP_H - 30 && !isDunkingEnded) {
+				this.ballToHold.ballPower = 5;
 				this.ballToHold.beingDunked = false;
 				this.ballToHold.jumpingHeight = HOOP_H;
 				this.ballToHold.shootingX = 0;
@@ -704,10 +707,21 @@ function playerClass(startingX, startingY, isAI) {
 				this.ballToHold.height = HOOP_H;
 				this.ballToHold.isHeld = false;
 				this.ballToHold.isHeldBy = null;
-				this.ballToHold = null;
-				this.isHoldingBall = false;
-				this.states.isDunking = false;
-				this.states.isIdle = true;
+				this.ballToHold = null
+				isDunkingEnded = true;
+			}
+			if (isDunkingEnded) {
+				console.log(this.jumpingHeight);
+				this.tickCount = 45;
+				this.jumpingHeight -= 5;
+				dunkingX = 0;
+				dunkingY = 0;
+				if (this.y == this.z) {;
+					this.isHoldingBall = false;
+					this.states.isDunking = false;
+					this.states.isIdle = true;
+					isDunkingEnded = false;
+				}
 			}
 		}
 
@@ -768,7 +782,13 @@ function playerClass(startingX, startingY, isAI) {
 			drawBitmapCenteredWithRotation(currentPic, this.x, this.y, this.ang);
 		}
 		if (this.states.isDunking) {
-			drawBitmapCenteredWithRotation(dunkingPic, this.x, this.z, this.ang);
+			if (mainStates.isPaused === false) {
+				this.tickCount += 2;
+				if (this.tickCount / this.ticksPerFrame >= this.framesAnim) {
+					this.tickCount = 0;
+				}
+			}
+			this.dunkSprite.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.x, this.z, this.ang);
 		}
 
 		if (this.shootingTime > 0) {
