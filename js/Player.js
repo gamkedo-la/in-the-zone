@@ -707,7 +707,6 @@ function playerClass(startingX, startingY, isAI) {
 				this.ballToHold.height = HOOP_H;
 				this.ballToHold.isHeld = false;
 				this.ballToHold.isHeldBy = null;
-				this.ballToHold = null
 				isDunkingEnded = true;
 			}
 			if (isDunkingEnded) {
@@ -717,6 +716,7 @@ function playerClass(startingX, startingY, isAI) {
 				dunkingX = 0;
 				dunkingY = 0;
 				if (this.y == this.z) {;
+					this.ballToHold = null
 					this.isHoldingBall = false;
 					this.states.isDunking = false;
 					this.states.isIdle = true;
