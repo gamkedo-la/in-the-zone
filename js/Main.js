@@ -64,8 +64,10 @@ function moveAll() {
 	if (mainStates.inGame === true && mainStates.isPaused === false) {
 		character1.move();
 		character1.updateEdgesOfFeet();
+		character1.updateCenterOfFeet();
 		character2.move();
 		character2.updateEdgesOfFeet();
+		character2.updateCenterOfFeet();
 		moveBalls(ballArray);
 	}
 }
@@ -90,6 +92,7 @@ function drawWorld() {
 		drawBitmapCenteredWithRotation(basketballCourt, canvas.width / 2, canvas.height / 2, 0);
 		drawZones();
 		drawScoreboard();
+		console.log(character1.centerOfFeet);
 	}
 }
 

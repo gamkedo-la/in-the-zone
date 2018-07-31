@@ -36,18 +36,20 @@ function updateZoneStatus(zoneIndex) {
     var player2Here = false;
 
     //if both players' feet are in a zone, the associated zone status
-    if (character1.leftEdgeOfFeet - 20 >= arrayOfZones[zoneIndex].leftEdge && character1.rightEdgeOfFeet - 27 <= arrayOfZones[zoneIndex].rightEdge &&
-        character1.topEdgeOfFeet - 25 >= arrayOfZones[zoneIndex].topEdge && character1.bottomEdgeOfFeet - 29 <= arrayOfZones[zoneIndex].bottomEdge) {
-        player1Here = true;
-        character1.currentZone = arrayOfZones[zoneIndex].zoneNumber;
-    }
+    /*if ( pointInPolygon(character1.centerOfFeet.centerOfFeetX,character1.centerOfFeet.centerOfFeetY, arrayOfZones[zoneIndex].x1,arrayOfZones[zoneIndex].y1,
+                       arrayOfZones[zoneIndex].x2,arrayOfZones[zoneIndex].y2), arrayOfZones[zoneIndex].x3,arrayOfZones[zoneIndex].y3,
+                       arrayOfZones[zoneIndex].x4,arrayOfZones[zoneIndex].y4, arrayOfZones[zoneIndex].x5,arrayOfZones[zoneIndex].y5) ) {
+                         player1Here = true;
+                         character1.currentZone = arrayOfZones[zoneIndex].zoneNumber;
+                       }
 
+    if ( pointInPolygon(character2.centerOfFeet.centerOfFeetX,character2.centerOfFeet.centerOfFeetY, arrayOfZones[zoneIndex].x1,arrayOfZones[zoneIndex].y1,
+                        arrayOfZones[zoneIndex].x2,arrayOfZones[zoneIndex].y2), arrayOfZones[zoneIndex].x3,arrayOfZones[zoneIndex].y3,
+                        arrayOfZones[zoneIndex].x4,arrayOfZones[zoneIndex].y4, arrayOfZones[zoneIndex].x5,arrayOfZones[zoneIndex].y5) ) {
+                          player2Here = true;
+                          character2.currentZone = arrayOfZones[zoneIndex].zoneNumber;
+                        }*/
 
-    if (character2.leftEdgeOfFeet -20 >= arrayOfZones[zoneIndex].leftEdge && character2.rightEdgeOfFeet -27 <= arrayOfZones[zoneIndex].rightEdge &&
-        character2.topEdgeOfFeet - 25 >= arrayOfZones[zoneIndex].topEdge && character2.bottomEdgeOfFeet - 29 <= arrayOfZones[zoneIndex].bottomEdge) {
-          player2Here = true;
-          character2.currentZone = arrayOfZones[zoneIndex].zoneNumber;
-        }
         //checks zone status and changes to appropriate color
         if (character1.ballToHold != null) {
           if (character1.startedDunking && player1Here) {
@@ -156,5 +158,65 @@ drawZones = () => {
 updateZones = () => {
   for (let zoneIndex = 0; zoneIndex<26; zoneIndex++) {
     updateZoneStatus(zoneIndex);
+  }
+
+
+function pointInPolygon(targetX,targetY, polygonX1,polygonY1, polygonX2,polygonY2, polygonX3,polygonY3, polygonX4,polygonY4, polygonX5,polygonY5) {
+
+  	var tempX;
+  	var tempY;
+
+  	/* How many times the ray crosses a line-segment */
+  	var crossings = 0;
+
+  	/* Coordinates of the points */
+
+    if (polygonX5 === undefined && polygonY5 === undefined) {
+      var polygonX = [polygonX1,polygonX2,polygonX3,polygonX4];
+      var polygonY = [polygonY1,polygonY2,polygonY3,polygonY4];
+    } else {
+      var polygonX = [polygonX1,polygonX2,polygonX3,polygonX4,polygonX5];
+      var polygonY = [polygonY1,polygonY2,polygonY3,polygonY4,polygonX5];
+    }
+
+  	/* Iterate through each line */
+  	for ( var i = 0; i < polygonX.length; i++) {
+  		//This is done to ensure that we get the same result when the line goes from left to right and right to left
+  		if( polygonX[i] < polygonX[(i + 1) % polygonX.length]) {
+  			tempX = polygonX[i];
+  			tempY = polygonX[(i + 1) % polygonX.length];
+  		} else {
+  			tempX = polygonX[(i + 1) % polygonX.length];
+  			tempY = polygonX[i];
+  		}
+
+  		//First check if the ray is possible to cross the line
+  		if (targetX > tempX && targetX <= tempY && (targetY < polygonY[i] || targetY <= polygonY[(i + 1) % polygonX.length])) {
+  			var eps = 0.000001;
+  			//Calculate the equation of the line
+  			var dx = polygonX[(i + 1) % polygonX.length] - polygonX[i];
+  			var dy = polygonY[(i + 1) % polygonX.length] - polygonY[i];
+  			var k;
+
+  			if (Math.abs(dx) < eps) {
+  				k = 999999999999999999999999999;
+  			} else {
+  				k = dy / dx;
+  			}
+
+  			var m = polygonY[i] - k * polygonX[i];
+  			//Find if the ray crosses the line
+  			var y2 = k * targetX + m;
+  			if (targetY <= y2) {
+  				crossings++;
+  			}
+  		}
+  	}
+
+  	if (crossings % 2 == 1) {
+  		return true;
+  	} else {
+  		return false;
+  	}
   }
 }

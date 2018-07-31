@@ -14,6 +14,14 @@ function playerClass(startingX, startingY, isAI) {
 	this.topEdgeOfFeet = this.y + 59;
 	this.rightEdgeOfFeet = this.x + 39;
 	this.bottomEdgeOfFeet = this.y + 61;
+
+	this.centerOfFeet = {"centerOfFeetX": this.x-4,"centerOfFeetY": this.y+30};
+
+	this.markCenterOfFeet = () => {
+		canvasContext.font = "10px";
+		canvasContext.fillStyle = "yellow";
+		canvasContext.fillText("x", this.x - 4,this.y + 30);
+	}
 	this.myWarriorPic; // which picture to use
 	// this.facingDirection= 2;//0 = north, 1 = east, 2 = south, 3 = west,4=ne, 5 = se, 6 = sw, 7 = nw
 	this.ang;
@@ -745,6 +753,11 @@ function playerClass(startingX, startingY, isAI) {
 		this.bottomEdgeOfFeet = this.y + 61;
 	}
 
+	this.updateCenterOfFeet = function () {
+		this.centerOfFeet.centerOfFeetX = this.x - 4;
+		this.centerOfFeet.centerOfFeetY = this.y + 30;
+	}
+
 	this.draw = function () {
 		// switch (this.facingDirection) {//0 = north, 1 = east, 2 = south, 3 = west,4=ne, 5 = se, 6 = sw, 7 = nw
 		//   case 0:
@@ -772,6 +785,7 @@ function playerClass(startingX, startingY, isAI) {
 		//     this.ang = 7*Math.PI/4;
 		//     break;
 		// }
+
 		if (this.states.isShooting) {
 			if (mainStates.isPaused === false) {
 				this.incrementTick();
@@ -796,5 +810,6 @@ function playerClass(startingX, startingY, isAI) {
 			colorRect(this.x + 14, this.y + 20, 1, 10, "green");
 			colorRect(this.x, this.y + 20, this.shootingTime, 10, "red");
 		}
+		this.markCenterOfFeet();
 	}
 }
