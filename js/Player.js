@@ -30,6 +30,7 @@ function playerClass(startingX, startingY, isAI) {
 	this.ballToHold;
 	this.inShootingMotion = false;
 	this.shootingTime = 0;
+	this.shootingPerfectTimeStart = 14;
 	this.distanceFromHoop;
 	this.isDunkingEnded = false;
 
@@ -39,6 +40,7 @@ function playerClass(startingX, startingY, isAI) {
 	this.zonesToGo = [];
 	this.randomShootingTime;
 	this.closeEnoughToDefend = false;
+	this.randomAiShooting;
 
 	this.score = 0;
 
@@ -293,6 +295,20 @@ function playerClass(startingX, startingY, isAI) {
 								break;
 							default:
 						}
+
+						if (this.currentZone == 1 || this.currentZone == 9 || this.currentZone == 17 ||
+							this.currentZone == 24 || this.currentZone == 25 || this.currentZone == 26 ||
+							this.currentZone == 23 || this.currentZone == 16 || this.currentZone == 8 ||
+						 	this.currentZone == 27 || this.currentZone == 28) {
+							this.shootingPerfectTimeStart = 16;
+						}
+						else if(this.currentZone == 29 || this.currentZone == 30 || this.currentZone == 31 ||
+										this.currentZone == 32 || this.currentZone == 33){
+							this.shootingPerfectTimeStart = 17;
+						}
+						else {
+							this.shootingPerfectTimeStart = 14;
+						}
 						this.states.isIdle = false;
 						this.states.isShooting = true;
 						this.shootingStartingX = this.x;
@@ -453,6 +469,15 @@ function playerClass(startingX, startingY, isAI) {
 									break;
 								default:
 							}
+							if (this.currentZone == 1 || this.currentZone == 9 || this.currentZone == 17 ||
+								this.currentZone == 24 || this.currentZone == 25 || this.currentZone == 26 ||
+								this.currentZone == 23 || this.currentZone == 16 || this.currentZone == 8) {
+								this.randomAiShooting = Math.floor(Math.random() * 6) + 3;
+							}
+							else {
+								this.randomAiShooting = Math.floor(Math.random() * 10) + 1;
+							}
+							//console.log(random);
 							this.states.isIdle = false;
 							this.states.isShooting = true;
 							this.shootingStartingX = this.x;
@@ -490,14 +515,6 @@ function playerClass(startingX, startingY, isAI) {
 		}
 
 		if (this.states.isShooting) {
-			if (this.currentZone == 1 || this.currentZone == 9 || this.currentZone == 17 ||
-				this.currentZone == 24 || this.currentZone == 25 || this.currentZone == 26 ||
-				this.currentZone == 23 || this.currentZone == 16 || this.currentZone == 8) {
-				var random = Math.floor(Math.random() * 6) + 3;
-			}
-			else {
-				var random = Math.floor(Math.random() * 10) + 1;
-			}
 
 			if (!this.isAI) {
 				if (this.keyHeld_Shoot && this.ballToHold != null) {
@@ -505,7 +522,7 @@ function playerClass(startingX, startingY, isAI) {
 					if (this.shootingTime > 25) {
 						this.shootingTime = 25;
 					}
-					if (this.shootingTime > 15) {
+					if (this.shootingTime > this.shootingPerfectTimeStart +1) {
 						this.tickCount = 25;
 					}
 				} else {
@@ -523,7 +540,7 @@ function playerClass(startingX, startingY, isAI) {
 						var a = HOOP_X - this.x;
 						var b = HOOP_Y - this.y;
 						this.ballToHold.startingDistanceFromHoop = Math.sqrt(a * a + b * b);
-						if (this.shootingTime >= 14 && this.shootingTime <= 15) { //if player menages to hits the green area. His shot will go in
+						if (this.shootingTime >= this.shootingPerfectTimeStart && this.shootingTime <= this.shootingPerfectTimeStart +1) { //if player menages to hits the green area. His shot will go in
 							twoPointsFX(this.ballToHold.x, this.ballToHold.y);
 							this.tickCount = 35;
 							this.ballToHold.goingIn = true;
@@ -533,7 +550,7 @@ function playerClass(startingX, startingY, isAI) {
 							this.ballToHold.ballPower = -16.5;
 							console.log("perfect");
 							updateZones();
-						} else if (this.shootingTime < 14) { //player did not press enough
+						} else if (this.shootingTime < this.shootingPerfectTimeStart) { //player did not press enough
 							// console.log(this.shootingTime);
 							// console.log(random);
 							this.tickCount = 35; //increasing the tickCount to be end of the animation.
@@ -558,7 +575,7 @@ function playerClass(startingX, startingY, isAI) {
 							}
 
 
-						} else if (this.shootingTime > 15) {
+						} else if (this.shootingTime > this.shootingPerfectTimeStart +1) {
 							// console.log(this.shootingTime);
 							// console.log(random);
 							if (this.shootingTime <= this.longPressedShotGoingInLimit) {
@@ -619,7 +636,7 @@ function playerClass(startingX, startingY, isAI) {
 						var a = HOOP_X - this.x;
 						var b = HOOP_Y - this.y;
 						this.ballToHold.startingDistanceFromHoop = Math.sqrt(a * a + b * b);
-						if (this.shootingTime >= 14 && this.shootingTime <= 15) { //if player menages to hits the green area. His shot will go in
+						if (this.shootingTime >= this.shootingPerfectTimeStart && this.shootingTime <= this.shootingPerfectTimeStart + 1) { //if player menages to hits the green area. His shot will go in
 							twoPointsFX(this.ballToHold.x, this.ballToHold.y);
 							this.tickCount = 35;
 							this.ballToHold.goingIn = true;
@@ -629,7 +646,7 @@ function playerClass(startingX, startingY, isAI) {
 							this.ballToHold.ballPower = -16;
 							console.log("perfect");
 							updateZones();
-						} else if (this.shootingTime < 14) { //player did not press enough
+						} else if (this.shootingTime < this.shootingPerfectTimeStart) { //player did not press enough
 							// console.log(this.shootingTime);
 							// console.log(random);
 							this.tickCount = 35; //increasing the tickCount to be end of the animation.
@@ -654,7 +671,7 @@ function playerClass(startingX, startingY, isAI) {
 							}
 
 
-						} else if (this.shootingTime > 15) {
+						} else if (this.shootingTime > this.shootingPerfectTimeStart +1) {
 							// console.log(this.shootingTime);
 							// console.log(random);
 							if (this.shootingTime <= 19) {
@@ -815,7 +832,7 @@ function playerClass(startingX, startingY, isAI) {
 
 		if (this.shootingTime > 0) {
 			colorRect(this.x + this.shortPressedShotGoingInLimit, this.y + 20, this.longPressedShotGoingInLimit - this.shortPressedShotGoingInLimit, 10, "yellow");
-			colorRect(this.x + 14, this.y + 20, 1, 10, "green");
+			colorRect(this.x + this.shootingPerfectTimeStart, this.y + 20, 1, 10, "green");
 			colorRect(this.x, this.y + 20, this.shootingTime, 10, "red");
 		}
 		//this.markCenterOfFeet();
