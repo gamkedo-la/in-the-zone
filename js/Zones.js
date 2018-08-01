@@ -17,15 +17,13 @@ function zoneClass(x1,y1, x2,y2, x3,y3, x4,y4, x5,y5, zoneNumber) {
   this.y1 = y1; this.y2 = y2; this.y3 = y3, this.y4 = y4; this.y5 = y5;
   this.topEdge = this.y1; this.rightEdge = this.x2; this.bottomEdge = this.y4; this.leftEdge = this.x1;
   this.middle = [(this.x2-this.x1)/2 + this.x1,(this.y3-this.y2)/2 + this.y1];
+  this.points = [new pointClass(this.x1, this.y1), new pointClass(this.x2, this.y2), new pointClass(this.x3, this.y3), new pointClass(this.x4, this.y4)];
+  if(this.x5 !== undefined) {
+	  this.points.push(new pointClass(this.x5, this.y5));
+  }
 
   this.draw = function() {
-
-
-    if (this.x5 === undefined && this.y5 === undefined) {
-      drawQuadrilateralZone(this.x1,this.y1, this.x2,this.y2, this.x3,this.y3, this.x4,this.y4, zoneNumber, this.claimStatus);
-    } else {
-      drawPentagonalZone(this.x1,this.y1, this.x2,this.y2, this.x3,this.y3, this.x4,this.y4, this.x5,this.y5, zoneNumber, this.claimStatus);
-    }
+  	drawAnyZone(this.points, this.zoneNumber, this.claimStatus);
   }
 }
 
@@ -42,7 +40,6 @@ function updateZoneStatus(zoneIndex) {
                          player1Here = true;
                          character1.currentZone = arrayOfZones[zoneIndex].zoneNumber;
                        }
-
     if ( pointInPolygon(character2.centerOfFeet.centerOfFeetX,character2.centerOfFeet.centerOfFeetY, arrayOfZones[zoneIndex].x1,arrayOfZones[zoneIndex].y1,
                         arrayOfZones[zoneIndex].x2,arrayOfZones[zoneIndex].y2, arrayOfZones[zoneIndex].x3,arrayOfZones[zoneIndex].y3,
                         arrayOfZones[zoneIndex].x4,arrayOfZones[zoneIndex].y4, arrayOfZones[zoneIndex].x5,arrayOfZones[zoneIndex].y5) ) {
@@ -53,24 +50,24 @@ function updateZoneStatus(zoneIndex) {
         //checks zone status and changes to appropriate color
         if (character1.ballToHold != null) {
           if (character1.startedDunking && player1Here) {
-            if (arrayOfZones[zoneIndex].claimStatus == 4) {
+            if (arrayOfZones[zoneIndex].claimStatus == ClaimStatus.OwnedPlayer2) {
               character2.score -= 4;
             }
-            if (arrayOfZones[zoneIndex].claimStatus != 5) {
+            if (arrayOfZones[zoneIndex].claimStatus != ClaimStatus.OwnedPlayer1) {
               character1.score += 4;
               arrayOfZones[zoneIndex].isClaimedBy = character1;
-              arrayOfZones[zoneIndex].claimStatus = 5;
+              arrayOfZones[zoneIndex].claimStatus = ClaimStatus.OwnedPlayer1;
             }
           }
           if (player1Here && character1.ballToHold.goingIn) {
             //console.log(character1.ballToHold.goingIn);
-            if (arrayOfZones[zoneIndex].claimStatus == 4) {
+            if (arrayOfZones[zoneIndex].claimStatus == ClaimStatus.OwnedPlayer2) {
               character2.score -= 4;
             }
-            if (arrayOfZones[zoneIndex].claimStatus != 5) {
+            if (arrayOfZones[zoneIndex].claimStatus != ClaimStatus.OwnedPlayer1) {
               character1.score += 4;
               arrayOfZones[zoneIndex].isClaimedBy = character1;
-              arrayOfZones[zoneIndex].claimStatus = 5;//if player1 is in the zone and the ball goes in, zone is claimed by player1 and colored blue;
+              arrayOfZones[zoneIndex].claimStatus = ClaimStatus.OwnedPlayer1;//if player1 is in the zone and the ball goes in, zone is claimed by player1 and colored blue;
               //console.log(arrayOfZones[zoneIndex].claimStatus);
             }
           }
@@ -78,24 +75,24 @@ function updateZoneStatus(zoneIndex) {
         if (character2.ballToHold != null) {
           if (character2.startedDunking && player2Here) {
             //console.log("ai dunking");
-            if (arrayOfZones[zoneIndex].claimStatus == 5) {
+            if (arrayOfZones[zoneIndex].claimStatus == ClaimStatus.OwnedPlayer1) {
               character1.score -= 4;
             }
-            if (arrayOfZones[zoneIndex].claimStatus != 4){
+            if (arrayOfZones[zoneIndex].claimStatus != ClaimStatus.OwnedPlayer2){
               character2.score += 4;
               arrayOfZones[zoneIndex].isClaimedBy = character2;
-              arrayOfZones[zoneIndex].claimStatus = 4;//if player2 is in the zone ond the ball goes in, zone is claimed by player2 and colored green;
+              arrayOfZones[zoneIndex].claimStatus = ClaimStatus.OwnedPlayer2;//if player2 is in the zone ond the ball goes in, zone is claimed by player2 and colored green;
             }
           }
           if (player2Here && character2.ballToHold.goingIn) {
             //console.log("ai shooting");
-            if (arrayOfZones[zoneIndex].claimStatus == 5) {
+            if (arrayOfZones[zoneIndex].claimStatus == ClaimStatus.OwnedPlayer1) {
               character1.score -= 4;
             }
-            if (arrayOfZones[zoneIndex].claimStatus != 4){
+            if (arrayOfZones[zoneIndex].claimStatus != ClaimStatus.OwnedPlayer2){
               character2.score += 4;
               arrayOfZones[zoneIndex].isClaimedBy = character2;
-              arrayOfZones[zoneIndex].claimStatus = 4;//if player2 is in the zone ond the ball goes in, zone is claimed by player2 and colored green;
+              arrayOfZones[zoneIndex].claimStatus = ClaimStatus.OwnedPlayer2;//if player2 is in the zone ond the ball goes in, zone is claimed by player2 and colored green;
             }
           }
         }
@@ -103,15 +100,15 @@ function updateZoneStatus(zoneIndex) {
         //this part would be added the red zone condition, claimStatus 3
         //|| (player1Here && arrayOfZones[zoneIndex].claimStatus === 4) || (player2Here && arrayOfZones[zoneIndex].claimStatus === 5) )
 
-        if (arrayOfZones[zoneIndex].claimStatus != 5 && arrayOfZones[zoneIndex].claimStatus != 4) {
+        if (arrayOfZones[zoneIndex].claimStatus != ClaimStatus.OwnedPlayer1 && arrayOfZones[zoneIndex].claimStatus != ClaimStatus.OwnedPlayer2) {
           if (player1Here && player2Here)  {
-            arrayOfZones[zoneIndex].claimStatus = 3;//if both players are in the zone or if either zone is already claimed while other player is in that zone, zone is colored red
+            arrayOfZones[zoneIndex].claimStatus = ClaimStatus.Both;//if both players are in the zone or if either zone is already claimed while other player is in that zone, zone is colored red
           } else if (player1Here) {
-            arrayOfZones[zoneIndex].claimStatus = 1;//if only player1 is here, zone is blue
+            arrayOfZones[zoneIndex].claimStatus = ClaimStatus.Player1;//if only player1 is here, zone is blue
           } else if (player2Here) {
-            arrayOfZones[zoneIndex].claimStatus = 2;//if only player 2 is here, zone is green
+            arrayOfZones[zoneIndex].claimStatus = ClaimStatus.Player2;//if only player 2 is here, zone is green
           } else {
-            arrayOfZones[zoneIndex].claimStatus = 0;//if neither player is here, zone has no fillStyle
+            arrayOfZones[zoneIndex].claimStatus = ClaimStatus.Neither;//if neither player is here, zone has no fillStyle
           }
         }
 
@@ -156,14 +153,14 @@ initializeArrayOfZones = () => {//142 35
 }
 
 drawZones = () => {
-  for (let zoneIndex = 0; zoneIndex<33; zoneIndex++) {
+  for (let zoneIndex = 0; zoneIndex<arrayOfZones.length; zoneIndex++) {
     updateZoneStatus(zoneIndex);
     arrayOfZones[zoneIndex].draw();
     //console.log(arrayOfZones[19]);
   }
 }
 updateZones = () => {
-  for (let zoneIndex = 0; zoneIndex<33; zoneIndex++) {
+  for (let zoneIndex = 0; zoneIndex<arrayOfZones.length; zoneIndex++) {
     updateZoneStatus(zoneIndex);
   }
 }
@@ -206,7 +203,7 @@ function pointInPolygon(targetX,targetY, polygonX1,polygonY1, polygonX2,polygonY
   			var k;
 
   			if (Math.abs(dx) < eps) {
-  				k = 999999999999999999999999999;
+  				k = Number.MAX_VALUE;
   			} else {
   				k = dy / dx;
   			}
