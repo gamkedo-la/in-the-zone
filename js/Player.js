@@ -5,7 +5,6 @@ var distanceToTheClosestBall;
 var zoneCounter = 0;
 var randomNumberOfZones;
 var zonesWithPriority = [];
-var isDunkingEnded = false;
 
 function playerClass(startingX, startingY, isAI) {
 	this.x = startingX;
@@ -31,6 +30,7 @@ function playerClass(startingX, startingY, isAI) {
 	this.inShootingMotion = false;
 	this.shootingTime = 0;
 	this.distanceFromHoop;
+	this.isDunkingEnded = false;
 
 	//for ai
 	this.ballToChase;
@@ -697,29 +697,35 @@ function playerClass(startingX, startingY, isAI) {
 			var dunkingHeight = 5;
 			nextX += dunkingX;
 			nextY += dunkingY;
-			if (this.jumpingHeight < HOOP_H && !isDunkingEnded) {
+			if (this.jumpingHeight < HOOP_H && !this.isDunkingEnded) {
 				this.jumpingHeight += dunkingHeight;
 			}
-			if (this.jumpingHeight + 10 > HOOP_H && !isDunkingEnded) {
+			if (this.jumpingHeight + 10 > HOOP_H && !this.isDunkingEnded) {
 				this.jumpingHeight -= dunkingHeight;
 				this.tickCount = 40;
 			}
 			this.z = this.y - this.jumpingHeight;
 			if (this.x < HOOP_X + 10 && this.y < HOOP_Y + 10 &&
 				this.x > HOOP_X - 10 && this.y > HOOP_Y - 10 &&
-				this.jumpingHeight < HOOP_H + 30 && this.jumpingHeight > HOOP_H - 30 && !isDunkingEnded) {
-				this.ballToHold.ballPower = 5;
-				this.ballToHold.beingDunked = false;
-				this.ballToHold.jumpingHeight = HOOP_H;
-				this.ballToHold.shootingX = 0;
-				this.ballToHold.shootingY = 0;
-				this.ballToHold.height = HOOP_H;
-				this.ballToHold.isHeld = false;
-				this.ballToHold.isHeldBy = null;
-				isDunkingEnded = true;
+				this.jumpingHeight < HOOP_H + 30 && this.jumpingHeight > HOOP_H - 30 && !this.isDunkingEnded) {
+					if (this.ballToHold != null) {
+						this.ballToHold.beingDunked = false;
+						this.ballToHold.ballPower = 5;
+						this.ballToHold.beingDunked = false;
+						this.ballToHold.jumpingHeight = HOOP_H;
+						this.ballToHold.shootingX = 0;
+						this.ballToHold.shootingY = 0;
+						this.ballToHold.height = HOOP_H;
+						this.ballToHold.isHeld = false;
+						this.ballToHold.isHeldBy = null;
+					}
+					else {
+						console.log("crashed");
+					}
+				this.isDunkingEnded = true;
 			}
-			if (isDunkingEnded) {
-				console.log(this.jumpingHeight);
+			if (this.isDunkingEnded) {
+				//console.log(this.jumpingHeight);
 				this.tickCount = 45;
 				this.jumpingHeight -= 5;
 				dunkingX = 0;
@@ -729,7 +735,7 @@ function playerClass(startingX, startingY, isAI) {
 					this.isHoldingBall = false;
 					this.states.isDunking = false;
 					this.states.isIdle = true;
-					isDunkingEnded = false;
+					this.isDunkingEnded = false;
 				}
 			}
 		}
