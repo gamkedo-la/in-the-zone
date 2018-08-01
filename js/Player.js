@@ -14,12 +14,13 @@ function playerClass(startingX, startingY, isAI) {
 	this.rightEdgeOfFeet = this.x + 39;
 	this.bottomEdgeOfFeet = this.y + 61;
 
-	this.centerOfFeet = {"centerOfFeetX": this.x-4,"centerOfFeetY": this.y+30};
+//	this.centerOfFeet = {"centerOfFeetX": this.x-4,"centerOfFeetY": this.y+30};
+	this.centerOfFeet = {x:this.x-4, y:this.y+30};
 
 	this.markCenterOfFeet = () => {
 		canvasContext.font = "20px Arial";
 		canvasContext.fillStyle = "black";
-		canvasContext.fillText(this.centerOfFeet.centerOfFeetX + "," + this.centerOfFeet.centerOfFeetY,
+		canvasContext.fillText(this.centerOfFeet.x + "," + this.centerOfFeet.y,
 		 											 this.x - 4,this.y + 30);
 	}
 	this.myWarriorPic; // which picture to use
@@ -761,8 +762,8 @@ function playerClass(startingX, startingY, isAI) {
 	}
 
 	this.updateCenterOfFeet = function () {
-		this.centerOfFeet.centerOfFeetX = this.x - 4;
-		this.centerOfFeet.centerOfFeetY = this.y + 30;
+		this.centerOfFeet.x = this.x - 4;
+		this.centerOfFeet.y = this.y + 30;
 	}
 
 	this.draw = function () {
