@@ -2,6 +2,20 @@ let arrayOfZones = new Array();
 let initializeArrayOfZones;
 let drawZones;
 
+const ClaimStatus = {
+	Neither:0,
+	Player1:1,
+	Player2:2,
+	Both:3,
+	OwnedPlayer1: 5,
+	OwnedPlayer2: 4
+}
+
+function pointClass(x, y) {
+	this.x = x;
+	this.y = y;
+}
+
 function zoneClass(x1,y1, x2,y2, x3,y3, x4,y4, x5,y5, zoneNumber) {
 
   this.zoneNumber = zoneNumber;
