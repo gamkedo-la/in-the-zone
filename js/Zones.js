@@ -146,17 +146,24 @@ initializeArrayOfZones = () => {//142 35
     arrayOfZones.push(new zoneClass(332,502, 453,532, 453,585, 332,585, undefined,undefined, 24));
     arrayOfZones.push(new zoneClass(453,532, 572,542, 707,532, 707,585, 453,585, 25));
     arrayOfZones.push(new zoneClass(707,532, 814,505, 814,585, 707,585, undefined,undefined, 26));
+    arrayOfZones.push(new zoneClass(90,502, 332,502, 332,585, 75,585, undefined,undefined, 27));
+    arrayOfZones.push(new zoneClass(814,505, 1065,505, 1080,585, 814,585, undefined,undefined, 28));
+    arrayOfZones.push(new zoneClass(75,585, 332,585, 332,675, 57,675, undefined,undefined, 29));
+    arrayOfZones.push(new zoneClass(332,585, 453,585, 453,675, 332,675, undefined,undefined, 30));
+    arrayOfZones.push(new zoneClass(453,585, 707,585, 707,675, 453,675, undefined,undefined, 31));
+    arrayOfZones.push(new zoneClass(707,585, 814,585, 814,675, 707,675, undefined,undefined, 32));
+    arrayOfZones.push(new zoneClass(814,585, 1080,585, 1098,675, 814,675, undefined,undefined, 33));
 }
 
 drawZones = () => {
-  for (let zoneIndex = 0; zoneIndex<26; zoneIndex++) {
+  for (let zoneIndex = 0; zoneIndex<33; zoneIndex++) {
     updateZoneStatus(zoneIndex);
     arrayOfZones[zoneIndex].draw();
     //console.log(arrayOfZones[19]);
   }
 }
 updateZones = () => {
-  for (let zoneIndex = 0; zoneIndex<26; zoneIndex++) {
+  for (let zoneIndex = 0; zoneIndex<33; zoneIndex++) {
     updateZoneStatus(zoneIndex);
   }
 }
