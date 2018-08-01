@@ -29,10 +29,11 @@ window.onload = function () {
 	canvasContext = canvas.getContext('2d');
 	canvas.onmousemove = (evt) => { //gathering mouse coordinates for easy reference during game dev in game play,
 		//current use is to outline zones
-		mouseX = evt.pageX;
-		mouseY = evt.pageY;
+		//mouseX = evt.pageX;
+		//mouseY = evt.pageY;
 		//character2.x = mouseX;
 		//character2.y = mouseY;
+		
 	}
 
 	colorRect(0, 0, canvas.width, canvas.height, 'black');
@@ -92,7 +93,7 @@ function drawWorld() {
 		drawBitmapCenteredWithRotation(basketballCourt, canvas.width / 2, canvas.height / 2, 0);
 		drawZones();
 		drawScoreboard();
-		console.log(character1.centerOfFeet);
+
 	}
 }
 

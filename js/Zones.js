@@ -36,19 +36,19 @@ function updateZoneStatus(zoneIndex) {
     var player2Here = false;
 
     //if both players' feet are in a zone, the associated zone status
-    /*if ( pointInPolygon(character1.centerOfFeet.centerOfFeetX,character1.centerOfFeet.centerOfFeetY, arrayOfZones[zoneIndex].x1,arrayOfZones[zoneIndex].y1,
-                       arrayOfZones[zoneIndex].x2,arrayOfZones[zoneIndex].y2), arrayOfZones[zoneIndex].x3,arrayOfZones[zoneIndex].y3,
+    if ( pointInPolygon(character1.centerOfFeet.centerOfFeetX,character1.centerOfFeet.centerOfFeetY, arrayOfZones[zoneIndex].x1,arrayOfZones[zoneIndex].y1,
+                       arrayOfZones[zoneIndex].x2,arrayOfZones[zoneIndex].y2, arrayOfZones[zoneIndex].x3,arrayOfZones[zoneIndex].y3,
                        arrayOfZones[zoneIndex].x4,arrayOfZones[zoneIndex].y4, arrayOfZones[zoneIndex].x5,arrayOfZones[zoneIndex].y5) ) {
                          player1Here = true;
                          character1.currentZone = arrayOfZones[zoneIndex].zoneNumber;
                        }
 
     if ( pointInPolygon(character2.centerOfFeet.centerOfFeetX,character2.centerOfFeet.centerOfFeetY, arrayOfZones[zoneIndex].x1,arrayOfZones[zoneIndex].y1,
-                        arrayOfZones[zoneIndex].x2,arrayOfZones[zoneIndex].y2), arrayOfZones[zoneIndex].x3,arrayOfZones[zoneIndex].y3,
+                        arrayOfZones[zoneIndex].x2,arrayOfZones[zoneIndex].y2, arrayOfZones[zoneIndex].x3,arrayOfZones[zoneIndex].y3,
                         arrayOfZones[zoneIndex].x4,arrayOfZones[zoneIndex].y4, arrayOfZones[zoneIndex].x5,arrayOfZones[zoneIndex].y5) ) {
                           player2Here = true;
                           character2.currentZone = arrayOfZones[zoneIndex].zoneNumber;
-                        }*/
+                        }
 
         //checks zone status and changes to appropriate color
         if (character1.ballToHold != null) {
@@ -159,7 +159,7 @@ updateZones = () => {
   for (let zoneIndex = 0; zoneIndex<26; zoneIndex++) {
     updateZoneStatus(zoneIndex);
   }
-
+}
 
 function pointInPolygon(targetX,targetY, polygonX1,polygonY1, polygonX2,polygonY2, polygonX3,polygonY3, polygonX4,polygonY4, polygonX5,polygonY5) {
 
@@ -176,7 +176,7 @@ function pointInPolygon(targetX,targetY, polygonX1,polygonY1, polygonX2,polygonY
       var polygonY = [polygonY1,polygonY2,polygonY3,polygonY4];
     } else {
       var polygonX = [polygonX1,polygonX2,polygonX3,polygonX4,polygonX5];
-      var polygonY = [polygonY1,polygonY2,polygonY3,polygonY4,polygonX5];
+      var polygonY = [polygonY1,polygonY2,polygonY3,polygonY4,polygonY5];
     }
 
   	/* Iterate through each line */
@@ -219,4 +219,3 @@ function pointInPolygon(targetX,targetY, polygonX1,polygonY1, polygonX2,polygonY
   		return false;
   	}
   }
-}

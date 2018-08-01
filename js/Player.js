@@ -18,9 +18,10 @@ function playerClass(startingX, startingY, isAI) {
 	this.centerOfFeet = {"centerOfFeetX": this.x-4,"centerOfFeetY": this.y+30};
 
 	this.markCenterOfFeet = () => {
-		canvasContext.font = "10px";
-		canvasContext.fillStyle = "yellow";
-		canvasContext.fillText("x", this.x - 4,this.y + 30);
+		canvasContext.font = "20px Arial";
+		canvasContext.fillStyle = "black";
+		canvasContext.fillText(this.centerOfFeet.centerOfFeetX + "," + this.centerOfFeet.centerOfFeetY,
+		 											 this.x - 4,this.y + 30);
 	}
 	this.myWarriorPic; // which picture to use
 	// this.facingDirection= 2;//0 = north, 1 = east, 2 = south, 3 = west,4=ne, 5 = se, 6 = sw, 7 = nw
