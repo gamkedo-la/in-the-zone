@@ -811,6 +811,6 @@ function playerClass(startingX, startingY, isAI) {
 			colorRect(this.x + 14, this.y + 20, 1, 10, "green");
 			colorRect(this.x, this.y + 20, this.shootingTime, 10, "red");
 		}
-		this.markCenterOfFeet();
+		//this.markCenterOfFeet();
 	}
 }

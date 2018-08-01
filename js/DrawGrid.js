@@ -14,8 +14,8 @@ function drawQuadrilateralZone(x1,y1, x2,y2, x3,y3, x4,y4, zoneNumber, claimedBy
   let centerX = (x2-x1)/2 + x1;
   let centerY = (y3-y2)/2 + y1;
   canvasContext.fillStyle = "blue";
-  canvasContext.fillText("Zone " + zoneNumber, (x2-x1)/2 - 20 + x1, y1 + 10);
-  canvasContext.fillText(centerX + ", " + centerY, centerX - 15,centerY);
+  //canvasContext.fillText("Zone " + zoneNumber, (x2-x1)/2 - 20 + x1, y1 + 10);
+  //canvasContext.fillText(centerX + ", " + centerY, centerX - 15,centerY);
 }
 
 function drawPentagonalZone(x1,y1, x2,y2, x3,y3, x4,y4, x5,y5, zoneNumber, claimedByPlayerNumber) {
@@ -34,6 +34,6 @@ function drawPentagonalZone(x1,y1, x2,y2, x3,y3, x4,y4, x5,y5, zoneNumber, claim
   let centerX = (x2-x1)/2 + x1;
   let centerY = (y4-y1)/2 + y1;
   canvasContext.fillStyle = "blue";
-  canvasContext.fillText("Zone " + zoneNumber, (x2-x1)/2 - 20 + x1, y1 + 10);
-  canvasContext.fillText(centerX + ", " + centerY, centerX - 15,centerY);
+  //canvasContext.fillText("Zone " + zoneNumber, (x2-x1)/2 - 20 + x1, y1 + 10);
+  //canvasContext.fillText(centerX + ", " + centerY, centerX - 15,centerY);
 }
