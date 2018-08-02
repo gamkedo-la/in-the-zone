@@ -3,6 +3,7 @@ const HOOP_Y = 235;
 const HOOP_H = 120;
 const BALL_SHOOT_SPEED = 8;
 const GRAVITY_MULTIPLIER = 0.8;
+const ROLLING_FRICTION = 0.995;
 var ballRiseValue = 0;
 var ballShootingStartingX;
 var ballShootingStartingY;
@@ -66,6 +67,10 @@ function ballClass(startingX, startingY) {
     // console.log(this.ballPower);
     this.ballPower = this.ballPower + GRAVITY_MULTIPLIER;
     this.height = this.height - this.ballPower;
+    if(!this.bingShot && !this.goingIn) {
+	    this.shootingX *= ROLLING_FRICTION;
+	    this.shootingY *= ROLLING_FRICTION;
+    }
     this.x += this.shootingX;
     this.y += this.shootingY;
     this.z = this.y - this.height;
@@ -91,15 +96,22 @@ function ballClass(startingX, startingY) {
         bounceFX(this.x, this.y);
       }
 
-      if (this.y < HOOP_Y || this.y > canvas.height) {
-        this.beingShot = false;
-        this.shootingY = -this.shootingY / 2;
+	  if(this.y < HOOP_Y) {
+		  this.beingShot = false;
+		  this.shootingY = Math.abs(this.shootingY / 2);
+	  } else if(this.y > canvas.height) {
+		  this.beingShot = false;
+		  this.shootingY = -Math.abs(this.shootingY/2);
+	  }
+      
+      if(this.x < 0) {
+	      this.beingShot = false;
+	      this.shootingX = Math.abs(this.shootingX);
+      } else if(this.x > canvas.width) {
+	      this.beingShot = false;
+	      this.shootingX = -Math.abs(this.shootingX);
       }
-      if (this.x < 0 || this.x > canvas.width) {
-        this.beingShot = false;
-        this.shootingX = - this.shootingX;
-      }
-
+      
     }
     if (this.beingShot) {
       if (this.goingIn) {
