@@ -651,7 +651,7 @@ function playerClass(startingX, startingY, isAI) {
 							// console.log(random);
 							this.tickCount = 35; //increasing the tickCount to be end of the animation.
 							if (this.shootingTime >= 10) {
-								if (random + 9 <= this.shootingTime) {
+								if (Math.floor(Math.random() * 10) + 9 <= this.shootingTime) {
 									this.ballToHold.goingIn = true;
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
 									this.ballToHold.ballPower = -16;
@@ -675,7 +675,7 @@ function playerClass(startingX, startingY, isAI) {
 							// console.log(this.shootingTime);
 							// console.log(random);
 							if (this.shootingTime <= 19) {
-								if (this.shootingTime <= random + 9) {
+								if (this.shootingTime <= Math.floor(Math.random() * 10) + 9) {
 									this.ballToHold.goingIn = true;
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
 									this.ballToHold.ballPower = -16;

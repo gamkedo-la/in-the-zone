@@ -23,7 +23,7 @@ var gameMode = {
 
 
 
-
+window.focus();//necessary to ensure the game receives keyboard input once it is uploaded to itch.io 
 window.onload = function () {
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
