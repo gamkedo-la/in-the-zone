@@ -14,10 +14,16 @@ const KEY_P = 80;
 
 const KEY_ESC = 27;
 
+//used with Main Menu
+const KEY_ENTER = 13;
+
 var mouseX = 0;
 var mouseY = 0;
 
 var escKey;
+
+//used with Main Menu
+var enterKey;
 
 function setupInput() {
 	document.addEventListener('keydown', keyPressed);
@@ -37,6 +43,9 @@ function setupInput() {
 function keySet(keyEvent, setTo) {
 	if (keyEvent.keyCode == KEY_ESC) {
 		escKey = setTo;
+	}
+	if (keyEvent.keyCode == KEY_ENTER) {
+		enterKey = setTo;
 	}
 	if (keyEvent.keyCode == KEY_P) {
 		if (setTo === true) {

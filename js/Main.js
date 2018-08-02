@@ -13,7 +13,8 @@ var winner;
 var mainStates = {
 	inGame: true,
 	gameOver: false,
-	isPaused: false
+	isPaused: false,
+	menuOpen: true
 };
 
 var gameMode = {
@@ -40,6 +41,7 @@ window.onload = function () {
 	colorText("LOADING IMAGES", canvas.width / 2, canvas.height / 2, 'white');
 
 	loadImages();
+	
 }
 
 function imageLoadingDoneSoStartGame() {
@@ -81,6 +83,7 @@ function drawAll() {
 		drawBalls(ballArray);
 		character1.draw();
 		character2.draw();
+		drawMainMenu();
 	}
 	if (mainStates.gameOver) {
 		drawGameOver();
@@ -122,6 +125,22 @@ function drawGameOver() {
 		resetGame();
 		mainStates.inGame = true;
 	}
+}
+
+function drawMainMenu() {
+	var fired = false;
+
+	if (mainStates.menuOpen) {
+		mainStates.isPaused = true;
+		colorRect(canvas.width / 4, canvas.height / 4, canvas.width / 2, canvas.height / 2, "black");
+		colorText("Press Enter to start game", canvas.width / 2, canvas.height / 2, "white");
+	}
+
+	if (enterKey) {
+		mainStates.menuOpen = false;
+		mainStates.isPaused = false;
+	}
+
 }
 
 function resetGame() {

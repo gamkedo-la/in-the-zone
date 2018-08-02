@@ -21,6 +21,7 @@ function colorCircle(centerX, centerY, radius, fillColor) {
 function colorText(showWords, textX, textY, fillColor) {
 	canvasContext.fillStyle = fillColor;
 	canvasContext.fillText(showWords, textX, textY);
+	canvasContext.textAlign = "center";
 }
 function colorTriangle(aX, aY, bX, bY, cX, cY, color) {
 	canvasContext.beginPath();
