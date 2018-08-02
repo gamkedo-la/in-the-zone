@@ -24,7 +24,7 @@ var gameMode = {
 
 
 
-window.focus();//necessary to ensure the game receives keyboard input once it is uploaded to itch.io 
+window.focus();//necessary to ensure the game receives keyboard input once it is uploaded to itch.io
 window.onload = function () {
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
@@ -34,14 +34,14 @@ window.onload = function () {
 		//mouseY = evt.pageY;
 		//character2.x = mouseX;
 		//character2.y = mouseY;
-		
+
 	}
 
 	colorRect(0, 0, canvas.width, canvas.height, 'black');
 	colorText("LOADING IMAGES", canvas.width / 2, canvas.height / 2, 'white');
 
 	loadImages();
-	
+
 }
 
 function imageLoadingDoneSoStartGame() {
@@ -180,6 +180,14 @@ function resetGame() {
 		ballArray[i].ballPower = -10;
 		ballArray[i].goingIn = false;
 		ballArray[i].isShotBy = null;
+	}
+	for (var i = 0; i < arrayOfZones.length; i++) {
+		arrayOfZones[i].unclaimed = true;
+
+		arrayOfZones[i].claimStatus = 0;
+		arrayOfZones[i].character1InTheZone = false;
+		arrayOfZones[i].character2InTheZone = false;
+		arrayOfZones[i].isClaimedBy;
 	}
 	min = 0;
 	sec = 30;
