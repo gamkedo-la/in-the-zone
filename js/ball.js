@@ -179,7 +179,7 @@ function ballClass(startingX, startingY) {
   }
 
   this.drawShadow = function () {
-    colorCircle(this.x, this.y, 6, "black");
+    colorCircle(this.x, this.y + this.height / 2, 6, "black");
   }
 }
 
