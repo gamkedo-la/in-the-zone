@@ -4,6 +4,7 @@ const HOOP_H = 120;
 const BALL_SHOOT_SPEED = 8;
 const GRAVITY_MULTIPLIER = 0.8;
 const ROLLING_FRICTION = 0.995;
+const ROTATION_RATE = 0.1;
 var ballRiseValue = 0;
 var ballShootingStartingX;
 var ballShootingStartingY;
@@ -50,6 +51,7 @@ function ballClass(startingX, startingY) {
   this.beingShot = false;
   this.shootingX = 0;
   this.shootingY = 0;
+  this.rotation = 0;
   this.height = 10;
   this.ballPower = -10;
   this.startingDistanceFromHoop;
@@ -70,6 +72,10 @@ function ballClass(startingX, startingY) {
     if(!this.bingShot && !this.goingIn) {
 	    this.shootingX *= ROLLING_FRICTION;
 	    this.shootingY *= ROLLING_FRICTION;
+    }
+    
+    if(!this.isHeld) {
+	    this.rotation += (ROTATION_RATE * this.shootingX);	    
     }
     this.x += this.shootingX;
     this.y += this.shootingY;
@@ -166,7 +172,7 @@ function ballClass(startingX, startingY) {
   this.draw = function () {
     if (this.trail) this.trail.draw(this.x, this.z);
     //colorCircle(this.x, this.z, 6, "yellow");
-    drawBitmapCenteredWithRotation(ballImage, this.x, this.z, 0);
+    drawBitmapCenteredWithRotation(ballImage, this.x, this.z, this.rotation);
   }
 
   this.drawShadow = function () {
