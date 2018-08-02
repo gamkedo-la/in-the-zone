@@ -1,6 +1,7 @@
 let arrayOfZones = new Array();
 let initializeArrayOfZones;
 let drawZones;
+const ZONE_CLAIM_POINT = 1;
 
 const ClaimStatus = {
 	Neither:0,
@@ -53,20 +54,20 @@ function updateZoneStatus(zoneIndex) {
 	    player1Here = true;
         character1.currentZone = arrayOfZones[zoneIndex].zoneNumber;
     }
-    
+
     if(pointInPolygon(character2.centerOfFeet, arrayOfZones[zoneIndex].points)) {
 	    player2Here = true;
         character2.currentZone = arrayOfZones[zoneIndex].zoneNumber;
     }
-    
+
         //checks zone status and changes to appropriate color
         if (character1.ballToHold != null) {
           if (character1.startedDunking && player1Here) {
             if (arrayOfZones[zoneIndex].claimStatus == ClaimStatus.OwnedPlayer2) {
-              character2.score -= arrayOfZones[zoneIndex].score;
+              character2.score -= ZONE_CLAIM_POINT;
             }
             if (arrayOfZones[zoneIndex].claimStatus != ClaimStatus.OwnedPlayer1) {
-              character1.score += (arrayOfZones[zoneIndex].score + character1.streak++);
+              character1.score += (ZONE_CLAIM_POINT + arrayOfZones[zoneIndex].score + character1.streak++);
               arrayOfZones[zoneIndex].isClaimedBy = character1;
               arrayOfZones[zoneIndex].claimStatus = ClaimStatus.OwnedPlayer1;
             }
@@ -74,10 +75,10 @@ function updateZoneStatus(zoneIndex) {
           if (player1Here && character1.ballToHold.goingIn) {
             //console.log(character1.ballToHold.goingIn);
             if (arrayOfZones[zoneIndex].claimStatus == ClaimStatus.OwnedPlayer2) {
-              character2.score -= arrayOfZones[zoneIndex].score;
+              character2.score -= ZONE_CLAIM_POINT;
             }
             if (arrayOfZones[zoneIndex].claimStatus != ClaimStatus.OwnedPlayer1) {
-              character1.score += (arrayOfZones[zoneIndex].score + character1.streak++);
+              character1.score += (ZONE_CLAIM_POINT + arrayOfZones[zoneIndex].score + character1.streak++);
               arrayOfZones[zoneIndex].isClaimedBy = character1;
               arrayOfZones[zoneIndex].claimStatus = ClaimStatus.OwnedPlayer1;//if player1 is in the zone and the ball goes in, zone is claimed by player1 and colored blue;
               //console.log(arrayOfZones[zoneIndex].claimStatus);
@@ -88,10 +89,10 @@ function updateZoneStatus(zoneIndex) {
           if (character2.startedDunking && player2Here) {
             //console.log("ai dunking");
             if (arrayOfZones[zoneIndex].claimStatus == ClaimStatus.OwnedPlayer1) {
-              character1.score -= arrayOfZones[zoneIndex].score;
+              character1.score -= ZONE_CLAIM_POINT;
             }
             if (arrayOfZones[zoneIndex].claimStatus != ClaimStatus.OwnedPlayer2){
-              character2.score += (arrayOfZones[zoneIndex].score + character2.streak++);
+              character2.score += (ZONE_CLAIM_POINT + arrayOfZones[zoneIndex].score + character2.streak++);
               arrayOfZones[zoneIndex].isClaimedBy = character2;
               arrayOfZones[zoneIndex].claimStatus = ClaimStatus.OwnedPlayer2;//if player2 is in the zone ond the ball goes in, zone is claimed by player2 and colored green;
             }
@@ -99,10 +100,10 @@ function updateZoneStatus(zoneIndex) {
           if (player2Here && character2.ballToHold.goingIn) {
             //console.log("ai shooting");
             if (arrayOfZones[zoneIndex].claimStatus == ClaimStatus.OwnedPlayer1) {
-              character1.score -= arrayOfZones[zoneIndex].score;
+              character1.score -= ZONE_CLAIM_POINT;
             }
             if (arrayOfZones[zoneIndex].claimStatus != ClaimStatus.OwnedPlayer2){
-              character2.score += (arrayOfZones[zoneIndex].score + character2.streak++);
+              character2.score += (ZONE_CLAIM_POINT + arrayOfZones[zoneIndex].score + character2.streak++);
               arrayOfZones[zoneIndex].isClaimedBy = character2;
               arrayOfZones[zoneIndex].claimStatus = ClaimStatus.OwnedPlayer2;//if player2 is in the zone ond the ball goes in, zone is claimed by player2 and colored green;
             }
@@ -155,13 +156,13 @@ initializeArrayOfZones = () => {//142 35
     arrayOfZones.push(new zoneClass(332,502, 453,532, 453,585, 332,585, undefined,undefined, 24, 3));
     arrayOfZones.push(new zoneClass(453,532, 572,542, 707,532, 707,585, 453,585, 25, 3));
     arrayOfZones.push(new zoneClass(707,532, 814,505, 814,585, 707,585, undefined,undefined, 26, 3));
-    arrayOfZones.push(new zoneClass(90,502, 332,502, 332,585, 75,585, undefined,undefined, 27, 2));
-    arrayOfZones.push(new zoneClass(814,505, 1065,505, 1080,585, 814,585, undefined,undefined, 28, 2));
-    arrayOfZones.push(new zoneClass(75,585, 332,585, 332,675, 57,675, undefined,undefined, 29, 2));
-    arrayOfZones.push(new zoneClass(332,585, 453,585, 453,675, 332,675, undefined,undefined, 30, 2));
-    arrayOfZones.push(new zoneClass(453,585, 707,585, 707,675, 453,675, undefined,undefined, 31, 2));
-    arrayOfZones.push(new zoneClass(707,585, 814,585, 814,675, 707,675, undefined,undefined, 32, 2));
-    arrayOfZones.push(new zoneClass(814,585, 1080,585, 1098,675, 814,675, undefined,undefined, 33, 2));
+    arrayOfZones.push(new zoneClass(90,502, 332,502, 332,585, 75,585, undefined,undefined, 27, 3));
+    arrayOfZones.push(new zoneClass(814,505, 1065,505, 1080,585, 814,585, undefined,undefined, 28, 3));
+    arrayOfZones.push(new zoneClass(75,585, 332,585, 332,675, 57,675, undefined,undefined, 29, 3));
+    arrayOfZones.push(new zoneClass(332,585, 453,585, 453,675, 332,675, undefined,undefined, 30, 3));
+    arrayOfZones.push(new zoneClass(453,585, 707,585, 707,675, 453,675, undefined,undefined, 31, 3));
+    arrayOfZones.push(new zoneClass(707,585, 814,585, 814,675, 707,675, undefined,undefined, 32, 3));
+    arrayOfZones.push(new zoneClass(814,585, 1080,585, 1098,675, 814,675, undefined,undefined, 33, 3));
 }
 
 drawZones = () => {
@@ -178,7 +179,7 @@ updateZones = () => {
 }
 
 function pointInPolygon(target, polygon) {
-	
+
   	var tempX;
   	var tempY;
 
@@ -194,11 +195,11 @@ function pointInPolygon(target, polygon) {
 			tempX = polygon[(i + 1) % polygon.length].x;
 			tempY = polygon[i].x;
 		}
-		
+
 		//First check if the ray is possible to cross the line
 		if (target.x > tempX && target.x <= tempY && (target.y < polygon[i].y || target.y <= polygon[(i + 1) % polygon.length].y)) {
 			var eps = 0.000001;
-						
+
 			//Calculate the equation of the line
 			var dx = polygon[(i + 1) % polygon.length].x - polygon[i].x;
 			var dy = polygon[(i + 1) % polygon.length].y - polygon[i].y;
@@ -208,8 +209,8 @@ function pointInPolygon(target, polygon) {
 				k = Number.MAX_VALUE;
 			} else {
 				k = dy / dx;
-			} 			
-			
+			}
+
 			var m = polygon[i].y - k * polygon[i].x;
 			//Find if the ray crosses the line
 			var y2 = k * target.x + m;
@@ -218,7 +219,7 @@ function pointInPolygon(target, polygon) {
 			}
 		}
 	}
-	
+
 	if (crossings % 2 == 1) {
 		return true;
 	} else {
