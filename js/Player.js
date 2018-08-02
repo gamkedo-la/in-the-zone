@@ -43,6 +43,7 @@ function playerClass(startingX, startingY, isAI) {
 	this.randomAiShooting;
 
 	this.score = 0;
+	this.streak = 0;
 
 	this.shootingStartingX;
 	this.shootingStartingY;
@@ -563,12 +564,14 @@ function playerClass(startingX, startingY, isAI) {
 									updateZones();
 								} else {
 									this.ballToHold.goingIn = false;
+									this.streak = 0;
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
 									this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
 									console.log("yellow and unlucky");
 								}
 							} else {
 								this.ballToHold.goingIn = false;
+								this.streak = 0;
 								var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
 								this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
 								console.log("way off");
@@ -587,12 +590,14 @@ function playerClass(startingX, startingY, isAI) {
 									updateZones();
 								} else {
 									this.ballToHold.goingIn = false;
+									this.streak = 0;
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
 									this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
 									console.log("yellow and unlucky");
 								}
 							} else {
 								this.ballToHold.goingIn = false;
+								this.streak = 0;
 								var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
 								this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
 								console.log("way off");
@@ -659,12 +664,14 @@ function playerClass(startingX, startingY, isAI) {
 									updateZones();
 								} else {
 									this.ballToHold.goingIn = false;
+									this.streak = 0;
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
 									this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
 									console.log("yellow and unlucky");
 								}
 							} else {
 								this.ballToHold.goingIn = false;
+								this.streak = 0;
 								var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
 								this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
 								console.log("way off");
@@ -683,12 +690,14 @@ function playerClass(startingX, startingY, isAI) {
 									updateZones();
 								} else {
 									this.ballToHold.goingIn = false;
+									this.streak = 0;
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
 									this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
 									console.log("yellow and unlucky");
 								}
 							} else {
 								this.ballToHold.goingIn = false;
+								this.streak = 0;
 								var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
 								this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
 								console.log("way off");

@@ -16,9 +16,10 @@ function pointClass(x, y) {
 	this.y = y;
 }
 
-function zoneClass(x1,y1, x2,y2, x3,y3, x4,y4, x5,y5, zoneNumber) {
+function zoneClass(x1,y1, x2,y2, x3,y3, x4,y4, x5,y5, zoneNumber, score) {
 
   this.zoneNumber = zoneNumber;
+  this.score = score;
   this.unclaimed = true;
 
   this.claimStatus = 0;
@@ -62,10 +63,10 @@ function updateZoneStatus(zoneIndex) {
         if (character1.ballToHold != null) {
           if (character1.startedDunking && player1Here) {
             if (arrayOfZones[zoneIndex].claimStatus == ClaimStatus.OwnedPlayer2) {
-              character2.score -= 4;
+              character2.score -= arrayOfZones[zoneIndex].score;
             }
             if (arrayOfZones[zoneIndex].claimStatus != ClaimStatus.OwnedPlayer1) {
-              character1.score += 4;
+              character1.score += (arrayOfZones[zoneIndex].score + character1.streak++);
               arrayOfZones[zoneIndex].isClaimedBy = character1;
               arrayOfZones[zoneIndex].claimStatus = ClaimStatus.OwnedPlayer1;
             }
@@ -73,10 +74,10 @@ function updateZoneStatus(zoneIndex) {
           if (player1Here && character1.ballToHold.goingIn) {
             //console.log(character1.ballToHold.goingIn);
             if (arrayOfZones[zoneIndex].claimStatus == ClaimStatus.OwnedPlayer2) {
-              character2.score -= 4;
+              character2.score -= arrayOfZones[zoneIndex].score;
             }
             if (arrayOfZones[zoneIndex].claimStatus != ClaimStatus.OwnedPlayer1) {
-              character1.score += 4;
+              character1.score += (arrayOfZones[zoneIndex].score + character1.streak++);
               arrayOfZones[zoneIndex].isClaimedBy = character1;
               arrayOfZones[zoneIndex].claimStatus = ClaimStatus.OwnedPlayer1;//if player1 is in the zone and the ball goes in, zone is claimed by player1 and colored blue;
               //console.log(arrayOfZones[zoneIndex].claimStatus);
@@ -87,10 +88,10 @@ function updateZoneStatus(zoneIndex) {
           if (character2.startedDunking && player2Here) {
             //console.log("ai dunking");
             if (arrayOfZones[zoneIndex].claimStatus == ClaimStatus.OwnedPlayer1) {
-              character1.score -= 4;
+              character1.score -= arrayOfZones[zoneIndex].score;
             }
             if (arrayOfZones[zoneIndex].claimStatus != ClaimStatus.OwnedPlayer2){
-              character2.score += 4;
+              character2.score += (arrayOfZones[zoneIndex].score + character2.streak++);
               arrayOfZones[zoneIndex].isClaimedBy = character2;
               arrayOfZones[zoneIndex].claimStatus = ClaimStatus.OwnedPlayer2;//if player2 is in the zone ond the ball goes in, zone is claimed by player2 and colored green;
             }
@@ -98,10 +99,10 @@ function updateZoneStatus(zoneIndex) {
           if (player2Here && character2.ballToHold.goingIn) {
             //console.log("ai shooting");
             if (arrayOfZones[zoneIndex].claimStatus == ClaimStatus.OwnedPlayer1) {
-              character1.score -= 4;
+              character1.score -= arrayOfZones[zoneIndex].score;
             }
             if (arrayOfZones[zoneIndex].claimStatus != ClaimStatus.OwnedPlayer2){
-              character2.score += 4;
+              character2.score += (arrayOfZones[zoneIndex].score + character2.streak++);
               arrayOfZones[zoneIndex].isClaimedBy = character2;
               arrayOfZones[zoneIndex].claimStatus = ClaimStatus.OwnedPlayer2;//if player2 is in the zone ond the ball goes in, zone is claimed by player2 and colored green;
             }
@@ -128,39 +129,39 @@ function updateZoneStatus(zoneIndex) {
 
 
 initializeArrayOfZones = () => {//142 35
-    arrayOfZones.push(new zoneClass(140,238, 214,238, 187,313, 125,313, undefined,undefined, 1));
-    arrayOfZones.push(new zoneClass(214,238, 332,238, 332,313, 187,313, undefined,undefined, 2));
-    arrayOfZones.push(new zoneClass(332,238, 491,238, 480,313, 332,313, undefined,undefined, 3));
-    arrayOfZones.push(new zoneClass(491,238, 580,238, 580,313, 480,313, undefined,undefined, 4));
-    arrayOfZones.push(new zoneClass(580,238, 664,238, 676,313, 580,313, undefined,undefined,5));
-    arrayOfZones.push(new zoneClass(664,238, 814,238, 814,313, 676,313, undefined,undefined, 6));
-    arrayOfZones.push(new zoneClass(814,238, 940,238, 972,313, 814,313, undefined,undefined,7));
-    arrayOfZones.push(new zoneClass(940,238, 1018,238, 1032,313, 972,313, undefined,undefined,8));
-    arrayOfZones.push(new zoneClass(125,313, 187,313, 182,350, 187,388, 110,388, 9));
-    arrayOfZones.push(new zoneClass(187,313, 332,313, 332,388, 187,388, 182,350, 10));
-    arrayOfZones.push(new zoneClass(332,313, 480,313, 469,388, 332,388, undefined,undefined, 11));
-    arrayOfZones.push(new zoneClass(480,313, 580,313, 580,388, 469,388, undefined,undefined, 12));
-    arrayOfZones.push(new zoneClass(580,313, 676,313, 688,388, 580,388, undefined,undefined, 13));
-    arrayOfZones.push(new zoneClass(676,313, 814,313, 814,388, 688,388, undefined,undefined, 14));
-    arrayOfZones.push(new zoneClass(814,313, 972,313, 977,350, 970,388, 814,388, 15));
-    arrayOfZones.push(new zoneClass(972,313, 1032,313, 1045,388, 970,388, 977,350, 16));
-    arrayOfZones.push(new zoneClass(110,388, 187,388, 240,455, 332,502, 90,502, 17));
-    arrayOfZones.push(new zoneClass(187,388, 332,388, 332,502, 240,455, undefined,undefined, 18));
-    arrayOfZones.push(new zoneClass(332,388, 469,388, 453,532, 332,502, undefined,undefined, 19));
-    arrayOfZones.push(new zoneClass(469,388, 688,388, 707,532, 572,542, 453,532, 20));
-    arrayOfZones.push(new zoneClass(688,388, 814,388, 814,505, 707,532, undefined,undefined, 21));
-    arrayOfZones.push(new zoneClass(814,388, 970,388, 920,453, 814,505, undefined,undefined, 22));
-    arrayOfZones.push(new zoneClass(970,388, 1045,388, 1065,505, 814,505, 920,453, 23));
-    arrayOfZones.push(new zoneClass(332,502, 453,532, 453,585, 332,585, undefined,undefined, 24));
-    arrayOfZones.push(new zoneClass(453,532, 572,542, 707,532, 707,585, 453,585, 25));
-    arrayOfZones.push(new zoneClass(707,532, 814,505, 814,585, 707,585, undefined,undefined, 26));
-    arrayOfZones.push(new zoneClass(90,502, 332,502, 332,585, 75,585, undefined,undefined, 27));
-    arrayOfZones.push(new zoneClass(814,505, 1065,505, 1080,585, 814,585, undefined,undefined, 28));
-    arrayOfZones.push(new zoneClass(75,585, 332,585, 332,675, 57,675, undefined,undefined, 29));
-    arrayOfZones.push(new zoneClass(332,585, 453,585, 453,675, 332,675, undefined,undefined, 30));
-    arrayOfZones.push(new zoneClass(453,585, 707,585, 707,675, 453,675, undefined,undefined, 31));
-    arrayOfZones.push(new zoneClass(707,585, 814,585, 814,675, 707,675, undefined,undefined, 32));
-    arrayOfZones.push(new zoneClass(814,585, 1080,585, 1098,675, 814,675, undefined,undefined, 33));
+    arrayOfZones.push(new zoneClass(140,238, 214,238, 187,313, 125,313, undefined,undefined, 1, 3));
+    arrayOfZones.push(new zoneClass(214,238, 332,238, 332,313, 187,313, undefined,undefined, 2, 2));
+    arrayOfZones.push(new zoneClass(332,238, 491,238, 480,313, 332,313, undefined,undefined, 3, 2));
+    arrayOfZones.push(new zoneClass(491,238, 580,238, 580,313, 480,313, undefined,undefined, 4, 2));
+    arrayOfZones.push(new zoneClass(580,238, 664,238, 676,313, 580,313, undefined,undefined,5, 2));
+    arrayOfZones.push(new zoneClass(664,238, 814,238, 814,313, 676,313, undefined,undefined, 6, 2));
+    arrayOfZones.push(new zoneClass(814,238, 940,238, 972,313, 814,313, undefined,undefined,7, 2));
+    arrayOfZones.push(new zoneClass(940,238, 1018,238, 1032,313, 972,313, undefined,undefined,8, 3));
+    arrayOfZones.push(new zoneClass(125,313, 187,313, 182,350, 187,388, 110,388, 9, 3));
+    arrayOfZones.push(new zoneClass(187,313, 332,313, 332,388, 187,388, 182,350, 10, 2));
+    arrayOfZones.push(new zoneClass(332,313, 480,313, 469,388, 332,388, undefined,undefined, 11, 2));
+    arrayOfZones.push(new zoneClass(480,313, 580,313, 580,388, 469,388, undefined,undefined, 12, 2));
+    arrayOfZones.push(new zoneClass(580,313, 676,313, 688,388, 580,388, undefined,undefined, 13, 2));
+    arrayOfZones.push(new zoneClass(676,313, 814,313, 814,388, 688,388, undefined,undefined, 14, 2));
+    arrayOfZones.push(new zoneClass(814,313, 972,313, 977,350, 970,388, 814,388, 15, 2));
+    arrayOfZones.push(new zoneClass(972,313, 1032,313, 1045,388, 970,388, 977,350, 16, 3));
+    arrayOfZones.push(new zoneClass(110,388, 187,388, 240,455, 332,502, 90,502, 17, 3));
+    arrayOfZones.push(new zoneClass(187,388, 332,388, 332,502, 240,455, undefined,undefined, 18, 2));
+    arrayOfZones.push(new zoneClass(332,388, 469,388, 453,532, 332,502, undefined,undefined, 19, 2));
+    arrayOfZones.push(new zoneClass(469,388, 688,388, 707,532, 572,542, 453,532, 20, 2));
+    arrayOfZones.push(new zoneClass(688,388, 814,388, 814,505, 707,532, undefined,undefined, 21, 2));
+    arrayOfZones.push(new zoneClass(814,388, 970,388, 920,453, 814,505, undefined,undefined, 22, 2));
+    arrayOfZones.push(new zoneClass(970,388, 1045,388, 1065,505, 814,505, 920,453, 23, 3));
+    arrayOfZones.push(new zoneClass(332,502, 453,532, 453,585, 332,585, undefined,undefined, 24, 3));
+    arrayOfZones.push(new zoneClass(453,532, 572,542, 707,532, 707,585, 453,585, 25, 3));
+    arrayOfZones.push(new zoneClass(707,532, 814,505, 814,585, 707,585, undefined,undefined, 26, 3));
+    arrayOfZones.push(new zoneClass(90,502, 332,502, 332,585, 75,585, undefined,undefined, 27, 2));
+    arrayOfZones.push(new zoneClass(814,505, 1065,505, 1080,585, 814,585, undefined,undefined, 28, 2));
+    arrayOfZones.push(new zoneClass(75,585, 332,585, 332,675, 57,675, undefined,undefined, 29, 2));
+    arrayOfZones.push(new zoneClass(332,585, 453,585, 453,675, 332,675, undefined,undefined, 30, 2));
+    arrayOfZones.push(new zoneClass(453,585, 707,585, 707,675, 453,675, undefined,undefined, 31, 2));
+    arrayOfZones.push(new zoneClass(707,585, 814,585, 814,675, 707,675, undefined,undefined, 32, 2));
+    arrayOfZones.push(new zoneClass(814,585, 1080,585, 1098,675, 814,675, undefined,undefined, 33, 2));
 }
 
 drawZones = () => {

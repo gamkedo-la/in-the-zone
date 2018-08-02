@@ -114,9 +114,11 @@ function ballClass(startingX, startingY) {
         if (this.gotShotFrom == 1 || this.gotShotFrom == 9 || this.gotShotFrom == 17 ||
           this.gotShotFrom == 24 || this.gotShotFrom == 25 || this.gotShotFrom == 26 ||
           this.gotShotFrom == 23 || this.gotShotFrom == 16 || this.gotShotFrom == 8) {
+	          console.log("Adding 3 points");//We never make here, scores are added in Zones.js, probably need to remove these two lines
           this.isShotBy.score += 3;
         }
         else {
+	          console.log("Adding 2 points");//We never make here, scores are added in Zones.js, probably need to remove these two lines
           this.isShotBy.score += 2;
         }
         this.goingIn = false;
