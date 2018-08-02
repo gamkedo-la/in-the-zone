@@ -155,6 +155,8 @@ function resetGame() {
 	character1.states.isIdle = true;
 	character1.states.isShooting = false;
 	character1.states.isDunking = false;
+	player1Score = 0;
+	player2Score = 0;
 
 	character2.x = 150;
 	character2.y = 75;
