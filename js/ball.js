@@ -73,9 +73,9 @@ function ballClass(startingX, startingY) {
 	    this.shootingX *= ROLLING_FRICTION;
 	    this.shootingY *= ROLLING_FRICTION;
     }
-    
+
     if(!this.isHeld) {
-	    this.rotation += (ROTATION_RATE * this.shootingX);	    
+	    this.rotation += (ROTATION_RATE * this.shootingX);
     }
     this.x += this.shootingX;
     this.y += this.shootingY;
@@ -140,6 +140,8 @@ function ballClass(startingX, startingY) {
 	    //       console.log("Adding 2 points");//We never make here, scores are added in Zones.js, probably need to remove these two lines
       //     this.isShotBy.score += 2;
       //   }
+        player1Score = character1.score;
+        player2Score = character2.score;
         this.goingIn = false;
         this.shootingX = 0;
         this.shootingY = 0;

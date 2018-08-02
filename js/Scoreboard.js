@@ -23,15 +23,17 @@ var min = 0;
 var sec = 30;
 var frameNumber = 0;
 var numberArray = [number0, number1, number2, number3, number4, number5, number6, number7, number8, number9];
+var player1Score = 0;
+var player2Score = 0;
 
 function drawScoreboard() {
   //console.log(numberArray[1]);
-  var player1TensPlace = Math.floor(character1.score / 10);
-  var player1OnesPlace = character1.score % 10;
+  var player1TensPlace = Math.floor(player1Score / 10);
+  var player1OnesPlace = player1Score % 10;
   //console.log(player1TensPlace);
 
-  var player2TensPlace = Math.floor(character2.score / 10);
-  var player2OnesPlace = character2.score % 10;
+  var player2TensPlace = Math.floor(player2Score / 10);
+  var player2OnesPlace = player2Score % 10;
   if (mainStates.isPaused === false) {
     frameNumber++;
     if (frameNumber % 30 == 0) {
