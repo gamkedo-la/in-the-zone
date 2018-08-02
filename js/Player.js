@@ -310,6 +310,7 @@ function playerClass(startingX, startingY, isAI) {
 						else {
 							this.shootingPerfectTimeStart = 14;
 						}
+						this.ballToHold.gotShotFrom = this.currentZone;
 						this.states.isIdle = false;
 						this.states.isShooting = true;
 						this.shootingStartingX = this.x;
@@ -483,6 +484,7 @@ function playerClass(startingX, startingY, isAI) {
 							this.states.isShooting = true;
 							this.shootingStartingX = this.x;
 							this.shootingStartingY = this.y;
+							this.ballToHold.gotShotFrom = this.currentZone;
 						}
 						updateZones();
 					}
@@ -546,7 +548,6 @@ function playerClass(startingX, startingY, isAI) {
 							this.tickCount = 35;
 							this.ballToHold.goingIn = true;
 							this.ballToHold.isShotBy = this;
-							this.ballToHold.gotShotFrom = this.currentZone;
 							var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
 							this.ballToHold.ballPower = -16.5;
 							console.log("perfect");

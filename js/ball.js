@@ -69,7 +69,7 @@ function ballClass(startingX, startingY) {
     // console.log(this.ballPower);
     this.ballPower = this.ballPower + GRAVITY_MULTIPLIER;
     this.height = this.height - this.ballPower;
-    if(!this.bingShot && !this.goingIn) {
+    if(!this.beingShot && !this.goingIn) {
 	    this.shootingX *= ROLLING_FRICTION;
 	    this.shootingY *= ROLLING_FRICTION;
     }
@@ -109,7 +109,7 @@ function ballClass(startingX, startingY) {
 		  this.beingShot = false;
 		  this.shootingY = -Math.abs(this.shootingY/2);
 	  }
-      
+
       if(this.x < 0) {
 	      this.beingShot = false;
 	      this.shootingX = Math.abs(this.shootingX);
@@ -117,7 +117,7 @@ function ballClass(startingX, startingY) {
 	      this.beingShot = false;
 	      this.shootingX = -Math.abs(this.shootingX);
       }
-      
+
     }
     if (this.beingShot) {
       if (this.goingIn) {
@@ -129,16 +129,17 @@ function ballClass(startingX, startingY) {
       if (this.x < HOOP_X + 5 && this.y < HOOP_Y + 5 &&
         this.x > HOOP_X - 5 && this.y > HOOP_Y - 5 &&
         this.z < HOOP_H + 10 && this.z > HOOP_H - 10 && this.goingIn) {
-        if (this.gotShotFrom == 1 || this.gotShotFrom == 9 || this.gotShotFrom == 17 ||
-          this.gotShotFrom == 24 || this.gotShotFrom == 25 || this.gotShotFrom == 26 ||
-          this.gotShotFrom == 23 || this.gotShotFrom == 16 || this.gotShotFrom == 8) {
-	          console.log("Adding 3 points");//We never make here, scores are added in Zones.js, probably need to remove these two lines
-          this.isShotBy.score += 3;
-        }
-        else {
-	          console.log("Adding 2 points");//We never make here, scores are added in Zones.js, probably need to remove these two lines
-          this.isShotBy.score += 2;
-        }
+      // We can come back to this if we think that score should be changed when ball touches the rim not ball is released
+      //   if (this.gotShotFrom == 1 || this.gotShotFrom == 9 || this.gotShotFrom == 17 ||
+      //     this.gotShotFrom == 24 || this.gotShotFrom == 25 || this.gotShotFrom == 26 ||
+      //     this.gotShotFrom == 23 || this.gotShotFrom == 16 || this.gotShotFrom == 8) {
+	    //       console.log("Adding 3 points");//We never make here, scores are added in Zones.js, probably need to remove these two lines
+      //     this.isShotBy.score += 3;
+      //   }
+      //   else {
+	    //       console.log("Adding 2 points");//We never make here, scores are added in Zones.js, probably need to remove these two lines
+      //     this.isShotBy.score += 2;
+      //   }
         this.goingIn = false;
         this.shootingX = 0;
         this.shootingY = 0;
