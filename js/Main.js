@@ -133,7 +133,8 @@ function drawMainMenu() {
 	if (mainStates.menuOpen) {
 		mainStates.isPaused = true;
 		colorRect(canvas.width / 4, canvas.height / 4, canvas.width / 2, canvas.height / 2, "black");
-		colorText("Press Enter to start game", canvas.width / 2, canvas.height / 2, "white");
+		drawBitmapCenteredWithRotation(inTheZoneLogo, canvas.width / 2, (canvas.height / 2) - 50, 0);
+		colorText("Press Enter to start game", canvas.width / 2, (canvas.height / 2) + 50, "white");
 	}
 
 	if (enterKey) {

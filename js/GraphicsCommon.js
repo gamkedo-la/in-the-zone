@@ -23,6 +23,7 @@ function colorText(showWords, textX, textY, fillColor) {
 	canvasContext.fillText(showWords, textX, textY);
 	canvasContext.textAlign = "center";
 }
+
 function colorTriangle(aX, aY, bX, bY, cX, cY, color) {
 	canvasContext.beginPath();
 	canvasContext.moveTo(aX, aY);
