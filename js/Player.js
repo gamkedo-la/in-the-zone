@@ -375,7 +375,7 @@ function playerClass(startingX, startingY, isAI) {
 						randomNumberOfZones = Math.floor(Math.random() * 5) + 1;
 						//console.log(randomNumberOfZones);
 						for (var i = 0; i < randomNumberOfZones; i++) {
-							var randomSelection = Math.floor(Math.random() * 32) + 1;
+							var randomSelection = Math.floor(Math.random() * 32);
 							//console.log(randomSelection);
 							//console.log(arrayOfZones[randomSelection]);
 							this.zonesToGo.push(arrayOfZones[randomSelection]);
