@@ -7,71 +7,76 @@ var randomNumberOfZones;
 var zonesWithPriority = [];
 
 function playerClass(startingX, startingY, isAI) {
-	this.x = startingX;
-	this.y = startingY;
-	this.leftEdgeOfFeet = this.x + 19;
-	this.topEdgeOfFeet = this.y + 59;
-	this.rightEdgeOfFeet = this.x + 39;
-	this.bottomEdgeOfFeet = this.y + 61;
+	this.initialize = function(){
+		this.x = startingX;
+		this.y = startingY;
+		this.leftEdgeOfFeet = this.x + 19;
+		this.topEdgeOfFeet = this.y + 59;
+		this.rightEdgeOfFeet = this.x + 39;
+		this.bottomEdgeOfFeet = this.y + 61;
 
-//	this.centerOfFeet = {"centerOfFeetX": this.x-4,"centerOfFeetY": this.y+30};
-	this.centerOfFeet = {x:this.x-4, y:this.y+30};
+	//	this.centerOfFeet = {"centerOfFeetX": this.x-4,"centerOfFeetY": this.y+30};
+		this.centerOfFeet = {x:this.x-4, y:this.y+30};
 
-	this.markCenterOfFeet = () => {
-		canvasContext.font = "20px Arial";
-		canvasContext.fillStyle = "black";
-		canvasContext.fillText(this.centerOfFeet.x + "," + this.centerOfFeet.y,
-		 											 this.x - 4,this.y + 30);
+		this.markCenterOfFeet = () => {
+			canvasContext.font = "20px Arial";
+			canvasContext.fillStyle = "black";
+			canvasContext.fillText(this.centerOfFeet.x + "," + this.centerOfFeet.y,
+														 this.x - 4,this.y + 30);
+		}
+		this.myWarriorPic; // which picture to use
+		// this.facingDirection= 2;//0 = north, 1 = east, 2 = south, 3 = west,4=ne, 5 = se, 6 = sw, 7 = nw
+		this.ang;
+		this.isAI = isAI;
+		this.ballToHold;
+		this.inShootingMotion = false;
+		this.shootingTime = 0;
+		this.shootingPerfectTimeStart = 14;
+		this.distanceFromHoop;
+		this.isDunkingEnded = false;
+
+		//for ai
+		this.ballToChase;
+		this.distanceToClosestZone;
+		this.zonesToGo = [];
+		this.randomShootingTime;
+		this.closeEnoughToDefend = false;
+		this.randomAiShooting;
+
+		this.score = 0;
+		this.streak = 0;
+
+		this.shootingStartingX;
+		this.shootingStartingY;
+		this.shootingRandom;
+		this.shootingDifficulty = 0;// 0: easiest, 3: hardest
+		this.longPressedShotGoingInLimit = 19;
+		this.shortPressedShotGoingInLimit = 10;
+
+		this.currentZone;
+		this.jumpingHeight = 0;
+		this.DistanceFromHoopWhileDunking;
+
+		this.startedDunking = false;
+
+		this.width = 64;
+		this.height = 64;
+		this.tickCount = 0;
+		this.ticksPerFrame = 5;
+		this.frameRow = 0;
+		this.framesAnim = 10;
+		this.walkSprite = new SpriteSheetClass(currySpriteSheet, this.width, this.height);
+		this.dunkSprite = new SpriteSheetClass(player1DunkingSpriteSheet, this.width, this.height);
+
+		this.states = {
+			isIdle: true,
+			isShooting: false,
+			isDunking: false
+		};
 	}
-	this.myWarriorPic; // which picture to use
-	// this.facingDirection= 2;//0 = north, 1 = east, 2 = south, 3 = west,4=ne, 5 = se, 6 = sw, 7 = nw
-	this.ang;
-	this.isAI = isAI;
-	this.ballToHold;
-	this.inShootingMotion = false;
-	this.shootingTime = 0;
-	this.shootingPerfectTimeStart = 14;
-	this.distanceFromHoop;
-	this.isDunkingEnded = false;
+	this.initialize();
 
-	//for ai
-	this.ballToChase;
-	this.distanceToClosestZone;
-	this.zonesToGo = [];
-	this.randomShootingTime;
-	this.closeEnoughToDefend = false;
-	this.randomAiShooting;
 
-	this.score = 0;
-	this.streak = 0;
-
-	this.shootingStartingX;
-	this.shootingStartingY;
-	this.shootingRandom;
-	this.shootingDifficulty = 0;// 0: easiest, 3: hardest
-	this.longPressedShotGoingInLimit = 19;
-	this.shortPressedShotGoingInLimit = 10;
-
-	this.currentZone;
-	this.jumpingHeight = 0;
-	this.DistanceFromHoopWhileDunking;
-
-	this.startedDunking = false;
-
-	this.width = 64;
-	this.height = 64;
-	this.tickCount = 0;
-	this.ticksPerFrame = 5;
-	this.frameRow = 0;
-	this.framesAnim = 10;
-	this.walkSprite = new SpriteSheetClass(currySpriteSheet, this.width, this.height);
-	this.dunkSprite = new SpriteSheetClass(player1DunkingSpriteSheet, this.width, this.height);
-
-	this.states = {
-		isIdle: true,
-		isShooting: false,
-		isDunking: false
-	};
 
 	if (!this.isAI) {
 		this.keyHeld_North = false;
@@ -404,7 +409,10 @@ function playerClass(startingX, startingY, isAI) {
 						}
 					}
 					if (zoneCounter != this.zonesToGo.length) {
-						//console.log(this.zonesToGo);
+						if (this.currentZone == this.zonesToGo[zoneCounter].zoneNumber) {
+							zoneCounter++;
+						}
+						console.log(this.zonesToGo);
 						//console.log(this.zonesToGo);
 						//console.log(this.currentZone);
 						if (nextX != this.x && nextY != this.y) {
@@ -434,9 +442,6 @@ function playerClass(startingX, startingY, isAI) {
 							if (this.y > this.zonesToGo[zoneCounter].middle[1] - 3) {
 								nextY -= PLAYER_MOVE_SPEED;
 							}
-						}
-						if (this.currentZone == this.zonesToGo[zoneCounter].zoneNumber) {
-							zoneCounter++;
 						}
 					}
 					else {

@@ -148,31 +148,8 @@ function drawMainMenu() {
 }
 
 function resetGame() {
-	character1.x = 75;
-	character1.y = 75;
-	character1.isHoldingBall = false;
-	character1.ballToHold = false;
-	character1.ballToChase = false;
-	character1.currentZone = false;
-	character1.score = 0;
-	character1.tickCount = 0;
-	character1.states.isIdle = true;
-	character1.states.isShooting = false;
-	character1.states.isDunking = false;
-	player1Score = 0;
-	player2Score = 0;
-
-	character2.x = 150;
-	character2.y = 75;
-	character2.isHoldingBall = false;
-	character2.ballToHold = false;
-	character2.ballToChase = false;
-	character2.currentZone = false;
-	character2.score = 0;
-	character2.tickCount = 0;
-	character2.states.isIdle = true;
-	character2.states.isShooting = false;
-	character2.states.isDunking = false;
+	character1.initialize();
+	character2.initialize();
 	for (var i = 0; i < ballArray.length; i++) {
 		ballArray[i]
 		ballArray[i].x = 700;
