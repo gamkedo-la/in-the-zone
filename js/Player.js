@@ -415,32 +415,34 @@ function playerClass(startingX, startingY, isAI) {
 						console.log(this.zonesToGo);
 						//console.log(this.zonesToGo);
 						//console.log(this.currentZone);
-						if (nextX != this.x && nextY != this.y) {
-							if (this.x < this.zonesToGo[zoneCounter].middle[0] + 3) {
-								nextX += PLAYER_MOVE_SPEED * Math.cos(45);
+						if (this.zonesToGo[zoneCounter] != null) {
+							if (nextX != this.x && nextY != this.y) {
+								if (this.x < this.zonesToGo[zoneCounter].middle[0] + 3) {
+									nextX += PLAYER_MOVE_SPEED * Math.cos(45);
+								}
+								if (this.y < this.zonesToGo[zoneCounter].middle[1 + 3]) {
+									nextY += PLAYER_MOVE_SPEED * Math.cos(45);
+								}
+								if (this.x > this.zonesToGo[zoneCounter].middle[0] - 3) {
+									nextX -= PLAYER_MOVE_SPEED * Math.cos(45);
+								}
+								if (this.y > this.zonesToGo[zoneCounter].middle[1] - 3) {
+									nextY -= PLAYER_MOVE_SPEED * Math.cos(45);
+								}
 							}
-							if (this.y < this.zonesToGo[zoneCounter].middle[1 + 3]) {
-								nextY += PLAYER_MOVE_SPEED * Math.cos(45);
-							}
-							if (this.x > this.zonesToGo[zoneCounter].middle[0] - 3) {
-								nextX -= PLAYER_MOVE_SPEED * Math.cos(45);
-							}
-							if (this.y > this.zonesToGo[zoneCounter].middle[1] - 3) {
-								nextY -= PLAYER_MOVE_SPEED * Math.cos(45);
-							}
-						}
-						else {
-							if (this.x < this.zonesToGo[zoneCounter].middle[0] + 3) {
-								nextX += PLAYER_MOVE_SPEED;
-							}
-							if (this.y < this.zonesToGo[zoneCounter].middle[1] + 3) {
-								nextY += PLAYER_MOVE_SPEED;
-							}
-							if (this.x > this.zonesToGo[zoneCounter].middle[0] - 3) {
-								nextX -= PLAYER_MOVE_SPEED;
-							}
-							if (this.y > this.zonesToGo[zoneCounter].middle[1] - 3) {
-								nextY -= PLAYER_MOVE_SPEED;
+							else {
+								if (this.x < this.zonesToGo[zoneCounter].middle[0] + 3) {
+									nextX += PLAYER_MOVE_SPEED;
+								}
+								if (this.y < this.zonesToGo[zoneCounter].middle[1] + 3) {
+									nextY += PLAYER_MOVE_SPEED;
+								}
+								if (this.x > this.zonesToGo[zoneCounter].middle[0] - 3) {
+									nextX -= PLAYER_MOVE_SPEED;
+								}
+								if (this.y > this.zonesToGo[zoneCounter].middle[1] - 3) {
+									nextY -= PLAYER_MOVE_SPEED;
+								}
 							}
 						}
 					}
