@@ -1,9 +1,6 @@
 var canvas, canvasContext;
 var currentPic = player1;
 
-var character1 = new playerClass(75, 220, false);
-var character2 = new playerClass(1080, 220, true);
-
 var ballArray = [];
 var ball1 = new ballClass(200, 550);
 var ball2 = new ballClass(950, 550);
@@ -11,7 +8,8 @@ var ball2 = new ballClass(950, 550);
 var winner;
 
 var mainStates = {
-	inGame: true,
+	demo: true,
+	inGame: false,
 	gameOver: false,
 	isPaused: false,
 	menuOpen: true
@@ -22,7 +20,8 @@ var gameMode = {
 	oneOnOne: false
 }
 
-
+var character1 = new playerClass(75, 220, mainStates.demo);
+var character2 = new playerClass(1080, 220, true);
 
 window.focus();//necessary to ensure the game receives keyboard input once it is uploaded to itch.io
 window.onload = function () {
@@ -64,13 +63,13 @@ function updateAll() {
 	moveAll();
 	updateAllEmitters(); // see ParticleSystem.js
 	drawAll();
-	if (mainStates.inGame) {
+	if ((mainStates.inGame) || (mainStates.demo)) {
 		playAndLoopMusic(backgroundMusic);
 	}
 }
 
 function moveAll() {
-	if (mainStates.inGame === true && mainStates.isPaused === false) {
+	if (((mainStates.inGame === true) || (mainStates.demo === true)) && (mainStates.isPaused === false)) {
 		character1.move();
 		character1.updateEdgesOfFeet();
 		character1.updateCenterOfFeet();
@@ -82,7 +81,7 @@ function moveAll() {
 }
 
 function drawAll() {
-	if (mainStates.inGame) {
+	if ((mainStates.inGame) || (mainStates.demo)) {
 		drawWorld();
 		ParticleRenderer.renderAll(canvasContext); // particle FX
 		drawBallShadows(ballArray);
@@ -102,11 +101,10 @@ function drawAll() {
 
 
 function drawWorld() {
-	if (mainStates.inGame) {
+	if ((mainStates.inGame) || (mainStates.demo)) {
 		drawBitmapCenteredWithRotation(basketballCourt, canvas.width / 2, canvas.height / 2, 0);
 		drawZones();
 		drawScoreboard();
-
 	}
 }
 
@@ -141,7 +139,7 @@ function drawMainMenu() {
 	var fired = false;
 
 	if (mainStates.menuOpen) {
-		mainStates.isPaused = true;
+		mainStates.isPaused = false;
 		colorRect(canvas.width / 4, canvas.height / 4, canvas.width / 2, canvas.height / 2, "black");
 		drawBitmapCenteredWithRotation(inTheZoneLogo, canvas.width / 2, (canvas.height / 2) - 50, 0);
 		colorText("Press Enter to start game", canvas.width / 2, (canvas.height / 2) + 50, "white", 20);
@@ -150,16 +148,30 @@ function drawMainMenu() {
 	if (enterKey && mainStates.menuOpen) {
 		mainStates.menuOpen = false;
 		mainStates.isPaused = false;
+		mainStates.inGame = true;
+		mainStates.demo = false;
+		
+		character1 = new playerClass(75, 220, mainStates.demo);
+		
+		setupInput();
+		
+		resetGame();
 	}
 }
 
 function resetGame() {
 	character1.initialize();
 	character2.initialize();
+	
+	ball1.x = 200;
+	ball1.y = 550;
+	ball2.x = 950; 
+	ball2.y = 550;
+
 	for (var i = 0; i < ballArray.length; i++) {
 		ballArray[i]
-		ballArray[i].x = 700;
-		ballArray[i].y = 100;
+//		ballArray[i].x = 700;
+//		ballArray[i].y = 100;
 		ballArray[i].isHeld = false
 		ballArray[i].isHeldBy = null;
 		ballArray[i].beingShot = false;

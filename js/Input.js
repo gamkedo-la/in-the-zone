@@ -32,9 +32,9 @@ function setupInput() {
 		console.log("both are not ai");
 		character1.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW, KEY_SPACE);
 		character2.setupInput(KEY_W, KEY_D, KEY_S, KEY_A, KEY_X);
-	} else if (character1.isAI) {
+	} else if ((character1.isAI) && (!character2.isAI)) {
 		character2.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW, KEY_SPACE);
-	} else if (character2.isAI) {
+	} else if ((character2.isAI) && (!character1.isAI)) {
 		character1.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW, KEY_SPACE);
 	}
 }
