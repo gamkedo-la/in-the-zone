@@ -402,8 +402,8 @@ function playerClass(startingX, startingY, isAI) {
 							var finalZoneToGo;
 							var distanceBetweenFinalAndLastZone;// the distance between the random selected zone and the zone with priority(the zone to go)
 							for (var i = 0; i < zonesWithPriority.length; i++) {
-								var a = this.zonesToGo[this.zonesToGo.length - 1].middle[0] - zonesWithPriority[i].middle[0];
-								var b = this.zonesToGo[this.zonesToGo.length - 1].middle[1] - zonesWithPriority[i].middle[1];
+								var a = this.zonesToGo[this.zonesToGo.length - 1].middle.x - zonesWithPriority[i].middle.x;
+								var b = this.zonesToGo[this.zonesToGo.length - 1].middle.y - zonesWithPriority[i].middle.y;
 								var distance = Math.sqrt(a * a + b * b);
 								if (distanceBetweenFinalAndLastZone == null || distance < distanceBetweenFinalAndLastZone) {
 									finalZoneToGo = zonesWithPriority[i];
@@ -416,37 +416,22 @@ function playerClass(startingX, startingY, isAI) {
 						if (this.currentZone == this.zonesToGo[zoneCounter].zoneNumber) {
 							zoneCounter++;
 						}
-						console.log(this.zonesToGo);
-						//console.log(this.zonesToGo);
-						//console.log(this.currentZone);
+
 						if (this.zonesToGo[zoneCounter] != null) {
-							if (nextX != this.x && nextY != this.y) {
-								if (this.x < this.zonesToGo[zoneCounter].middle[0] + 3) {
-									nextX += PLAYER_MOVE_SPEED * Math.cos(45);
-								}
-								if (this.y < this.zonesToGo[zoneCounter].middle[1 + 3]) {
-									nextY += PLAYER_MOVE_SPEED * Math.cos(45);
-								}
-								if (this.x > this.zonesToGo[zoneCounter].middle[0] - 3) {
-									nextX -= PLAYER_MOVE_SPEED * Math.cos(45);
-								}
-								if (this.y > this.zonesToGo[zoneCounter].middle[1] - 3) {
-									nextY -= PLAYER_MOVE_SPEED * Math.cos(45);
-								}
+							if (this.x < this.zonesToGo[zoneCounter].middle.x - PLAYER_MOVE_SPEED) {
+								nextX += PLAYER_MOVE_SPEED;
+							} else if (this.x > this.zonesToGo[zoneCounter].middle.x + PLAYER_MOVE_SPEED) {
+								nextX -= PLAYER_MOVE_SPEED;
+							} else {
+								nextX = Math.floor(this.zonesToGo[zoneCounter].middle.x);
 							}
-							else {
-								if (this.x < this.zonesToGo[zoneCounter].middle[0] + 3) {
-									nextX += PLAYER_MOVE_SPEED;
-								}
-								if (this.y < this.zonesToGo[zoneCounter].middle[1] + 3) {
-									nextY += PLAYER_MOVE_SPEED;
-								}
-								if (this.x > this.zonesToGo[zoneCounter].middle[0] - 3) {
-									nextX -= PLAYER_MOVE_SPEED;
-								}
-								if (this.y > this.zonesToGo[zoneCounter].middle[1] - 3) {
-									nextY -= PLAYER_MOVE_SPEED;
-								}
+							
+							if (this.y < this.zonesToGo[zoneCounter].middle.y - PLAYER_MOVE_SPEED) {
+								nextY += PLAYER_MOVE_SPEED;
+							} else if (this.y > this.zonesToGo[zoneCounter].middle.y + PLAYER_MOVE_SPEED) {
+								nextY -= PLAYER_MOVE_SPEED;
+							} else {
+								nextY = Math.floor(this.zonesToGo[zoneCounter].middle.y);
 							}
 						}
 					}

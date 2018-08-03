@@ -1,4 +1,11 @@
+function pointClass(x, y) {
+	this.x = x;
+	this.y = y;
+}
+
+let zonePoints = new Array();
 let arrayOfZones = new Array();
+initializeZonePoints();
 let initializeArrayOfZones;
 let drawZones;
 const ZONE_CLAIM_POINT = 1;
@@ -12,13 +19,15 @@ const ClaimStatus = {
 	OwnedPlayer2: 4
 }
 
-function pointClass(x, y) {
-	this.x = x;
-	this.y = y;
-}
 
-function zoneClass(x1,y1, x2,y2, x3,y3, x4,y4, x5,y5, zoneNumber, score) {
 
+function zoneClass(points, zoneNumber, score) {//points is an array of indexes referring to the index of elements in the zonePoints array
+
+  this.points = [];
+  for (let i = 0; i < points.length; i++) {
+	  this.points.push(zonePoints[points[i]]);
+  }
+  
   this.zoneNumber = zoneNumber;
   this.score = score;
   this.unclaimed = true;
@@ -29,14 +38,22 @@ function zoneClass(x1,y1, x2,y2, x3,y3, x4,y4, x5,y5, zoneNumber, score) {
   this.isClaimedBy;
   this.claimDanger = false;
 
-  this.x1 = x1; this.x2 = x2; this.x3 = x3; this.x4 = x4; this.x5 = x5;
-  this.y1 = y1; this.y2 = y2; this.y3 = y3, this.y4 = y4; this.y5 = y5;
-  this.topEdge = this.y1; this.rightEdge = this.x2; this.bottomEdge = this.y4; this.leftEdge = this.x1;
-  this.middle = [(this.x2-this.x1)/2 + this.x1,(this.y3-this.y2)/2 + this.y1];
-  this.points = [new pointClass(this.x1, this.y1), new pointClass(this.x2, this.y2), new pointClass(this.x3, this.y3), new pointClass(this.x4, this.y4)];
-  if(this.x5 !== undefined) {
-	  this.points.push(new pointClass(this.x5, this.y5));
+  let minX = this.points[0].x;
+  let maxX = this.points[0].x; 
+  let minY = this.points[0].y; 
+  let maxY = this.points[0].y;
+  
+  this.middle;
+  for(let i = 1; i < this.points.length; i++) {
+	   minX = Math.min(minX, this.points[i].x);
+	   maxX = Math.max(maxX, this.points[i].x);
+	   minY = Math.min(minY, this.points[i].y);
+	   maxY = Math.max(maxY, this.points[i].y);
   }
+  
+  const midX = minX + (maxX - minX) / 2;
+  const midY = minY + (maxY - minY) / 2;
+  this.middle = new pointClass(midX, midY);
 
   this.draw = function() {
   	drawAnyZone(this.points, this.zoneNumber, this.claimStatus);
@@ -127,42 +144,102 @@ function updateZoneStatus(zoneIndex) {
 
 
   }
+  
+  /*[Log] Mouse Click: (947, 427) (Main.js, line 43)
+[Log] Mouse Click: (877, 483) (Main.js, line 43)*/
 
+function initializeZonePoints() {
+	zonePoints.push(new pointClass(57,675));  //0
+	zonePoints.push(new pointClass(75,585));  //1
+	zonePoints.push(new pointClass(90,502));  //2
+	zonePoints.push(new pointClass(110,388)); //3
+	zonePoints.push(new pointClass(125,313)); //4
+	zonePoints.push(new pointClass(140,238)); //5
+	zonePoints.push(new pointClass(182,350)); //6
+	zonePoints.push(new pointClass(187,313)); //7
+	zonePoints.push(new pointClass(187,388)); //8
+	zonePoints.push(new pointClass(214,238)); //9
+	zonePoints.push(new pointClass(240,455)); //10
+	zonePoints.push(new pointClass(332,238)); //11
+	zonePoints.push(new pointClass(332,313)); //12
+	zonePoints.push(new pointClass(332,388)); //13
+	zonePoints.push(new pointClass(332,502)); //14
+	zonePoints.push(new pointClass(332,585)); //15
+	zonePoints.push(new pointClass(332,675)); //16
+	zonePoints.push(new pointClass(453,532)); //17
+	zonePoints.push(new pointClass(453,585)); //18
+	zonePoints.push(new pointClass(453,675)); //19
+	zonePoints.push(new pointClass(469,388)); //20
+	zonePoints.push(new pointClass(491,238)); //21
+	zonePoints.push(new pointClass(480,313)); //22
+	zonePoints.push(new pointClass(572,542)); //23
+	zonePoints.push(new pointClass(580,238)); //24
+	zonePoints.push(new pointClass(580,313)); //25
+	zonePoints.push(new pointClass(580,388)); //26
+	zonePoints.push(new pointClass(664,238)); //27
+	zonePoints.push(new pointClass(676,313)); //28
+	zonePoints.push(new pointClass(688,388)); //29
+	zonePoints.push(new pointClass(707,532)); //30
+	zonePoints.push(new pointClass(707,585)); //31
+	zonePoints.push(new pointClass(707,675)); //32
+	zonePoints.push(new pointClass(814,238)); //33
+	zonePoints.push(new pointClass(814,313)); //34
+	zonePoints.push(new pointClass(814,388)); //35
+	zonePoints.push(new pointClass(814,505)); //36
+	zonePoints.push(new pointClass(814,585)); //37
+	zonePoints.push(new pointClass(814,675)); //38
+	zonePoints.push(new pointClass(880,476)); //39
+	zonePoints.push(new pointClass(940,238)); //40
+	zonePoints.push(new pointClass(969,388)); //41
+	zonePoints.push(new pointClass(970,313)); //42
+	zonePoints.push(new pointClass(975,350)); //43
+	zonePoints.push(new pointClass(1018,238));//44
+	zonePoints.push(new pointClass(1032,313));//45
+	zonePoints.push(new pointClass(1045,388));//46
+	zonePoints.push(new pointClass(1065,505));//47
+	zonePoints.push(new pointClass(1080,585));//48
+	zonePoints.push(new pointClass(1098,675));//49
+	
+	zonePoints.push(new pointClass(949, 420));//50
+	zonePoints.push(new pointClass(921, 447));//51
+	zonePoints.push(new pointClass(975, 365));//52
+	zonePoints.push(new pointClass(975, 334));//53
+}
 
 initializeArrayOfZones = () => {//142 35
-    arrayOfZones.push(new zoneClass(140,238, 214,238, 187,313, 125,313, undefined,undefined, 1, 3));
-    arrayOfZones.push(new zoneClass(214,238, 332,238, 332,313, 187,313, undefined,undefined, 2, 2));
-    arrayOfZones.push(new zoneClass(332,238, 491,238, 480,313, 332,313, undefined,undefined, 3, 2));
-    arrayOfZones.push(new zoneClass(491,238, 580,238, 580,313, 480,313, undefined,undefined, 4, 2));
-    arrayOfZones.push(new zoneClass(580,238, 664,238, 676,313, 580,313, undefined,undefined,5, 2));
-    arrayOfZones.push(new zoneClass(664,238, 814,238, 814,313, 676,313, undefined,undefined, 6, 2));
-    arrayOfZones.push(new zoneClass(814,238, 940,238, 972,313, 814,313, undefined,undefined,7, 2));
-    arrayOfZones.push(new zoneClass(940,238, 1018,238, 1032,313, 972,313, undefined,undefined,8, 3));
-    arrayOfZones.push(new zoneClass(125,313, 187,313, 182,350, 187,388, 110,388, 9, 3));
-    arrayOfZones.push(new zoneClass(187,313, 332,313, 332,388, 187,388, 182,350, 10, 2));
-    arrayOfZones.push(new zoneClass(332,313, 480,313, 469,388, 332,388, undefined,undefined, 11, 2));
-    arrayOfZones.push(new zoneClass(480,313, 580,313, 580,388, 469,388, undefined,undefined, 12, 2));
-    arrayOfZones.push(new zoneClass(580,313, 676,313, 688,388, 580,388, undefined,undefined, 13, 2));
-    arrayOfZones.push(new zoneClass(676,313, 814,313, 814,388, 688,388, undefined,undefined, 14, 2));
-    arrayOfZones.push(new zoneClass(814,313, 972,313, 977,350, 970,388, 814,388, 15, 2));
-    arrayOfZones.push(new zoneClass(972,313, 1032,313, 1045,388, 970,388, 977,350, 16, 3));
-    arrayOfZones.push(new zoneClass(110,388, 187,388, 240,455, 332,502, 90,502, 17, 3));
-    arrayOfZones.push(new zoneClass(187,388, 332,388, 332,502, 240,455, undefined,undefined, 18, 2));
-    arrayOfZones.push(new zoneClass(332,388, 469,388, 453,532, 332,502, undefined,undefined, 19, 2));
-    arrayOfZones.push(new zoneClass(469,388, 688,388, 707,532, 572,542, 453,532, 20, 2));
-    arrayOfZones.push(new zoneClass(688,388, 814,388, 814,505, 707,532, undefined,undefined, 21, 2));
-    arrayOfZones.push(new zoneClass(814,388, 970,388, 920,453, 814,505, undefined,undefined, 22, 2));
-    arrayOfZones.push(new zoneClass(970,388, 1045,388, 1065,505, 814,505, 920,453, 23, 3));
-    arrayOfZones.push(new zoneClass(332,502, 453,532, 453,585, 332,585, undefined,undefined, 24, 3));
-    arrayOfZones.push(new zoneClass(453,532, 572,542, 707,532, 707,585, 453,585, 25, 3));
-    arrayOfZones.push(new zoneClass(707,532, 814,505, 814,585, 707,585, undefined,undefined, 26, 3));
-    arrayOfZones.push(new zoneClass(90,502, 332,502, 332,585, 75,585, undefined,undefined, 27, 3));
-    arrayOfZones.push(new zoneClass(814,505, 1065,505, 1080,585, 814,585, undefined,undefined, 28, 3));
-    arrayOfZones.push(new zoneClass(75,585, 332,585, 332,675, 57,675, undefined,undefined, 29, 3));
-    arrayOfZones.push(new zoneClass(332,585, 453,585, 453,675, 332,675, undefined,undefined, 30, 3));
-    arrayOfZones.push(new zoneClass(453,585, 707,585, 707,675, 453,675, undefined,undefined, 31, 3));
-    arrayOfZones.push(new zoneClass(707,585, 814,585, 814,675, 707,675, undefined,undefined, 32, 3));
-    arrayOfZones.push(new zoneClass(814,585, 1080,585, 1098,675, 814,675, undefined,undefined, 33, 3));
+	arrayOfZones.push(new zoneClass([5, 9, 7, 4], 1, 3));
+	arrayOfZones.push(new zoneClass([9, 11, 12, 7], 2, 2));
+	arrayOfZones.push(new zoneClass([11, 21, 22, 12], 3, 2));
+	arrayOfZones.push(new zoneClass([21, 24, 25, 22], 4, 2));
+	arrayOfZones.push(new zoneClass([24, 27, 28, 25], 5, 2));
+	arrayOfZones.push(new zoneClass([27, 33, 34, 28], 6, 2));
+	arrayOfZones.push(new zoneClass([33, 40, 42, 34], 7, 2));
+	arrayOfZones.push(new zoneClass([40, 44, 45, 42], 8, 3));
+	arrayOfZones.push(new zoneClass([4, 7, 6, 8, 3], 9, 3));
+	arrayOfZones.push(new zoneClass([7, 12, 13, 8, 6], 10, 2));
+	arrayOfZones.push(new zoneClass([12, 22, 20, 13], 11, 2));
+	arrayOfZones.push(new zoneClass([22, 25, 26, 20], 12, 2));
+	arrayOfZones.push(new zoneClass([25, 28, 29,26], 13, 2));
+	arrayOfZones.push(new zoneClass([28, 34, 35, 29], 14, 2));
+	arrayOfZones.push(new zoneClass([34, 42, 53, 43, 52, 41, 35], 15, 2));
+	arrayOfZones.push(new zoneClass([42, 45, 46, 41, 52, 43, 53], 16, 3));
+	arrayOfZones.push(new zoneClass([3, 8, 10, 14, 2], 17, 3));
+	arrayOfZones.push(new zoneClass([8, 13, 14, 10], 18, 2));
+	arrayOfZones.push(new zoneClass([13, 20, 17, 14], 19, 2));
+	arrayOfZones.push(new zoneClass([20, 29, 30, 23, 17], 20, 2));
+	arrayOfZones.push(new zoneClass([29, 35, 36, 30], 21, 2));
+	arrayOfZones.push(new zoneClass([35, 41, 50, 51, 39, 36], 22, 2));
+	arrayOfZones.push(new zoneClass([41, 46, 47, 36, 39, 51, 50], 23, 3));
+	arrayOfZones.push(new zoneClass([14, 17, 18, 15], 24, 3));
+	arrayOfZones.push(new zoneClass([17, 23, 30, 31, 18], 25, 3));
+	arrayOfZones.push(new zoneClass([30, 36, 37, 31], 26, 3));
+	arrayOfZones.push(new zoneClass([2, 14, 15, 1], 27, 3));
+	arrayOfZones.push(new zoneClass([36, 47, 48, 37], 28, 3));
+	arrayOfZones.push(new zoneClass([1, 15, 16, 0], 29, 3));
+	arrayOfZones.push(new zoneClass([15, 18, 19, 16], 30, 3));
+	arrayOfZones.push(new zoneClass([18, 31, 32, 19], 31, 3));
+	arrayOfZones.push(new zoneClass([31, 37, 38, 32], 32, 3));
+	arrayOfZones.push(new zoneClass([37, 48, 49, 38], 33, 3));
 }
 
 drawZones = () => {

@@ -36,6 +36,12 @@ window.onload = function () {
 		//character2.y = mouseY;
 
 	}
+	
+	canvas.onclick = (evt) => {
+		mouseX = evt.pageX;
+		mouseY = evt.pageY;
+		console.log("Mouse Click: (" + (mouseX - 8) + ", " + (mouseY - 10) + ")");
+	} 
 
 	colorRect(0, 0, canvas.width, canvas.height, 'black');
 	colorText("LOADING IMAGES", canvas.width / 2, canvas.height / 2, 'white');
