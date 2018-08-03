@@ -154,21 +154,21 @@ function initializeZonePoints() {
 	zonePoints.push(new pointClass(90,502));  //2
 	zonePoints.push(new pointClass(110,388)); //3
 	zonePoints.push(new pointClass(125,313)); //4
-	zonePoints.push(new pointClass(140,238)); //5
+	zonePoints.push(new pointClass(139,238)); //5
 	zonePoints.push(new pointClass(182,350)); //6
-	zonePoints.push(new pointClass(187,313)); //7
-	zonePoints.push(new pointClass(187,388)); //8
-	zonePoints.push(new pointClass(214,238)); //9
-	zonePoints.push(new pointClass(240,455)); //10
+	zonePoints.push(new pointClass(188,313)); //7
+	zonePoints.push(new pointClass(189,388)); //8
+	zonePoints.push(new pointClass(215,238)); //9
+	zonePoints.push(new pointClass(244,453)); //10
 	zonePoints.push(new pointClass(332,238)); //11
 	zonePoints.push(new pointClass(332,313)); //12
 	zonePoints.push(new pointClass(332,388)); //13
 	zonePoints.push(new pointClass(332,502)); //14
 	zonePoints.push(new pointClass(332,585)); //15
 	zonePoints.push(new pointClass(332,675)); //16
-	zonePoints.push(new pointClass(453,532)); //17
-	zonePoints.push(new pointClass(453,585)); //18
-	zonePoints.push(new pointClass(453,675)); //19
+	zonePoints.push(new pointClass(448,532)); //17
+	zonePoints.push(new pointClass(448,585)); //18
+	zonePoints.push(new pointClass(448,675)); //19
 	zonePoints.push(new pointClass(469,388)); //20
 	zonePoints.push(new pointClass(491,238)); //21
 	zonePoints.push(new pointClass(480,313)); //22
@@ -195,15 +195,24 @@ function initializeZonePoints() {
 	zonePoints.push(new pointClass(975,350)); //43
 	zonePoints.push(new pointClass(1018,238));//44
 	zonePoints.push(new pointClass(1032,313));//45
-	zonePoints.push(new pointClass(1045,388));//46
-	zonePoints.push(new pointClass(1065,505));//47
-	zonePoints.push(new pointClass(1080,585));//48
+	zonePoints.push(new pointClass(1046,388));//46
+	zonePoints.push(new pointClass(1067,505));//47
+	zonePoints.push(new pointClass(1082,585));//48
 	zonePoints.push(new pointClass(1098,675));//49
 	
 	zonePoints.push(new pointClass(949, 420));//50
 	zonePoints.push(new pointClass(921, 447));//51
 	zonePoints.push(new pointClass(975, 365));//52
 	zonePoints.push(new pointClass(975, 334));//53
+	zonePoints.push(new pointClass(207, 417));//54
+	zonePoints.push(new pointClass(223, 435));//55
+	zonePoints.push(new pointClass(274, 472));//56
+	zonePoints.push(new pointClass(183, 334));//57
+	zonePoints.push(new pointClass(184, 369));//58
+	zonePoints.push(new pointClass(392, 520));//59
+	zonePoints.push(new pointClass(504, 539));//60
+	zonePoints.push(new pointClass(640, 540));//61
+	zonePoints.push(new pointClass(761, 520));//61
 }
 
 initializeArrayOfZones = () => {//142 35
@@ -215,24 +224,24 @@ initializeArrayOfZones = () => {//142 35
 	arrayOfZones.push(new zoneClass([27, 33, 34, 28], 6, 2));
 	arrayOfZones.push(new zoneClass([33, 40, 42, 34], 7, 2));
 	arrayOfZones.push(new zoneClass([40, 44, 45, 42], 8, 3));
-	arrayOfZones.push(new zoneClass([4, 7, 6, 8, 3], 9, 3));
-	arrayOfZones.push(new zoneClass([7, 12, 13, 8, 6], 10, 2));
+	arrayOfZones.push(new zoneClass([4, 7, 57, 6, 58, 8, 3], 9, 3));
+	arrayOfZones.push(new zoneClass([7, 12, 13, 8, 58, 6, 57], 10, 2));
 	arrayOfZones.push(new zoneClass([12, 22, 20, 13], 11, 2));
 	arrayOfZones.push(new zoneClass([22, 25, 26, 20], 12, 2));
 	arrayOfZones.push(new zoneClass([25, 28, 29,26], 13, 2));
 	arrayOfZones.push(new zoneClass([28, 34, 35, 29], 14, 2));
 	arrayOfZones.push(new zoneClass([34, 42, 53, 43, 52, 41, 35], 15, 2));
 	arrayOfZones.push(new zoneClass([42, 45, 46, 41, 52, 43, 53], 16, 3));
-	arrayOfZones.push(new zoneClass([3, 8, 10, 14, 2], 17, 3));
-	arrayOfZones.push(new zoneClass([8, 13, 14, 10], 18, 2));
-	arrayOfZones.push(new zoneClass([13, 20, 17, 14], 19, 2));
-	arrayOfZones.push(new zoneClass([20, 29, 30, 23, 17], 20, 2));
-	arrayOfZones.push(new zoneClass([29, 35, 36, 30], 21, 2));
+	arrayOfZones.push(new zoneClass([3, 8, 54, 55, 10, 56, 14, 2], 17, 3));
+	arrayOfZones.push(new zoneClass([8, 13, 14, 56, 10, 55, 54], 18, 2));
+	arrayOfZones.push(new zoneClass([13, 20, 17, 59, 14], 19, 2));
+	arrayOfZones.push(new zoneClass([20, 29, 30, 61, 23, 60, 17], 20, 2));
+	arrayOfZones.push(new zoneClass([29, 35, 36, 62, 30], 21, 2));
 	arrayOfZones.push(new zoneClass([35, 41, 50, 51, 39, 36], 22, 2));
 	arrayOfZones.push(new zoneClass([41, 46, 47, 36, 39, 51, 50], 23, 3));
-	arrayOfZones.push(new zoneClass([14, 17, 18, 15], 24, 3));
-	arrayOfZones.push(new zoneClass([17, 23, 30, 31, 18], 25, 3));
-	arrayOfZones.push(new zoneClass([30, 36, 37, 31], 26, 3));
+	arrayOfZones.push(new zoneClass([14, 59, 17, 18, 15], 24, 3));
+	arrayOfZones.push(new zoneClass([17, 60, 23, 61, 30, 31, 18], 25, 3));
+	arrayOfZones.push(new zoneClass([30, 62, 36, 37, 31], 26, 3));
 	arrayOfZones.push(new zoneClass([2, 14, 15, 1], 27, 3));
 	arrayOfZones.push(new zoneClass([36, 47, 48, 37], 28, 3));
 	arrayOfZones.push(new zoneClass([1, 15, 16, 0], 29, 3));
