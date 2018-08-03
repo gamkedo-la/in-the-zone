@@ -1,5 +1,9 @@
 const PLAYER_MOVE_SPEED = 7; // original speed was 5.0;
 const PLAYER_MOVE_SPEED_CHANGE = 3.0;
+
+const STREAK_EFFECT_THRESHOLD = 4; // value of player.streak before we start drawing "sparkles" coming from the player
+const MEGA_STREAK_EFFECT_THRESHOLD = 10; // player.streak for gratuitous amounts of particles
+
 var currentFrame = 0;
 var distanceToTheClosestBall;
 var zoneCounter = 0;
@@ -7,7 +11,7 @@ var randomNumberOfZones;
 var zonesWithPriority = [];
 
 function playerClass(startingX, startingY, isAI) {
-	this.initialize = function(){
+	this.initialize = function () {
 		this.x = startingX;
 		this.y = startingY;
 		this.leftEdgeOfFeet = this.x + 19;
@@ -15,14 +19,14 @@ function playerClass(startingX, startingY, isAI) {
 		this.rightEdgeOfFeet = this.x + 39;
 		this.bottomEdgeOfFeet = this.y + 61;
 
-	//	this.centerOfFeet = {"centerOfFeetX": this.x-4,"centerOfFeetY": this.y+30};
-		this.centerOfFeet = {x:this.x-4, y:this.y+30};
+		//	this.centerOfFeet = {"centerOfFeetX": this.x-4,"centerOfFeetY": this.y+30};
+		this.centerOfFeet = { x: this.x - 4, y: this.y + 30 };
 
 		this.markCenterOfFeet = () => {
 			canvasContext.font = "20px Arial";
 			canvasContext.fillStyle = "black";
 			canvasContext.fillText(this.centerOfFeet.x + "," + this.centerOfFeet.y,
-														 this.x - 4,this.y + 30);
+				this.x - 4, this.y + 30);
 		}
 		this.myWarriorPic; // which picture to use
 		// this.facingDirection= 2;//0 = north, 1 = east, 2 = south, 3 = west,4=ne, 5 = se, 6 = sw, 7 = nw
@@ -305,11 +309,11 @@ function playerClass(startingX, startingY, isAI) {
 						if (this.currentZone == 1 || this.currentZone == 9 || this.currentZone == 17 ||
 							this.currentZone == 24 || this.currentZone == 25 || this.currentZone == 26 ||
 							this.currentZone == 23 || this.currentZone == 16 || this.currentZone == 8 ||
-						 	this.currentZone == 27 || this.currentZone == 28) {
+							this.currentZone == 27 || this.currentZone == 28) {
 							this.shootingPerfectTimeStart = 16;
 						}
-						else if(this.currentZone == 29 || this.currentZone == 30 || this.currentZone == 31 ||
-										this.currentZone == 32 || this.currentZone == 33){
+						else if (this.currentZone == 29 || this.currentZone == 30 || this.currentZone == 31 ||
+							this.currentZone == 32 || this.currentZone == 33) {
 							this.shootingPerfectTimeStart = 17;
 						}
 						else {
@@ -532,7 +536,7 @@ function playerClass(startingX, startingY, isAI) {
 					if (this.shootingTime > 25) {
 						this.shootingTime = 25;
 					}
-					if (this.shootingTime > this.shootingPerfectTimeStart +1) {
+					if (this.shootingTime > this.shootingPerfectTimeStart + 1) {
 						this.tickCount = 25;
 					}
 				} else {
@@ -550,7 +554,7 @@ function playerClass(startingX, startingY, isAI) {
 						var a = HOOP_X - this.x;
 						var b = HOOP_Y - this.y;
 						this.ballToHold.startingDistanceFromHoop = Math.sqrt(a * a + b * b);
-						if (this.shootingTime >= this.shootingPerfectTimeStart && this.shootingTime <= this.shootingPerfectTimeStart +1) { //if player menages to hits the green area. His shot will go in
+						if (this.shootingTime >= this.shootingPerfectTimeStart && this.shootingTime <= this.shootingPerfectTimeStart + 1) { //if player menages to hits the green area. His shot will go in
 							twoPointsFX(this.ballToHold.x, this.ballToHold.y);
 							this.tickCount = 35;
 							this.ballToHold.goingIn = true;
@@ -586,7 +590,7 @@ function playerClass(startingX, startingY, isAI) {
 							}
 
 
-						} else if (this.shootingTime > this.shootingPerfectTimeStart +1) {
+						} else if (this.shootingTime > this.shootingPerfectTimeStart + 1) {
 							// console.log(this.shootingTime);
 							// console.log(random);
 							if (this.shootingTime <= this.longPressedShotGoingInLimit) {
@@ -686,7 +690,7 @@ function playerClass(startingX, startingY, isAI) {
 							}
 
 
-						} else if (this.shootingTime > this.shootingPerfectTimeStart +1) {
+						} else if (this.shootingTime > this.shootingPerfectTimeStart + 1) {
 							// console.log(this.shootingTime);
 							// console.log(random);
 							if (this.shootingTime <= 19) {
@@ -743,20 +747,20 @@ function playerClass(startingX, startingY, isAI) {
 			if (this.x < HOOP_X + 10 && this.y < HOOP_Y + 10 &&
 				this.x > HOOP_X - 10 && this.y > HOOP_Y - 10 &&
 				this.jumpingHeight < HOOP_H + 30 && this.jumpingHeight > HOOP_H - 30 && !this.isDunkingEnded) {
-					if (this.ballToHold != null) {
-						this.ballToHold.beingDunked = false;
-						this.ballToHold.ballPower = 5;
-						this.ballToHold.beingDunked = false;
-						this.ballToHold.jumpingHeight = HOOP_H;
-						this.ballToHold.shootingX = 0;
-						this.ballToHold.shootingY = 0;
-						this.ballToHold.height = HOOP_H;
-						this.ballToHold.isHeld = false;
-						this.ballToHold.isHeldBy = null;
-					}
-					else {
-						console.log("crashed");
-					}
+				if (this.ballToHold != null) {
+					this.ballToHold.beingDunked = false;
+					this.ballToHold.ballPower = 5;
+					this.ballToHold.beingDunked = false;
+					this.ballToHold.jumpingHeight = HOOP_H;
+					this.ballToHold.shootingX = 0;
+					this.ballToHold.shootingY = 0;
+					this.ballToHold.height = HOOP_H;
+					this.ballToHold.isHeld = false;
+					this.ballToHold.isHeldBy = null;
+				}
+				else {
+					console.log("crashed");
+				}
 				this.isDunkingEnded = true;
 			}
 			if (this.isDunkingEnded) {
@@ -765,7 +769,8 @@ function playerClass(startingX, startingY, isAI) {
 				this.jumpingHeight -= 5;
 				dunkingX = 0;
 				dunkingY = 0;
-				if (this.y == this.z) {;
+				if (this.y == this.z) {
+					;
 					this.ballToHold = null
 					this.isHoldingBall = false;
 					this.states.isDunking = false;
@@ -827,6 +832,14 @@ function playerClass(startingX, startingY, isAI) {
 		//     this.ang = 7*Math.PI/4;
 		//     break;
 		// }
+
+		// draw extra sparkles on players who are on a hot streak
+		if (this.streak > STREAK_EFFECT_THRESHOLD) {
+			streakFX(this.x, this.y);
+			if (this.streak > MEGA_STREAK_EFFECT_THRESHOLD) { // mega streak
+				streakFXmax(this.x, this.y);
+			}
+		}
 
 		if (this.states.isShooting) {
 			if (mainStates.isPaused === false) {

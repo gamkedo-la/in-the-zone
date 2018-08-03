@@ -303,6 +303,68 @@ function dribbleFX(x, y) {
     var fx = new ParticleEmitter(x, y, DUST_FX);
 }
 
+function streakFX(x, y) {
+    var fx = new ParticleEmitter(x, y - 8,
+        {
+            angle: 0,
+            angleVar: 0,
+            color: [255, 180, 128, 0.333],
+            startColorVar: [0, 40, 40, 0],
+            endColor: [1, 1, 1, 0.333],
+            endColorVar: [0, 0, 0, 0],
+            duration: 0.2,
+            particleLife: 0.75,
+            emissionRate: 150,
+            fadeAlpha: false,
+            fadeSize: true,
+            fadeSpeed: true,
+            gravity: -2,
+            particleLifeVar: 0,
+            size: 2.0,
+            sizeVar: 0.5,
+            speed: 60,
+            speedVar: 50,
+            texture: null,
+            textureAdditive: false,
+            tint: false,
+            useTexture: false,
+            xVar: 8,
+            yVar: 8
+        }
+    );
+}
+
+function streakFXmax(x, y) {
+    var fx = new ParticleEmitter(x, y - 8,
+        {
+            angle: 0,
+            angleVar: 0,
+            color: [255, 160, 80, 1],
+            startColorVar: [0, 0, 0, 0],
+            endColor: [1, 1, 1, 1],
+            endColorVar: [0, 0, 0, 0],
+            duration: 0.1,
+            particleLife: 0.5,
+            emissionRate: 60,
+            fadeAlpha: false,
+            fadeSize: true,
+            fadeSpeed: true,
+            gravity: -2,
+            particleLifeVar: 0,
+            size: 3.0,
+            sizeVar: 0.5,
+            speed: 20,
+            speedVar: 15,
+            texture: null,
+            textureAdditive: false,
+            tint: false,
+            useTexture: false,
+            xVar: 8,
+            yVar: 8
+        }
+    );
+}
+
 function walkFX(x, y) {
     var DUST_FX = {
         angle: 0,
