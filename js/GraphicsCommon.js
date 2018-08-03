@@ -24,6 +24,14 @@ function colorText(showWords, textX, textY, fillColor) {
 	canvasContext.textAlign = "center";
 }
 
+//Used to draw text for Main Menu screen
+function colorText(showWords, textX, textY, fillColor, textSize) {
+	canvasContext.fillStyle = fillColor;
+	canvasContext.fillText(showWords, textX, textY);
+	canvasContext.textAlign = "center";
+	canvasContext.font = textSize + 'px' + ' Fjalla One';
+}
+
 function colorTriangle(aX, aY, bX, bY, cX, cY, color) {
 	canvasContext.beginPath();
 	canvasContext.moveTo(aX, aY);

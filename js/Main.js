@@ -83,7 +83,11 @@ function drawAll() {
 		drawBalls(ballArray);
 		character1.draw();
 		character2.draw();
+
+	if (mainStates.menuOpen) {
 		drawMainMenu();
+	}
+
 	}
 	if (mainStates.gameOver) {
 		drawGameOver();
@@ -134,14 +138,13 @@ function drawMainMenu() {
 		mainStates.isPaused = true;
 		colorRect(canvas.width / 4, canvas.height / 4, canvas.width / 2, canvas.height / 2, "black");
 		drawBitmapCenteredWithRotation(inTheZoneLogo, canvas.width / 2, (canvas.height / 2) - 50, 0);
-		colorText("Press Enter to start game", canvas.width / 2, (canvas.height / 2) + 50, "white");
+		colorText("Press Enter to start game", canvas.width / 2, (canvas.height / 2) + 50, "white", 20);
 	}
 
-	if (enterKey) {
+	if (enterKey && mainStates.menuOpen) {
 		mainStates.menuOpen = false;
 		mainStates.isPaused = false;
 	}
-
 }
 
 function resetGame() {
