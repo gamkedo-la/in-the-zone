@@ -1,5 +1,6 @@
 var canvas, canvasContext;
-var currentPic = player1;
+var player1Pic = player1;
+var player2Pic = player2;
 
 var ballArray = [];
 var ball1 = new ballClass(200, 550);
@@ -20,8 +21,8 @@ var gameMode = {
 	oneOnOne: false
 }
 
-var character1 = new playerClass(75, 220, mainStates.demo);
-var character2 = new playerClass(1080, 220, true);
+var character1 = new playerClass(75, 220, mainStates.demo, true);
+var character2 = new playerClass(1080, 220, true, false);
 
 window.focus();//necessary to ensure the game receives keyboard input once it is uploaded to itch.io
 window.onload = function () {
@@ -151,7 +152,7 @@ function drawMainMenu() {
 		mainStates.inGame = true;
 		mainStates.demo = false;
 		
-		character1 = new playerClass(75, 220, mainStates.demo);
+		character1 = new playerClass(75, 220, mainStates.demo, true);
 		
 		setupInput();
 		

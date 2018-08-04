@@ -2,10 +2,12 @@ var basketballCourt = document.createElement("img");
 var beachBasketballCourt = document.createElement("img");
 var inTheZoneLogo = document.createElement("img");
 var player1 = document.createElement("img");
+var player2 = document.createElement("img");
 var currySpriteSheet = document.createElement("img");
+var curry2SpriteSheet = document.createElement("img");
 var dunkingPic = document.createElement("img");
 var player1DunkingSpriteSheet = document.createElement("img");
-
+var player2DunkingSpriteSheet = document.createElement("img");
 var dustParticle = document.createElement("img");
 var sparkParticle = document.createElement("img");
 var fireParticle = document.createElement("img");
@@ -58,9 +60,12 @@ function loadImages() {
 		{ varName: inTheZoneLogo, theFile: "inTheZoneLogo.png" },
 
 		{ varName: player1, theFile: "player1.png" },
+		{ varName: player2, theFile: "player2.png" },
 		{ varName: currySpriteSheet, theFile: "currySpriteSheet.png" },
+		{ varName: curry2SpriteSheet, theFile: "curry2SpriteSheet.png" },
 		{ varName: dunkingPic, theFile: "tempDunking.png" },
 		{ varName: player1DunkingSpriteSheet, theFile: "player1DunkingSpriteSheet.png"},
+		{ varName: player2DunkingSpriteSheet, theFile: "player2DunkingSpriteSheet.png"},
 
 		{ varName: scoreboard, theFile: "scoreboard.png" },
 		{ varName: number0, theFile: "0.png" },

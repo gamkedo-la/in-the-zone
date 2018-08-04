@@ -10,7 +10,7 @@ var zoneCounter = 0;
 var randomNumberOfZones;
 var zonesWithPriority = [];
 
-function playerClass(startingX, startingY, isAI) {
+function playerClass(startingX, startingY, isAI, isPlayer1) {
 	this.initialize = function () {
 		this.x = startingX;
 		this.y = startingY;
@@ -69,8 +69,14 @@ function playerClass(startingX, startingY, isAI) {
 		this.ticksPerFrame = 5;
 		this.frameRow = 0;
 		this.framesAnim = 10;
-		this.walkSprite = new SpriteSheetClass(currySpriteSheet, this.width, this.height);
-		this.dunkSprite = new SpriteSheetClass(player1DunkingSpriteSheet, this.width, this.height);
+		
+		if(isPlayer1) {
+			this.walkSprite = new SpriteSheetClass(currySpriteSheet, this.width, this.height);
+			this.dunkSprite = new SpriteSheetClass(player1DunkingSpriteSheet, this.width, this.height);
+		} else {
+			this.walkSprite = new SpriteSheetClass(curry2SpriteSheet, this.width, this.height);
+			this.dunkSprite = new SpriteSheetClass(player2DunkingSpriteSheet, this.width, this.height);
+		}
 
 		this.states = {
 			isIdle: true,
@@ -767,7 +773,11 @@ function playerClass(startingX, startingY, isAI) {
 
 
 		if (this.x == nextX && this.y == nextY) {
-			currentPic = player1;
+			if(isPlayer1) {
+				player1Pic = player1;
+			} else {
+				player2Pic = player2;
+			}
 		}
 
 		var isMoving = ((this.x != nextX) || (this.y != nextY));
@@ -833,7 +843,11 @@ function playerClass(startingX, startingY, isAI) {
 			this.walkSprite.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.x, this.y, this.ang);
 		}
 		if (this.states.isIdle) {
-			drawBitmapCenteredWithRotation(currentPic, this.x, this.y, this.ang);
+			if(isPlayer1) {
+				drawBitmapCenteredWithRotation(player1Pic, this.x, this.y, this.ang);				
+			} else {
+				drawBitmapCenteredWithRotation(player2Pic, this.x, this.y, this.ang);
+			}
 		}
 		if (this.states.isDunking) {
 			if (mainStates.isPaused === false) {
