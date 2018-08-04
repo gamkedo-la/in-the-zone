@@ -34,6 +34,13 @@ function drawScoreboard() {
 
   var player2TensPlace = Math.floor(player2Score / 10);
   var player2OnesPlace = player2Score % 10;
+  if (player1Score >= 100 || player1Score >= 100) {
+    mainStates.gameOver = true;
+    mainStates.demo= false;
+    mainStates.inGame= false;
+    mainStates.isPaused = false;
+    mainStates.menuOpen = false;
+  }
   if (mainStates.isPaused === false) {
     frameNumber++;
     if (frameNumber % 30 == 0) {
@@ -68,13 +75,13 @@ function drawScoreboard() {
   var secondTensPlace = Math.floor(sec / 10);
   var secondOnesPlace = sec % 10;
   drawBitmapCenteredWithRotation(scoreboard, SCOREBOARD_X, SCOREBOARD_Y, 0);
+  if (player1Score < 100 && player2Score < 100) {
+    drawBitmapCenteredWithRotation(numberArray[player1TensPlace], PLAYER1_TENS_PLACE_NUMBER_POSITION_X, PLAYER1_TENS_PLACE_NUMBER_POSITION_Y, 0);
+    drawBitmapCenteredWithRotation(numberArray[player1OnesPlace], PLAYER1_ONES_PLACE_NUMBER_POSITION_X, PLAYER1_ONES_PLACE_NUMBER_POSITION_Y, 0);
 
-  drawBitmapCenteredWithRotation(numberArray[player1TensPlace], PLAYER1_TENS_PLACE_NUMBER_POSITION_X, PLAYER1_TENS_PLACE_NUMBER_POSITION_Y, 0);
-  drawBitmapCenteredWithRotation(numberArray[player1OnesPlace], PLAYER1_ONES_PLACE_NUMBER_POSITION_X, PLAYER1_ONES_PLACE_NUMBER_POSITION_Y, 0);
-
-  drawBitmapCenteredWithRotation(numberArray[player2TensPlace], PLAYER2_TENS_PLACE_NUMBER_POSITION_X, PLAYER2_TENS_PLACE_NUMBER_POSITION_Y, 0);
-  drawBitmapCenteredWithRotation(numberArray[player2OnesPlace], PLAYER2_ONES_PLACE_NUMBER_POSITION_X, PLAYER2_ONES_PLACE_NUMBER_POSITION_Y, 0);
-
+    drawBitmapCenteredWithRotation(numberArray[player2TensPlace], PLAYER2_TENS_PLACE_NUMBER_POSITION_X, PLAYER2_TENS_PLACE_NUMBER_POSITION_Y, 0);
+    drawBitmapCenteredWithRotation(numberArray[player2OnesPlace], PLAYER2_ONES_PLACE_NUMBER_POSITION_X, PLAYER2_ONES_PLACE_NUMBER_POSITION_Y, 0);
+  }
   drawBitmapCenteredWithRotation(numberArray[minuteTensPlace], TIMER_MIN_TENS_PLACE_NUMBER_POSITION_X, TIMER_Y, 0);
   drawBitmapCenteredWithRotation(numberArray[minuteOnesPlace], TIMER_MIN_ONES_PLACE_NUMBER_POSITION_X, TIMER_Y, 0);
 

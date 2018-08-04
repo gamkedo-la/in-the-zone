@@ -69,7 +69,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 		this.ticksPerFrame = 5;
 		this.frameRow = 0;
 		this.framesAnim = 10;
-		
+
 		if(isPlayer1) {
 			this.walkSprite = new SpriteSheetClass(currySpriteSheet, this.width, this.height);
 			this.dunkSprite = new SpriteSheetClass(player1DunkingSpriteSheet, this.width, this.height);
@@ -431,7 +431,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 							} else {
 								nextX = Math.floor(this.zonesToGo[zoneCounter].middle.x);
 							}
-							
+
 							if (this.y < this.zonesToGo[zoneCounter].middle.y - PLAYER_MOVE_SPEED) {
 								nextY += PLAYER_MOVE_SPEED;
 							} else if (this.y > this.zonesToGo[zoneCounter].middle.y + PLAYER_MOVE_SPEED) {
@@ -844,7 +844,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 		}
 		if (this.states.isIdle) {
 			if(isPlayer1) {
-				drawBitmapCenteredWithRotation(player1Pic, this.x, this.y, this.ang);				
+				drawBitmapCenteredWithRotation(player1Pic, this.x, this.y, this.ang);
 			} else {
 				drawBitmapCenteredWithRotation(player2Pic, this.x, this.y, this.ang);
 			}

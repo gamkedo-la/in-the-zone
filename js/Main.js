@@ -110,9 +110,9 @@ function drawWorld() {
 }
 
 function drawGameOver() {
-	if (character1.score > character2.score) {
+	if (character1.score > character2.score || character1.score >= 100) {
 		winner = 1; //character1 won
-	} else if (character2.score > character1.score) {
+	} else if (character2.score > character1.score || character2.score >= 100) {
 		winner = 2; //character2 won
 	} else if (character1.score == character2.score) {
 		winner = 0; //tie
@@ -163,6 +163,8 @@ function drawMainMenu() {
 function resetGame() {
 	character1.initialize();
 	character2.initialize();
+  player1Score = 0;
+  player2Score = 0;
 
 	ball1.x = 200;
 	ball1.y = 550;
