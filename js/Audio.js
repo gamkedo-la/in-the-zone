@@ -23,10 +23,10 @@ var backgroundMusic = new Audio();
 function setAudioFormat() {
   var audio = new Audio();
   if (audio.canPlayType) {
-    if (audio.canPlayType("audio/mp3")) {
-      audioFormat = ".mp3";
-    } else {
+    if (audio.canPlayType("audio/ogg") != "") {
       audioFormat = ".ogg";
+    } else {
+      audioFormat = ".mp3";	    
     }
   }
 }

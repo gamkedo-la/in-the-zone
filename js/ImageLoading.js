@@ -57,7 +57,7 @@ function loadImages() {
 	var imageList = [
 		{ varName: basketballCourt, theFile: "court.png" },
 		{ varName: beachBasketballCourt, theFile: "courtBeach.png" },
-		{ varName: inTheZoneLogo, theFile: "inTheZoneLogo.png" },
+		{ varName: inTheZoneLogo, theFile: "InTheZoneLogo.png" },
 
 		{ varName: player1, theFile: "player1.png" },
 		{ varName: player2, theFile: "player2.png" },
