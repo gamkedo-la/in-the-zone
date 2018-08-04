@@ -36,12 +36,12 @@ window.onload = function () {
 		//character2.y = mouseY;
 
 	}
-	
+
 	canvas.onclick = (evt) => {
 		mouseX = evt.pageX;
 		mouseY = evt.pageY;
 		console.log("Mouse Click: (" + (mouseX - 8) + ", " + (mouseY - 10) + ")");
-	} 
+	}
 
 	colorRect(0, 0, canvas.width, canvas.height, 'black');
 	colorText("LOADING IMAGES", canvas.width / 2, canvas.height / 2, 'white');
@@ -151,11 +151,11 @@ function drawMainMenu() {
 		mainStates.isPaused = false;
 		mainStates.inGame = true;
 		mainStates.demo = false;
-		
+
 		character1 = new playerClass(75, 220, mainStates.demo, true);
-		
+
 		setupInput();
-		
+
 		resetGame();
 	}
 }
@@ -163,10 +163,10 @@ function drawMainMenu() {
 function resetGame() {
 	character1.initialize();
 	character2.initialize();
-	
+
 	ball1.x = 200;
 	ball1.y = 550;
-	ball2.x = 950; 
+	ball2.x = 950;
 	ball2.y = 550;
 
 	for (var i = 0; i < ballArray.length; i++) {
@@ -189,6 +189,6 @@ function resetGame() {
 		arrayOfZones[i].character2InTheZone = false;
 		arrayOfZones[i].isClaimedBy;
 	}
-	min = 0;
-	sec = 30;
+	min = 1;
+	sec = 0;
 }
