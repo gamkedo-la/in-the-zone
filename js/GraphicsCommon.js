@@ -6,9 +6,16 @@ function drawBitmapCenteredWithRotation(useBitmap, atX, atY, withAng) {
 	canvasContext.restore();
 }
 
-function colorRect(topLeftX, topLeftY, boxWidth, boxHeight, fillColor) {
+function colorRect(topLeftX, topLeftY, boxWidth, boxHeight, fillColor, alpha) {
+	let thisAlpha = alpha;
+	if(alpha == null || alpha == undefined) {
+		thisAlpha = 1;
+	}
+	
+	canvasContext.globalAlpha = thisAlpha;
 	canvasContext.fillStyle = fillColor;
 	canvasContext.fillRect(topLeftX, topLeftY, boxWidth, boxHeight);
+	canvasContext.globalAlpha = 1.0;
 }
 
 function colorCircle(centerX, centerY, radius, fillColor) {

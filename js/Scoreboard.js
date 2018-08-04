@@ -47,6 +47,9 @@ function drawScoreboard() {
         console.log("time is up");
       } else {
         sec--;
+        if(mainStates.demo && sec == 0) {
+	        sec = 30;
+        } 
       }
     }
   }

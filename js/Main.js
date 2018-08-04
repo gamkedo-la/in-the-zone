@@ -140,7 +140,7 @@ function drawMainMenu() {
 
 	if (mainStates.menuOpen) {
 		mainStates.isPaused = false;
-		colorRect(canvas.width / 4, canvas.height / 4, canvas.width / 2, canvas.height / 2, "black");
+		colorRect(canvas.width / 4, canvas.height / 4, canvas.width / 2, canvas.height / 2, "black", 0.5);
 		drawBitmapCenteredWithRotation(inTheZoneLogo, canvas.width / 2, (canvas.height / 2) - 50, 0);
 		colorText("Press Enter to start game", canvas.width / 2, (canvas.height / 2) + 50, "white", 20);
 	}
@@ -170,8 +170,6 @@ function resetGame() {
 
 	for (var i = 0; i < ballArray.length; i++) {
 		ballArray[i]
-//		ballArray[i].x = 700;
-//		ballArray[i].y = 100;
 		ballArray[i].isHeld = false
 		ballArray[i].isHeldBy = null;
 		ballArray[i].beingShot = false;
