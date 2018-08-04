@@ -161,7 +161,6 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 					var distanceFromEachOther = Math.sqrt((character2.x - this.x) * (character2.x - this.x) + (character2.y - this.y) * (character2.y - this.y));
 				}
 				if (this.isAI) {
-					console.log(this.distanceFromHoop < character1.distanceFromHoop);
 					if ((this.distanceFromHoop > character1.distanceFromHoop - 50 && ball1.isHeldBy == character1) || (this.distanceFromHoop > character2.distanceFromHoop - 50 && ball1.isHeldBy == character2)) {// only works with the ball1 since in one-on-one gamemode only ball1 will exist
 						console.log("i am not close enough to the rim to defend");
 						if (nextX != this.x && nextY != this.y) {
@@ -356,43 +355,25 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 						}
 					}
 					if (this.ballToChase != null) {
-						if (nextX != this.x && nextY != this.y) {
-							if (this.x < this.ballToChase.x + 5) {
-								nextX += PLAYER_MOVE_SPEED * Math.cos(45);
-							}
-							if (this.y < this.ballToChase.y + 5) {
-								nextY += PLAYER_MOVE_SPEED * Math.cos(45);
-							}
-							if (this.x > this.ballToChase.x - 5) {
-								nextX -= PLAYER_MOVE_SPEED * Math.cos(45);
-							}
-							if (this.y > this.ballToChase.y - 5) {
-								nextY -= PLAYER_MOVE_SPEED * Math.cos(45);
-							}
-						} else {
-							if (this.x < this.ballToChase.x + 5) {
-								nextX += PLAYER_MOVE_SPEED;
-							}
-							if (this.y < this.ballToChase.y + 5) {
-								nextY += PLAYER_MOVE_SPEED;
-							}
-							if (this.x > this.ballToChase.x - 5) {
-								nextX -= PLAYER_MOVE_SPEED;
-							}
-							if (this.y > this.ballToChase.y - 5) {
-								nextY -= PLAYER_MOVE_SPEED;
-							}
+						if (this.x < this.ballToChase.x - 5) {
+							nextX += PLAYER_MOVE_SPEED;
+						}
+						if (this.y < this.ballToChase.y - 5) {
+							nextY += PLAYER_MOVE_SPEED;
+						}
+						if (this.x > this.ballToChase.x + 5) {
+							nextX -= PLAYER_MOVE_SPEED;
+						}
+						if (this.y > this.ballToChase.y + 5) {
+							nextY -= PLAYER_MOVE_SPEED;
 						}
 					}
 				} else { //if ai holds the ball
 					if (this.zonesToGo.length == 0) {
 						zoneCounter = 0;
 						randomNumberOfZones = Math.floor(Math.random() * 5) + 1;
-						//console.log(randomNumberOfZones);
 						for (var i = 0; i < randomNumberOfZones; i++) {
 							var randomSelection = Math.floor(Math.random() * 32);
-							//console.log(randomSelection);
-							//console.log(arrayOfZones[randomSelection]);
 							this.zonesToGo.push(arrayOfZones[randomSelection]);
 						}
 						for (var i = 0; i < arrayOfZones.length; i++) {
@@ -402,8 +383,6 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 							}
 						}
 						if (zonesWithPriority.length != 0) {
-							//console.log(zonesWithPriority);
-							//console.log("hi");
 							randomNumberOfZones++;
 							var finalZoneToGo;
 							var distanceBetweenFinalAndLastZone;// the distance between the random selected zone and the zone with priority(the zone to go)
@@ -424,12 +403,16 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 						}
 
 						if (this.zonesToGo[zoneCounter] != null) {
+							let atXPos = false;
+							let atYPos = false;
+							
 							if (this.x < this.zonesToGo[zoneCounter].middle.x - PLAYER_MOVE_SPEED) {
 								nextX += PLAYER_MOVE_SPEED;
 							} else if (this.x > this.zonesToGo[zoneCounter].middle.x + PLAYER_MOVE_SPEED) {
 								nextX -= PLAYER_MOVE_SPEED;
 							} else {
 								nextX = Math.floor(this.zonesToGo[zoneCounter].middle.x);
+								atXPos = true;
 							}
 
 							if (this.y < this.zonesToGo[zoneCounter].middle.y - PLAYER_MOVE_SPEED) {
@@ -438,13 +421,18 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 								nextY -= PLAYER_MOVE_SPEED;
 							} else {
 								nextY = Math.floor(this.zonesToGo[zoneCounter].middle.y);
+								atYPos = true;
+							}
+							
+							if(atXPos && atYPos) {
+								this.currentZone = this.zonesToGo[zoneCounter].zoneNumber;
+								zoneCounter++;
 							}
 						}
 					}
 					else {
 						this.zonesToGo = [];
 						if (this.currentZone == 4 || this.currentZone == 5 || this.currentZone == 12 || this.currentZone == 13) {
-							//console.log("duncking");
 							this.states.isIdle = false;
 							this.states.isDunking = true;
 							this.tickCount = 0;
@@ -509,7 +497,6 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 			}
 
 			if (this.previousfacingDirection != this.facingDirection) {
-				//console.log("just changed directions");
 				if (Math.random() > 0.5) { // not every time
 					// play a random sound from this list (see Audio.js)
 					var randomSound = shoeSounds[Math.floor(Math.random() * shoeSounds.length)];
