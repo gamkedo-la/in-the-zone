@@ -405,7 +405,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 						if (this.zonesToGo[zoneCounter] != null) {
 							let atXPos = false;
 							let atYPos = false;
-							
+
 							if (this.x < this.zonesToGo[zoneCounter].middle.x - PLAYER_MOVE_SPEED) {
 								nextX += PLAYER_MOVE_SPEED;
 							} else if (this.x > this.zonesToGo[zoneCounter].middle.x + PLAYER_MOVE_SPEED) {
@@ -423,7 +423,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 								nextY = Math.floor(this.zonesToGo[zoneCounter].middle.y);
 								atYPos = true;
 							}
-							
+
 							if(atXPos && atYPos) {
 								this.currentZone = this.zonesToGo[zoneCounter].zoneNumber;
 								zoneCounter++;
@@ -546,7 +546,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 							// console.log(random);
 							this.tickCount = 35; //increasing the tickCount to be end of the animation.
 							if (this.shootingTime >= this.shortPressedShotGoingInLimit) {
-								if (this.shootingDifficulty + 9 <= this.shootingTime) {
+								if (Math.floor(Math.random() * 10) + 9 <= this.shootingTime) {
 									this.ballToHold.goingIn = true;
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
 									this.ballToHold.ballPower = -16.5;
@@ -572,7 +572,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 							// console.log(this.shootingTime);
 							// console.log(random);
 							if (this.shootingTime <= this.longPressedShotGoingInLimit) {
-								if (this.shootingTime <= this.shootingDifficulty + 9) {
+								if (this.shootingTime <= Math.floor(Math.random() * 10) + 9) {
 									this.ballToHold.goingIn = true;
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
 									this.ballToHold.ballPower = -16.5;
@@ -645,7 +645,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 							// console.log(this.shootingTime);
 							// console.log(random);
 							this.tickCount = 35; //increasing the tickCount to be end of the animation.
-							if (this.shootingTime >= 10) {
+							if (this.shootingTime >= this.shortPressedShotGoingInLimit) {
 								if (Math.floor(Math.random() * 10) + 9 <= this.shootingTime) {
 									this.ballToHold.goingIn = true;
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
@@ -671,7 +671,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 						} else if (this.shootingTime > this.shootingPerfectTimeStart + 1) {
 							// console.log(this.shootingTime);
 							// console.log(random);
-							if (this.shootingTime <= 19) {
+							if (this.shootingTime <= this.longPressedShotGoingInLimit) {
 								if (this.shootingTime <= Math.floor(Math.random() * 10) + 9) {
 									this.ballToHold.goingIn = true;
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
