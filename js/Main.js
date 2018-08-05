@@ -231,33 +231,21 @@ function drawOptionsScreen() {
 		const menuHeight = canvas.height / 2;
 		
 		colorRect(menuX, menuY, menuWidth, menuHeight, "black", 0.5);
-		drawBitmapCenteredWithRotation(optionsScoreboard, canvas.width / 3, (canvas.height / 2) - 50, 0);
+		drawBitmapWithSizeAndRotation(optionsScoreboard, menuX + menuWidth / 2, menuY + (menuHeight / 4) + 20, menuWidth / 2, menuHeight / 2, 0);
 		
 		if(courtDisplayed == CourtOptions.Indoor) {
-			drawBitmapCenteredWithRotation(number1, canvas.width / 3 - 1, (canvas.height / 2) - 70, 0);
+			drawBitmapWithSizeAndRotation(number1, menuX + (menuWidth / 2) - 4, menuY + (menuHeight / 4) - (menuHeight / 8) + 20, menuWidth / 9, menuHeight / 9, 0);
 //			drawBitmapWithSizeAndRotation(basketballCourt, menuX + menuWidth / 2, menuY + 10, canvas.width / 5, canvas.height / 5, 0);
 		} else if(courtDisplayed == CourtOptions.Beach) {
-			drawBitmapCenteredWithRotation(number2, canvas.width / 3 - 1, (canvas.height / 2) - 70, 0);
+			drawBitmapWithSizeAndRotation(number2, menuX + (menuWidth / 2) - 4, menuY + (menuHeight / 4) - (menuHeight / 8) + 20, menuWidth / 9, menuHeight / 9, 0);
 //			drawBitmapWithSizeAndRotation(beachBasketballCourt, menuX + menuWidth / 2, menuY + 10, canvas.width / 4, canvas.height / 4, 0);
 		}
 		
-		
-		if(menuBallPos == MenuBall.OnePlayer) {
-			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 50, 0);
-		} else if(menuBallPos == MenuBall.TwoPlayer) {
-			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 80, 0);
-		} else {
-			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 110, 0);
-		}
-		
-		
-		colorText("Options", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 120, "white", 24, "left");
-		colorText("1 Player", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 60, "white", 24, "left");
-		colorText("2 Players", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 90, "white", 24, "left");
+		colorText("Press Enter to return", menuX + (menuWidth / 2) - 100, menuY + (menuHeight / 2) + 50, "white", 24, "left");
+		drawBitmapCenteredWithRotation(ballImage, menuX + (menuWidth / 2) - 115, menuY + (menuHeight / 2) + 40, 0);
 	}
 	
 	if (enterKey && mainStates.optionsOpen) {
-		console.log("In options and leaving");
 		mainStates.menuOpen = true;
 		mainStates.optionsOpen = false;
 		enterKey = false;
