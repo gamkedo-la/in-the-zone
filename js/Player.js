@@ -398,10 +398,6 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 						}
 					}
 					if (zoneCounter != this.zonesToGo.length) {
-						if (this.currentZone == this.zonesToGo[zoneCounter].zoneNumber) {
-							zoneCounter++;
-						}
-
 						if (this.zonesToGo[zoneCounter] != null) {
 							let atXPos = false;
 							let atYPos = false;
@@ -424,8 +420,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 								atYPos = true;
 							}
 
-							if(atXPos && atYPos) {
-								this.currentZone = this.zonesToGo[zoneCounter].zoneNumber;
+							if((this.currentZone == this.zonesToGo[zoneCounter].zoneNumber) || (atXPos && atYPos)) {
 								zoneCounter++;
 							}
 						}
