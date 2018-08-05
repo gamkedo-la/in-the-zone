@@ -51,7 +51,7 @@ var character2 = new playerClass(1080, 220, true, false);
 window.onload = function () {
 	window.addEventListener("focus", windowOnFocus);
     window.addEventListener("blur", windowOnBlur);
-    
+
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
 	canvas.onmousemove = (evt) => { //gathering mouse coordinates for easy reference during game dev in game play,
@@ -98,7 +98,7 @@ function imageLoadingDoneSoStartGame() {
 	loadAudios();
 
 	setupInput();
-	
+
 	windowOnFocus();
 }
 
@@ -132,7 +132,7 @@ function drawAll() {
 	if (mainStates.menuOpen) {
 		drawMainMenu();
 	}
-	
+
 	if (mainStates.optionsOpen) {
 		drawOptionsScreen();
 	}
@@ -173,6 +173,9 @@ function drawGameOver() {
 			colorText("player1 has won", 350, 300, "white");
 			break;
 		case 2:
+		if (character2.isAI) {
+			drawBitmapCenteredWithRotation(gameOverSadPicture, 600, 300, 0);
+		}
 			colorText("player2 has won", 350, 300, "white");
 			break;
 	}
@@ -189,21 +192,21 @@ function drawMainMenu() {
 		const menuY = canvas.height / 3;
 		const menuWidth = canvas.width / 2;
 		const menuHeight = canvas.height / 2;
-		
+
 		colorRect(menuX, menuY, menuWidth, menuHeight, "black", 0.5);
 		drawBitmapCenteredWithRotation(inTheZoneLogo, canvas.width / 2, (canvas.height / 2) - 50, 0);
 		colorText("Press Enter to start game", canvas.width / 2, (canvas.height / 2) + 50, "white", 28, "center");
 		colorText("Options", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 120, "white", 24, "left");
 		colorText("1 Player", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 60, "white", 24, "left");
 		colorText("2 Players", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 90, "white", 24, "left");
-		
+
 		if(menuBallPos == MenuBall.OnePlayer) {
 			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 50, 0);
 		} else if(menuBallPos == MenuBall.TwoPlayer) {
 			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 80, 0);
 		} else {
 			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 110, 0);
-		}		
+		}
 	}
 
 	if (enterKey && mainStates.menuOpen) {
@@ -216,7 +219,7 @@ function drawMainMenu() {
 			mainStates.isPaused = false;
 			mainStates.inGame = true;
 			mainStates.demo = false;
-		
+
 			if(menuBallPos == MenuBall.OnePlayer) {
 				character1 = new playerClass(75, 220, false, true);
 			} else if(menuBallPos == MenuBall.TwoPlayer) {
@@ -225,10 +228,10 @@ function drawMainMenu() {
 			}
 
 			setupInput();
-	
+
 			resetGame();
 		}
-	} 
+	}
 }
 
 function drawOptionsScreen() {
@@ -237,16 +240,16 @@ function drawOptionsScreen() {
 		const menuY = canvas.height / 3;
 		const menuWidth = canvas.width / 2;
 		const menuHeight = canvas.height / 2;
-		
+
 		colorRect(menuX, menuY, menuWidth, menuHeight, "black", 0.5);
 		drawBitmapWithSizeAndRotation(optionsScoreboard, menuX + menuWidth / 2, menuY + (menuHeight / 4) + 20, menuWidth / 2, menuHeight / 2, 0);
-		
+
 		if(courtDisplayed == CourtOptions.Indoor) {
 			drawBitmapWithSizeAndRotation(number1, menuX + (menuWidth / 2) - 4, menuY + (menuHeight / 4) - (menuHeight / 8) + 20, menuWidth / 9, menuHeight / 9, 0);
 		} else if(courtDisplayed == CourtOptions.Beach) {
 			drawBitmapWithSizeAndRotation(number2, menuX + (menuWidth / 2) - 4, menuY + (menuHeight / 4) - (menuHeight / 8) + 20, menuWidth / 9, menuHeight / 9, 0);
 		}
-		
+
 		const selectedColor = "yellow";
 		const courtBox = {x: menuX + menuWidth / 2 - 46, y: menuY + 40, w: 90, h: 52};
 		const sfxBox = {x: menuX + menuWidth / 2 - 135, y: menuY + 143, w: 108, h: 52};
@@ -282,12 +285,12 @@ function drawOptionsScreen() {
 		colorText("Arrows to change option", menuX + (menuWidth / 2) - 10, menuY + (menuHeight / 2) + 120, "white", 16, "center");
 		colorText("+/- to change option values", menuX + (menuWidth / 2) - 10, menuY + (menuHeight / 2) + 150, "white", 16, "center");
 	}
-	
+
 	if (enterKey && mainStates.optionsOpen) {
 		mainStates.menuOpen = true;
 		mainStates.optionsOpen = false;
 		enterKey = false;
-	} 
+	}
 }
 
 function getVolumeImage(volume) {

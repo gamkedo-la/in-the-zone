@@ -34,7 +34,8 @@ function drawScoreboard() {
 
   var player2TensPlace = Math.floor(player2Score / 10);
   var player2OnesPlace = player2Score % 10;
-  if (player1Score >= 100 || player1Score >= 100) {
+  if (player1Score >= 100 || player2Score >= 100) {
+    console.log("hi");
     mainStates.gameOver = true;
     mainStates.demo= false;
     mainStates.inGame= false;
