@@ -185,16 +185,25 @@ function drawMainMenu() {
 	}
 
 	if (enterKey && mainStates.menuOpen) {
-		mainStates.menuOpen = false;
-		mainStates.isPaused = false;
-		mainStates.inGame = true;
-		mainStates.demo = false;
+		if(menuBallPos == MenuBall.Options) {
+			//Options isn't implemented yet, so we're just ignoring this for now.			
+		} else {
+			mainStates.menuOpen = false;
+			mainStates.isPaused = false;
+			mainStates.inGame = true;
+			mainStates.demo = false;
+		
+			if(menuBallPos == MenuBall.OnePlayer) {
+				character1 = new playerClass(75, 220, false, true);
+			} else if(menuBallPos == MenuBall.TwoPlayer) {
+				character1 = new playerClass(75, 220, false, true);
+				character2 = new playerClass(1080, 220, false, false);
+			}
 
-		character1 = new playerClass(75, 220, mainStates.demo, true);
-
-		setupInput();
-
-		resetGame();
+			setupInput();
+	
+			resetGame();
+		}
 	} 
 }
 
