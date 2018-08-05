@@ -21,6 +21,14 @@ const CourtOptions = {
 
 var courtDisplayed = CourtOptions.Indoor;
 
+const Options = {
+	Court:"court",
+	SFX:"sfx",
+	Music:"music"
+}
+
+var selectedOption = Options.Court;
+
 var winner;
 
 var mainStates = {
@@ -235,14 +243,44 @@ function drawOptionsScreen() {
 		
 		if(courtDisplayed == CourtOptions.Indoor) {
 			drawBitmapWithSizeAndRotation(number1, menuX + (menuWidth / 2) - 4, menuY + (menuHeight / 4) - (menuHeight / 8) + 20, menuWidth / 9, menuHeight / 9, 0);
-//			drawBitmapWithSizeAndRotation(basketballCourt, menuX + menuWidth / 2, menuY + 10, canvas.width / 5, canvas.height / 5, 0);
 		} else if(courtDisplayed == CourtOptions.Beach) {
 			drawBitmapWithSizeAndRotation(number2, menuX + (menuWidth / 2) - 4, menuY + (menuHeight / 4) - (menuHeight / 8) + 20, menuWidth / 9, menuHeight / 9, 0);
-//			drawBitmapWithSizeAndRotation(beachBasketballCourt, menuX + menuWidth / 2, menuY + 10, canvas.width / 4, canvas.height / 4, 0);
 		}
+		
+		const selectedColor = "yellow";
+		const courtBox = {x: menuX + menuWidth / 2 - 46, y: menuY + 40, w: 90, h: 52};
+		const sfxBox = {x: menuX + menuWidth / 2 - 135, y: menuY + 143, w: 108, h: 52};
+		const musicBox = {x: menuX + menuWidth / 2 + 27, y: menuY + 143, w: 108, h: 52};
+		
+		if(selectedOption == Options.Court) {
+			strokePath([{x: courtBox.x, y: courtBox.y}, 
+					    {x: courtBox.x + courtBox.w, y: courtBox.y}, 
+					    {x: courtBox.x + courtBox.w, y: courtBox.y + courtBox.h}, 
+					    {x: courtBox.x, y: courtBox.y + courtBox.h}], selectedColor);
+		} else if(selectedOption == Options.SFX) {
+			strokePath([{x: sfxBox.x, y: sfxBox.y}, 
+					    {x: sfxBox.x + sfxBox.w, y: sfxBox.y}, 
+					    {x: sfxBox.x + sfxBox.w, y: sfxBox.y + sfxBox.h}, 
+					    {x: sfxBox.x, y: sfxBox.y + sfxBox.h}], selectedColor);
+		} else if(selectedOption == Options.Music) {
+			strokePath([{x: musicBox.x, y: musicBox.y}, 
+					    {x: musicBox.x + musicBox.w, y: musicBox.y}, 
+					    {x: musicBox.x + musicBox.w, y: musicBox.y + musicBox.h}, 
+					    {x: musicBox.x, y: musicBox.y + musicBox.h}], selectedColor);
+		}
+		
+		const sfxVolumeImage = getVolumeImage(getSFXVolume());
+		drawBitmapWithSizeAndRotation(sfxVolumeImage[0], sfxBox.x + 25, sfxBox.y + 28, menuWidth / 9, menuHeight / 9, 0);
+		drawBitmapWithSizeAndRotation(sfxVolumeImage[1], sfxBox.x + 75, sfxBox.y + 28, menuWidth / 9, menuHeight / 9, 0);
+		const musicVolumeImage = getVolumeImage(getMusicVolume(backgroundMusic))
+		drawBitmapWithSizeAndRotation(musicVolumeImage[0], musicBox.x + 25, musicBox.y + 28, menuWidth / 9, menuHeight / 9, 0);
+		drawBitmapWithSizeAndRotation(musicVolumeImage[1], musicBox.x + 75, musicBox.y + 28, menuWidth / 9, menuHeight / 9, 0);
 		
 		colorText("Press Enter to return", menuX + (menuWidth / 2) - 100, menuY + (menuHeight / 2) + 50, "white", 24, "left");
 		drawBitmapCenteredWithRotation(ballImage, menuX + (menuWidth / 2) - 115, menuY + (menuHeight / 2) + 40, 0);
+		
+		colorText("Arrows to change option", menuX + (menuWidth / 2) - 10, menuY + (menuHeight / 2) + 120, "white", 16, "center");
+		colorText("+/- to change option values", menuX + (menuWidth / 2) - 10, menuY + (menuHeight / 2) + 150, "white", 16, "center");
 	}
 	
 	if (enterKey && mainStates.optionsOpen) {
@@ -250,6 +288,34 @@ function drawOptionsScreen() {
 		mainStates.optionsOpen = false;
 		enterKey = false;
 	} 
+}
+
+function getVolumeImage(volume) {
+	const cleanVolume = Math.floor(volume * 10);
+	switch(cleanVolume) {
+		case 0:
+			return [number0, number0];
+		case 1:
+			return [number0, number1];
+		case 2:
+			return [number0, number2];
+		case 3:
+			return [number0, number3];
+		case 4:
+			return [number0, number4];
+		case 5:
+			return [number0, number5];
+		case 6:
+			return [number0, number6];
+		case 7:
+			return [number0, number7];
+		case 8:
+			return [number0, number8];
+		case 9:
+			return [number0, number9];
+		case 10:
+			return [number1, number0];
+	}
 }
 
 function incrementMenuSelection() {
@@ -260,12 +326,6 @@ function incrementMenuSelection() {
 			menuBallPos = MenuBall.Options;
 		} else {
 			menuBallPos = MenuBall.OnePlayer;
-		}
-	} else if(mainStates.optionsOpen) {
-		if(courtDisplayed == CourtOptions.Indoor) {
-			courtDisplayed = CourtOptions.Beach;
-		} else if(courtDisplayed == CourtOptions.Beach) {
-			courtDisplayed = CourtOptions.Indoor;
 		}
 	}
 }
@@ -279,12 +339,58 @@ function decrementMenuSelection() {
 		} else {
 			menuBallPos = MenuBall.TwoPlayer;
 		}
-	} else if(mainStates.optionsOpen) {
-		if(courtDisplayed == CourtOptions.Indoor) {
-			courtDisplayed = CourtOptions.Beach;
-		} else if(courtDisplayed == CourtOptions.Beach) {
-			courtDisplayed = CourtOptions.Indoor;
+	}
+}
+
+function incrementOption() {
+	if(selectedOption == Options.Court) {
+		if(mainStates.optionsOpen) {
+			if(courtDisplayed == CourtOptions.Indoor) {
+				courtDisplayed = CourtOptions.Beach;
+			} else if(courtDisplayed == CourtOptions.Beach) {
+				courtDisplayed = CourtOptions.Indoor;
+			}
 		}
+	} else if(selectedOption == Options.SFX) {
+		raiseSFXVolume();
+	} else if(selectedOption == Options.Music) {
+		raiseVolume(backgroundMusic);
+	}
+}
+
+function decrementOption() {
+	if(selectedOption == Options.Court) {
+		if(mainStates.optionsOpen) {
+			if(courtDisplayed == CourtOptions.Indoor) {
+				courtDisplayed = CourtOptions.Beach;
+			} else if(courtDisplayed == CourtOptions.Beach) {
+				courtDisplayed = CourtOptions.Indoor;
+			}
+		}
+	} else if(selectedOption == Options.SFX) {
+		lowerSFXVolume();
+	} else if(selectedOption == Options.Music) {
+		lowerVolume(backgroundMusic);
+	}
+}
+
+function nextOption() {
+	if(selectedOption == Options.Court) {
+		selectedOption = Options.SFX;
+	} else if(selectedOption == Options.SFX) {
+		selectedOption = Options.Music;
+	} else if(selectedOption == Options.Music) {
+		selectedOption = Options.Court;
+	}
+}
+
+function previousOption() {
+	if(selectedOption == Options.Court) {
+		selectedOption = Options.Music;
+	} else if(selectedOption == Options.SFX) {
+		selectedOption = Options.Court;
+	} else if(selectedOption == Options.Music) {
+		selectedOption = Options.SFX;
 	}
 }
 

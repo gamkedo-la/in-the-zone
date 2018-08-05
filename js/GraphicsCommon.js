@@ -61,6 +61,25 @@ function drawBitmapWithRotation(useBitmap, atX, atY, withAng) {
 	canvasContext.restore();
 
 }
+
+function strokePath(path, color, context) {
+	if (context == null) { context = canvasContext; }
+		
+	context.save();
+	
+	context.strokeStyle = color;
+	context.lineWidth = 5;
+	context.beginPath();
+	context.moveTo(path[0].x, path[0].y);
+	for (let i = 1; i < path.length; i++) {
+		context.lineTo(path[i].x, path[i].y);
+	}
+	context.closePath();
+	context.stroke();
+	
+	context.restore();
+}
+
 function drawBitmapWithSizeAndRotation(useBitmap, atX, atY, withWidth, withHeight, withAng) {
 	canvasContext.save();
 	canvasContext.translate(atX, atY);

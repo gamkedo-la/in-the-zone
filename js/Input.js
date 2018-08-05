@@ -17,6 +17,10 @@ const KEY_ESC = 27;
 //used with Main Menu
 const KEY_ENTER = 13;
 
+//used on Options Screen
+const KEY_PLUS = 187;
+const KEY_MINUS = 189;
+
 var mouseX = 0;
 var mouseY = 0;
 
@@ -51,11 +55,15 @@ function keySet(keyEvent, setTo) {
 		}
 	} else if((mainStates.optionsOpen) && (setTo)) {
 		if((keyEvent.keyCode == KEY_RIGHT_ARROW) || (keyEvent.keyCode == KEY_DOWN_ARROW)) {
-			incrementMenuSelection();
+			nextOption();
 		} else if((keyEvent.keyCode == KEY_LEFT_ARROW) || (keyEvent.keyCode == KEY_UP_ARROW)) {
-			decrementMenuSelection();
+			previousOption();
 		} else if(keyEvent.keyCode == KEY_ENTER) {
 			enterKey = setTo;
+		} else if(keyEvent.keyCode == KEY_PLUS) {
+			incrementOption();
+		} else if(keyEvent.keyCode == KEY_MINUS) {
+			decrementOption();
 		}
 	} else if (keyEvent.keyCode == KEY_ESC) {
 		escKey = setTo;

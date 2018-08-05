@@ -98,15 +98,11 @@ function loadAudios() {
 
   ];
 
-
-  console.log(audioFormat);
-  console.log(audios[1].source);
   for (var i = 0; i < audios.length; i++) {
     audios[i].name.src = audios[i].source;
   }
-  //console.log(backgroundMusic);
-  //console.log(ballRebound1);
 }
+
 function playAndLoopMusic(music){
   music.play();
   music.loop = true;
@@ -114,4 +110,46 @@ function playAndLoopMusic(music){
 
 function pauseMusic(music) {
 	music.pause();
+}
+
+function raiseVolume(music) {
+	if(music.volume <= 0.9) {
+		music.volume += 0.1;
+	}
+}
+
+function lowerVolume(music) {
+	if(music.volume >= 0.1) {
+		music.volume -= 0.1;
+	}
+}
+
+function getMusicVolume(music) {
+	return music.volume;
+}
+
+function getSFXVolume() {
+	return audios[0].name.volume;
+}
+
+function raiseSFXVolume() {
+	for(let i = 0; i < audios.length; i++) {
+		if(audios[i].source != ("audio/Sweet Georgia Brown" + audioFormat)) {
+			if(audios[i].name.volume <= 0.9) {
+				audios[i].name.volume += 0.1;
+				console.log("Raising SFX Volume: " + audios[i].name.volume);
+			}
+		}
+	}
+}
+
+function lowerSFXVolume() {
+	for(let i = 0; i < audios.length; i++) {
+		if(audios[i].source != ("audio/Sweet Georgia Brown" + audioFormat)) {
+			if(audios[i].name.volume >= 0.1) {
+				audios[i].name.volume -= 0.1;
+				console.log("Lowering SFX Volume: " + audios[i].name.volume);
+			}
+		}
+	}
 }
