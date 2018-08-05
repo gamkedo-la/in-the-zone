@@ -6,6 +6,14 @@ var ballArray = [];
 var ball1 = new ballClass(200, 550);
 var ball2 = new ballClass(950, 550);
 
+const MenuBall = {
+	OnePlayer:"1Player",
+	TwoPlayer:"2Player",
+	Options:"Options"
+}
+
+var menuBallPos = MenuBall.OnePlayer;
+
 var winner;
 
 var mainStates = {
@@ -163,11 +171,17 @@ function drawMainMenu() {
 		colorRect(menuX, menuY, menuWidth, menuHeight, "black", 0.5);
 		drawBitmapCenteredWithRotation(inTheZoneLogo, canvas.width / 2, (canvas.height / 2) - 50, 0);
 		colorText("Press Enter to start game", canvas.width / 2, (canvas.height / 2) + 50, "white", 28, "center");
-		colorText("Options", menuX + 1 * menuWidth / 4, menuY + (menuHeight / 2) + 60, "white", 24, "center");
-		colorText("1 Player", menuX + 3 * menuWidth / 4, menuY + (menuHeight / 2) + 60, "white", 24, "left");
-		colorText("2 Players", menuX + 3 * menuWidth / 4, menuY + (menuHeight / 2) + 90, "white", 24, "left");
+		colorText("Options", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 120, "white", 24, "left");
+		colorText("1 Player", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 60, "white", 24, "left");
+		colorText("2 Players", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 90, "white", 24, "left");
 		
-		drawBitmapCenteredWithRotation(ballImage, menuX + 3 * menuWidth / 4 - 10, menuY + (menuHeight / 2) + 50, 0);
+		if(menuBallPos == MenuBall.OnePlayer) {
+			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 50, 0);
+		} else if(menuBallPos == MenuBall.TwoPlayer) {
+			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 80, 0);
+		} else {
+			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 110, 0);
+		}		
 	}
 
 	if (enterKey && mainStates.menuOpen) {
@@ -181,6 +195,26 @@ function drawMainMenu() {
 		setupInput();
 
 		resetGame();
+	} 
+}
+
+function incrementMenuSelection() {
+	if(menuBallPos == MenuBall.OnePlayer) {
+		menuBallPos = MenuBall.TwoPlayer;
+	} else if(menuBallPos == MenuBall.TwoPlayer) {
+		menuBallPos = MenuBall.Options;
+	} else {
+		menuBallPos = MenuBall.OnePlayer;
+	}
+}
+
+function decrementMenuSelection() {
+	if(menuBallPos == MenuBall.OnePlayer) {
+		menuBallPos = MenuBall.Options;
+	} else if(menuBallPos == MenuBall.TwoPlayer) {
+		menuBallPos = MenuBall.OnePlayer;
+	} else {
+		menuBallPos = MenuBall.TwoPlayer;
 	}
 }
 
