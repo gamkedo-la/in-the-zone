@@ -25,6 +25,8 @@ var number7 = document.createElement("img");
 var number8 = document.createElement("img");
 var number9 = document.createElement("img");
 
+var optionsScoreboard = document.createElement("img");
+
 var ballTrailImage = document.createElement("img");
 var ballImage = document.createElement("img");
 
@@ -78,6 +80,8 @@ function loadImages() {
 		{ varName: number7, theFile: "7.png" },
 		{ varName: number8, theFile: "8.png" },
 		{ varName: number9, theFile: "9.png" },
+
+		{ varName: optionsScoreboard, theFile: "optionsScoreboard.png" },
 
 		{ varName: dustParticle, theFile: "dustParticle.png" },
 		{ varName: sparkParticle, theFile: "sparkParticle.png" },

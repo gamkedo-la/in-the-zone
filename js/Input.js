@@ -49,49 +49,41 @@ function keySet(keyEvent, setTo) {
 		} else if(keyEvent.keyCode == KEY_ENTER) {
 			enterKey = setTo;
 		}
-		
-	} else
-
-	if (keyEvent.keyCode == KEY_ESC) {
+	} else if((mainStates.optionsOpen) && (setTo)) {
+		if((keyEvent.keyCode == KEY_RIGHT_ARROW) || (keyEvent.keyCode == KEY_DOWN_ARROW)) {
+			incrementMenuSelection();
+		} else if((keyEvent.keyCode == KEY_LEFT_ARROW) || (keyEvent.keyCode == KEY_UP_ARROW)) {
+			decrementMenuSelection();
+		} else if(keyEvent.keyCode == KEY_ENTER) {
+			enterKey = setTo;
+		}
+	} else if (keyEvent.keyCode == KEY_ESC) {
 		escKey = setTo;
-	} else
-	if (keyEvent.keyCode == KEY_ENTER) {
+	} else if (keyEvent.keyCode == KEY_ENTER) {
 		enterKey = setTo;
-	} else
-	if (keyEvent.keyCode == KEY_P) {
+	} else if (keyEvent.keyCode == KEY_P) {
 		if (setTo === true) {
 			mainStates.isPaused = !mainStates.isPaused;
 		}
-	} else
-	if (keyEvent.keyCode == character1.controlKeyLeft) {
+	} else if (keyEvent.keyCode == character1.controlKeyLeft) {
 		character1.keyHeld_West = setTo;
-	} else
-	if (keyEvent.keyCode == character1.controlKeyRight) {
+	} else if (keyEvent.keyCode == character1.controlKeyRight) {
 		character1.keyHeld_East = setTo;
-	} else
-	if (keyEvent.keyCode == character1.controlKeyUp) {
+	} else if (keyEvent.keyCode == character1.controlKeyUp) {
 		character1.keyHeld_North = setTo;
-	} else
-	if (keyEvent.keyCode == character1.controlKeyDown) {
+	} else if (keyEvent.keyCode == character1.controlKeyDown) {
 		character1.keyHeld_South = setTo;
-	} else
-	if (keyEvent.keyCode == character1.controlShootKey) {
+	} else if (keyEvent.keyCode == character1.controlShootKey) {
 		character1.keyHeld_Shoot = setTo;
-	} else
-
-	if (keyEvent.keyCode == character2.controlKeyLeft) {
+	} else if (keyEvent.keyCode == character2.controlKeyLeft) {
 		character2.keyHeld_West = setTo;
-	} else
-	if (keyEvent.keyCode == character2.controlKeyRight) {
+	} else if (keyEvent.keyCode == character2.controlKeyRight) {
 		character2.keyHeld_East = setTo;
-	} else
-	if (keyEvent.keyCode == character2.controlKeyUp) {
+	} else if (keyEvent.keyCode == character2.controlKeyUp) {
 		character2.keyHeld_North = setTo;
-	} else
-	if (keyEvent.keyCode == character2.controlKeyDown) {
+	} else if (keyEvent.keyCode == character2.controlKeyDown) {
 		character2.keyHeld_South = setTo;
-	} else
-	if (keyEvent.keyCode == character2.controlShootKey) {
+	} else if (keyEvent.keyCode == character2.controlShootKey) {
 		character2.keyHeld_Shoot = setTo;
 	}
 }

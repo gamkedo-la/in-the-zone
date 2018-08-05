@@ -14,6 +14,13 @@ const MenuBall = {
 
 var menuBallPos = MenuBall.OnePlayer;
 
+const CourtOptions = {
+	Indoor:"court",
+	Beach:"beach"
+}
+
+var courtDisplayed = CourtOptions.Indoor;
+
 var winner;
 
 var mainStates = {
@@ -21,7 +28,8 @@ var mainStates = {
 	inGame: false,
 	gameOver: false,
 	isPaused: false,
-	menuOpen: true
+	menuOpen: true,
+	optionsOpen:false
 };
 
 var gameMode = {
@@ -116,6 +124,10 @@ function drawAll() {
 	if (mainStates.menuOpen) {
 		drawMainMenu();
 	}
+	
+	if (mainStates.optionsOpen) {
+		drawOptionsScreen();
+	}
 
 	}
 	if (mainStates.gameOver) {
@@ -126,7 +138,11 @@ function drawAll() {
 
 function drawWorld() {
 	if ((mainStates.inGame) || (mainStates.demo)) {
-		drawBitmapCenteredWithRotation(basketballCourt, canvas.width / 2, canvas.height / 2, 0);
+		if(courtDisplayed == CourtOptions.Indoor) {
+			drawBitmapCenteredWithRotation(basketballCourt, canvas.width / 2, canvas.height / 2, 0);
+		} else if(courtDisplayed ==  CourtOptions.Beach) {
+			drawBitmapCenteredWithRotation(beachBasketballCourt, canvas.width / 2, canvas.height / 2, 0);
+		}
 		drawZones();
 		drawScoreboard();
 	}
@@ -160,8 +176,6 @@ function drawGameOver() {
 }
 
 function drawMainMenu() {
-	var fired = false;
-
 	if (mainStates.menuOpen) {
 		const menuX = canvas.width / 4;
 		const menuY = canvas.height / 3;
@@ -186,7 +200,9 @@ function drawMainMenu() {
 
 	if (enterKey && mainStates.menuOpen) {
 		if(menuBallPos == MenuBall.Options) {
-			//Options isn't implemented yet, so we're just ignoring this for now.			
+			mainStates.optionsOpen = true;
+			mainStates.menuOpen = false;
+			enterKey = false;
 		} else {
 			mainStates.menuOpen = false;
 			mainStates.isPaused = false;
@@ -207,23 +223,80 @@ function drawMainMenu() {
 	} 
 }
 
+function drawOptionsScreen() {
+	if(mainStates.optionsOpen) {
+		const menuX = canvas.width / 4;
+		const menuY = canvas.height / 3;
+		const menuWidth = canvas.width / 2;
+		const menuHeight = canvas.height / 2;
+		
+		colorRect(menuX, menuY, menuWidth, menuHeight, "black", 0.5);
+		drawBitmapCenteredWithRotation(optionsScoreboard, canvas.width / 3, (canvas.height / 2) - 50, 0);
+		
+		if(courtDisplayed == CourtOptions.Indoor) {
+			drawBitmapCenteredWithRotation(number1, canvas.width / 3 - 1, (canvas.height / 2) - 70, 0);
+//			drawBitmapWithSizeAndRotation(basketballCourt, menuX + menuWidth / 2, menuY + 10, canvas.width / 5, canvas.height / 5, 0);
+		} else if(courtDisplayed == CourtOptions.Beach) {
+			drawBitmapCenteredWithRotation(number2, canvas.width / 3 - 1, (canvas.height / 2) - 70, 0);
+//			drawBitmapWithSizeAndRotation(beachBasketballCourt, menuX + menuWidth / 2, menuY + 10, canvas.width / 4, canvas.height / 4, 0);
+		}
+		
+		
+		if(menuBallPos == MenuBall.OnePlayer) {
+			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 50, 0);
+		} else if(menuBallPos == MenuBall.TwoPlayer) {
+			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 80, 0);
+		} else {
+			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 110, 0);
+		}
+		
+		
+		colorText("Options", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 120, "white", 24, "left");
+		colorText("1 Player", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 60, "white", 24, "left");
+		colorText("2 Players", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 90, "white", 24, "left");
+	}
+	
+	if (enterKey && mainStates.optionsOpen) {
+		console.log("In options and leaving");
+		mainStates.menuOpen = true;
+		mainStates.optionsOpen = false;
+		enterKey = false;
+	} 
+}
+
 function incrementMenuSelection() {
-	if(menuBallPos == MenuBall.OnePlayer) {
-		menuBallPos = MenuBall.TwoPlayer;
-	} else if(menuBallPos == MenuBall.TwoPlayer) {
-		menuBallPos = MenuBall.Options;
-	} else {
-		menuBallPos = MenuBall.OnePlayer;
+	if(mainStates.menuOpen) {
+		if(menuBallPos == MenuBall.OnePlayer) {
+			menuBallPos = MenuBall.TwoPlayer;
+		} else if(menuBallPos == MenuBall.TwoPlayer) {
+			menuBallPos = MenuBall.Options;
+		} else {
+			menuBallPos = MenuBall.OnePlayer;
+		}
+	} else if(mainStates.optionsOpen) {
+		if(courtDisplayed == CourtOptions.Indoor) {
+			courtDisplayed = CourtOptions.Beach;
+		} else if(courtDisplayed == CourtOptions.Beach) {
+			courtDisplayed = CourtOptions.Indoor;
+		}
 	}
 }
 
 function decrementMenuSelection() {
-	if(menuBallPos == MenuBall.OnePlayer) {
-		menuBallPos = MenuBall.Options;
-	} else if(menuBallPos == MenuBall.TwoPlayer) {
-		menuBallPos = MenuBall.OnePlayer;
-	} else {
-		menuBallPos = MenuBall.TwoPlayer;
+	if(mainStates.menuOpen) {
+		if(menuBallPos == MenuBall.OnePlayer) {
+			menuBallPos = MenuBall.Options;
+		} else if(menuBallPos == MenuBall.TwoPlayer) {
+			menuBallPos = MenuBall.OnePlayer;
+		} else {
+			menuBallPos = MenuBall.TwoPlayer;
+		}
+	} else if(mainStates.optionsOpen) {
+		if(courtDisplayed == CourtOptions.Indoor) {
+			courtDisplayed = CourtOptions.Beach;
+		} else if(courtDisplayed == CourtOptions.Beach) {
+			courtDisplayed = CourtOptions.Indoor;
+		}
 	}
 }
 

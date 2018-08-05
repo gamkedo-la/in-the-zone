@@ -61,6 +61,13 @@ function drawBitmapWithRotation(useBitmap, atX, atY, withAng) {
 	canvasContext.restore();
 
 }
+function drawBitmapWithSizeAndRotation(useBitmap, atX, atY, withWidth, withHeight, withAng) {
+	canvasContext.save();
+	canvasContext.translate(atX, atY);
+	canvasContext.rotate(-withAng);
+	canvasContext.drawImage(useBitmap, -withWidth / 2, -withHeight / 2, withWidth, withHeight);
+	canvasContext.restore();
+}
 function SpriteSheetClass(sheetIn, widthIn, heightIn) {
 	var sheet = sheetIn;
 	var width = widthIn;
