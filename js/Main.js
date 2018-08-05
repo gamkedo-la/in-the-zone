@@ -155,9 +155,19 @@ function drawMainMenu() {
 	var fired = false;
 
 	if (mainStates.menuOpen) {
-		colorRect(canvas.width / 4, canvas.height / 3, canvas.width / 2, canvas.height / 2, "black", 0.5);
+		const menuX = canvas.width / 4;
+		const menuY = canvas.height / 3;
+		const menuWidth = canvas.width / 2;
+		const menuHeight = canvas.height / 2;
+		
+		colorRect(menuX, menuY, menuWidth, menuHeight, "black", 0.5);
 		drawBitmapCenteredWithRotation(inTheZoneLogo, canvas.width / 2, (canvas.height / 2) - 50, 0);
-		colorText("Press Enter to start game", canvas.width / 2, (canvas.height / 2) + 50, "white", 20);
+		colorText("Press Enter to start game", canvas.width / 2, (canvas.height / 2) + 50, "white", 28, "center");
+		colorText("Options", menuX + 1 * menuWidth / 4, menuY + (menuHeight / 2) + 60, "white", 24, "center");
+		colorText("1 Player", menuX + 3 * menuWidth / 4, menuY + (menuHeight / 2) + 60, "white", 24, "left");
+		colorText("2 Players", menuX + 3 * menuWidth / 4, menuY + (menuHeight / 2) + 90, "white", 24, "left");
+		
+		drawBitmapCenteredWithRotation(ballImage, menuX + 3 * menuWidth / 4 - 10, menuY + (menuHeight / 2) + 50, 0);
 	}
 
 	if (enterKey && mainStates.menuOpen) {
