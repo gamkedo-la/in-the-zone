@@ -24,8 +24,10 @@ var gameMode = {
 var character1 = new playerClass(75, 220, mainStates.demo, true);
 var character2 = new playerClass(1080, 220, true, false);
 
-window.focus();//necessary to ensure the game receives keyboard input once it is uploaded to itch.io
 window.onload = function () {
+	window.addEventListener("focus", windowOnFocus);
+    window.addEventListener("blur", windowOnBlur);
+    
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
 	canvas.onmousemove = (evt) => { //gathering mouse coordinates for easy reference during game dev in game play,
@@ -47,7 +49,21 @@ window.onload = function () {
 	colorText("LOADING IMAGES", canvas.width / 2, canvas.height / 2, 'white');
 
 	loadImages();
+}
 
+window.focus();//necessary to ensure the game receives keyboard input once it is uploaded to itch.io
+
+function windowOnBlur() {
+	mainStates.isPaused = true;
+	pauseMusic(backgroundMusic);
+}
+
+function windowOnFocus() {
+	if ((mainStates.inGame) || (mainStates.demo)) {
+		playAndLoopMusic(backgroundMusic);
+	}
+
+	mainStates.isPaused = false;
 }
 
 function imageLoadingDoneSoStartGame() {
@@ -58,15 +74,14 @@ function imageLoadingDoneSoStartGame() {
 	loadAudios();
 
 	setupInput();
+	
+	windowOnFocus();
 }
 
 function updateAll() {
 	moveAll();
 	updateAllEmitters(); // see ParticleSystem.js
 	drawAll();
-	if ((mainStates.inGame) || (mainStates.demo)) {
-		playAndLoopMusic(backgroundMusic);
-	}
 }
 
 function moveAll() {
@@ -140,8 +155,7 @@ function drawMainMenu() {
 	var fired = false;
 
 	if (mainStates.menuOpen) {
-		mainStates.isPaused = false;
-		colorRect(canvas.width / 4, canvas.height / 4, canvas.width / 2, canvas.height / 2, "black", 0.5);
+		colorRect(canvas.width / 4, canvas.height / 3, canvas.width / 2, canvas.height / 2, "black", 0.5);
 		drawBitmapCenteredWithRotation(inTheZoneLogo, canvas.width / 2, (canvas.height / 2) - 50, 0);
 		colorText("Press Enter to start game", canvas.width / 2, (canvas.height / 2) + 50, "white", 20);
 	}

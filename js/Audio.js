@@ -111,3 +111,7 @@ function playAndLoopMusic(music){
   music.play();
   music.loop = true;
 }
+
+function pauseMusic(music) {
+	music.pause();
+}
