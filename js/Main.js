@@ -9,7 +9,8 @@ var ball2 = new ballClass(950, 550);
 const MenuBall = {
 	OnePlayer:"1Player",
 	TwoPlayer:"2Player",
-	Options:"Options"
+	Options:"Options",
+	Credits:"Credits"
 }
 
 var menuBallPos = MenuBall.OnePlayer;
@@ -37,13 +38,16 @@ var mainStates = {
 	gameOver: false,
 	isPaused: false,
 	menuOpen: true,
-	optionsOpen:false
+	optionsOpen:false,
+	creditsOpen:false,
 };
 
 var gameMode = {
 	shootaround: true,
 	oneOnOne: false
 }
+
+var creditsBaseY;
 
 var character1 = new playerClass(75, 220, mainStates.demo, true);
 var character2 = new playerClass(1080, 220, true, false);
@@ -68,6 +72,8 @@ window.onload = function () {
 		mouseY = evt.pageY;
 		console.log("Mouse Click: (" + (mouseX - 8) + ", " + (mouseY - 10) + ")");
 	}
+	
+	creditsBaseY = 0.80 * canvas.height;
 
 	colorRect(0, 0, canvas.width, canvas.height, 'black');
 	colorText("LOADING IMAGES", canvas.width / 2, canvas.height / 2, 'white');
@@ -138,6 +144,11 @@ function drawAll() {
 	}
 
 	}
+	
+	if(mainStates.creditsOpen) {
+		drawCredits();
+	}
+	
 	if (mainStates.gameOver) {
 		drawGameOver();
 	}
@@ -186,6 +197,56 @@ function drawGameOver() {
 	}
 }
 
+function drawCredits() {
+    const contributors = [
+    {name:"Barıs Koklu",   works: ['Game Lead', 'Core Gameplay', 'AI Drivers', 'Time Limit', 'Successful Shot Detection', 'Art Integration', 'Player Art & Animation'] },
+    {name:"H Trayford", works: ['Menu Functionality', 'Demo Gameplay']}
+    
+/*    {name:"Terrence McDonnell", works: ['Signs (Over 28 Designs)', 'Checkpoint Code', 'Crashing Animation Code', 'Menu Improvements', 'Finish Line Animation', 'Stage Ground Colors', 'Track Design (Skyline, Mountain, Forest)','Main Menu Animation']},
+    {name:"Artem Smirnov", works: ['Screen State Machine','City Skyline','Data Storage','End of Round Report','Level Select','Game Over Screen','Font Improvements','Dashboard Radio', 'Automatic Transmission']},
+    {name:"Adam A. Lohnes", works: ['Truck Model and Sprites','Semi Model and Sprites','Bus Model and Sprites']},
+    {name:"Christer McFunkypants Kaitila", works: ['Particle Effects', 'Car Spritesheet Code', 'Dashboard HUD Code', 'Cloudy Sky Backgrounds', 'Sharp Pixel Scaling','Gamepad Support', 'Kangaroo Sign', 'Title Parallax', 'Random Track Generator (Unreleased WIP)']},
+    {name:"Michael Misha Fewkes", works: ['Custom Audio Engine Code','Sounds (Engine, Off Road, Brakes, Crash)', 'Sound Mixing', 'Starting Countdown']},
+    {name:"Vignesh Ramesh", works: ['Music (Snow Level, Night Theme)','Player Car Model','Sound (Cheering)','Billboard (Slick Punch)']},
+    {name:"Brandon Trumpold", works: ['Steering Feel Tweaks','Tuning (speeds, crash time)', 'RPM Needle Fix']},
+    {name:"Stebs",  works: ['Billboard (East Coast Throwback)', 'Billboard (Presidential)', 'Billboard (Attractions)', 'Additional Tree Art']},
+    {name:"Chris Markle", works: ['Music (Main Menu, Game Over)', 'Sound (Checkpoint)','Billboard (Globuton)']},
+    {name:"Tomanski", works: ['Snowy Mountain Background','Props (Tires)','Props (Trees)','Main Menu Sprites']},
+    {name:"Todd Enyeart", works: ['Billboard (Sandwich)','Billboard (Coffee)', 'Billboard (Fast Food)']},
+    {name:"Barıs Koklu", works: ['Gear Shifting', "Game Over Screen Improvement"]},
+    {name:"Joseph Spedale", works: ['Countdown Sounds', 'Music (Dr Juno)']},
+    {name:"Remy Lapointe", works: ['Billboard (Arcaninjadroid)','Billboard (Spell Spiel)']},
+    {name:"Mary Brady", works: ['Dashboard UI Art']},
+    {name:"Dynokhan", works: ['Rear Car Bump Collision']},
+    {name:"Dan Dela Rosa", works: ['Save State Improvements']},
+    {name:"Jeremy Kenyon", works: ['Billboard (We Must Prepare)']},
+    {name:"Trenton Pegeas", works: ['Billboard (Aether)']},
+    {name:"Brian Boucher", works: ['Playtesting', 'Music Bug Fix']},
+    {name:"Brian Dieffenderfer", works: ['Additional Road Tiles']},
+    {name:"Chris DeLeon", works: ['Particle Camera Drift','Perspective Sprite Tweaks','Credits Data Entry']}*/
+    ];
+	
+	colorRect(0, 0, canvas.width, canvas.height, "black", 0.5);
+	
+	creditsBaseY--;
+    let nameX = canvas.width / 2 - 350;
+    let textSkip = 20;
+    let height = 24;
+    var textY = 150;
+	
+    for (let i = 0; i < contributors.length; i++) {
+	    let contributor = contributors[i];
+	    
+	    colorText(contributor.name, nameX, creditsBaseY + textY, "white", 24, "left");
+	    textY += height * 1.4;
+	    for (let j = 0; j < contributor.works.length; j++) {
+	        colorText(contributor.works[j], nameX + 20, creditsBaseY + textY, "white", 20, "left");
+	        textY += height;
+	    }
+	    textY += textSkip;
+	}
+}
+
 function drawMainMenu() {
 	if (mainStates.menuOpen) {
 		const menuX = canvas.width / 4;
@@ -196,16 +257,19 @@ function drawMainMenu() {
 		colorRect(menuX, menuY, menuWidth, menuHeight, "black", 0.5);
 		drawBitmapCenteredWithRotation(inTheZoneLogo, canvas.width / 2, (canvas.height / 2) - 50, 0);
 		colorText("Press Enter to start game", canvas.width / 2, (canvas.height / 2) + 50, "white", 28, "center");
-		colorText("Options", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 120, "white", 24, "left");
 		colorText("1 Player", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 60, "white", 24, "left");
 		colorText("2 Players", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 90, "white", 24, "left");
+		colorText("Options", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 120, "white", 24, "left");
+		colorText("Credits", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 150, "white", 24, "left");
 
 		if(menuBallPos == MenuBall.OnePlayer) {
 			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 50, 0);
 		} else if(menuBallPos == MenuBall.TwoPlayer) {
 			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 80, 0);
-		} else {
+		} else if(menuBallPos == MenuBall.Options) {
 			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 110, 0);
+		} else if(menuBallPos == MenuBall.Credits) {
+			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 140, 0);
 		}
 	}
 
@@ -214,6 +278,9 @@ function drawMainMenu() {
 			mainStates.optionsOpen = true;
 			mainStates.menuOpen = false;
 			enterKey = false;
+		} else if(menuBallPos == MenuBall.Credits) {
+			mainStates.menuOpen = false;
+			mainStates.creditsOpen = true;
 		} else {
 			mainStates.menuOpen = false;
 			mainStates.isPaused = false;
@@ -327,7 +394,9 @@ function incrementMenuSelection() {
 			menuBallPos = MenuBall.TwoPlayer;
 		} else if(menuBallPos == MenuBall.TwoPlayer) {
 			menuBallPos = MenuBall.Options;
-		} else {
+		} else if(menuBallPos == MenuBall.Options) {
+			menuBallPos = MenuBall.Credits;
+		} else if(menuBallPos == MenuBall.Credits) {
 			menuBallPos = MenuBall.OnePlayer;
 		}
 	}
@@ -336,11 +405,13 @@ function incrementMenuSelection() {
 function decrementMenuSelection() {
 	if(mainStates.menuOpen) {
 		if(menuBallPos == MenuBall.OnePlayer) {
-			menuBallPos = MenuBall.Options;
+			menuBallPos = MenuBall.Credits;
 		} else if(menuBallPos == MenuBall.TwoPlayer) {
 			menuBallPos = MenuBall.OnePlayer;
-		} else {
+		} else if(menuBallPos == MenuBall.Options) {
 			menuBallPos = MenuBall.TwoPlayer;
+		} else if(menuBallPos == MenuBall.Credits) {
+			menuBallPos = MenuBall.Options;
 		}
 	}
 }
