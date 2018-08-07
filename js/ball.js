@@ -102,18 +102,20 @@ function ballClass(startingX, startingY) {
         bounceFX(this.x, this.y);
       }
 
+	  const limits = courtLimitsForYPos(this.z);
+
 	  if(this.y < HOOP_Y) {
 		  this.beingShot = false;
 		  this.shootingY = Math.abs(this.shootingY / 2);
-	  } else if(this.y > canvas.height) {
+	  } else if(this.y > limits.maxY) {
 		  this.beingShot = false;
 		  this.shootingY = -Math.abs(this.shootingY/2);
 	  }
 
-      if(this.x < 0) {
+      if(this.x < limits.minX) {
 	      this.beingShot = false;
 	      this.shootingX = Math.abs(this.shootingX);
-      } else if(this.x > canvas.width) {
+      } else if(this.x > limits.maxX) {
 	      this.beingShot = false;
 	      this.shootingX = -Math.abs(this.shootingX);
       }

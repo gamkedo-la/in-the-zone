@@ -130,18 +130,20 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 		var nextY = this.y;
 		// currentFrame++;
 		// console.log(currentFrame);
+		
+		const limits = courtLimitsForYPos(this.y);
 
-		if (nextX > canvas.width) {
-			nextX = canvas.width;
+		if (nextX > limits.maxX) {
+			nextX = limits.maxX;
 		}
-		if (nextX < 0) {
-			nextX = 0;
+		if (nextX < limits.minX) {
+			nextX = limits.minX;
 		}
-		if (nextY > canvas.height) {
-			nextY = canvas.height;
+		if (nextY > limits.maxY) {
+			nextY = limits.maxY;
 		}
-		if (nextY < 0) {
-			nextY = 0;
+		if (nextY < limits.minY) {
+			nextY = limits.minY;
 		}
 		if (this.ballToHold != null) {
 			if (this.ballToHold.x != this.x) {

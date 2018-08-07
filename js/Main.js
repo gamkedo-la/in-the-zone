@@ -109,6 +109,16 @@ function imageLoadingDoneSoStartGame() {
 	windowOnFocus();
 }
 
+function courtLimitsForYPos(yPos) {
+	if(courtDisplayed == CourtOptions.Indoor) {
+		return {minX:0, minY:125, maxX:canvas.width, maxY:canvas.height};
+	} else if(courtDisplayed ==  CourtOptions.Beach) {
+		return {minX:0, minY:125, maxX:canvas.width, maxY:canvas.height};
+	} else if(courtDisplayed == CourtOptions.Fence) {
+		return {minX:(75 - 0.18 * (yPos - 175)), minY:175, maxX:(canvas.width - (70 - 0.18 * (yPos - 175))), maxY:canvas.height};
+	}
+}
+
 function updateAll() {
 	moveAll();
 	updateAllEmitters(); // see ParticleSystem.js
