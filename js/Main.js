@@ -73,7 +73,7 @@ window.onload = function () {
 		mouseY = evt.pageY;
 		console.log("Mouse Click: (" + (mouseX - 8) + ", " + (mouseY - 10) + ")");
 	}
-	
+
 	creditsBaseY = 0.80 * canvas.height;
 
 	colorRect(0, 0, canvas.width, canvas.height, 'black');
@@ -133,9 +133,14 @@ function drawAll() {
 		ParticleRenderer.renderAll(canvasContext); // particle FX
 		drawBallShadows(ballArray);
 		drawBalls(ballArray);
-		character1.draw();
-		character2.draw();
-
+		if (character1.y > character2.y) {
+			character2.draw();
+			character1.draw();
+		}
+		else {
+			character1.draw();
+			character2.draw();
+		}
 	if (mainStates.menuOpen) {
 		drawMainMenu();
 	}
@@ -145,11 +150,11 @@ function drawAll() {
 	}
 
 	}
-	
+
 	if(mainStates.creditsOpen) {
 		drawCredits();
 	}
-	
+
 	if (mainStates.gameOver) {
 		drawGameOver();
 	}
@@ -204,7 +209,7 @@ function drawCredits() {
     const contributors = [
     {name:"Barıs Koklu",   works: ['Game Lead', 'Core Gameplay', 'AI Drivers', 'Time Limit', 'Successful Shot Detection', 'Art Integration', 'Player Art & Animation'] },
     {name:"H Trayford", works: ['Menu Functionality', 'Demo Gameplay']}
-    
+
 /*    {name:"Terrence McDonnell", works: ['Signs (Over 28 Designs)', 'Checkpoint Code', 'Crashing Animation Code', 'Menu Improvements', 'Finish Line Animation', 'Stage Ground Colors', 'Track Design (Skyline, Mountain, Forest)','Main Menu Animation']},
     {name:"Artem Smirnov", works: ['Screen State Machine','City Skyline','Data Storage','End of Round Report','Level Select','Game Over Screen','Font Improvements','Dashboard Radio', 'Automatic Transmission']},
     {name:"Adam A. Lohnes", works: ['Truck Model and Sprites','Semi Model and Sprites','Bus Model and Sprites']},
@@ -228,18 +233,18 @@ function drawCredits() {
     {name:"Brian Dieffenderfer", works: ['Additional Road Tiles']},
     {name:"Chris DeLeon", works: ['Particle Camera Drift','Perspective Sprite Tweaks','Credits Data Entry']}*/
     ];
-	
+
 	colorRect(0, 0, canvas.width, canvas.height, "black", 0.5);
-	
+
 	creditsBaseY--;
     let nameX = canvas.width / 2 - 350;
     let textSkip = 20;
     let height = 24;
     var textY = 150;
-	
+
     for (let i = 0; i < contributors.length; i++) {
 	    let contributor = contributors[i];
-	    
+
 	    colorText(contributor.name, nameX, creditsBaseY + textY, "white", 24, "left");
 	    textY += height * 1.4;
 	    for (let j = 0; j < contributor.works.length; j++) {
@@ -326,34 +331,34 @@ function drawOptionsScreen() {
 		const courtBox = {x: menuX + menuWidth / 2 - 46, y: menuY + 40, w: 90, h: 52};
 		const sfxBox = {x: menuX + menuWidth / 2 - 135, y: menuY + 143, w: 108, h: 52};
 		const musicBox = {x: menuX + menuWidth / 2 + 27, y: menuY + 143, w: 108, h: 52};
-		
+
 		if(selectedOption == Options.Court) {
-			strokePath([{x: courtBox.x, y: courtBox.y}, 
-					    {x: courtBox.x + courtBox.w, y: courtBox.y}, 
-					    {x: courtBox.x + courtBox.w, y: courtBox.y + courtBox.h}, 
+			strokePath([{x: courtBox.x, y: courtBox.y},
+					    {x: courtBox.x + courtBox.w, y: courtBox.y},
+					    {x: courtBox.x + courtBox.w, y: courtBox.y + courtBox.h},
 					    {x: courtBox.x, y: courtBox.y + courtBox.h}], selectedColor);
 		} else if(selectedOption == Options.SFX) {
-			strokePath([{x: sfxBox.x, y: sfxBox.y}, 
-					    {x: sfxBox.x + sfxBox.w, y: sfxBox.y}, 
-					    {x: sfxBox.x + sfxBox.w, y: sfxBox.y + sfxBox.h}, 
+			strokePath([{x: sfxBox.x, y: sfxBox.y},
+					    {x: sfxBox.x + sfxBox.w, y: sfxBox.y},
+					    {x: sfxBox.x + sfxBox.w, y: sfxBox.y + sfxBox.h},
 					    {x: sfxBox.x, y: sfxBox.y + sfxBox.h}], selectedColor);
 		} else if(selectedOption == Options.Music) {
-			strokePath([{x: musicBox.x, y: musicBox.y}, 
-					    {x: musicBox.x + musicBox.w, y: musicBox.y}, 
-					    {x: musicBox.x + musicBox.w, y: musicBox.y + musicBox.h}, 
+			strokePath([{x: musicBox.x, y: musicBox.y},
+					    {x: musicBox.x + musicBox.w, y: musicBox.y},
+					    {x: musicBox.x + musicBox.w, y: musicBox.y + musicBox.h},
 					    {x: musicBox.x, y: musicBox.y + musicBox.h}], selectedColor);
 		}
-		
+
 		const sfxVolumeImage = getVolumeImage(getSFXVolume());
 		drawBitmapWithSizeAndRotation(sfxVolumeImage[0], sfxBox.x + 25, sfxBox.y + 28, menuWidth / 9, menuHeight / 9, 0);
 		drawBitmapWithSizeAndRotation(sfxVolumeImage[1], sfxBox.x + 75, sfxBox.y + 28, menuWidth / 9, menuHeight / 9, 0);
 		const musicVolumeImage = getVolumeImage(getMusicVolume(backgroundMusic))
 		drawBitmapWithSizeAndRotation(musicVolumeImage[0], musicBox.x + 25, musicBox.y + 28, menuWidth / 9, menuHeight / 9, 0);
 		drawBitmapWithSizeAndRotation(musicVolumeImage[1], musicBox.x + 75, musicBox.y + 28, menuWidth / 9, menuHeight / 9, 0);
-		
+
 		colorText("Press Enter to return", menuX + (menuWidth / 2) - 100, menuY + (menuHeight / 2) + 50, "white", 24, "left");
 		drawBitmapCenteredWithRotation(ballImage, menuX + (menuWidth / 2) - 115, menuY + (menuHeight / 2) + 40, 0);
-		
+
 		colorText("Arrows to change option", menuX + (menuWidth / 2) - 10, menuY + (menuHeight / 2) + 120, "white", 16, "center");
 		colorText("+/- to change option values", menuX + (menuWidth / 2) - 10, menuY + (menuHeight / 2) + 150, "white", 16, "center");
 	}
