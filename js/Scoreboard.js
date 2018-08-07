@@ -35,11 +35,11 @@ function drawScoreboard() {
   var player2TensPlace = Math.floor(player2Score / 10);
   var player2OnesPlace = player2Score % 10;
   if (player1Score >= 100 || player2Score >= 100) {
-    console.log("hi");
     mainStates.gameOver = true;
     mainStates.demo= false;
     mainStates.inGame= false;
-    mainStates.isPaused = false;
+    setPaused(false);
+//    mainStates.isPaused = false;
     mainStates.menuOpen = false;
   }
   if (mainStates.isPaused === false) {
@@ -51,7 +51,8 @@ function drawScoreboard() {
         sec = 0;
         mainStates.inGame = false;
         mainStates.gameOver = true;
-        mainStates.isPaused = false;
+        setPaused(false);
+//        mainStates.isPaused = false;
         console.log("time is up");
       } else {
         sec--;

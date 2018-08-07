@@ -71,7 +71,8 @@ function keySet(keyEvent, setTo) {
 		enterKey = setTo;
 	} else if (keyEvent.keyCode == KEY_P) {
 		if (setTo === true) {
-			mainStates.isPaused = !mainStates.isPaused;
+			setPaused(!mainStates.isPaused);
+//			mainStates.isPaused = !mainStates.isPaused;
 		}
 	} else if (keyEvent.keyCode == character1.controlKeyLeft) {
 		character1.keyHeld_West = setTo;

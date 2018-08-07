@@ -82,11 +82,22 @@ window.onload = function () {
 	loadImages();
 }
 
+function setPaused(shouldPause) {
+	if(shouldPause) {
+		mainStates.isPaused = true;
+		pauseMusic(backgroundMusic);
+	} else {
+		mainStates.isPaused = false;
+		playAndLoopMusic(backgroundMusic);
+	}
+}
+
 window.focus();//necessary to ensure the game receives keyboard input once it is uploaded to itch.io
 
 function windowOnBlur() {
-	mainStates.isPaused = true;
-	pauseMusic(backgroundMusic);
+	setPaused(true);
+//	mainStates.isPaused = true;
+//	pauseMusic(backgroundMusic);
 }
 
 function windowOnFocus() {
@@ -94,7 +105,8 @@ function windowOnFocus() {
 		playAndLoopMusic(backgroundMusic);
 	}
 
-	mainStates.isPaused = false;
+//	mainStates.isPaused = false;
+	setPaused(false);
 }
 
 function imageLoadingDoneSoStartGame() {
@@ -301,7 +313,8 @@ function drawMainMenu() {
 			mainStates.creditsOpen = true;
 		} else {
 			mainStates.menuOpen = false;
-			mainStates.isPaused = false;
+			setPaused(false);
+//			mainStates.isPaused = false;
 			mainStates.inGame = true;
 			mainStates.demo = false;
 
