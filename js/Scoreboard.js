@@ -27,21 +27,20 @@ var player1Score = 0;
 var player2Score = 0;
 
 function drawScoreboard() {
-  //console.log(numberArray[1]);
   var player1TensPlace = Math.floor(player1Score / 10);
   var player1OnesPlace = player1Score % 10;
-  //console.log(player1TensPlace);
 
   var player2TensPlace = Math.floor(player2Score / 10);
   var player2OnesPlace = player2Score % 10;
+  
   if (player1Score >= 100 || player2Score >= 100) {
     mainStates.gameOver = true;
     mainStates.demo= false;
     mainStates.inGame= false;
     setPaused(false);
-//    mainStates.isPaused = false;
     mainStates.menuOpen = false;
   }
+  
   if (mainStates.isPaused === false) {
     frameNumber++;
     if (frameNumber % 30 == 0) {
@@ -52,8 +51,6 @@ function drawScoreboard() {
         mainStates.inGame = false;
         mainStates.gameOver = true;
         setPaused(false);
-//        mainStates.isPaused = false;
-        console.log("time is up");
       } else {
         sec--;
         if(mainStates.demo && sec == 0) {
@@ -62,8 +59,7 @@ function drawScoreboard() {
       }
     }
   }
-  //console.log(sec);
-  //console.log(min);
+
   if (sec <= 0 && min >= 1) {
     sec = 59;
     min--;
@@ -72,11 +68,11 @@ function drawScoreboard() {
 
   var minuteTensPlace = Math.floor(min / 10);
   var minuteOnesPlace = min % 10;
-  //console.log(player1TensPlace);
 
   var secondTensPlace = Math.floor(sec / 10);
   var secondOnesPlace = sec % 10;
   drawBitmapCenteredWithRotation(scoreboard, SCOREBOARD_X, SCOREBOARD_Y, 0);
+
   if (player1Score < 100 && player2Score < 100) {
     drawBitmapCenteredWithRotation(numberArray[player1TensPlace], PLAYER1_TENS_PLACE_NUMBER_POSITION_X, PLAYER1_TENS_PLACE_NUMBER_POSITION_Y, 0);
     drawBitmapCenteredWithRotation(numberArray[player1OnesPlace], PLAYER1_ONES_PLACE_NUMBER_POSITION_X, PLAYER1_ONES_PLACE_NUMBER_POSITION_Y, 0);
@@ -84,6 +80,7 @@ function drawScoreboard() {
     drawBitmapCenteredWithRotation(numberArray[player2TensPlace], PLAYER2_TENS_PLACE_NUMBER_POSITION_X, PLAYER2_TENS_PLACE_NUMBER_POSITION_Y, 0);
     drawBitmapCenteredWithRotation(numberArray[player2OnesPlace], PLAYER2_ONES_PLACE_NUMBER_POSITION_X, PLAYER2_ONES_PLACE_NUMBER_POSITION_Y, 0);
   }
+
   drawBitmapCenteredWithRotation(numberArray[minuteTensPlace], TIMER_MIN_TENS_PLACE_NUMBER_POSITION_X, TIMER_Y, 0);
   drawBitmapCenteredWithRotation(numberArray[minuteOnesPlace], TIMER_MIN_ONES_PLACE_NUMBER_POSITION_X, TIMER_Y, 0);
 

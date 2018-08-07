@@ -9,6 +9,7 @@ var ball2 = new ballClass(950, 550);
 const MenuBall = {
 	OnePlayer:"1Player",
 	TwoPlayer:"2Player",
+	Practice:"Practice",
 	Options:"Options",
 	Credits:"Credits"
 }
@@ -147,9 +148,11 @@ function moveAll() {
 		character1.move();
 		character1.updateEdgesOfFeet();
 		character1.updateCenterOfFeet();
-		character2.move();
-		character2.updateEdgesOfFeet();
-		character2.updateCenterOfFeet();
+		if(menuBallPos != MenuBall.Practice) {
+			character2.move();
+			character2.updateEdgesOfFeet();
+			character2.updateCenterOfFeet();
+		}
 		moveBalls(ballArray);
 	}
 }
@@ -161,7 +164,9 @@ function drawAll() {
 		drawBallShadows(ballArray);
 		drawBalls(ballArray);
 		
-		if (character1.y > character2.y) {
+		if(menuBallPos == MenuBall.Practice) {
+			character1.draw();
+		} else if (character1.y > character2.y) {
 			character2.draw();
 			character1.draw();
 		} else {
@@ -296,14 +301,17 @@ function drawMainMenu() {
 		colorRect(menuX, menuY, menuWidth, menuHeight, "black", 0.5);
 		drawBitmapCenteredWithRotation(inTheZoneLogo, canvas.width / 2, (canvas.height / 2) - 50, 0);
 		colorText("Press Enter to start game", canvas.width / 2, (canvas.height / 2) + 50, "white", 28, "center");
-		colorText("1 Player", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 60, "white", 24, "left");
-		colorText("2 Players", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 90, "white", 24, "left");
+		colorText("1 Player", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 30, "white", 24, "left");
+		colorText("2 Players", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 60, "white", 24, "left");
+		colorText("Practice", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 90, "white", 24, "left");
 		colorText("Options", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 120, "white", 24, "left");
 		colorText("Credits", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 150, "white", 24, "left");
 
 		if(menuBallPos == MenuBall.OnePlayer) {
-			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 50, 0);
+			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 20, 0);
 		} else if(menuBallPos == MenuBall.TwoPlayer) {
+			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 50, 0);
+		} else if(menuBallPos == MenuBall.Practice) {
 			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 80, 0);
 		} else if(menuBallPos == MenuBall.Options) {
 			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 110, 0);
@@ -325,8 +333,6 @@ function drawMainMenu() {
 			setPaused(false);
 			mainStates.inGame = true;
 			mainStates.demo = false;
-
-			
 
 			resetGame();
 		}
@@ -478,6 +484,8 @@ function incrementMenuSelection() {
 		if(menuBallPos == MenuBall.OnePlayer) {
 			menuBallPos = MenuBall.TwoPlayer;
 		} else if(menuBallPos == MenuBall.TwoPlayer) {
+			menuBallPos = MenuBall.Practice;
+		} else if(menuBallPos == MenuBall.Practice) {
 			menuBallPos = MenuBall.Options;
 		} else if(menuBallPos == MenuBall.Options) {
 			menuBallPos = MenuBall.Credits;
@@ -493,8 +501,10 @@ function decrementMenuSelection() {
 			menuBallPos = MenuBall.Credits;
 		} else if(menuBallPos == MenuBall.TwoPlayer) {
 			menuBallPos = MenuBall.OnePlayer;
-		} else if(menuBallPos == MenuBall.Options) {
+		} else if(menuBallPos == MenuBall.Practice) {
 			menuBallPos = MenuBall.TwoPlayer;
+		} else if(menuBallPos == MenuBall.Options) {
+			menuBallPos = MenuBall.Practice;
 		} else if(menuBallPos == MenuBall.Credits) {
 			menuBallPos = MenuBall.Options;
 		}
@@ -588,14 +598,15 @@ function resetGame() {
 	} else if(menuBallPos == MenuBall.TwoPlayer) {
 		character1 = new playerClass(75, 220, false, true);
 		character2 = new playerClass(1080, 220, false, false);
+	} else if(menuBallPos == MenuBall.Practice) {
+		character1 = new playerClass(75, 220, false, true);
+		character2 = new playerClass(1080, 220, false, false);
 	}
 
 	setupInput();
 	
-	character1.initialize();
-	character2.initialize();
-  player1Score = 0;
-  player2Score = 0;
+	player1Score = 0;
+	player2Score = 0;
 
 	ball1.x = 200;
 	ball1.y = 550;
