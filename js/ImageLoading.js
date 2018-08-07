@@ -1,5 +1,6 @@
 var basketballCourt = document.createElement("img");
 var beachBasketballCourt = document.createElement("img");
+var fenceBasketballCourt = document.createElement("img");
 var inTheZoneLogo = document.createElement("img");
 var player1 = document.createElement("img");
 var player2 = document.createElement("img");
@@ -60,6 +61,7 @@ function loadImages() {
 	var imageList = [
 		{ varName: basketballCourt, theFile: "court.png" },
 		{ varName: beachBasketballCourt, theFile: "courtBeach.png" },
+		{ varName: fenceBasketballCourt, theFile: "courtChainLink.png" },
 		{ varName: inTheZoneLogo, theFile: "InTheZoneLogo.png" },
 
 		{ varName: player1, theFile: "player1.png" },

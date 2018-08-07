@@ -17,7 +17,8 @@ var menuBallPos = MenuBall.OnePlayer;
 
 const CourtOptions = {
 	Indoor:"court",
-	Beach:"beach"
+	Beach:"beach",
+	Fence:"fence"
 }
 
 var courtDisplayed = CourtOptions.Indoor;
@@ -161,6 +162,8 @@ function drawWorld() {
 			drawBitmapCenteredWithRotation(basketballCourt, canvas.width / 2, canvas.height / 2, 0);
 		} else if(courtDisplayed ==  CourtOptions.Beach) {
 			drawBitmapCenteredWithRotation(beachBasketballCourt, canvas.width / 2, canvas.height / 2, 0);
+		} else if(courtDisplayed == CourtOptions.Fence) {
+			drawBitmapCenteredWithRotation(fenceBasketballCourt, canvas.width / 2, canvas.height / 2, 0);
 		}
 		drawZones();
 		drawScoreboard();
@@ -315,6 +318,8 @@ function drawOptionsScreen() {
 			drawBitmapWithSizeAndRotation(number1, menuX + (menuWidth / 2) - 4, menuY + (menuHeight / 4) - (menuHeight / 8) + 20, menuWidth / 9, menuHeight / 9, 0);
 		} else if(courtDisplayed == CourtOptions.Beach) {
 			drawBitmapWithSizeAndRotation(number2, menuX + (menuWidth / 2) - 4, menuY + (menuHeight / 4) - (menuHeight / 8) + 20, menuWidth / 9, menuHeight / 9, 0);
+		} else if(courtDisplayed == CourtOptions.Fence) {
+			drawBitmapWithSizeAndRotation(number3, menuX + (menuWidth / 2) - 4, menuY + (menuHeight / 4) - (menuHeight / 8) + 20, menuWidth / 9, menuHeight / 9, 0);
 		}
 
 		const selectedColor = "yellow";
@@ -422,6 +427,8 @@ function incrementOption() {
 			if(courtDisplayed == CourtOptions.Indoor) {
 				courtDisplayed = CourtOptions.Beach;
 			} else if(courtDisplayed == CourtOptions.Beach) {
+				courtDisplayed = CourtOptions.Fence;
+			} else if(courtDisplayed == CourtOptions.Fence) {
 				courtDisplayed = CourtOptions.Indoor;
 			}
 		}
@@ -436,9 +443,11 @@ function decrementOption() {
 	if(selectedOption == Options.Court) {
 		if(mainStates.optionsOpen) {
 			if(courtDisplayed == CourtOptions.Indoor) {
-				courtDisplayed = CourtOptions.Beach;
+				courtDisplayed = CourtOptions.Fence;
 			} else if(courtDisplayed == CourtOptions.Beach) {
 				courtDisplayed = CourtOptions.Indoor;
+			} else if(courtDisplayed == CourtOptions.Fence) {
+				courtDisplayed = CourtOptions.Beach;
 			}
 		}
 	} else if(selectedOption == Options.SFX) {
