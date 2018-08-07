@@ -2,6 +2,7 @@ const KEY_LEFT_ARROW = 37;
 const KEY_UP_ARROW = 38;
 const KEY_RIGHT_ARROW = 39;
 const KEY_DOWN_ARROW = 40;
+const KEY_BACKSPACE = 8;
 
 const KEY_W = 87;
 const KEY_A = 65;
@@ -28,6 +29,7 @@ var escKey;
 
 //used with Main Menu
 var enterKey;
+var backspaceKey;
 
 function setupInput() {
 	document.addEventListener('keydown', keyPressed);
@@ -64,6 +66,16 @@ function keySet(keyEvent, setTo) {
 			incrementOption();
 		} else if(keyEvent.keyCode == KEY_MINUS) {
 			decrementOption();
+		} else if(keyEvent.keyCode == KEY_BACKSPACE) {
+			backspaceKey = setTo;
+		}
+	} else if((mainStates.isPaused) && (setTo)) {
+		if((keyEvent.keyCode == KEY_RIGHT_ARROW) || (keyEvent.keyCode == KEY_DOWN_ARROW)) {
+			nextOption();
+		} else if((keyEvent.keyCode == KEY_LEFT_ARROW) || (keyEvent.keyCode == KEY_UP_ARROW)) {
+			previousOption();
+		} else if(keyEvent.keyCode == KEY_ENTER) {
+			enterKey = setTo;
 		}
 	} else if (keyEvent.keyCode == KEY_ESC) {
 		escKey = setTo;

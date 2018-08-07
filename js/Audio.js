@@ -137,7 +137,6 @@ function raiseSFXVolume() {
 		if(audios[i].source != ("audio/Sweet Georgia Brown" + audioFormat)) {
 			if(audios[i].name.volume <= 0.9) {
 				audios[i].name.volume += 0.1;
-				console.log("Raising SFX Volume: " + audios[i].name.volume);
 			}
 		}
 	}
@@ -148,7 +147,6 @@ function lowerSFXVolume() {
 		if(audios[i].source != ("audio/Sweet Georgia Brown" + audioFormat)) {
 			if(audios[i].name.volume >= 0.1) {
 				audios[i].name.volume -= 0.1;
-				console.log("Lowering SFX Volume: " + audios[i].name.volume);
 			}
 		}
 	}

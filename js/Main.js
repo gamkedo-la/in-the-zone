@@ -13,7 +13,15 @@ const MenuBall = {
 	Credits:"Credits"
 }
 
+const PauseBall = {
+	Resume:"resume",
+	Restart:"restart",
+	Options:"options",
+	MainMenu:"mainMenu"
+}
+
 var menuBallPos = MenuBall.OnePlayer;
+var pauseBallPos = PauseBall.Resume;
 
 const CourtOptions = {
 	Indoor:"court",
@@ -71,7 +79,7 @@ window.onload = function () {
 	canvas.onclick = (evt) => {
 		mouseX = evt.pageX;
 		mouseY = evt.pageY;
-		console.log("Mouse Click: (" + (mouseX - 8) + ", " + (mouseY - 10) + ")");
+//		console.log("Mouse Click: (" + (mouseX - 8) + ", " + (mouseY - 10) + ")");
 	}
 
 	creditsBaseY = 0.80 * canvas.height;
@@ -96,8 +104,6 @@ window.focus();//necessary to ensure the game receives keyboard input once it is
 
 function windowOnBlur() {
 	setPaused(true);
-//	mainStates.isPaused = true;
-//	pauseMusic(backgroundMusic);
 }
 
 function windowOnFocus() {
@@ -105,7 +111,6 @@ function windowOnFocus() {
 		playAndLoopMusic(backgroundMusic);
 	}
 
-//	mainStates.isPaused = false;
 	setPaused(false);
 }
 
@@ -155,22 +160,26 @@ function drawAll() {
 		ParticleRenderer.renderAll(canvasContext); // particle FX
 		drawBallShadows(ballArray);
 		drawBalls(ballArray);
+		
 		if (character1.y > character2.y) {
 			character2.draw();
 			character1.draw();
-		}
-		else {
+		} else {
 			character1.draw();
 			character2.draw();
 		}
-	if (mainStates.menuOpen) {
-		drawMainMenu();
-	}
-
-	if (mainStates.optionsOpen) {
-		drawOptionsScreen();
-	}
-
+	
+		if (mainStates.menuOpen) {
+			drawMainMenu();
+		}
+	
+		if (mainStates.optionsOpen) {
+			drawOptionsScreen();
+		}
+		
+		if(mainStates.isPaused) {
+			drawPausedMenu();
+		}
 	}
 
 	if(mainStates.creditsOpen) {
@@ -314,20 +323,51 @@ function drawMainMenu() {
 		} else {
 			mainStates.menuOpen = false;
 			setPaused(false);
-//			mainStates.isPaused = false;
 			mainStates.inGame = true;
 			mainStates.demo = false;
 
-			if(menuBallPos == MenuBall.OnePlayer) {
-				character1 = new playerClass(75, 220, false, true);
-			} else if(menuBallPos == MenuBall.TwoPlayer) {
-				character1 = new playerClass(75, 220, false, true);
-				character2 = new playerClass(1080, 220, false, false);
-			}
-
-			setupInput();
+			
 
 			resetGame();
+		}
+	}
+}
+
+function drawPausedMenu() {
+	const menuX = canvas.width / 4;
+	const menuY = canvas.height / 3;
+	const menuWidth = canvas.width / 2;
+	const menuHeight = canvas.height / 2;
+
+	colorRect(menuX, menuY, menuWidth, menuHeight, "black", 0.5);
+	drawBitmapCenteredWithRotation(inTheZoneLogo, canvas.width / 2, (canvas.height / 2) - 50, 0);
+	colorText("Resume", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 60, "white", 24, "left");
+	colorText("Restart", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 90, "white", 24, "left");
+	colorText("Options", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 120, "white", 24, "left");
+	colorText("Main Menu", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 150, "white", 24, "left");
+
+	if(pauseBallPos == PauseBall.Resume) {
+		drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 50, 0);
+	} else if(pauseBallPos == PauseBall.Restart) {
+		drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 80, 0);
+	} else if(pauseBallPos == PauseBall.Options) {
+		drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 110, 0);
+	} else if(pauseBallPos == PauseBall.MainMenu) {
+		drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 140, 0);
+	}
+	
+	if(enterKey && mainStates.isPaused) {
+		setPaused(false);
+		enterKey = false;
+		
+		if(pauseBallPos == PauseBall.Resume) {
+			//setPaused(false); is all that needs to be done, so nothing else here
+		} else if(pauseBallPos == PauseBall.Restart) {
+			resetGame();
+		} else if(pauseBallPos == PauseBall.Options) {
+			mainStates.optionsOpen = true;			
+		} else if(pauseBallPos == PauseBall.MainMenu) {
+			mainStates.menuOpen = true;
 		}
 	}
 }
@@ -379,17 +419,29 @@ function drawOptionsScreen() {
 		drawBitmapWithSizeAndRotation(musicVolumeImage[0], musicBox.x + 25, musicBox.y + 28, menuWidth / 9, menuHeight / 9, 0);
 		drawBitmapWithSizeAndRotation(musicVolumeImage[1], musicBox.x + 75, musicBox.y + 28, menuWidth / 9, menuHeight / 9, 0);
 
-		colorText("Press Enter to return", menuX + (menuWidth / 2) - 100, menuY + (menuHeight / 2) + 50, "white", 24, "left");
-		drawBitmapCenteredWithRotation(ballImage, menuX + (menuWidth / 2) - 115, menuY + (menuHeight / 2) + 40, 0);
+		colorText("Press Enter to Start", menuX + (menuWidth / 2) - 100, menuY + (menuHeight / 2) + 50, "white", 24, "left");
+		colorText("Backspace to Main Menu", menuX + (menuWidth / 2) - 125, menuY + (menuHeight / 2) + 80, "white", 24, "left");
 
 		colorText("Arrows to change option", menuX + (menuWidth / 2) - 10, menuY + (menuHeight / 2) + 120, "white", 16, "center");
 		colorText("+/- to change option values", menuX + (menuWidth / 2) - 10, menuY + (menuHeight / 2) + 150, "white", 16, "center");
 	}
 
-	if (enterKey && mainStates.optionsOpen) {
+	if (backspaceKey && mainStates.optionsOpen) {
 		mainStates.menuOpen = true;
 		mainStates.optionsOpen = false;
+		backspaceKey = false;
+	} else if(enterKey && mainStates.optionsOpen) {
+		mainStates.menuOpen = false;
+		mainStates.optionsOpen = false;
 		enterKey = false;
+		
+		if((menuBallPos == MenuBall.Options) || (menuBallPos == MenuBall.Credits) || (menuBallPos == MenuBall.OnePlayer)) {
+			menuBallPos = MenuBall.OnePlayer;
+		} else if(menuBallPos == MenuBall.TwoPlayer) {
+			menuBallPos = MenuBall.TwoPlayer;
+		}
+
+		resetGame();
 	}
 }
 
@@ -486,26 +538,60 @@ function decrementOption() {
 }
 
 function nextOption() {
-	if(selectedOption == Options.Court) {
-		selectedOption = Options.SFX;
-	} else if(selectedOption == Options.SFX) {
-		selectedOption = Options.Music;
-	} else if(selectedOption == Options.Music) {
-		selectedOption = Options.Court;
+	if(mainStates.optionsOpen) {
+		if(selectedOption == Options.Court) {
+			selectedOption = Options.SFX;
+		} else if(selectedOption == Options.SFX) {
+			selectedOption = Options.Music;
+		} else if(selectedOption == Options.Music) {
+			selectedOption = Options.Court;
+		}
+	} else if(mainStates.isPaused) {
+		if(pauseBallPos == PauseBall.Resume) {
+			pauseBallPos = PauseBall.Restart;
+		} else if(pauseBallPos == PauseBall.Restart) {
+			pauseBallPos = PauseBall.Options;
+		} else if(pauseBallPos == PauseBall.Options) {
+			pauseBallPos = PauseBall.MainMenu;
+		} else if(pauseBallPos == PauseBall.MainMenu) {
+			pauseBallPos = PauseBall.Resume;
+		}
 	}
 }
 
 function previousOption() {
-	if(selectedOption == Options.Court) {
-		selectedOption = Options.Music;
-	} else if(selectedOption == Options.SFX) {
-		selectedOption = Options.Court;
-	} else if(selectedOption == Options.Music) {
-		selectedOption = Options.SFX;
-	}
+	if(mainStates.optionsOpen) {
+		if(selectedOption == Options.Court) {
+			selectedOption = Options.Music;
+		} else if(selectedOption == Options.SFX) {
+			selectedOption = Options.Court;
+		} else if(selectedOption == Options.Music) {
+			selectedOption = Options.SFX;
+		}
+	} else if(mainStates.isPaused) {
+		if(pauseBallPos == PauseBall.Resume) {
+			pauseBallPos = PauseBall.MainMenu;
+		} else if(pauseBallPos == PauseBall.Restart) {
+			pauseBallPos = PauseBall.Resume;
+		} else if(pauseBallPos == PauseBall.Options) {
+			pauseBallPos = PauseBall.Restart;
+		} else if(pauseBallPos == PauseBall.MainMenu) {
+			pauseBallPos = PauseBall.Options;
+		}
+	}	
 }
 
 function resetGame() {
+	if(menuBallPos == MenuBall.OnePlayer) {
+		character1 = new playerClass(75, 220, false, true);
+		character2 = new playerClass(1080, 220, true, false);
+	} else if(menuBallPos == MenuBall.TwoPlayer) {
+		character1 = new playerClass(75, 220, false, true);
+		character2 = new playerClass(1080, 220, false, false);
+	}
+
+	setupInput();
+	
 	character1.initialize();
 	character2.initialize();
   player1Score = 0;
