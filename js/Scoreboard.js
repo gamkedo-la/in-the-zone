@@ -53,11 +53,12 @@ function drawScoreboard() {
         setPaused(false);
       } else {
         sec--;
-        if(mainStates.demo && sec == 0) {
-	        sec = 30;
-        }
       }
     }
+  }
+  
+  if(mainStates.demo && sec == 0) {
+    sec = 30;
   }
 
   if (sec <= 0 && min >= 1) {

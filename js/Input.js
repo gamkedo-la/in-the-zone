@@ -76,10 +76,16 @@ function keySet(keyEvent, setTo) {
 			backspaceKey = setTo;
 		} else if(keyEvent.keyCode == KEY_UP_ARROW) {
 			upArrowKey = setTo;
-//			accelerateCredits();
 		} else if(keyEvent.keyCode == KEY_DOWN_ARROW) {
 			downArrowKey = setTo;
-//			reverseCredits();
+		}
+	} else if((mainStates.gameOver) && (setTo)){
+		if((keyEvent.keyCode == KEY_RIGHT_ARROW) || (keyEvent.keyCode == KEY_DOWN_ARROW)) {
+			nextOption();
+		} else if((keyEvent.keyCode == KEY_LEFT_ARROW) || (keyEvent.keyCode == KEY_UP_ARROW)) {
+			previousOption();
+		} else if(keyEvent.keyCode == KEY_ENTER) {
+			enterKey = setTo;
 		}
 	} else if((mainStates.isPaused) && (setTo)) {
 		if((keyEvent.keyCode == KEY_RIGHT_ARROW) || (keyEvent.keyCode == KEY_DOWN_ARROW)) {

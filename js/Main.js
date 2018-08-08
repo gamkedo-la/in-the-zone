@@ -21,8 +21,15 @@ const PauseBall = {
 	MainMenu:"mainMenu"
 }
 
+const GameOverBall = {
+	Restart:"restart",
+	Options:"options",
+	MainMenu:"mainMenu"
+}
+
 var menuBallPos = MenuBall.OnePlayer;
 var pauseBallPos = PauseBall.Resume;
+var gameOverBallPos = GameOverBall.Restart;
 
 const CourtOptions = {
 	Indoor:"court",
@@ -234,6 +241,47 @@ function drawGameOver() {
 		mainStates.gameOver = false;
 		resetGame();
 		mainStates.inGame = true;
+	}
+	
+	colorText("Restart", canvas.width / 2 - 35, canvas.height - 195, "white", 24, "left");
+	colorText("Options", canvas.width / 2 - 35, canvas.height - 165, "white", 24, "left");
+	colorText("Main Menu", canvas.width / 2 - 35, canvas.height - 135, "white", 24, "left");
+
+	if(gameOverBallPos == GameOverBall.Restart) {
+		drawBitmapCenteredWithRotation(ballImage, canvas.width / 2 - 50, canvas.height - 205, 0);
+	} else if(gameOverBallPos == GameOverBall.Options) {
+		drawBitmapCenteredWithRotation(ballImage, canvas.width / 2 - 50, canvas.height - 175, 0);
+	} else if(gameOverBallPos == GameOverBall.MainMenu) {
+		drawBitmapCenteredWithRotation(ballImage, canvas.width / 2 - 50, canvas.height - 145, 0);
+	}
+	
+	if (enterKey && mainStates.gameOver) {
+		enterKey = false;
+		if(gameOverBallPos == GameOverBall.Restart) {
+			mainStates.gameOver = false;
+			mainStates.menuOpen = false;
+			
+			setPaused(false);
+			mainStates.inGame = true;
+			mainStates.demo = false;
+
+			resetGame();
+		} else if(gameOverBallPos == GameOverBall.Options) {
+			mainStates.optionsOpen = true;
+			mainStates.gameOver = false;
+			
+			setPaused(false);
+			mainStates.inGame = false;
+			mainStates.demo = true;
+		} else if(gameOverBallPos == GameOverBall.MainMenu) {
+			console.log("going to main menu");
+			mainStates.menuOpen = true;
+			mainStates.gameOver = false;
+			
+			setPaused(false);
+			mainStates.inGame = false;
+			mainStates.demo = true;
+		}
 	}
 }
 
@@ -450,6 +498,7 @@ function drawOptionsScreen() {
 		mainStates.optionsOpen = false;
 		backspaceKey = false;
 	} else if(enterKey && mainStates.optionsOpen) {
+		mainStates.inGame = true;
 		mainStates.menuOpen = false;
 		mainStates.optionsOpen = false;
 		enterKey = false;
@@ -579,6 +628,14 @@ function nextOption() {
 		} else if(pauseBallPos == PauseBall.MainMenu) {
 			pauseBallPos = PauseBall.Resume;
 		}
+	} else if(mainStates.gameOver) {
+		if(gameOverBallPos == GameOverBall.Restart) {
+			gameOverBallPos = GameOverBall.Options;
+		} else if(gameOverBallPos == GameOverBall.Options) {
+			gameOverBallPos = GameOverBall.MainMenu;
+		} else if(gameOverBallPos == GameOverBall.MainMenu) {
+			gameOverBallPos = GameOverBall.Restart;
+		}
 	}
 }
 
@@ -600,6 +657,14 @@ function previousOption() {
 			pauseBallPos = PauseBall.Restart;
 		} else if(pauseBallPos == PauseBall.MainMenu) {
 			pauseBallPos = PauseBall.Options;
+		}
+	} else if(mainStates.gameOver) {
+		if(gameOverBallPos == GameOverBall.Restart) {
+			gameOverBallPos = GameOverBall.MainMenu;
+		} else if(gameOverBallPos == GameOverBall.Options) {
+			gameOverBallPos = GameOverBall.Restart;
+		} else if(gameOverBallPos == GameOverBall.MainMenu) {
+			gameOverBallPos = GameOverBall.Options;
 		}
 	}
 }
