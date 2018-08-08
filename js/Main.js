@@ -272,7 +272,14 @@ function drawCredits() {
 
 	colorRect(0, 0, canvas.width, canvas.height, "black", 0.5);
 
-	creditsBaseY--;
+	if(upArrowKey) {
+		creditsBaseY -= 3;
+	} else if(downArrowKey) {
+		creditsBaseY +=3;
+	} else {
+		creditsBaseY--;
+	}
+
     let nameX = canvas.width / 2 - 350;
     let textSkip = 20;
     let height = 24;
@@ -288,6 +295,14 @@ function drawCredits() {
 	        textY += height;
 	    }
 	    textY += textSkip;
+	}
+	
+	colorText("Backspace to Main Menu", canvas.width - 125, canvas.height - 45, "white", 24, "right");
+	colorText("Up/Down Arrows to scroll", canvas.width - 125, canvas.height - 15, "white", 20, "right");
+	if (backspaceKey && mainStates.creditsOpen) {
+		mainStates.menuOpen = true;
+		mainStates.creditsOpen = false;
+		backspaceKey = false;
 	}
 }
 
@@ -321,10 +336,10 @@ function drawMainMenu() {
 	}
 
 	if (enterKey && mainStates.menuOpen) {
+		enterKey = false;
 		if(menuBallPos == MenuBall.Options) {
 			mainStates.optionsOpen = true;
 			mainStates.menuOpen = false;
-			enterKey = false;
 		} else if(menuBallPos == MenuBall.Credits) {
 			mainStates.menuOpen = false;
 			mainStates.creditsOpen = true;
@@ -588,7 +603,7 @@ function previousOption() {
 		} else if(pauseBallPos == PauseBall.MainMenu) {
 			pauseBallPos = PauseBall.Options;
 		}
-	}	
+	}
 }
 
 function resetGame() {

@@ -30,6 +30,8 @@ var escKey;
 //used with Main Menu
 var enterKey;
 var backspaceKey;
+var upArrowKey;
+var downArrowKey;
 
 function setupInput() {
 	document.addEventListener('keydown', keyPressed);
@@ -69,6 +71,16 @@ function keySet(keyEvent, setTo) {
 		} else if(keyEvent.keyCode == KEY_BACKSPACE) {
 			backspaceKey = setTo;
 		}
+	} else if(mainStates.creditsOpen) {
+		if(keyEvent.keyCode == KEY_BACKSPACE && setTo) {
+			backspaceKey = setTo;
+		} else if(keyEvent.keyCode == KEY_UP_ARROW) {
+			upArrowKey = setTo;
+//			accelerateCredits();
+		} else if(keyEvent.keyCode == KEY_DOWN_ARROW) {
+			downArrowKey = setTo;
+//			reverseCredits();
+		}
 	} else if((mainStates.isPaused) && (setTo)) {
 		if((keyEvent.keyCode == KEY_RIGHT_ARROW) || (keyEvent.keyCode == KEY_DOWN_ARROW)) {
 			nextOption();
@@ -84,7 +96,6 @@ function keySet(keyEvent, setTo) {
 	} else if (keyEvent.keyCode == KEY_P) {
 		if (setTo === true) {
 			setPaused(!mainStates.isPaused);
-//			mainStates.isPaused = !mainStates.isPaused;
 		}
 	} else if (keyEvent.keyCode == character1.controlKeyLeft) {
 		character1.keyHeld_West = setTo;
