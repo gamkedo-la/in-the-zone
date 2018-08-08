@@ -373,9 +373,9 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 				} else { //if ai holds the ball
 					if (this.zonesToGo.length == 0) {
 						zoneCounter = 0;
-						randomNumberOfZones = Math.floor(Math.random() * 5) + 1;
+						randomNumberOfZones = Math.ceil(Math.random() * selectedDifficulty);//1 - 5 zones for easy, 1 - 3 for normal, 1 for hard
 						for (var i = 0; i < randomNumberOfZones; i++) {
-							var randomSelection = Math.floor(Math.random() * 32);
+							var randomSelection = Math.floor(Math.random() * arrayOfZones.length);
 							this.zonesToGo.push(arrayOfZones[randomSelection]);
 						}
 						for (var i = 0; i < arrayOfZones.length; i++) {
@@ -602,14 +602,27 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 
 				chargingUpThrowBallFX(this.x, this.y);
 
-			} else {
-				if (this.score > character2.score || this.score > character1.score) {
-					this.randomShootingTime = Math.floor(Math.random() * 15) + 14;
-					//console.log("hello world");
+			} else {//is AI
+				if(selectedDifficulty == AIDifficulty.Easy) {
+					if (this.score > character2.score || this.score > character1.score) {
+						this.randomShootingTime = Math.floor(Math.random() * 15) + 14;
+					} else {
+						this.randomShootingTime = Math.floor(Math.random() * 10) + 11;
+					}					
+				} else if(selectedDifficulty == AIDifficulty.Normal) {
+					if (this.score > character2.score || this.score > character1.score) {
+						this.randomShootingTime = Math.floor(Math.random() * (this.shootingPerfectTimeStart)) + this.shootingPerfectTimeStart / 2;
+					} else {
+						this.randomShootingTime = Math.floor(Math.random() * (this.shootingPerfectTimeStart / 2)) + (3 * this.shootingPerfectTimeStart / 4);
+					}					
+				} else if(selectedDifficulty == AIDifficulty.Hard) {
+					if (this.score > character2.score || this.score > character1.score) {
+						this.randomShootingTime = Math.floor(Math.random() * (this.shootingPerfectTimeStart / 2)) + (3 * this.shootingPerfectTimeStart / 4);
+					} else {
+						this.randomShootingTime = Math.floor(Math.random() * (this.shootingPerfectTimeStart / 4)) + (7 * this.shootingPerfectTimeStart / 8);
+					}					
 				}
-				else {
-					this.randomShootingTime = Math.floor(Math.random() * 10) + 11;
-				}
+				
 				if (this.ballToHold != null && this.shootingTime < this.randomShootingTime) {
 					this.shootingTime++;
 				} else {

@@ -41,11 +41,20 @@ var courtDisplayed = CourtOptions.Indoor;
 
 const Options = {
 	Court:"court",
+	Diff:"diff",
 	SFX:"sfx",
 	Music:"music"
 }
 
 var selectedOption = Options.Court;
+
+const AIDifficulty = {
+	Easy:5,
+	Normal:3,
+	Hard:1
+}
+
+var selectedDifficulty = AIDifficulty.Hard;
 
 var winner;
 
@@ -273,6 +282,7 @@ function drawGameOver() {
 			setPaused(false);
 			mainStates.inGame = false;
 			mainStates.demo = true;
+			resetDemo();
 		} else if(gameOverBallPos == GameOverBall.MainMenu) {
 			console.log("going to main menu");
 			mainStates.menuOpen = true;
@@ -281,6 +291,7 @@ function drawGameOver() {
 			setPaused(false);
 			mainStates.inGame = false;
 			mainStates.demo = true;
+			resetDemo();
 		}
 	}
 }
@@ -450,15 +461,24 @@ function drawOptionsScreen() {
 		drawBitmapWithSizeAndRotation(optionsScoreboard, menuX + menuWidth / 2, menuY + (menuHeight / 4) + 20, menuWidth / 2, menuHeight / 2, 0);
 
 		if(courtDisplayed == CourtOptions.Indoor) {
-			drawBitmapWithSizeAndRotation(number1, menuX + (menuWidth / 2) - 4, menuY + (menuHeight / 4) - (menuHeight / 8) + 20, menuWidth / 9, menuHeight / 9, 0);
+			drawBitmapWithSizeAndRotation(number1, menuX + (menuWidth / 2) - 66, menuY + (menuHeight / 4) - (menuHeight / 8) + 24, menuWidth / 9, menuHeight / 9, 0);
 		} else if(courtDisplayed == CourtOptions.Beach) {
-			drawBitmapWithSizeAndRotation(number2, menuX + (menuWidth / 2) - 4, menuY + (menuHeight / 4) - (menuHeight / 8) + 20, menuWidth / 9, menuHeight / 9, 0);
+			drawBitmapWithSizeAndRotation(number2, menuX + (menuWidth / 2) - 66, menuY + (menuHeight / 4) - (menuHeight / 8) + 24, menuWidth / 9, menuHeight / 9, 0);
 		} else if(courtDisplayed == CourtOptions.Fence) {
-			drawBitmapWithSizeAndRotation(number3, menuX + (menuWidth / 2) - 4, menuY + (menuHeight / 4) - (menuHeight / 8) + 20, menuWidth / 9, menuHeight / 9, 0);
+			drawBitmapWithSizeAndRotation(number3, menuX + (menuWidth / 2) - 66, menuY + (menuHeight / 4) - (menuHeight / 8) + 24, menuWidth / 9, menuHeight / 9, 0);
+		}
+		
+		if(selectedDifficulty == AIDifficulty.Easy) {
+			drawBitmapWithSizeAndRotation(number1, menuX + (menuWidth / 2) + 64, menuY + (menuHeight / 4) - (menuHeight / 8) + 24, menuWidth / 9, menuHeight / 9, 0);
+		} else if(selectedDifficulty == AIDifficulty.Normal) {
+			drawBitmapWithSizeAndRotation(number2, menuX + (menuWidth / 2) + 64, menuY + (menuHeight / 4) - (menuHeight / 8) + 24, menuWidth / 9, menuHeight / 9, 0);
+		} else if(selectedDifficulty == AIDifficulty.Hard) {
+			drawBitmapWithSizeAndRotation(number3, menuX + (menuWidth / 2) + 64, menuY + (menuHeight / 4) - (menuHeight / 8) + 24, menuWidth / 9, menuHeight / 9, 0);
 		}
 
 		const selectedColor = "yellow";
-		const courtBox = {x: menuX + menuWidth / 2 - 46, y: menuY + 40, w: 90, h: 52};
+		const courtBox = {x: menuX + menuWidth / 2 - 110, y: menuY + 42, w: 90, h: 52};
+		const diffBox =  {x: menuX + menuWidth / 2 + 20, y: menuY + 42, w: 90, h: 52};
 		const sfxBox = {x: menuX + menuWidth / 2 - 135, y: menuY + 143, w: 108, h: 52};
 		const musicBox = {x: menuX + menuWidth / 2 + 27, y: menuY + 143, w: 108, h: 52};
 
@@ -467,6 +487,11 @@ function drawOptionsScreen() {
 					    {x: courtBox.x + courtBox.w, y: courtBox.y},
 					    {x: courtBox.x + courtBox.w, y: courtBox.y + courtBox.h},
 					    {x: courtBox.x, y: courtBox.y + courtBox.h}], selectedColor);
+		} else if(selectedOption == Options.Diff) {
+			strokePath([{x: diffBox.x, y: diffBox.y},
+					    {x: diffBox.x + diffBox.w, y: diffBox.y},
+					    {x: diffBox.x + diffBox.w, y: diffBox.y + diffBox.h},
+					    {x: diffBox.x, y: diffBox.y + diffBox.h}], selectedColor);
 		} else if(selectedOption == Options.SFX) {
 			strokePath([{x: sfxBox.x, y: sfxBox.y},
 					    {x: sfxBox.x + sfxBox.w, y: sfxBox.y},
@@ -584,6 +609,16 @@ function incrementOption() {
 				courtDisplayed = CourtOptions.Indoor;
 			}
 		}
+	} else if(selectedOption == Options.Diff) {
+		if(mainStates.optionsOpen) {
+			if(selectedDifficulty == AIDifficulty.Easy) {
+				selectedDifficulty = AIDifficulty.Normal;
+			} else if(selectedDifficulty == AIDifficulty.Normal) {
+				selectedDifficulty = AIDifficulty.Hard;
+			} else if(selectedDifficulty == AIDifficulty.Hard) {
+				selectedDifficulty = AIDifficulty.Easy;
+			}
+		}
 	} else if(selectedOption == Options.SFX) {
 		raiseSFXVolume();
 	} else if(selectedOption == Options.Music) {
@@ -602,6 +637,16 @@ function decrementOption() {
 				courtDisplayed = CourtOptions.Beach;
 			}
 		}
+	} else if(selectedOption == Options.Diff) {
+		if(mainStates.optionsOpen) {
+			if(selectedDifficulty == AIDifficulty.Easy) {
+				selectedDifficulty = AIDifficulty.Hard;
+			} else if(selectedDifficulty == AIDifficulty.Normal) {
+				selectedDifficulty = AIDifficulty.Easy;
+			} else if(selectedDifficulty == AIDifficulty.Hard) {
+				selectedDifficulty = AIDifficulty.Normal;
+			}
+		}
 	} else if(selectedOption == Options.SFX) {
 		lowerSFXVolume();
 	} else if(selectedOption == Options.Music) {
@@ -612,6 +657,8 @@ function decrementOption() {
 function nextOption() {
 	if(mainStates.optionsOpen) {
 		if(selectedOption == Options.Court) {
+			selectedOption = Options.Diff;
+		} else if(selectedOption == Options.Diff) {
 			selectedOption = Options.SFX;
 		} else if(selectedOption == Options.SFX) {
 			selectedOption = Options.Music;
@@ -644,9 +691,11 @@ function previousOption() {
 		if(selectedOption == Options.Court) {
 			selectedOption = Options.Music;
 		} else if(selectedOption == Options.SFX) {
-			selectedOption = Options.Court;
+			selectedOption = Options.Diff;
 		} else if(selectedOption == Options.Music) {
 			selectedOption = Options.SFX;
+		} else if(selectedOption == Options.Diff) {
+			selectedOption = Options.Court;
 		}
 	} else if(mainStates.isPaused) {
 		if(pauseBallPos == PauseBall.Resume) {
@@ -667,6 +716,19 @@ function previousOption() {
 			gameOverBallPos = GameOverBall.Options;
 		}
 	}
+}
+
+function resetDemo() {
+	character1 = new playerClass(75, 220, true, true);
+	character2 = new playerClass(1080, 220, true, false);
+
+	setupInput();
+
+	player1Score = 0;
+	player2Score = 0;
+	
+	min = 1;
+	sec = 0;
 }
 
 function resetGame() {
