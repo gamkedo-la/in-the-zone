@@ -176,13 +176,9 @@ function drawAll() {
 	
 		if (mainStates.menuOpen) {
 			drawMainMenu();
-		}
-	
-		if (mainStates.optionsOpen) {
+		} else if (mainStates.optionsOpen) {
 			drawOptionsScreen();
-		}
-		
-		if(mainStates.isPaused) {
+		} else if(mainStates.isPaused) {
 			drawPausedMenu();
 		}
 	}
@@ -272,12 +268,14 @@ function drawCredits() {
 
 	colorRect(0, 0, canvas.width, canvas.height, "black", 0.5);
 
-	if(upArrowKey) {
-		creditsBaseY -= 3;
-	} else if(downArrowKey) {
-		creditsBaseY +=3;
-	} else {
-		creditsBaseY--;
+	if(!mainStates.isPaused) {
+		if(upArrowKey) {
+			creditsBaseY -= 3;
+		} else if(downArrowKey) {
+			creditsBaseY +=3;
+		} else {
+			creditsBaseY--;
+		}
 	}
 
     let nameX = canvas.width / 2 - 350;
