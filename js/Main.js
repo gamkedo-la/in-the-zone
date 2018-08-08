@@ -592,6 +592,8 @@ function previousOption() {
 }
 
 function resetGame() {
+	mainStates.demo = false;
+	
 	if(menuBallPos == MenuBall.OnePlayer) {
 		character1 = new playerClass(75, 220, false, true);
 		character2 = new playerClass(1080, 220, true, false);
