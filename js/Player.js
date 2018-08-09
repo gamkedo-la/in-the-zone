@@ -130,7 +130,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 		var nextY = this.y;
 		// currentFrame++;
 		// console.log(currentFrame);
-		
+
 		const limits = courtLimitsForYPos(this.y);
 
 		if (nextX > limits.maxX) {
@@ -325,6 +325,17 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 						}
 						else {
 							this.shootingPerfectTimeStart = 14;
+						}
+						if (isPlayer1) {
+							if (this.currentZone == 1 || this.currentZone == 9) {
+								this.walkSprite = new SpriteSheetClass(shootingRightSpriteSheet, this.width, this.height);
+							}
+							else if (this.currentZone == 8 || this.currentZone == 16) {
+								this.walkSprite = new SpriteSheetClass(shootingLeftSpriteSheet, this.width, this.height);
+							}
+							else {
+								this.walkSprite = new SpriteSheetClass(currySpriteSheet, this.width, this.height);
+							}
 						}
 						this.ballToHold.gotShotFrom = this.currentZone;
 						this.states.isIdle = false;
@@ -608,21 +619,21 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 						this.randomShootingTime = Math.floor(Math.random() * 15) + 14;
 					} else {
 						this.randomShootingTime = Math.floor(Math.random() * 10) + 11;
-					}					
+					}
 				} else if(selectedDifficulty == AIDifficulty.Normal) {
 					if (this.score > character2.score || this.score > character1.score) {
 						this.randomShootingTime = Math.floor(Math.random() * (this.shootingPerfectTimeStart)) + this.shootingPerfectTimeStart / 2;
 					} else {
 						this.randomShootingTime = Math.floor(Math.random() * (this.shootingPerfectTimeStart / 2)) + (3 * this.shootingPerfectTimeStart / 4);
-					}					
+					}
 				} else if(selectedDifficulty == AIDifficulty.Hard) {
 					if (this.score > character2.score || this.score > character1.score) {
 						this.randomShootingTime = Math.floor(Math.random() * (this.shootingPerfectTimeStart / 2)) + (3 * this.shootingPerfectTimeStart / 4);
 					} else {
 						this.randomShootingTime = Math.floor(Math.random() * (this.shootingPerfectTimeStart / 4)) + (7 * this.shootingPerfectTimeStart / 8);
-					}					
+					}
 				}
-				
+
 				if (this.ballToHold != null && this.shootingTime < this.randomShootingTime) {
 					this.shootingTime++;
 				} else {
