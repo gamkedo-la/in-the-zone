@@ -6,12 +6,21 @@ function drawBitmapCenteredWithRotation(useBitmap, atX, atY, withAng) {
 	canvasContext.restore();
 }
 
+function drawBitmapWithRotationUncentered(useBitmap, atX, atY, withAng) { // top middle pivot
+	canvasContext.save();
+	canvasContext.translate(atX, atY);
+	//canvasContext.translate(0, -useBitmap.height / 2);
+	canvasContext.rotate(withAng);
+	canvasContext.drawImage(useBitmap, 0, 0);
+	canvasContext.restore();
+}
+
 function colorRect(topLeftX, topLeftY, boxWidth, boxHeight, fillColor, alpha) {
 	let thisAlpha = alpha;
-	if(alpha == null || alpha == undefined) {
+	if (alpha == null || alpha == undefined) {
 		thisAlpha = 1;
 	}
-	
+
 	canvasContext.globalAlpha = thisAlpha;
 	canvasContext.fillStyle = fillColor;
 	canvasContext.fillRect(topLeftX, topLeftY, boxWidth, boxHeight);
@@ -36,7 +45,7 @@ function colorText(showWords, textX, textY, fillColor, textSize, alignment) {
 	canvasContext.font = textSize + 'px' + ' Fjalla One';
 	canvasContext.textAlign = alignment;
 	canvasContext.fillStyle = fillColor;
-	
+
 	canvasContext.fillText(showWords, textX, textY);
 }
 
@@ -64,9 +73,9 @@ function drawBitmapWithRotation(useBitmap, atX, atY, withAng) {
 
 function strokePath(path, color, context) {
 	if (context == null) { context = canvasContext; }
-		
+
 	context.save();
-	
+
 	context.strokeStyle = color;
 	context.lineWidth = 5;
 	context.beginPath();
@@ -76,7 +85,7 @@ function strokePath(path, color, context) {
 	}
 	context.closePath();
 	context.stroke();
-	
+
 	context.restore();
 }
 

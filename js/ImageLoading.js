@@ -37,6 +37,7 @@ var ballTrailImage = document.createElement("img");
 var ballImage = document.createElement("img");
 var ballShineImage = document.createElement("img");
 var ballShadowImage = document.createElement("img");
+var spotlightImage = document.createElement("img");
 
 var worldPics = [];
 
@@ -103,6 +104,7 @@ function loadImages() {
 		{ varName: ballImage, theFile: "ball.png" },
 		{ varName: ballShineImage, theFile: "ball_shine_and_shadow.png" },
 		{ varName: ballShadowImage, theFile: "shadow.png" },
+		{ varName: spotlightImage, theFile: "spotlight.png" },
 
 	];
 
