@@ -477,6 +477,17 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 							else {
 								this.randomAiShooting = Math.floor(Math.random() * 10) + 1;
 							}
+							if (!isPlayer1) {
+								if (this.currentZone == 1 || this.currentZone == 9) {
+									this.walkSprite = new SpriteSheetClass(shootingRightSpriteSheet2, this.width, this.height);
+								}
+								else if (this.currentZone == 8 || this.currentZone == 16) {
+									this.walkSprite = new SpriteSheetClass(shootingLeftSpriteSheet2, this.width, this.height);
+								}
+								else {
+									this.walkSprite = new SpriteSheetClass(curry2SpriteSheet, this.width, this.height);
+								}
+							}
 							//console.log(random);
 							this.states.isIdle = false;
 							this.states.isShooting = true;

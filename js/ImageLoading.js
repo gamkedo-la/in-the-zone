@@ -16,6 +16,8 @@ var smokeParticle = document.createElement("img");
 var gameOverSadPicture = document.createElement("img");
 var shootingLeftSpriteSheet = document.createElement("img");
 var shootingRightSpriteSheet = document.createElement("img");
+var shootingLeftSpriteSheet2 = document.createElement("img");
+var shootingRightSpriteSheet2 = document.createElement("img");
 
 var scoreboard = document.createElement("img");
 var number0 = document.createElement("img");
@@ -75,6 +77,8 @@ function loadImages() {
 		{ varName: player2DunkingSpriteSheet, theFile: "player2DunkingSpriteSheet.png"},
 		{ varName: shootingLeftSpriteSheet, theFile: "shootingLeftSpriteSheet.png"},
 		{ varName: shootingRightSpriteSheet, theFile: "shootingRightSpriteSheet.png"},
+		{ varName: shootingLeftSpriteSheet2, theFile: "shootingLeftSpriteSheet2.png"},
+		{ varName: shootingRightSpriteSheet2, theFile: "shootingRightSpriteSheet2.png"},
 
 		{ varName: scoreboard, theFile: "scoreboard.png" },
 		{ varName: number0, theFile: "0.png" },
