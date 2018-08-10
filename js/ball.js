@@ -69,13 +69,13 @@ function ballClass(startingX, startingY) {
     // console.log(this.ballPower);
     this.ballPower = this.ballPower + GRAVITY_MULTIPLIER;
     this.height = this.height - this.ballPower;
-    if(!this.beingShot && !this.goingIn) {
-	    this.shootingX *= ROLLING_FRICTION;
-	    this.shootingY *= ROLLING_FRICTION;
+    if (!this.beingShot && !this.goingIn) {
+      this.shootingX *= ROLLING_FRICTION;
+      this.shootingY *= ROLLING_FRICTION;
     }
 
-    if(!this.isHeld) {
-	    this.rotation += (ROTATION_RATE * this.shootingX);
+    if (!this.isHeld) {
+      this.rotation += (ROTATION_RATE * this.shootingX);
     }
     this.x += this.shootingX;
     this.y += this.shootingY;
@@ -102,22 +102,22 @@ function ballClass(startingX, startingY) {
         bounceFX(this.x, this.y);
       }
 
-	  const limits = courtLimitsForYPos(this.z);
+      const limits = courtLimitsForYPos(this.z);
 
-	  if(this.y < HOOP_Y) {
-		  this.beingShot = false;
-		  this.shootingY = Math.abs(this.shootingY / 2);
-	  } else if(this.y > limits.maxY) {
-		  this.beingShot = false;
-		  this.shootingY = -Math.abs(this.shootingY/2);
-	  }
+      if (this.y < HOOP_Y) {
+        this.beingShot = false;
+        this.shootingY = Math.abs(this.shootingY / 2);
+      } else if (this.y > limits.maxY) {
+        this.beingShot = false;
+        this.shootingY = -Math.abs(this.shootingY / 2);
+      }
 
-      if(this.x < limits.minX) {
-	      this.beingShot = false;
-	      this.shootingX = Math.abs(this.shootingX);
-      } else if(this.x > limits.maxX) {
-	      this.beingShot = false;
-	      this.shootingX = -Math.abs(this.shootingX);
+      if (this.x < limits.minX) {
+        this.beingShot = false;
+        this.shootingX = Math.abs(this.shootingX);
+      } else if (this.x > limits.maxX) {
+        this.beingShot = false;
+        this.shootingX = -Math.abs(this.shootingX);
       }
 
     }
@@ -131,17 +131,17 @@ function ballClass(startingX, startingY) {
       if (this.x < HOOP_X + 5 && this.y < HOOP_Y + 5 &&
         this.x > HOOP_X - 5 && this.y > HOOP_Y - 5 &&
         this.z < HOOP_H + 10 && this.z > HOOP_H - 10 && this.goingIn) {
-      // We can come back to this if we think that score should be changed when ball touches the rim not ball is released
-      //   if (this.gotShotFrom == 1 || this.gotShotFrom == 9 || this.gotShotFrom == 17 ||
-      //     this.gotShotFrom == 24 || this.gotShotFrom == 25 || this.gotShotFrom == 26 ||
-      //     this.gotShotFrom == 23 || this.gotShotFrom == 16 || this.gotShotFrom == 8) {
-	    //       console.log("Adding 3 points");//We never make here, scores are added in Zones.js, probably need to remove these two lines
-      //     this.isShotBy.score += 3;
-      //   }
-      //   else {
-	    //       console.log("Adding 2 points");//We never make here, scores are added in Zones.js, probably need to remove these two lines
-      //     this.isShotBy.score += 2;
-      //   }
+        // We can come back to this if we think that score should be changed when ball touches the rim not ball is released
+        //   if (this.gotShotFrom == 1 || this.gotShotFrom == 9 || this.gotShotFrom == 17 ||
+        //     this.gotShotFrom == 24 || this.gotShotFrom == 25 || this.gotShotFrom == 26 ||
+        //     this.gotShotFrom == 23 || this.gotShotFrom == 16 || this.gotShotFrom == 8) {
+        //       console.log("Adding 3 points");//We never make here, scores are added in Zones.js, probably need to remove these two lines
+        //     this.isShotBy.score += 3;
+        //   }
+        //   else {
+        //       console.log("Adding 2 points");//We never make here, scores are added in Zones.js, probably need to remove these two lines
+        //     this.isShotBy.score += 2;
+        //   }
         player1Score = character1.score;
         player2Score = character2.score;
         this.goingIn = false;
@@ -177,7 +177,19 @@ function ballClass(startingX, startingY) {
   this.draw = function () {
     if (this.trail) this.trail.draw(this.x, this.z);
     //colorCircle(this.x, this.z, 6, "yellow");
-    drawBitmapCenteredWithRotation(ballImage, this.x, this.z, this.rotation);
+    var dribbleOffset = 0;
+    var size = 42;
+    var hipheight = 10;
+    var speed = 110; // smaller is faster
+    if (this.isHeld) {
+
+      // smooth but doesn't speed up as it falls:
+      // dribbleOffset = Math.cos(performance.now() / 80) * 10 + 14;
+
+      dribbleOffset = (Math.pow(Math.cos(performance.now() / speed), 2) / Math.PI) * size + hipheight;
+
+    }
+    drawBitmapCenteredWithRotation(ballImage, this.x, this.z + dribbleOffset, this.rotation);
   }
 
   this.drawShadow = function () {
