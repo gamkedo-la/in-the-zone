@@ -36,7 +36,7 @@ var optionsScoreboard = document.createElement("img");
 var ballTrailImage = document.createElement("img");
 var ballImage = document.createElement("img");
 var ballShineImage = document.createElement("img");
-
+var ballShadowImage = document.createElement("img");
 
 var worldPics = [];
 
@@ -102,6 +102,7 @@ function loadImages() {
 		{ varName: ballTrailImage, theFile: "ballTrail.png" },
 		{ varName: ballImage, theFile: "ball.png" },
 		{ varName: ballShineImage, theFile: "ball_shine_and_shadow.png" },
+		{ varName: ballShadowImage, theFile: "shadow.png" },
 
 	];
 
