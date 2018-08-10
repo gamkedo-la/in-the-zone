@@ -181,12 +181,19 @@ function ballClass(startingX, startingY) {
     var size = 42;
     var hipheight = 10;
     var speed = 110; // smaller is faster
-    if (this.isHeld) {
+    if (this.isHeld && !this.beingShot) {
 
       // smooth but doesn't speed up as it falls:
       // dribbleOffset = Math.cos(performance.now() / 80) * 10 + 14;
 
       dribbleOffset = (Math.pow(Math.cos(performance.now() / speed), 2) / Math.PI) * size + hipheight;
+
+      // unless we're holding the action button to power up a shot
+      if (this.isHeldBy) {
+        if (this.isHeldBy.keyHeld_Shoot) {
+          dribbleOffset = 0; // TODO: rise slowly near head height
+        }
+      }
 
     }
     drawBitmapCenteredWithRotation(ballImage, this.x, this.z + dribbleOffset, this.rotation);
