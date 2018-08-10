@@ -35,6 +35,7 @@ var optionsScoreboard = document.createElement("img");
 
 var ballTrailImage = document.createElement("img");
 var ballImage = document.createElement("img");
+var ballShineImage = document.createElement("img");
 
 
 var worldPics = [];
@@ -73,12 +74,12 @@ function loadImages() {
 		{ varName: currySpriteSheet, theFile: "currySpriteSheet.png" },
 		{ varName: curry2SpriteSheet, theFile: "curry2SpriteSheet.png" },
 		{ varName: dunkingPic, theFile: "tempDunking.png" },
-		{ varName: player1DunkingSpriteSheet, theFile: "player1DunkingSpriteSheet.png"},
-		{ varName: player2DunkingSpriteSheet, theFile: "player2DunkingSpriteSheet.png"},
-		{ varName: shootingLeftSpriteSheet, theFile: "shootingLeftSpriteSheet.png"},
-		{ varName: shootingRightSpriteSheet, theFile: "shootingRightSpriteSheet.png"},
-		{ varName: shootingLeftSpriteSheet2, theFile: "shootingLeftSpriteSheet2.png"},
-		{ varName: shootingRightSpriteSheet2, theFile: "shootingRightSpriteSheet2.png"},
+		{ varName: player1DunkingSpriteSheet, theFile: "player1DunkingSpriteSheet.png" },
+		{ varName: player2DunkingSpriteSheet, theFile: "player2DunkingSpriteSheet.png" },
+		{ varName: shootingLeftSpriteSheet, theFile: "shootingLeftSpriteSheet.png" },
+		{ varName: shootingRightSpriteSheet, theFile: "shootingRightSpriteSheet.png" },
+		{ varName: shootingLeftSpriteSheet2, theFile: "shootingLeftSpriteSheet2.png" },
+		{ varName: shootingRightSpriteSheet2, theFile: "shootingRightSpriteSheet2.png" },
 
 		{ varName: scoreboard, theFile: "scoreboard.png" },
 		{ varName: number0, theFile: "0.png" },
@@ -100,6 +101,7 @@ function loadImages() {
 		{ varName: smokeParticle, theFile: "smokeParticle.png" },
 		{ varName: ballTrailImage, theFile: "ballTrail.png" },
 		{ varName: ballImage, theFile: "ball.png" },
+		{ varName: ballShineImage, theFile: "ball_shine_and_shadow.png" },
 
 	];
 

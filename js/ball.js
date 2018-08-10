@@ -196,7 +196,13 @@ function ballClass(startingX, startingY) {
       }
 
     }
+
+    // draw the ball itself, which something spins
     drawBitmapCenteredWithRotation(ballImage, this.x, this.z + dribbleOffset, this.rotation);
+
+    // overlay a shine and shadow on top, which never rotates
+    drawBitmapCenteredWithRotation(ballShineImage, this.x, this.z + dribbleOffset, 0);
+
   }
 
   this.drawShadow = function () {
