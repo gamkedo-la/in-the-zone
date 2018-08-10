@@ -177,7 +177,8 @@ function ballClass(startingX, startingY) {
   this.draw = function () {
     if (this.trail) this.trail.draw(this.x, this.z);
     //colorCircle(this.x, this.z, 6, "yellow");
-    var dribbleOffset = 0;
+    var dribbleXOffset = 0;
+    var dribbleYOffset = 0;
     var size = 42;
     var hipheight = 10;
     var speed = 110; // smaller is faster
@@ -186,22 +187,29 @@ function ballClass(startingX, startingY) {
       // smooth but doesn't speed up as it falls:
       // dribbleOffset = Math.cos(performance.now() / 80) * 10 + 14;
 
-      dribbleOffset = (Math.pow(Math.cos(performance.now() / speed), 2) / Math.PI) * size + hipheight;
+      dribbleYOffset = (Math.pow(Math.cos(performance.now() / speed), 2) / Math.PI) * size + hipheight;
 
       // unless we're holding the action button to power up a shot
       if (this.isHeldBy) {
         if (this.isHeldBy.keyHeld_Shoot) {
-          dribbleOffset = -20 - (this.isHeldBy.shootingTime / 2); // rise slowly near head height!
+          dribbleYOffset = -20 - (this.isHeldBy.shootingTime / 2); // rise slowly near head height!
+
+          // handle edge cases of a sideways-facing three pointer
+          if (this.isHeldBy.currentZone == 1) dribbleXOffset = 20;
+          if (this.isHeldBy.currentZone == 9) dribbleXOffset = 20;
+          if (this.isHeldBy.currentZone == 8) dribbleXOffset = -20;
+          if (this.isHeldBy.currentZone == 16) dribbleXOffset = -20;
+
         }
       }
 
     }
 
     // draw the ball itself, which something spins
-    drawBitmapCenteredWithRotation(ballImage, this.x, this.z + dribbleOffset, this.rotation);
+    drawBitmapCenteredWithRotation(ballImage, this.x + dribbleXOffset, this.z + dribbleYOffset, this.rotation);
 
     // overlay a shine and shadow on top, which never rotates
-    drawBitmapCenteredWithRotation(ballShineImage, this.x, this.z + dribbleOffset, 0);
+    drawBitmapCenteredWithRotation(ballShineImage, this.x + dribbleXOffset, this.z + dribbleYOffset, 0);
 
   }
 
