@@ -191,7 +191,7 @@ function ballClass(startingX, startingY) {
       // unless we're holding the action button to power up a shot
       if (this.isHeldBy) {
         if (this.isHeldBy.keyHeld_Shoot) {
-          dribbleOffset = 0; // TODO: rise slowly near head height
+          dribbleOffset = -20 - (this.isHeldBy.shootingTime / 2); // rise slowly near head height!
         }
       }
 
