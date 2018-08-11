@@ -57,6 +57,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 		this.shootingDifficulty = 0;// 0: easiest, 3: hardest
 		this.longPressedShotGoingInLimit = 19;
 		this.shortPressedShotGoingInLimit = 10;
+		this.endOfShootingAnimationTickCount;
 
 		this.currentZone;
 		this.jumpingHeight = 0;
@@ -330,12 +331,15 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 						if (isPlayer1) {
 							if (this.currentZone == 1 || this.currentZone == 9) {
 								this.walkSprite = new SpriteSheetClass(shootingRightSpriteSheet, this.width, this.height);
+								this.endOfShootingAnimationTickCount = 30;
 							}
 							else if (this.currentZone == 8 || this.currentZone == 16) {
 								this.walkSprite = new SpriteSheetClass(shootingLeftSpriteSheet, this.width, this.height);
+								this.endOfShootingAnimationTickCount = 30;
 							}
 							else {
 								this.walkSprite = new SpriteSheetClass(currySpriteSheet, this.width, this.height);
+								this.endOfShootingAnimationTickCount = 25;
 							}
 						}
 						this.ballToHold.gotShotFrom = this.currentZone;
@@ -481,12 +485,15 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 							if (!isPlayer1) {
 								if (this.currentZone == 1 || this.currentZone == 9) {
 									this.walkSprite = new SpriteSheetClass(shootingRightSpriteSheet2, this.width, this.height);
+									this.endOfShootingAnimationTickCount = 30;
 								}
 								else if (this.currentZone == 8 || this.currentZone == 16) {
 									this.walkSprite = new SpriteSheetClass(shootingLeftSpriteSheet2, this.width, this.height);
+									this.endOfShootingAnimationTickCount = 30;
 								}
 								else {
 									this.walkSprite = new SpriteSheetClass(curry2SpriteSheet, this.width, this.height);
+									this.endOfShootingAnimationTickCount = 25;
 								}
 							}
 							//console.log(random);
@@ -535,7 +542,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 						this.shootingTime = 25;
 					}
 					if (this.shootingTime > this.shootingPerfectTimeStart + 1) {
-						this.tickCount = 25;
+						this.tickCount = this.endOfShootingAnimationTickCount;
 					}
 				} else {
 					if (this.tickCount == 0) {
