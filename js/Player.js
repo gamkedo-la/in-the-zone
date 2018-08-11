@@ -1,6 +1,5 @@
 const PLAYER_MOVE_SPEED = 7; // original speed was 5.0;
 const PLAYER_MOVE_SPEED_CHANGE = 3.0;
-const USE_SPOTLIGHTS = true; // make spotlights follow the players like they are rock stars
 
 const STREAK_EFFECT_THRESHOLD = 4; // value of player.streak before we start drawing "sparkles" coming from the player
 const MEGA_STREAK_EFFECT_THRESHOLD = 10; // player.streak for gratuitous amounts of particles
@@ -57,7 +56,6 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 		this.shootingDifficulty = 0;// 0: easiest, 3: hardest
 		this.longPressedShotGoingInLimit = 19;
 		this.shortPressedShotGoingInLimit = 10;
-		this.endOfShootingAnimationTickCount;
 
 		this.currentZone;
 		this.jumpingHeight = 0;
@@ -72,7 +70,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 		this.frameRow = 0;
 		this.framesAnim = 10;
 
-		if (isPlayer1) {
+		if(isPlayer1) {
 			this.walkSprite = new SpriteSheetClass(currySpriteSheet, this.width, this.height);
 			this.dunkSprite = new SpriteSheetClass(player1DunkingSpriteSheet, this.width, this.height);
 		} else {
@@ -157,7 +155,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 		this.previousfacingDirection = this.facingDirection;
 
 		if (this.states.isIdle) {
-			if (this.ballToHold == null && gameMode.oneOnOne) {//defending. Being close to the other player makes his shots harder
+			if (this.ballToHold == null && GameMode.OneOnOne) {//defending. Being close to the other player makes his shots harder
 				if (this.x != character1.x) {
 					var distanceFromEachOther = Math.sqrt((character1.x - this.x) * (character1.x - this.x) + (character1.y - this.y) * (character1.y - this.y));
 				}
@@ -331,15 +329,12 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 						if (isPlayer1) {
 							if (this.currentZone == 1 || this.currentZone == 9) {
 								this.walkSprite = new SpriteSheetClass(shootingRightSpriteSheet, this.width, this.height);
-								this.endOfShootingAnimationTickCount = 30;
 							}
 							else if (this.currentZone == 8 || this.currentZone == 16) {
 								this.walkSprite = new SpriteSheetClass(shootingLeftSpriteSheet, this.width, this.height);
-								this.endOfShootingAnimationTickCount = 30;
 							}
 							else {
 								this.walkSprite = new SpriteSheetClass(currySpriteSheet, this.width, this.height);
-								this.endOfShootingAnimationTickCount = 25;
 							}
 						}
 						this.ballToHold.gotShotFrom = this.currentZone;
@@ -395,10 +390,20 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 							this.zonesToGo.push(arrayOfZones[randomSelection]);
 						}
 						for (var i = 0; i < arrayOfZones.length; i++) {
-							if (arrayOfZones[i].isClaimedBy != this && arrayOfZones[i].isClaimedBy != null) {
-								console.log(arrayOfZones[i].zoneNumber);
-								zonesWithPriority.push(arrayOfZones[i]);// zones that other player holds.
+							if(GameMode.Shootaround) {
+								//prioritize the zones the other player holds.
+								if (arrayOfZones[i].isClaimedBy != this && arrayOfZones[i].isClaimedBy != null) {
+									console.log(arrayOfZones[i].zoneNumber);
+									zonesWithPriority.push(arrayOfZones[i]);
+								}
+							} else if(GameMode.AroundTheWorld) {
+								//prioritize the zones which are unclaimed
+								if (arrayOfZones[i].isClaimedBy == null) {
+									console.log(arrayOfZones[i].zoneNumber);
+									zonesWithPriority.push(arrayOfZones[i]);
+								}
 							}
+							
 						}
 						if (zonesWithPriority.length != 0) {
 							randomNumberOfZones++;
@@ -438,7 +443,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 								atYPos = true;
 							}
 
-							if ((this.currentZone == this.zonesToGo[zoneCounter].zoneNumber) || (atXPos && atYPos)) {
+							if((this.currentZone == this.zonesToGo[zoneCounter].zoneNumber) || (atXPos && atYPos)) {
 								zoneCounter++;
 							}
 						}
@@ -481,20 +486,6 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 							}
 							else {
 								this.randomAiShooting = Math.floor(Math.random() * 10) + 1;
-							}
-							if (!isPlayer1) {
-								if (this.currentZone == 1 || this.currentZone == 9) {
-									this.walkSprite = new SpriteSheetClass(shootingRightSpriteSheet2, this.width, this.height);
-									this.endOfShootingAnimationTickCount = 30;
-								}
-								else if (this.currentZone == 8 || this.currentZone == 16) {
-									this.walkSprite = new SpriteSheetClass(shootingLeftSpriteSheet2, this.width, this.height);
-									this.endOfShootingAnimationTickCount = 30;
-								}
-								else {
-									this.walkSprite = new SpriteSheetClass(curry2SpriteSheet, this.width, this.height);
-									this.endOfShootingAnimationTickCount = 25;
-								}
 							}
 							//console.log(random);
 							this.states.isIdle = false;
@@ -542,7 +533,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 						this.shootingTime = 25;
 					}
 					if (this.shootingTime > this.shootingPerfectTimeStart + 1) {
-						this.tickCount = this.endOfShootingAnimationTickCount;
+						this.tickCount = 25;
 					}
 				} else {
 					if (this.tickCount == 0) {
@@ -633,19 +624,19 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 				chargingUpThrowBallFX(this.x, this.y);
 
 			} else {//is AI
-				if (selectedDifficulty == AIDifficulty.Easy) {
+				if(selectedDifficulty == AIDifficulty.Easy) {
 					if (this.score > character2.score || this.score > character1.score) {
 						this.randomShootingTime = Math.floor(Math.random() * 15) + 14;
 					} else {
 						this.randomShootingTime = Math.floor(Math.random() * 10) + 11;
 					}
-				} else if (selectedDifficulty == AIDifficulty.Normal) {
+				} else if(selectedDifficulty == AIDifficulty.Normal) {
 					if (this.score > character2.score || this.score > character1.score) {
 						this.randomShootingTime = Math.floor(Math.random() * (this.shootingPerfectTimeStart)) + this.shootingPerfectTimeStart / 2;
 					} else {
 						this.randomShootingTime = Math.floor(Math.random() * (this.shootingPerfectTimeStart / 2)) + (3 * this.shootingPerfectTimeStart / 4);
 					}
-				} else if (selectedDifficulty == AIDifficulty.Hard) {
+				} else if(selectedDifficulty == AIDifficulty.Hard) {
 					if (this.score > character2.score || this.score > character1.score) {
 						this.randomShootingTime = Math.floor(Math.random() * (this.shootingPerfectTimeStart / 2)) + (3 * this.shootingPerfectTimeStart / 4);
 					} else {
@@ -802,7 +793,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 
 
 		if (this.x == nextX && this.y == nextY) {
-			if (isPlayer1) {
+			if(isPlayer1) {
 				player1Pic = player1;
 			} else {
 				player2Pic = player2;
@@ -857,16 +848,6 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 		//     break;
 		// }
 
-		// make a spotlight follow you
-		if (USE_SPOTLIGHTS) {
-			// poit at the player from where it comes from
-			var spotlightX = (canvas.width / 2) - (spotlightImage.width / 2);
-			var spotlightY = -(spotlightImage.height / 2) + (this.y / 2);
-			const DEG_TO_RAD = Math.PI / 180;
-			var aimAtPlayerAngle = Math.atan2(this.y - spotlightY, this.x - spotlightX - 128) + (-90 * DEG_TO_RAD);
-			drawBitmapWithRotationUncentered(spotlightImage, spotlightX, spotlightY, aimAtPlayerAngle);
-		}
-
 		// draw extra sparkles on players who are on a hot streak
 		if (this.streak > STREAK_EFFECT_THRESHOLD) {
 			streakFX(this.x, this.y);
@@ -882,7 +863,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 			this.walkSprite.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.x, this.y, this.ang);
 		}
 		if (this.states.isIdle) {
-			if (isPlayer1) {
+			if(isPlayer1) {
 				drawBitmapCenteredWithRotation(player1Pic, this.x, this.y, this.ang);
 			} else {
 				drawBitmapCenteredWithRotation(player2Pic, this.x, this.y, this.ang);
