@@ -152,7 +152,7 @@ function ballClass(startingX, startingY) {
       }
       else if (this.x < HOOP_X + 15 && this.y < HOOP_Y + 15 &&
         this.x > HOOP_X - 15 && this.y > HOOP_Y - 15 &&
-        this.z < HOOP_H + 10 && this.z > HOOP_H - 10 && !this.goingIn) {
+        this.z < HOOP_H + 15 && this.z > HOOP_H - 15 && !this.goingIn) {
         this.ballPower = Math.abs(this.z - HOOP_H);
         var reboundDirection = rebound(this);
 
@@ -182,6 +182,7 @@ function ballClass(startingX, startingY) {
     var size = 42;
     var hipheight = 10;
     var speed = 110; // smaller is faster
+    console.log(this.isHeld);
     if (this.isHeld && !this.beingShot) {
 
       // smooth but doesn't speed up as it falls:
@@ -191,8 +192,8 @@ function ballClass(startingX, startingY) {
 
       // unless we're holding the action button to power up a shot
       if (this.isHeldBy) {
-        if (this.isHeldBy.keyHeld_Shoot) {
-          dribbleYOffset = -20 - (this.isHeldBy.shootingTime / 2); // rise slowly near head height!
+        if (this.isHeldBy.states.isShooting) {
+          dribbleYOffset = -15 - (this.isHeldBy.shootingTime / 2); // rise slowly near head height!
 
           // handle edge cases of a sideways-facing three pointer
           if (this.isHeldBy.currentZone == 1) dribbleXOffset = 20;
