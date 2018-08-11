@@ -157,7 +157,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 		this.previousfacingDirection = this.facingDirection;
 
 		if (this.states.isIdle) {
-			if (this.ballToHold == null && gameMode.oneOnOne) {//defending. Being close to the other player makes his shots harder
+			if (this.ballToHold == null && GameMode.OneOnOne) {//defending. Being close to the other player makes his shots harder
 				if (this.x != character1.x) {
 					var distanceFromEachOther = Math.sqrt((character1.x - this.x) * (character1.x - this.x) + (character1.y - this.y) * (character1.y - this.y));
 				}
@@ -395,9 +395,18 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 							this.zonesToGo.push(arrayOfZones[randomSelection]);
 						}
 						for (var i = 0; i < arrayOfZones.length; i++) {
-							if (arrayOfZones[i].isClaimedBy != this && arrayOfZones[i].isClaimedBy != null) {
-								console.log(arrayOfZones[i].zoneNumber);
-								zonesWithPriority.push(arrayOfZones[i]);// zones that other player holds.
+							if(GameMode.Shootaround) {
+								//prioritize the zones the other player holds.
+								if (arrayOfZones[i].isClaimedBy != this && arrayOfZones[i].isClaimedBy != null) {
+									console.log(arrayOfZones[i].zoneNumber);
+									zonesWithPriority.push(arrayOfZones[i]);
+								}
+							} else if(GameMode.AroundTheWorld) {
+								//prioritize the zones which are unclaimed
+								if (arrayOfZones[i].isClaimedBy == null) {
+									console.log(arrayOfZones[i].zoneNumber);
+									zonesWithPriority.push(arrayOfZones[i]);
+								}
 							}
 						}
 						if (zonesWithPriority.length != 0) {
