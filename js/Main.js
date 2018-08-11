@@ -68,10 +68,9 @@ var mainStates = {
 	creditsOpen:false,
 };
 
-const GameMode = {
-	Shootaround: false,
-	OneOnOne: false,
-	AroundTheWorld:true,
+var gameMode = {
+	shootaround: true,
+	oneOnOne: false
 }
 
 var creditsBaseY;

@@ -60,93 +60,9 @@ function zoneClass(points, zoneNumber, score) {//points is an array of indexes r
   }
 }
 
-function updateZoneStatus(zoneIndex) {
-	if(GameMode.Shootaround) {
-		updateShootAroundZoneStatus(zoneIndex);
-	} else if(GameMode.OneOnOne) {
-		
-	} else if(GameMode.AroundTheWorld) {
-		updateAroundTheWorldZoneStatus(zoneIndex);
-	}
-}
-
-function updateAroundTheWorldZoneStatus(zoneIndex) {
-	var player1Here = false;
-    var player2Here = false;
-
-    //if both of Player1's feet are in a zone, the associated zone status
-    if(pointInPolygon(character1.centerOfFeet, arrayOfZones[zoneIndex].points)) {
-	    player1Here = true;
-        character1.currentZone = arrayOfZones[zoneIndex].zoneNumber;
-    }
-
-    //if both of Player2's feet are in a zone, the associated zone status
-    if(pointInPolygon(character2.centerOfFeet, arrayOfZones[zoneIndex].points)) {
-	    player2Here = true;
-        character2.currentZone = arrayOfZones[zoneIndex].zoneNumber;
-    }
-    
-	if ((arrayOfZones[zoneIndex].isClaimedBy == character1) && (player2Here)){
-	    arrayOfZones[zoneIndex].claimStatus = ClaimStatus.Both;//if both players are in the zone or if either zone is already claimed while other player is in that zone, zone is colored red
-    } else if ((arrayOfZones[zoneIndex].isClaimedBy == character2) && (player1Here)) {
-	    arrayOfZones[zoneIndex].claimStatus = ClaimStatus.Both;//if both players are in the zone or if either zone is already claimed while other player is in that zone, zone is colored red
-    } else if(arrayOfZones[zoneIndex].isClaimedBy == character1) {
-	    arrayOfZones[zoneIndex].claimStatus = ClaimStatus.OwnedPlayer1;
-    } else if(arrayOfZones[zoneIndex].isClaimedBy == character2) {
-	    arrayOfZones[zoneIndex].claimStatus = ClaimStatus.OwnedPlayer2;
-    } else if (player1Here) {
-        arrayOfZones[zoneIndex].claimStatus = ClaimStatus.Player1;//if only player1 is here, zone is blue
-    } else if (player2Here) {
-        arrayOfZones[zoneIndex].claimStatus = ClaimStatus.Player2;//if only player 2 is here, zone is green
-    } else {
-	    arrayOfZones[zoneIndex].claimStatus = ClaimStatus.Neither;//if neither player is here, zone has no fillStyle
-    }
-    
-    if(arrayOfZones[zoneIndex].unclaimed == false) {return;}//once a zone is claimed, it can't be reclaimed in this mode of gameplay
-
-    //checks zone status and change to appropriate color
-    if (character1.ballToHold != null) {
-	    //Player1 is dunking the ball
-		if (character1.startedDunking && player1Here) {
-		  character1.score += (arrayOfZones[zoneIndex].score + ZONE_CLAIM_POINT + character1.streak++);
-		
-		  arrayOfZones[zoneIndex].isClaimedBy = character1;
-		  arrayOfZones[zoneIndex].claimStatus = ClaimStatus.OwnedPlayer1;
-		  arrayOfZones[zoneIndex].unclaimed = false;
-		}
-		
-		//Player1 is successfully shooting the ball
-		if (player1Here && character1.ballToHold.goingIn) {
-		  character1.score += (arrayOfZones[zoneIndex].score + ZONE_CLAIM_POINT + character1.streak++);
-
-		  arrayOfZones[zoneIndex].isClaimedBy = character1;
-		  arrayOfZones[zoneIndex].claimStatus = ClaimStatus.OwnedPlayer1;//if player1 is in the zone and the ball goes in, zone is claimed by player1 and colored blue;
-		  arrayOfZones[zoneIndex].unclaimed = false;
-		}
-    }
-    
-    if (character2.ballToHold != null) {
-	    //Player2 is dunking the ball
-		if (character2.startedDunking && player2Here) {
-			character2.score += (arrayOfZones[zoneIndex].score + ZONE_CLAIM_POINT + character2.streak++);
-
-			arrayOfZones[zoneIndex].isClaimedBy = character2;
-			arrayOfZones[zoneIndex].claimStatus = ClaimStatus.OwnedPlayer2;//if player2 is in the zone ond the ball goes in, zone is claimed by player2 and colored green;
-		  arrayOfZones[zoneIndex].unclaimed = false;
-		}
-		
-		if (player2Here && character2.ballToHold.goingIn) {
-		  character2.score += (arrayOfZones[zoneIndex].score + ZONE_CLAIM_POINT + character2.streak++);
-
-		  arrayOfZones[zoneIndex].isClaimedBy = character2;
-		  arrayOfZones[zoneIndex].claimStatus = ClaimStatus.OwnedPlayer2;//if player2 is in the zone ond the ball goes in, zone is claimed by player2 and colored green;
-		  arrayOfZones[zoneIndex].unclaimed = false;
-		}
-    }
-}
-
 //establish position of each character relative to the zones and set the appropriate zone status
-function updateShootAroundZoneStatus(zoneIndex) {
+function updateZoneStatus(zoneIndex) {
+
     var player1Here = false;
     var player2Here = false;
 
@@ -161,79 +77,84 @@ function updateShootAroundZoneStatus(zoneIndex) {
         character2.currentZone = arrayOfZones[zoneIndex].zoneNumber;
     }
 
-    //checks zone status and changes to appropriate color
-    if (character1.ballToHold != null) {
-      if (character1.startedDunking && player1Here) {
-        character1.score += arrayOfZones[zoneIndex].score;
-        if (arrayOfZones[zoneIndex].claimStatus == ClaimStatus.OwnedPlayer2) {
-          character2.score -= ZONE_CLAIM_POINT;
+        //checks zone status and changes to appropriate color
+        if (character1.ballToHold != null) {
+          if (character1.startedDunking && player1Here) {
+            character1.score += arrayOfZones[zoneIndex].score;
+            if (arrayOfZones[zoneIndex].claimStatus == ClaimStatus.OwnedPlayer2) {
+              character2.score -= ZONE_CLAIM_POINT;
+            }
+            if (arrayOfZones[zoneIndex].claimStatus != ClaimStatus.OwnedPlayer1) {
+              //character1.score += (ZONE_CLAIM_POINT + arrayOfZones[zoneIndex].score + character1.streak++);
+              character1.score += (ZONE_CLAIM_POINT + character1.streak++);
+              arrayOfZones[zoneIndex].isClaimedBy = character1;
+              arrayOfZones[zoneIndex].claimStatus = ClaimStatus.OwnedPlayer1;
+            }
+          }
+          if (player1Here && character1.ballToHold.goingIn) {
+            //console.log(character1.ballToHold.goingIn);
+            character1.score += arrayOfZones[zoneIndex].score;
+            if (arrayOfZones[zoneIndex].claimStatus == ClaimStatus.OwnedPlayer2) {
+              character2.score -= ZONE_CLAIM_POINT;
+            }
+            if (arrayOfZones[zoneIndex].claimStatus != ClaimStatus.OwnedPlayer1) {
+              //character1.score += (ZONE_CLAIM_POINT + arrayOfZones[zoneIndex].score + character1.streak++);
+              character1.score += (ZONE_CLAIM_POINT + character1.streak++);
+              arrayOfZones[zoneIndex].isClaimedBy = character1;
+              arrayOfZones[zoneIndex].claimStatus = ClaimStatus.OwnedPlayer1;//if player1 is in the zone and the ball goes in, zone is claimed by player1 and colored blue;
+              //console.log(arrayOfZones[zoneIndex].claimStatus);
+            }
+          }
         }
-        if (arrayOfZones[zoneIndex].claimStatus != ClaimStatus.OwnedPlayer1) {
-          //character1.score += (ZONE_CLAIM_POINT + arrayOfZones[zoneIndex].score + character1.streak++);
-          character1.score += (ZONE_CLAIM_POINT + character1.streak++);
-          arrayOfZones[zoneIndex].isClaimedBy = character1;
-          arrayOfZones[zoneIndex].claimStatus = ClaimStatus.OwnedPlayer1;
+        if (character2.ballToHold != null) {
+          if (character2.startedDunking && player2Here) {
+            character2.score += arrayOfZones[zoneIndex].score;
+            //console.log("ai dunking");
+            if (arrayOfZones[zoneIndex].claimStatus == ClaimStatus.OwnedPlayer1) {
+              character1.score -= ZONE_CLAIM_POINT;
+            }
+            if (arrayOfZones[zoneIndex].claimStatus != ClaimStatus.OwnedPlayer2){
+              //character2.score += (ZONE_CLAIM_POINT + arrayOfZones[zoneIndex].score + character2.streak++);
+              character2.score += (ZONE_CLAIM_POINT + character2.streak++);
+              arrayOfZones[zoneIndex].isClaimedBy = character2;
+              arrayOfZones[zoneIndex].claimStatus = ClaimStatus.OwnedPlayer2;//if player2 is in the zone ond the ball goes in, zone is claimed by player2 and colored green;
+            }
+          }
+          if (player2Here && character2.ballToHold.goingIn) {
+            character2.score += arrayOfZones[zoneIndex].score;
+            //console.log("ai shooting");
+            if (arrayOfZones[zoneIndex].claimStatus == ClaimStatus.OwnedPlayer1) {
+              character1.score -= ZONE_CLAIM_POINT;
+            }
+            if (arrayOfZones[zoneIndex].claimStatus != ClaimStatus.OwnedPlayer2){
+              //character2.score += (ZONE_CLAIM_POINT + arrayOfZones[zoneIndex].score + character2.streak++);
+              character2.score += (ZONE_CLAIM_POINT +character2.streak++);
+              arrayOfZones[zoneIndex].isClaimedBy = character2;
+              arrayOfZones[zoneIndex].claimStatus = ClaimStatus.OwnedPlayer2;//if player2 is in the zone ond the ball goes in, zone is claimed by player2 and colored green;
+            }
+          }
         }
-      }
-      if (player1Here && character1.ballToHold.goingIn) {
-        //console.log(character1.ballToHold.goingIn);
-        character1.score += arrayOfZones[zoneIndex].score;
-        if (arrayOfZones[zoneIndex].claimStatus == ClaimStatus.OwnedPlayer2) {
-          character2.score -= ZONE_CLAIM_POINT;
-        }
-        if (arrayOfZones[zoneIndex].claimStatus != ClaimStatus.OwnedPlayer1) {
-          //character1.score += (ZONE_CLAIM_POINT + arrayOfZones[zoneIndex].score + character1.streak++);
-          character1.score += (ZONE_CLAIM_POINT + character1.streak++);
-          arrayOfZones[zoneIndex].isClaimedBy = character1;
-          arrayOfZones[zoneIndex].claimStatus = ClaimStatus.OwnedPlayer1;//if player1 is in the zone and the ball goes in, zone is claimed by player1 and colored blue;
-          //console.log(arrayOfZones[zoneIndex].claimStatus);
-        }
-      }
-    }
-    if (character2.ballToHold != null) {
-      if (character2.startedDunking && player2Here) {
-        character2.score += arrayOfZones[zoneIndex].score;
-        //console.log("ai dunking");
-        if (arrayOfZones[zoneIndex].claimStatus == ClaimStatus.OwnedPlayer1) {
-          character1.score -= ZONE_CLAIM_POINT;
-        }
-        if (arrayOfZones[zoneIndex].claimStatus != ClaimStatus.OwnedPlayer2){
-          //character2.score += (ZONE_CLAIM_POINT + arrayOfZones[zoneIndex].score + character2.streak++);
-          character2.score += (ZONE_CLAIM_POINT + character2.streak++);
-          arrayOfZones[zoneIndex].isClaimedBy = character2;
-          arrayOfZones[zoneIndex].claimStatus = ClaimStatus.OwnedPlayer2;//if player2 is in the zone ond the ball goes in, zone is claimed by player2 and colored green;
-        }
-      }
-      if (player2Here && character2.ballToHold.goingIn) {
-        character2.score += arrayOfZones[zoneIndex].score;
-        //console.log("ai shooting");
-        if (arrayOfZones[zoneIndex].claimStatus == ClaimStatus.OwnedPlayer1) {
-          character1.score -= ZONE_CLAIM_POINT;
-        }
-        if (arrayOfZones[zoneIndex].claimStatus != ClaimStatus.OwnedPlayer2){
-          //character2.score += (ZONE_CLAIM_POINT + arrayOfZones[zoneIndex].score + character2.streak++);
-          character2.score += (ZONE_CLAIM_POINT +character2.streak++);
-          arrayOfZones[zoneIndex].isClaimedBy = character2;
-          arrayOfZones[zoneIndex].claimStatus = ClaimStatus.OwnedPlayer2;//if player2 is in the zone ond the ball goes in, zone is claimed by player2 and colored green;
-        }
-      }
-    }
 
-    //this part would be added the red zone condition, claimStatus 3
-    //|| (player1Here && arrayOfZones[zoneIndex].claimStatus === 4) || (player2Here && arrayOfZones[zoneIndex].claimStatus === 5) )
+        //this part would be added the red zone condition, claimStatus 3
+        //|| (player1Here && arrayOfZones[zoneIndex].claimStatus === 4) || (player2Here && arrayOfZones[zoneIndex].claimStatus === 5) )
 
-    if (arrayOfZones[zoneIndex].claimStatus != ClaimStatus.OwnedPlayer1 && arrayOfZones[zoneIndex].claimStatus != ClaimStatus.OwnedPlayer2) {
-      if (player1Here && player2Here)  {
-        arrayOfZones[zoneIndex].claimStatus = ClaimStatus.Both;//if both players are in the zone or if either zone is already claimed while other player is in that zone, zone is colored red
-      } else if (player1Here) {
-        arrayOfZones[zoneIndex].claimStatus = ClaimStatus.Player1;//if only player1 is here, zone is blue
-      } else if (player2Here) {
-        arrayOfZones[zoneIndex].claimStatus = ClaimStatus.Player2;//if only player 2 is here, zone is green
-      } else {
-        arrayOfZones[zoneIndex].claimStatus = ClaimStatus.Neither;//if neither player is here, zone has no fillStyle
-      }
-    }
-}
+        if (arrayOfZones[zoneIndex].claimStatus != ClaimStatus.OwnedPlayer1 && arrayOfZones[zoneIndex].claimStatus != ClaimStatus.OwnedPlayer2) {
+          if (player1Here && player2Here)  {
+            arrayOfZones[zoneIndex].claimStatus = ClaimStatus.Both;//if both players are in the zone or if either zone is already claimed while other player is in that zone, zone is colored red
+          } else if (player1Here) {
+            arrayOfZones[zoneIndex].claimStatus = ClaimStatus.Player1;//if only player1 is here, zone is blue
+          } else if (player2Here) {
+            arrayOfZones[zoneIndex].claimStatus = ClaimStatus.Player2;//if only player 2 is here, zone is green
+          } else {
+            arrayOfZones[zoneIndex].claimStatus = ClaimStatus.Neither;//if neither player is here, zone has no fillStyle
+          }
+        }
+
+
+  }
+
+  /*[Log] Mouse Click: (947, 427) (Main.js, line 43)
+[Log] Mouse Click: (877, 483) (Main.js, line 43)*/
 
 function initializeZonePoints() {
 	zonePoints.push(new pointClass(57,675));  //0
@@ -345,7 +266,6 @@ drawZones = () => {
     //console.log(arrayOfZones[19]);
   }
 }
-
 updateZones = () => {
   for (let zoneIndex = 0; zoneIndex<arrayOfZones.length; zoneIndex++) {
     updateZoneStatus(zoneIndex);
