@@ -144,6 +144,15 @@ function ballClass(startingX, startingY) {
         //   }
         player1Score = character1.score;
         player2Score = character2.score;
+        
+        if(aroundTheWorldIsOver) {
+	        mainStates.gameOver = true;
+		    mainStates.demo= false;
+		    mainStates.inGame= false;
+		    setPaused(false);
+		    mainStates.menuOpen = false;
+        }
+        
         this.goingIn = false;
         this.shootingX = 0;
         this.shootingY = 0;
@@ -182,7 +191,6 @@ function ballClass(startingX, startingY) {
     var size = 42;
     var hipheight = 10;
     var speed = 110; // smaller is faster
-    console.log(this.isHeld);
     if (this.isHeld && !this.beingShot) {
 
       // smooth but doesn't speed up as it falls:

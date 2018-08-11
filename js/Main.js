@@ -54,7 +54,7 @@ const AIDifficulty = {
 	Hard:1
 }
 
-var selectedDifficulty = AIDifficulty.Hard;
+var selectedDifficulty = AIDifficulty.Easy;
 
 var winner;
 
@@ -776,6 +776,14 @@ function resetGame() {
 		arrayOfZones[i].character2InTheZone = false;
 		arrayOfZones[i].isClaimedBy;
 	}
-	min = 1;
-	sec = 0;
+	
+	if(GameMode.AroundTheWorld) {
+		min = 0;
+		sec = 0;
+		
+		resetZones();
+	} else {
+		min = 1;
+		sec = 0;
+	}	
 }

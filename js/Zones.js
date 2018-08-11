@@ -9,6 +9,7 @@ initializeZonePoints();
 let initializeArrayOfZones;
 let drawZones;
 const ZONE_CLAIM_POINT = 1;
+let aroundTheWorldIsOver = false;
 
 const ClaimStatus = {
 	Neither:0,
@@ -19,7 +20,7 @@ const ClaimStatus = {
 	OwnedPlayer2: 4
 }
 
-
+const FIXED_STREAK_BONUS = 1; //in GameMode.AroundTheWorld, a rising bonus results in scores > 100 pretty frequently => use this instead to prevent that.
 
 function zoneClass(points, zoneNumber, score) {//points is an array of indexes referring to the index of elements in the zonePoints array
 
@@ -109,7 +110,7 @@ function updateAroundTheWorldZoneStatus(zoneIndex) {
     if (character1.ballToHold != null) {
 	    //Player1 is dunking the ball
 		if (character1.startedDunking && player1Here) {
-		  character1.score += (arrayOfZones[zoneIndex].score + ZONE_CLAIM_POINT + character1.streak++);
+		  character1.score += (arrayOfZones[zoneIndex].score + FIXED_STREAK_BONUS);
 		
 		  arrayOfZones[zoneIndex].isClaimedBy = character1;
 		  arrayOfZones[zoneIndex].claimStatus = ClaimStatus.OwnedPlayer1;
@@ -118,7 +119,7 @@ function updateAroundTheWorldZoneStatus(zoneIndex) {
 		
 		//Player1 is successfully shooting the ball
 		if (player1Here && character1.ballToHold.goingIn) {
-		  character1.score += (arrayOfZones[zoneIndex].score + ZONE_CLAIM_POINT + character1.streak++);
+		  character1.score += (arrayOfZones[zoneIndex].score + FIXED_STREAK_BONUS);
 
 		  arrayOfZones[zoneIndex].isClaimedBy = character1;
 		  arrayOfZones[zoneIndex].claimStatus = ClaimStatus.OwnedPlayer1;//if player1 is in the zone and the ball goes in, zone is claimed by player1 and colored blue;
@@ -345,15 +346,30 @@ initializeArrayOfZones = () => {//142 35
 }
 
 drawZones = () => {
+	let anyUnclaimed = false;
   for (let zoneIndex = 0; zoneIndex<arrayOfZones.length; zoneIndex++) {
     updateZoneStatus(zoneIndex);
     arrayOfZones[zoneIndex].draw();
-    //console.log(arrayOfZones[19]);
+    if(arrayOfZones[zoneIndex].isClaimedBy == null) {
+	    anyUnclaimed = true;
+    }
+  }
+  
+  if((GameMode.AroundTheWorld) && (anyUnclaimed == false)) {
+	    aroundTheWorldIsOver = true;
   }
 }
 updateZones = () => {
   for (let zoneIndex = 0; zoneIndex<arrayOfZones.length; zoneIndex++) {
     updateZoneStatus(zoneIndex);
+  }
+}
+
+function resetZones() {
+	for (let zoneIndex = 0; zoneIndex<arrayOfZones.length; zoneIndex++) {
+    arrayOfZones[zoneIndex].isClaimedBy = null;
+    arrayOfZones[zoneIndex].claimStatus = ClaimStatus.Neither;
+    arrayOfZones[zoneIndex].unclaimed = true;
   }
 }
 

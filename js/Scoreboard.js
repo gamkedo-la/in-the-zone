@@ -18,9 +18,11 @@ const TIMER_MIN_TENS_PLACE_NUMBER_POSITION_X = CANVAS_WIDTH - 76;
 const TIMER_Y = 16;
 const TIMER_MIN_ONES_PLACE_NUMBER_POSITION_X = CANVAS_WIDTH - 63;
 const TIMER_SEC_TENS_PLACE_NUMBER_POSITION_X = CANVAS_WIDTH - 37;
-const TIMER_SEC_ONES_PLACE_NUMBER_POSITION_X = CANVAS_WIDTH - 24
+const TIMER_SEC_ONES_PLACE_NUMBER_POSITION_X = CANVAS_WIDTH - 24;
+
 var min = 1;
 var sec = 0;
+
 var frameNumber = 0;
 var numberArray = [number0, number1, number2, number3, number4, number5, number6, number7, number8, number9];
 var player1Score = 0;
@@ -45,14 +47,26 @@ function drawScoreboard() {
     frameNumber++;
     if (frameNumber % 30 == 0) {
       frameNumber = 0;
-      if (sec == 0 && min == 0) {
+      if ((sec == 0 && min == 0) && (!GameMode.AroundTheWorld)) {
         min = 0;
         sec = 0;
         mainStates.inGame = false;
         mainStates.gameOver = true;
         setPaused(false);
+      } else if(GameMode.AroundTheWorld) {
+	      sec++;
+	      
+	      if(sec > 59) {
+		      sec = 0;
+		      min++;
+	      }
       } else {
         sec--;
+        
+	    if (sec <= 0 && min >= 1) {
+			sec = 59;
+	    	min--;
+		}
       }
     }
   }
@@ -60,12 +74,6 @@ function drawScoreboard() {
   if(mainStates.demo && sec == 0) {
     sec = 30;
   }
-
-  if (sec <= 0 && min >= 1) {
-    sec = 59;
-    min--;
-  }
-
 
   var minuteTensPlace = Math.floor(min / 10);
   var minuteOnesPlace = min % 10;
