@@ -50,10 +50,14 @@ function setupInput() {
 
 function keySet(keyEvent, setTo) {
 	if((mainStates.menuOpen) && (setTo)) {
-		if((keyEvent.keyCode == KEY_RIGHT_ARROW) || (keyEvent.keyCode == KEY_DOWN_ARROW)) {
-			incrementMenuSelection();
-		} else if((keyEvent.keyCode == KEY_LEFT_ARROW) || (keyEvent.keyCode == KEY_UP_ARROW)) {
-			decrementMenuSelection();
+		if(keyEvent.keyCode == KEY_RIGHT_ARROW) {
+			moveSelectionRight();
+		} else if(keyEvent.keyCode == KEY_DOWN_ARROW) {
+			moveSelectionDown();
+		} else if(keyEvent.keyCode == KEY_LEFT_ARROW) {
+			moveSelectionLeft();
+		} else if(keyEvent.keyCode == KEY_UP_ARROW) {
+			moveSelectionUp();
 		} else if(keyEvent.keyCode == KEY_ENTER) {
 			enterKey = setTo;
 		}

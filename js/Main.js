@@ -7,9 +7,12 @@ var ball1 = new ballClass(200, 550);
 var ball2 = new ballClass(950, 550);
 
 const MenuBall = {
-	OnePlayer:"1Player",
-	TwoPlayer:"2Player",
-	Practice:"Practice",
+	SpeedOnePlayer:"Speed1Player",
+	SpeedTwoPlayer:"Speed2Player",
+	SpeedPractice:"SpeedPractice",
+	TurfOnePlayer:"Turf1Player",
+	TurfTwoPlayer:"Turf2Player",
+	TurfPractice:"TurfPractice",
 	Options:"Options",
 	Credits:"Credits"
 }
@@ -27,7 +30,7 @@ const GameOverBall = {
 	MainMenu:"mainMenu"
 }
 
-var menuBallPos = MenuBall.OnePlayer;
+var menuBallPos = MenuBall.SpeedOnePlayer;
 var pauseBallPos = PauseBall.Resume;
 var gameOverBallPos = GameOverBall.Restart;
 
@@ -69,9 +72,9 @@ var mainStates = {
 };
 
 var GameMode = {
-	Shootaround: false,
+	Shootaround: true,
 	OneOnOne: false,
-	AroundTheWorld:true
+	AroundTheWorld:false
 }
 
 var creditsBaseY;
@@ -373,23 +376,38 @@ function drawMainMenu() {
 
 		colorRect(menuX, menuY, menuWidth, menuHeight, "black", 0.5);
 		drawBitmapCenteredWithRotation(inTheZoneLogo, canvas.width / 2, (canvas.height / 2) - 50, 0);
-		colorText("Press Enter to start game", canvas.width / 2, (canvas.height / 2) + 50, "white", 28, "center");
-		colorText("1 Player", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 30, "white", 24, "left");
-		colorText("2 Players", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 60, "white", 24, "left");
-		colorText("Practice", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 90, "white", 24, "left");
-		colorText("Options", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 120, "white", 24, "left");
-		colorText("Credits", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 150, "white", 24, "left");
+		colorText("Press Enter to start game", canvas.width / 2, (canvas.height / 2) + 50, "white", 32, "center");
+		
+		colorText("Speed Round", menuX + menuWidth / 4, (canvas.height / 2) + 95, "white", 28, "center");
+		colorText("Turf War", menuX + 3 * menuWidth / 4, (canvas.height / 2) + 95, "white", 28, "center");
+		
+		colorText("1 Player", menuX + menuWidth / 4 - 25, menuY + (menuHeight / 2) + 60, "white", 24, "left");
+		colorText("2 Players", menuX + menuWidth / 4 - 25, menuY + (menuHeight / 2) + 90, "white", 24, "left");
+		colorText("Practice", menuX + menuWidth / 4 - 25, menuY + (menuHeight / 2) + 120, "white", 24, "left");
 
-		if(menuBallPos == MenuBall.OnePlayer) {
-			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 20, 0);
-		} else if(menuBallPos == MenuBall.TwoPlayer) {
-			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 50, 0);
-		} else if(menuBallPos == MenuBall.Practice) {
-			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 80, 0);
+		colorText("1 Player", menuX + 3 * menuWidth / 4 - 25, menuY + (menuHeight / 2) + 60, "white", 24, "left");
+		colorText("2 Players", menuX + 3 * menuWidth / 4 - 25, menuY + (menuHeight / 2) + 90, "white", 24, "left");
+		colorText("Practice", menuX + 3 * menuWidth / 4 - 25, menuY + (menuHeight / 2) + 120, "white", 24, "left");
+
+		colorText("Options", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 60, "white", 24, "left");
+		colorText("Credits", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 90, "white", 24, "left");
+
+		if(menuBallPos == MenuBall.SpeedOnePlayer) {
+			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 4 - 40, menuY + (menuHeight / 2) + 50, 0);
+		} else if(menuBallPos == MenuBall.SpeedTwoPlayer) {
+			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 4 - 40, menuY + (menuHeight / 2) + 80, 0);
+		} else if(menuBallPos == MenuBall.SpeedPractice) {
+			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 4 - 40, menuY + (menuHeight / 2) + 110, 0);
+		} else if(menuBallPos == MenuBall.TurfOnePlayer) {
+			drawBitmapCenteredWithRotation(ballImage, menuX + 3 * menuWidth / 4 - 40, menuY + (menuHeight / 2) + 50, 0);
+		} else if(menuBallPos == MenuBall.TurfTwoPlayer) {
+			drawBitmapCenteredWithRotation(ballImage, menuX + 3 * menuWidth / 4 - 40, menuY + (menuHeight / 2) + 80, 0);
+		} else if(menuBallPos == MenuBall.TurfPractice) {
+			drawBitmapCenteredWithRotation(ballImage, menuX + 3 * menuWidth / 4 - 40, menuY + (menuHeight / 2) + 110, 0);
 		} else if(menuBallPos == MenuBall.Options) {
-			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 110, 0);
+			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 50, 0);
 		} else if(menuBallPos == MenuBall.Credits) {
-			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 140, 0);
+			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 80, 0);
 		}
 	}
 
@@ -401,7 +419,18 @@ function drawMainMenu() {
 		} else if(menuBallPos == MenuBall.Credits) {
 			mainStates.menuOpen = false;
 			mainStates.creditsOpen = true;
+			
 		} else {
+			if((menuBallPos == MenuBall.SpeedOnePlayer) || (menuBallPos == MenuBall.SpeedTwoPlayer) || (menuBallPos == MenuBall.SpeedPractice)) {
+				GameMode.Shootaround = true;
+				GameMode.OneOnOne = false;
+				GameMode.AroundTheWorld = false;
+			} else if((menuBallPos == MenuBall.TurfOnePlayer) || (menuBallPos == MenuBall.TurfTwoPlayer) || (menuBallPos == MenuBall.TurfPractice)) {
+				GameMode.Shootaround = false;
+				GameMode.OneOnOne = false;
+				GameMode.AroundTheWorld = true;
+			}
+			
 			mainStates.menuOpen = false;
 			setPaused(false);
 			mainStates.inGame = true;
@@ -529,10 +558,26 @@ function drawOptionsScreen() {
 		mainStates.optionsOpen = false;
 		enterKey = false;
 		
-		if((menuBallPos == MenuBall.Options) || (menuBallPos == MenuBall.Credits) || (menuBallPos == MenuBall.OnePlayer)) {
-			menuBallPos = MenuBall.OnePlayer;
-		} else if(menuBallPos == MenuBall.TwoPlayer) {
-			menuBallPos = MenuBall.TwoPlayer;
+		if((menuBallPos == MenuBall.Options) || (menuBallPos == MenuBall.Credits) || (menuBallPos == MenuBall.SpeedOnePlayer)) {
+			menuBallPos = MenuBall.SpeedOnePlayer;
+			GameMode.Shootaround = true;
+			GameMode.OneOnOne = false;
+			GameMode.AroundTheWorld = false;
+		} else if(menuBallPos == MenuBall.SpeedTwoPlayer) {
+			menuBallPos = MenuBall.SpeedTwoPlayer;
+			GameMode.Shootaround = true;
+			GameMode.OneOnOne = false;
+			GameMode.AroundTheWorld = false;
+		} if(menuBallPos == MenuBall.TurfOnePlayer) {
+			menuBallPos = MenuBall.TurfOnePlayer;
+			GameMode.Shootaround = false;
+			GameMode.OneOnOne = false;
+			GameMode.AroundTheWorld = true;
+		} else if(menuBallPos == MenuBall.TurfTwoPlayer) {
+			menuBallPos = MenuBall.TurfTwoPlayer;
+			GameMode.Shootaround = false;
+			GameMode.OneOnOne = false;
+			GameMode.AroundTheWorld = true;
 		}
 
 		resetGame();
@@ -567,35 +612,83 @@ function getVolumeImage(volume) {
 	}
 }
 
-function incrementMenuSelection() {
-	if(mainStates.menuOpen) {
-		if(menuBallPos == MenuBall.OnePlayer) {
-			menuBallPos = MenuBall.TwoPlayer;
-		} else if(menuBallPos == MenuBall.TwoPlayer) {
-			menuBallPos = MenuBall.Practice;
-		} else if(menuBallPos == MenuBall.Practice) {
-			menuBallPos = MenuBall.Options;
-		} else if(menuBallPos == MenuBall.Options) {
-			menuBallPos = MenuBall.Credits;
-		} else if(menuBallPos == MenuBall.Credits) {
-			menuBallPos = MenuBall.OnePlayer;
-		}
+function moveSelectionRight() {
+	if(menuBallPos == MenuBall.SpeedOnePlayer) {
+		menuBallPos = MenuBall.Options;
+	} else if(menuBallPos == MenuBall.SpeedTwoPlayer) {
+		menuBallPos = MenuBall.Credits;
+	} else if(menuBallPos == MenuBall.SpeedPractice) {
+		menuBallPos = MenuBall.TurfPractice;
+	} else if(menuBallPos == MenuBall.TurfOnePlayer) {
+		menuBallPos = MenuBall.SpeedOnePlayer;
+	} else if(menuBallPos == MenuBall.TurfTwoPlayer) {
+		menuBallPos = MenuBall.SpeedTwoPlayer;
+	} else if(menuBallPos == MenuBall.TurfPractice) {
+		menuBallPos = MenuBall.SpeedPractice;
+	} else if(menuBallPos == MenuBall.Options) {
+		menuBallPos = MenuBall.TurfOnePlayer;
+	} else if(menuBallPos == MenuBall.Credits) {
+		menuBallPos = MenuBall.TurfTwoPlayer;
 	}
 }
 
-function decrementMenuSelection() {
-	if(mainStates.menuOpen) {
-		if(menuBallPos == MenuBall.OnePlayer) {
-			menuBallPos = MenuBall.Credits;
-		} else if(menuBallPos == MenuBall.TwoPlayer) {
-			menuBallPos = MenuBall.OnePlayer;
-		} else if(menuBallPos == MenuBall.Practice) {
-			menuBallPos = MenuBall.TwoPlayer;
-		} else if(menuBallPos == MenuBall.Options) {
-			menuBallPos = MenuBall.Practice;
-		} else if(menuBallPos == MenuBall.Credits) {
-			menuBallPos = MenuBall.Options;
-		}
+function moveSelectionDown() {
+	if(menuBallPos == MenuBall.SpeedOnePlayer) {
+		menuBallPos = MenuBall.SpeedTwoPlayer;
+	} else if(menuBallPos == MenuBall.SpeedTwoPlayer) {
+		menuBallPos = MenuBall.SpeedPractice;
+	} else if(menuBallPos == MenuBall.SpeedPractice) {
+		menuBallPos = MenuBall.Options;
+	} else if(menuBallPos == MenuBall.Options) {
+		menuBallPos = MenuBall.Credits;
+	} else if(menuBallPos == MenuBall.Credits) {
+		menuBallPos = MenuBall.TurfOnePlayer;
+	} else if(menuBallPos == MenuBall.TurfOnePlayer) {
+		menuBallPos = MenuBall.TurfTwoPlayer;
+	} else if(menuBallPos == MenuBall.TurfTwoPlayer) {
+		menuBallPos = MenuBall.TurfPractice;
+	} else if(menuBallPos == MenuBall.TurfPractice) {
+		menuBallPos = MenuBall.SpeedOnePlayer;
+	}
+}
+
+function moveSelectionLeft() {
+	if(menuBallPos == MenuBall.SpeedOnePlayer) {
+		menuBallPos = MenuBall.TurfOnePlayer;
+	} else if(menuBallPos == MenuBall.SpeedTwoPlayer) {
+		menuBallPos = MenuBall.TurfTwoPlayer;
+	} else if(menuBallPos == MenuBall.SpeedPractice) {
+		menuBallPos = MenuBall.TurfPractice;
+	} else if(menuBallPos == MenuBall.TurfOnePlayer) {
+		menuBallPos = MenuBall.Options;
+	} else if(menuBallPos == MenuBall.TurfTwoPlayer) {
+		menuBallPos = MenuBall.Credits;
+	} else if(menuBallPos == MenuBall.TurfPractice) {
+		menuBallPos = MenuBall.SpeedPractice;
+	} else if(menuBallPos == MenuBall.Options) {
+		menuBallPos = MenuBall.SpeedOnePlayer;
+	} else if(menuBallPos == MenuBall.Credits) {
+		menuBallPos = MenuBall.SpeedTwoPlayer;
+	}
+}
+
+function moveSelectionUp() {
+	if(menuBallPos == MenuBall.SpeedOnePlayer) {
+		menuBallPos = MenuBall.TurfPractice;
+	} else if(menuBallPos == MenuBall.SpeedTwoPlayer) {
+		menuBallPos = MenuBall.SpeedOnePlayer;
+	} else if(menuBallPos == MenuBall.SpeedPractice) {
+		menuBallPos = MenuBall.SpeedTwoPlayer;
+	} else if(menuBallPos == MenuBall.TurfOnePlayer) {
+		menuBallPos = MenuBall.Credits;
+	} else if(menuBallPos == MenuBall.TurfTwoPlayer) {
+		menuBallPos = MenuBall.TurfOnePlayer;
+	} else if(menuBallPos == MenuBall.TurfPractice) {
+		menuBallPos = MenuBall.TurfTwoPlayer;
+	} else if(menuBallPos == MenuBall.Options) {
+		menuBallPos = MenuBall.SpeedPractice;
+	} else if(menuBallPos == MenuBall.Credits) {
+		menuBallPos = MenuBall.Options;
 	}
 }
 
@@ -735,13 +828,13 @@ function resetDemo() {
 function resetGame() {
 	mainStates.demo = false;
 	
-	if(menuBallPos == MenuBall.OnePlayer) {
+	if((menuBallPos == MenuBall.SpeedOnePlayer) || (menuBallPos == MenuBall.TurfOnePlayer)) {
 		character1 = new playerClass(75, 220, false, true);
 		character2 = new playerClass(1080, 220, true, false);
-	} else if(menuBallPos == MenuBall.TwoPlayer) {
+	} else if((menuBallPos == MenuBall.SpeedTwoPlayer) || (menuBallPos == MenuBall.TurfTwoPlayer)) {
 		character1 = new playerClass(75, 220, false, true);
 		character2 = new playerClass(1080, 220, false, false);
-	} else if(menuBallPos == MenuBall.Practice) {
+	} else if((menuBallPos == MenuBall.Practice) || (menuBallPos == MenuBall.TurfPractice)) {
 		character1 = new playerClass(75, 220, false, true);
 		character2 = new playerClass(1080, 220, false, false);
 	}
