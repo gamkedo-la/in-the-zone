@@ -14,7 +14,8 @@ const MenuBall = {
 	TurfTwoPlayer:"Turf2Player",
 	TurfPractice:"TurfPractice",
 	Options:"Options",
-	Credits:"Credits"
+	Credits:"Credits",
+	Help:"Help"
 }
 
 const PauseBall = {
@@ -69,6 +70,7 @@ var mainStates = {
 	menuOpen: true,
 	optionsOpen:false,
 	creditsOpen:false,
+	helpOpen:false
 };
 
 var GameMode = {
@@ -205,6 +207,10 @@ function drawAll() {
 
 	if(mainStates.creditsOpen) {
 		drawCredits();
+	}
+	
+	if(mainStates.helpOpen) {
+		drawHelp();
 	}
 
 	if (mainStates.gameOver) {
@@ -367,6 +373,46 @@ function drawCredits() {
 	}
 }
 
+function drawHelp() {
+	const menuX = canvas.width / 8;
+	const menuY = canvas.height / 8;
+	const menuWidth = 3 * canvas.width / 4;
+	const menuHeight = 3 * canvas.height / 4;
+
+	colorRect(menuX, menuY, menuWidth, menuHeight, "black", 0.5);
+	
+	colorText("Help", menuX + menuWidth / 2, menuY + 45, "white", 40, "center");
+	
+	colorText("Controls", 										 menuX + 110, menuY + 70, "white", 24, "left");
+	colorText("Player 1: Arrow keys to move, Spacebar to shoot", menuX + 10, menuY + 100, "white", 20, "left");
+	colorText("Player 2: WASD to move, X to shoot", 			 menuX + 10, menuY + 140, "white", 20, "left");
+	colorText("Hold shoot key to power up for the perfect shot", menuX + 10, menuY + 180, "white", 20, "left");
+
+	colorText("Play Styles", 									 menuX + (menuWidth / 2) + 210, menuY + 70, "white", 24, "left");
+	colorText("One Player: Play against the AI", 				 menuX + (menuWidth / 2) + 110, menuY + 100, "white", 20, "left");
+	colorText("Two Player: Play against your friend", 			 menuX + (menuWidth / 2) + 110, menuY + 140, "white", 20, "left");
+	colorText("Practice: Play by yourself to git gud", 			 menuX + (menuWidth / 2) + 110, menuY + 180, "white", 20, "left");
+
+	colorText("Game Modes", 									 menuX + (menuWidth / 2) - 55, menuY + 250, "white", 24, "left");
+	colorText("Speed Round: Get as many points as possible in",  menuX + (menuWidth / 2) - 195, menuY + 280, "white", 20, "left");
+	colorText("one minute.  Steal points from your", 			 menuX + (menuWidth / 2) - 85, menuY + 310, "white", 20, "left");
+	colorText("opponent by making baskets from", 				 menuX + (menuWidth / 2) - 85, menuY + 340, "white", 20, "left");
+	colorText("their zones.", 									 menuX + (menuWidth / 2) - 85, menuY + 370, "white", 20, "left");
+
+	colorText("Turf War: Earn as many points as you can by",  	 menuX + (menuWidth / 2) - 195, menuY + 410, "white", 20, "left");
+	colorText("claiming as many zones as possible.", 			 menuX + (menuWidth / 2) - 85, menuY + 440, "white", 20, "left");
+	colorText("Game ends when all zones have been", 			 menuX + (menuWidth / 2) - 85, menuY + 470, "white", 20, "left");
+	colorText("claimed.", 									 	 menuX + (menuWidth / 2) - 85, menuY + 500, "white", 20, "left");
+	
+	colorText("Backspace to Main Menu", 						 menuX + (menuWidth / 2) + 280, menuY + (menuHeight / 2) + 260, "lightblue", 14, "left");
+
+	if (backspaceKey && mainStates.helpOpen) {
+		mainStates.menuOpen = true;
+		mainStates.helpOpen = false;
+		backspaceKey = false;
+	}
+}
+
 function drawMainMenu() {
 	if (mainStates.menuOpen) {
 		const menuX = canvas.width / 4;
@@ -391,6 +437,7 @@ function drawMainMenu() {
 
 		colorText("Options", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 60, "white", 24, "left");
 		colorText("Credits", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 90, "white", 24, "left");
+		colorText("Help", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 120, "white", 24, "left");
 
 		if(menuBallPos == MenuBall.SpeedOnePlayer) {
 			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 4 - 40, menuY + (menuHeight / 2) + 50, 0);
@@ -408,6 +455,8 @@ function drawMainMenu() {
 			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 50, 0);
 		} else if(menuBallPos == MenuBall.Credits) {
 			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 80, 0);
+		} else if(menuBallPos == MenuBall.Help) {
+			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 110, 0);
 		}
 	}
 
@@ -419,7 +468,9 @@ function drawMainMenu() {
 		} else if(menuBallPos == MenuBall.Credits) {
 			mainStates.menuOpen = false;
 			mainStates.creditsOpen = true;
-			
+		} else if(menuBallPos == MenuBall.Help) {
+			mainStates.menuOpen = false;
+			mainStates.helpOpen = true;
 		} else {
 			if((menuBallPos == MenuBall.SpeedOnePlayer) || (menuBallPos == MenuBall.SpeedTwoPlayer) || (menuBallPos == MenuBall.SpeedPractice)) {
 				GameMode.Shootaround = true;
@@ -618,7 +669,7 @@ function moveSelectionRight() {
 	} else if(menuBallPos == MenuBall.SpeedTwoPlayer) {
 		menuBallPos = MenuBall.Credits;
 	} else if(menuBallPos == MenuBall.SpeedPractice) {
-		menuBallPos = MenuBall.TurfPractice;
+		menuBallPos = MenuBall.Help;
 	} else if(menuBallPos == MenuBall.TurfOnePlayer) {
 		menuBallPos = MenuBall.SpeedOnePlayer;
 	} else if(menuBallPos == MenuBall.TurfTwoPlayer) {
@@ -629,6 +680,8 @@ function moveSelectionRight() {
 		menuBallPos = MenuBall.TurfOnePlayer;
 	} else if(menuBallPos == MenuBall.Credits) {
 		menuBallPos = MenuBall.TurfTwoPlayer;
+	} else if(menuBallPos == MenuBall.Help) {
+		menuBallPos = MenuBall.TurfPractice;
 	}
 }
 
@@ -642,6 +695,8 @@ function moveSelectionDown() {
 	} else if(menuBallPos == MenuBall.Options) {
 		menuBallPos = MenuBall.Credits;
 	} else if(menuBallPos == MenuBall.Credits) {
+		menuBallPos = MenuBall.Help;
+	} else if(menuBallPos == MenuBall.Help) {
 		menuBallPos = MenuBall.TurfOnePlayer;
 	} else if(menuBallPos == MenuBall.TurfOnePlayer) {
 		menuBallPos = MenuBall.TurfTwoPlayer;
@@ -664,11 +719,13 @@ function moveSelectionLeft() {
 	} else if(menuBallPos == MenuBall.TurfTwoPlayer) {
 		menuBallPos = MenuBall.Credits;
 	} else if(menuBallPos == MenuBall.TurfPractice) {
-		menuBallPos = MenuBall.SpeedPractice;
+		menuBallPos = MenuBall.Help;
 	} else if(menuBallPos == MenuBall.Options) {
 		menuBallPos = MenuBall.SpeedOnePlayer;
 	} else if(menuBallPos == MenuBall.Credits) {
 		menuBallPos = MenuBall.SpeedTwoPlayer;
+	} else if(menuBallPos == MenuBall.Help) {
+		menuBallPos = MenuBall.SpeedPractice;
 	}
 }
 
@@ -680,7 +737,7 @@ function moveSelectionUp() {
 	} else if(menuBallPos == MenuBall.SpeedPractice) {
 		menuBallPos = MenuBall.SpeedTwoPlayer;
 	} else if(menuBallPos == MenuBall.TurfOnePlayer) {
-		menuBallPos = MenuBall.Credits;
+		menuBallPos = MenuBall.Help;
 	} else if(menuBallPos == MenuBall.TurfTwoPlayer) {
 		menuBallPos = MenuBall.TurfOnePlayer;
 	} else if(menuBallPos == MenuBall.TurfPractice) {
@@ -689,6 +746,8 @@ function moveSelectionUp() {
 		menuBallPos = MenuBall.SpeedPractice;
 	} else if(menuBallPos == MenuBall.Credits) {
 		menuBallPos = MenuBall.Options;
+	} else if(menuBallPos == MenuBall.Help) {
+		menuBallPos = MenuBall.Credits;
 	}
 }
 

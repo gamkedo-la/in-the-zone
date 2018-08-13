@@ -83,6 +83,10 @@ function keySet(keyEvent, setTo) {
 		} else if(keyEvent.keyCode == KEY_DOWN_ARROW) {
 			downArrowKey = setTo;
 		}
+	} else if(mainStates.helpOpen) {
+		if(keyEvent.keyCode == KEY_BACKSPACE && setTo) {
+			backspaceKey = setTo;
+		}
 	} else if((mainStates.gameOver) && (setTo)){
 		if((keyEvent.keyCode == KEY_RIGHT_ARROW) || (keyEvent.keyCode == KEY_DOWN_ARROW)) {
 			nextOption();
