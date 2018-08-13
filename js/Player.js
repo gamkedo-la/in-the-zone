@@ -522,7 +522,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 				if (ballArray[i].x - this.x < 30 && this.x - ballArray[i].x < 30 &&
 					ballArray[i].y - this.y < 30 && this.y - ballArray[i].y < 30 &&
 					ballArray[i].height < 40 && !ballArray[i].beingShot && !this.isHoldingBall && !ballArray[i].isHeld) {
-
+					ballGrab.play();
 					this.isHoldingBall = true;
 					ballArray[i].isHeld = true;
 					ballArray[i].isHeldBy = this;
@@ -635,6 +635,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 						// console.log(this.ballToHold.shootingX);
 						this.ballToHold = null;
 						this.isHoldingBall = false;
+						shootingBall.play();
 					}
 					this.shootingTime = 0;
 				}
@@ -748,6 +749,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 						// console.log(this.ballToHold.shootingX);
 						this.ballToHold = null;
 						this.isHoldingBall = false;
+						shootingBall.play();
 					}
 					this.shootingTime = 0;
 				}

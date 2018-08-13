@@ -3,6 +3,8 @@ var ballBouncing1 = new Audio();
 var ballBouncing2 = new Audio();
 var ballRebound1 = new Audio();
 var ballRebound2 = new Audio();
+var ballGrab = new Audio();
+var shootingBall = new Audio();
 
 // floor shoe squeaks
 var shoe1 = new Audio();
@@ -26,7 +28,7 @@ function setAudioFormat() {
     if (audio.canPlayType("audio/ogg") != "") {
       audioFormat = ".ogg";
     } else {
-      audioFormat = ".mp3";	    
+      audioFormat = ".mp3";
     }
   }
 }
@@ -50,6 +52,14 @@ function loadAudios() {
   {
     name: ballRebound2,
     source: "audio/basketball_rebound_ver2" + audioFormat
+  },
+  {
+    name: ballGrab,
+    source: "audio/ballGrab" + audioFormat
+  },
+  {
+    name: shootingBall,
+    source: "audio/shootingBall" + audioFormat
   },
   {
     name: shoe1,
