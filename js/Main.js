@@ -185,7 +185,7 @@ function drawAll() {
 		ParticleRenderer.renderAll(canvasContext); // particle FX
 		drawBallShadows(ballArray);
 		drawBalls(ballArray);
-		
+
 		if(menuBallPos == MenuBall.Practice) {
 			character1.draw();
 		} else if (character1.y > character2.y) {
@@ -195,7 +195,7 @@ function drawAll() {
 			character1.draw();
 			character2.draw();
 		}
-	
+
 		if (mainStates.menuOpen) {
 			drawMainMenu();
 		} else if (mainStates.optionsOpen) {
@@ -208,7 +208,7 @@ function drawAll() {
 	if(mainStates.creditsOpen) {
 		drawCredits();
 	}
-	
+
 	if(mainStates.helpOpen) {
 		drawHelp();
 	}
@@ -261,7 +261,7 @@ function drawGameOver() {
 		resetGame();
 		mainStates.inGame = true;
 	}
-	
+
 	colorText("Restart", canvas.width / 2 - 35, canvas.height - 195, "white", 24, "left");
 	colorText("Options", canvas.width / 2 - 35, canvas.height - 165, "white", 24, "left");
 	colorText("Main Menu", canvas.width / 2 - 35, canvas.height - 135, "white", 24, "left");
@@ -273,13 +273,13 @@ function drawGameOver() {
 	} else if(gameOverBallPos == GameOverBall.MainMenu) {
 		drawBitmapCenteredWithRotation(ballImage, canvas.width / 2 - 50, canvas.height - 145, 0);
 	}
-	
+
 	if (enterKey && mainStates.gameOver) {
 		enterKey = false;
 		if(gameOverBallPos == GameOverBall.Restart) {
 			mainStates.gameOver = false;
 			mainStates.menuOpen = false;
-			
+
 			setPaused(false);
 			mainStates.inGame = true;
 			mainStates.demo = false;
@@ -288,7 +288,7 @@ function drawGameOver() {
 		} else if(gameOverBallPos == GameOverBall.Options) {
 			mainStates.optionsOpen = true;
 			mainStates.gameOver = false;
-			
+
 			setPaused(false);
 			mainStates.inGame = false;
 			mainStates.demo = true;
@@ -297,7 +297,7 @@ function drawGameOver() {
 			console.log("going to main menu");
 			mainStates.menuOpen = true;
 			mainStates.gameOver = false;
-			
+
 			setPaused(false);
 			mainStates.inGame = false;
 			mainStates.demo = true;
@@ -363,7 +363,7 @@ function drawCredits() {
 	    }
 	    textY += textSkip;
 	}
-	
+
 	colorText("Backspace to Main Menu", canvas.width - 125, canvas.height - 45, "white", 24, "right");
 	colorText("Up/Down Arrows to scroll", canvas.width - 125, canvas.height - 15, "white", 20, "right");
 	if (backspaceKey && mainStates.creditsOpen) {
@@ -380,9 +380,9 @@ function drawHelp() {
 	const menuHeight = 3 * canvas.height / 4;
 
 	colorRect(menuX, menuY, menuWidth, menuHeight, "black", 0.5);
-	
+
 	colorText("Help", menuX + menuWidth / 2, menuY + 45, "white", 40, "center");
-	
+
 	colorText("Controls", 										 menuX + 110, menuY + 70, "white", 24, "left");
 	colorText("Player 1: Arrow keys to move, Spacebar to shoot", menuX + 10, menuY + 100, "white", 20, "left");
 	colorText("Player 2: WASD to move, X to shoot", 			 menuX + 10, menuY + 140, "white", 20, "left");
@@ -403,7 +403,7 @@ function drawHelp() {
 	colorText("claiming as many zones as possible.", 			 menuX + (menuWidth / 2) - 85, menuY + 440, "white", 20, "left");
 	colorText("Game ends when all zones have been", 			 menuX + (menuWidth / 2) - 85, menuY + 470, "white", 20, "left");
 	colorText("claimed.", 									 	 menuX + (menuWidth / 2) - 85, menuY + 500, "white", 20, "left");
-	
+
 	colorText("Backspace to Main Menu", 						 menuX + (menuWidth / 2) + 280, menuY + (menuHeight / 2) + 260, "lightblue", 14, "left");
 
 	if (backspaceKey && mainStates.helpOpen) {
@@ -423,10 +423,10 @@ function drawMainMenu() {
 		colorRect(menuX, menuY, menuWidth, menuHeight, "black", 0.5);
 		drawBitmapCenteredWithRotation(inTheZoneLogo, canvas.width / 2, (canvas.height / 2) - 50, 0);
 		colorText("Press Enter to start game", canvas.width / 2, (canvas.height / 2) + 50, "white", 32, "center");
-		
+
 		colorText("Speed Round", menuX + menuWidth / 4, (canvas.height / 2) + 95, "white", 28, "center");
 		colorText("Turf War", menuX + 3 * menuWidth / 4, (canvas.height / 2) + 95, "white", 28, "center");
-		
+
 		colorText("1 Player", menuX + menuWidth / 4 - 25, menuY + (menuHeight / 2) + 60, "white", 24, "left");
 		colorText("2 Players", menuX + menuWidth / 4 - 25, menuY + (menuHeight / 2) + 90, "white", 24, "left");
 		colorText("Practice", menuX + menuWidth / 4 - 25, menuY + (menuHeight / 2) + 120, "white", 24, "left");
@@ -481,7 +481,7 @@ function drawMainMenu() {
 				GameMode.OneOnOne = false;
 				GameMode.AroundTheWorld = true;
 			}
-			
+
 			mainStates.menuOpen = false;
 			setPaused(false);
 			mainStates.inGame = true;
@@ -514,17 +514,17 @@ function drawPausedMenu() {
 	} else if(pauseBallPos == PauseBall.MainMenu) {
 		drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 140, 0);
 	}
-	
+
 	if(enterKey && mainStates.isPaused) {
 		setPaused(false);
 		enterKey = false;
-		
+
 		if(pauseBallPos == PauseBall.Resume) {
 			//setPaused(false); is all that needs to be done, so nothing else here
 		} else if(pauseBallPos == PauseBall.Restart) {
 			resetGame();
 		} else if(pauseBallPos == PauseBall.Options) {
-			mainStates.optionsOpen = true;			
+			mainStates.optionsOpen = true;
 		} else if(pauseBallPos == PauseBall.MainMenu) {
 			mainStates.menuOpen = true;
 		}
@@ -548,7 +548,7 @@ function drawOptionsScreen() {
 		} else if(courtDisplayed == CourtOptions.Fence) {
 			drawBitmapWithSizeAndRotation(number3, menuX + (menuWidth / 2) - 66, menuY + (menuHeight / 4) - (menuHeight / 8) + 24, menuWidth / 9, menuHeight / 9, 0);
 		}
-		
+
 		if(selectedDifficulty == AIDifficulty.Easy) {
 			drawBitmapWithSizeAndRotation(number1, menuX + (menuWidth / 2) + 64, menuY + (menuHeight / 4) - (menuHeight / 8) + 24, menuWidth / 9, menuHeight / 9, 0);
 		} else if(selectedDifficulty == AIDifficulty.Normal) {
@@ -608,7 +608,7 @@ function drawOptionsScreen() {
 		mainStates.menuOpen = false;
 		mainStates.optionsOpen = false;
 		enterKey = false;
-		
+
 		if((menuBallPos == MenuBall.Options) || (menuBallPos == MenuBall.Credits) || (menuBallPos == MenuBall.SpeedOnePlayer)) {
 			menuBallPos = MenuBall.SpeedOnePlayer;
 			GameMode.Shootaround = true;
@@ -879,14 +879,14 @@ function resetDemo() {
 
 	player1Score = 0;
 	player2Score = 0;
-	
+
 	min = 1;
 	sec = 0;
 }
 
 function resetGame() {
 	mainStates.demo = false;
-	
+
 	if((menuBallPos == MenuBall.SpeedOnePlayer) || (menuBallPos == MenuBall.TurfOnePlayer)) {
 		character1 = new playerClass(75, 220, false, true);
 		character2 = new playerClass(1080, 220, true, false);
@@ -899,7 +899,7 @@ function resetGame() {
 	}
 
 	setupInput();
-	
+
 	player1Score = 0;
 	player2Score = 0;
 
@@ -928,14 +928,14 @@ function resetGame() {
 		arrayOfZones[i].character2InTheZone = false;
 		arrayOfZones[i].isClaimedBy;
 	}
-	
+
 	if(GameMode.AroundTheWorld) {
 		min = 0;
 		sec = 0;
-		
+
 		resetZones();
 	} else {
 		min = 1;
 		sec = 0;
-	}	
+	}
 }

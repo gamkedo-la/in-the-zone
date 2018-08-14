@@ -107,17 +107,30 @@ function ballClass(startingX, startingY) {
       if (this.y < HOOP_Y) {
         this.beingShot = false;
         this.shootingY = Math.abs(this.shootingY / 2);
-      } else if (this.y > limits.maxY) {
+        } else if (this.y > limits.maxY) {
         this.beingShot = false;
         this.shootingY = -Math.abs(this.shootingY / 2);
+        if (courtDisplayed === CourtOptions.Fence) {
+          chainLinkFence.play();
+        }
+      }
+      if (this.y <= 225 && courtDisplayed === CourtOptions.Fence) {
+        console.log("minY reached");
+        chainLinkFence.play();
       }
 
       if (this.x < limits.minX) {
         this.beingShot = false;
         this.shootingX = Math.abs(this.shootingX);
+        if (courtDisplayed === CourtOptions.Fence) {
+          chainLinkFence.play();
+        }
       } else if (this.x > limits.maxX) {
         this.beingShot = false;
         this.shootingX = -Math.abs(this.shootingX);
+        if (courtDisplayed === CourtOptions.Fence) {
+          chainLinkFence.play();
+        }
       }
 
     }
