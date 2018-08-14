@@ -5,6 +5,9 @@ var ballRebound1 = new Audio();
 var ballRebound2 = new Audio();
 var ballGrab = new Audio();
 var shootingBall = new Audio();
+var splash = new Audio();
+var chainLinkFence = new Audio();
+var crowdCheer = new Audio();
 
 // floor shoe squeaks
 var shoe1 = new Audio();
@@ -104,6 +107,18 @@ function loadAudios() {
   {
     name: backgroundMusic,
     source: "audio/Sweet Georgia Brown" + audioFormat
+  },
+  {
+    name: chainLinkFence,
+    source: "audio/chainLinkFence" + audioFormat
+  },
+  {
+    name: splash,
+    source: "audio/splash" + audioFormat
+  },
+  {
+    name: crowdCheer,
+    source: "audio/crowdCheer" + audioFormat
   }
 
   ];
