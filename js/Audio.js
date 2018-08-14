@@ -8,6 +8,8 @@ var shootingBall = new Audio();
 var splash = new Audio();
 var chainLinkFence = new Audio();
 var crowdCheer = new Audio();
+var player1DunkSound = new Audio();
+var player2DunkSound = new Audio();
 
 // floor shoe squeaks
 var shoe1 = new Audio();
@@ -119,7 +121,16 @@ function loadAudios() {
   {
     name: crowdCheer,
     source: "audio/crowdCheer" + audioFormat
+  },
+  {
+    name: player1DunkSound,
+    source: "audio/player1DunkSound" + audioFormat
+  },
+  {
+    name: player2DunkSound,
+    source: "audio/player2DunkSound" + audioFormat
   }
+
 
   ];
 

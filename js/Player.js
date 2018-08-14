@@ -293,6 +293,11 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 						var a = HOOP_X - this.x;
 						var b = HOOP_Y - this.y;
 						this.startingDistanceFromHoop = Math.sqrt(a * a + b * b);
+						//this.player1 ? player1DunkSound.play() : player2DunkSound.play()
+						if (isPlayer1) {
+							player1DunkSound.play();
+						}
+
 					} else {
 						// start a regular shot - begin the wind up
 						switch (this.shootingDifficulty) {
@@ -463,6 +468,8 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 							var a = HOOP_X - this.x;
 							var b = HOOP_Y - this.y;
 							this.startingDistanceFromHoop = Math.sqrt(a * a + b * b);
+							player2DunkSound.play();
+
 						} else {
 							switch (this.shootingDifficulty) {
 								case 0:
