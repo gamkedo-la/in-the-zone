@@ -16,6 +16,7 @@ var ooSoClose = new Audio();
 var lucky = new Audio();
 var mmAw = new Audio();
 var mmYeah = new Audio();
+var notEvenClose = new Audio();
 
 // floor shoe squeaks
 var shoe1 = new Audio();
@@ -159,6 +160,10 @@ function loadAudios() {
   {
     name: mmYeah,
     source: "audio/mmYeah" + audioFormat
+  },
+  {
+    name: notEvenClose,
+    source: "audio/notEvenClose" + audioFormat
   }
 
 

@@ -642,7 +642,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 								var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
 								this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
 								console.log("way off");
-								//notEvenClose.play();
+								notEvenClose.play();
 							}
 						}
 						// console.log(direction);
