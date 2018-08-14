@@ -218,11 +218,11 @@ function ballClass(startingX, startingY) {
         if (this.isHeldBy.states.isShooting) {
           dribbleYOffset = -15 - (this.isHeldBy.shootingTime / 2); // rise slowly near head height!
 
-          // handle edge cases of a sideways-facing three pointer
-          if (this.isHeldBy.currentZone == 1) dribbleXOffset = 20;
-          if (this.isHeldBy.currentZone == 9) dribbleXOffset = 20;
-          if (this.isHeldBy.currentZone == 8) dribbleXOffset = -20;
-          if (this.isHeldBy.currentZone == 16) dribbleXOffset = -20;
+          if (this.isHeldBy.currentZone == 1 || this.isHeldBy.currentZone == 2 || this.isHeldBy.currentZone == 3 ||
+              this.isHeldBy.currentZone == 9 || this.isHeldBy.currentZone == 10)   dribbleXOffset = 20;
+          if (this.isHeldBy.currentZone == 8 || this.isHeldBy.currentZone == 7 || this.isHeldBy.currentZone == 6 ||
+              this.isHeldBy.currentZone == 16 || this.isHeldBy.currentZone == 15)     dribbleXOffset = -20;
+
 
         }
       }
