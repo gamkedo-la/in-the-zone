@@ -144,7 +144,7 @@ function ballClass(startingX, startingY) {
         //   }
         player1Score = character1.score;
         player2Score = character2.score;
-        
+
         if(aroundTheWorldIsOver) {
 	        mainStates.gameOver = true;
 		    mainStates.demo= false;
@@ -152,11 +152,13 @@ function ballClass(startingX, startingY) {
 		    setPaused(false);
 		    mainStates.menuOpen = false;
         }
-        
+
         this.goingIn = false;
         this.shootingX = 0;
         this.shootingY = 0;
         this.beingShot = false;
+        crowdCheer.play();
+        splash.play();
         console.log("Yay!");
       }
       else if (this.x < HOOP_X + 15 && this.y < HOOP_Y + 15 &&
