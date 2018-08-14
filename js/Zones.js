@@ -120,7 +120,6 @@ function updateAroundTheWorldZoneStatus(zoneIndex) {
 		//Player1 is successfully shooting the ball
 		if (player1Here && character1.ballToHold.goingIn) {
 		  character1.score += (arrayOfZones[zoneIndex].score + FIXED_STREAK_BONUS);
-			console.log(crowdCheer);
 			crowdCheer.play();
 		  arrayOfZones[zoneIndex].isClaimedBy = character1;
 		  arrayOfZones[zoneIndex].claimStatus = ClaimStatus.OwnedPlayer1;//if player1 is in the zone and the ball goes in, zone is claimed by player1 and colored blue;

@@ -10,6 +10,10 @@ var chainLinkFence = new Audio();
 var crowdCheer = new Audio();
 var player1DunkSound = new Audio();
 var player2DunkSound = new Audio();
+var wayOff = new Audio();
+var ooLucky = new Audio();
+var ooSoClose = new Audio();
+var lucky = new Audio();
 
 // floor shoe squeaks
 var shoe1 = new Audio();
@@ -129,6 +133,22 @@ function loadAudios() {
   {
     name: player2DunkSound,
     source: "audio/player2DunkSound" + audioFormat
+  },
+  {
+    name: wayOff,
+    source: "audio/wayOff" + audioFormat
+  },
+  {
+    name: ooLucky,
+    source: "audio/ooLucky" + audioFormat
+  },
+  {
+    name: ooSoClose,
+    source: "audio/ooSoClose" + audioFormat
+  },
+  {
+    name: lucky,
+    source: "audio/lucky" + audioFormat
   }
 
 

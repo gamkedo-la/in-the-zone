@@ -294,9 +294,8 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 						var b = HOOP_Y - this.y;
 						this.startingDistanceFromHoop = Math.sqrt(a * a + b * b);
 						//this.player1 ? player1DunkSound.play() : player2DunkSound.play()
-						if (isPlayer1) {
-							player1DunkSound.play();
-						}
+						player1DunkSound.play();
+
 
 					} else {
 						// start a regular shot - begin the wind up
@@ -594,6 +593,8 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
 									this.ballToHold.ballPower = -16.5;
 									console.log("short,yellow and lucky");
+									//ooLucky.play();
+									lucky.play();
 									updateZones();
 								} else {
 									this.ballToHold.goingIn = false;
@@ -601,6 +602,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
 									this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
 									console.log("yellow and unlucky");
+									ooSoClose.play();
 								}
 							} else {
 								this.ballToHold.goingIn = false;
@@ -608,6 +610,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 								var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
 								this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
 								console.log("way off");
+								wayOff.play();
 							}
 
 
@@ -620,6 +623,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
 									this.ballToHold.ballPower = -16.5;
 									console.log("long,yellow and lucky");
+									mmYeah.play();
 									updateZones();
 								} else {
 									this.ballToHold.goingIn = false;
@@ -627,6 +631,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
 									this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
 									console.log("yellow and unlucky");
+									mmAw.play();
 								}
 							} else {
 								this.ballToHold.goingIn = false;
@@ -634,6 +639,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 								var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
 								this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
 								console.log("way off");
+								notEvenClose.play();
 							}
 						}
 						// console.log(direction);
