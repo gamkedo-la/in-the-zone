@@ -17,6 +17,7 @@ var lucky = new Audio();
 var mmAw = new Audio();
 var mmYeah = new Audio();
 var notEvenClose = new Audio();
+var clockTick = new Audio();
 
 // floor shoe squeaks
 var shoe1 = new Audio();
@@ -164,6 +165,10 @@ function loadAudios() {
   {
     name: notEvenClose,
     source: "audio/notEvenClose" + audioFormat
+  },
+  {
+    name: clockTick,
+    source: "audio/clockTick" + audioFormat
   }
 
 

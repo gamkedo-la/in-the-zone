@@ -170,6 +170,9 @@ function moveAll() {
 		character1.move();
 		character1.updateEdgesOfFeet();
 		character1.updateCenterOfFeet();
+		if (sec === 5 || sec === 4 || sec === 3 || sec === 2 || sec === 1) {
+			clockTick.play();
+		}
 		if(menuBallPos != MenuBall.Practice) {
 			character2.move();
 			character2.updateEdgesOfFeet();
