@@ -14,6 +14,8 @@ var wayOff = new Audio();
 var ooLucky = new Audio();
 var ooSoClose = new Audio();
 var lucky = new Audio();
+var mmAw = new Audio();
+var mmYeah = new Audio();
 
 // floor shoe squeaks
 var shoe1 = new Audio();
@@ -149,6 +151,14 @@ function loadAudios() {
   {
     name: lucky,
     source: "audio/lucky" + audioFormat
+  },
+  {
+    name: mmAw,
+    source: "audio/mmAw" + audioFormat
+  },
+  {
+    name: mmYeah,
+    source: "audio/mmYeah" + audioFormat
   }
 
 
