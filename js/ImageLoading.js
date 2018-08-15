@@ -85,6 +85,8 @@ function loadImages() {
 		{ varName: shootingRightSpriteSheet2, theFile: "shootingRightSpriteSheet2.png" },
 		{ varName: player1Victory, theFile: "player1Victory.png" },
 		{ varName: player2Victory, theFile: "player2Victory.png" },
+		{ varName: gameOverSadPicture, theFile: "gameOverSadPicture.png" },
+
 
 		{ varName: scoreboard, theFile: "scoreboard.png" },
 		{ varName: number0, theFile: "0.png" },
