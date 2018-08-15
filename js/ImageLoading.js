@@ -18,6 +18,8 @@ var shootingLeftSpriteSheet = document.createElement("img");
 var shootingRightSpriteSheet = document.createElement("img");
 var shootingLeftSpriteSheet2 = document.createElement("img");
 var shootingRightSpriteSheet2 = document.createElement("img");
+var player1Victory = document.createElement("img");
+var player2Victory = document.createElement("img");
 
 var scoreboard = document.createElement("img");
 var number0 = document.createElement("img");
@@ -81,6 +83,8 @@ function loadImages() {
 		{ varName: shootingRightSpriteSheet, theFile: "shootingRightSpriteSheet.png" },
 		{ varName: shootingLeftSpriteSheet2, theFile: "shootingLeftSpriteSheet2.png" },
 		{ varName: shootingRightSpriteSheet2, theFile: "shootingRightSpriteSheet2.png" },
+		{ varName: player1Victory, theFile: "player1Victory.png" },
+		{ varName: player2Victory, theFile: "player2Victory.png" },
 
 		{ varName: scoreboard, theFile: "scoreboard.png" },
 		{ varName: number0, theFile: "0.png" },
