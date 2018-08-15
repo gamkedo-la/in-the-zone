@@ -763,7 +763,7 @@ function incrementOption() {
 			if(courtDisplayed == CourtOptions.Indoor) {
 				courtDisplayed = CourtOptions.Beach;
 				backgroundMusic.pause();
-				backgroundMusic.src = "audio/Sweet Georgia Brown" + audioFormat;
+				backgroundMusic.src = "audio/beachCourt" + audioFormat;
 				playAndLoopMusic(backgroundMusic);
 			} else if(courtDisplayed == CourtOptions.Beach) {
 				courtDisplayed = CourtOptions.Fence;
@@ -810,7 +810,7 @@ function decrementOption() {
 			} else if(courtDisplayed == CourtOptions.Fence) {
 				courtDisplayed = CourtOptions.Beach;
 				backgroundMusic.pause();
-				backgroundMusic.src = "audio/Sweet Georgia Brown" + audioFormat;
+				backgroundMusic.src = "audio/beachCourt" + audioFormat;
 				playAndLoopMusic(backgroundMusic);
 			}
 		}

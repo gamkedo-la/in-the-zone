@@ -118,7 +118,7 @@ function loadAudios() {
   },
   {//16
     name: backgroundMusic,
-    source: "audio/Sweet Georgia Brown" /* or audio/fenceMusic */ + audioFormat
+    source: "audio/Sweet Georgia Brown" /* or audio/fenceMusic or audio/beachCourt */ + audioFormat
   },
   {
     name: chainLinkFence,
