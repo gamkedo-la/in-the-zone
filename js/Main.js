@@ -170,7 +170,7 @@ function moveAll() {
 		character1.move();
 		character1.updateEdgesOfFeet();
 		character1.updateCenterOfFeet();
-		if(menuBallPos != MenuBall.Practice) {
+		if((menuBallPos != MenuBall.SpeedPractice) && (menuBallPos != MenuBall.TurfPractice)) {
 			character2.move();
 			character2.updateEdgesOfFeet();
 			character2.updateCenterOfFeet();
@@ -186,7 +186,7 @@ function drawAll() {
 		drawBallShadows(ballArray);
 		drawBalls(ballArray);
 
-		if(menuBallPos == MenuBall.Practice) {
+		if((menuBallPos == MenuBall.SpeedPractice) || (menuBallPos == MenuBall.TurfPractice)) {
 			character1.draw();
 		} else if (character1.y > character2.y) {
 			character2.draw();
@@ -893,7 +893,7 @@ function resetGame() {
 	} else if((menuBallPos == MenuBall.SpeedTwoPlayer) || (menuBallPos == MenuBall.TurfTwoPlayer)) {
 		character1 = new playerClass(75, 220, false, true);
 		character2 = new playerClass(1080, 220, false, false);
-	} else if((menuBallPos == MenuBall.Practice) || (menuBallPos == MenuBall.TurfPractice)) {
+	} else if((menuBallPos == MenuBall.SpeedPractice) || (menuBallPos == MenuBall.TurfPractice)) {
 		character1 = new playerClass(75, 220, false, true);
 		character2 = new playerClass(1080, 220, false, false);
 	}
