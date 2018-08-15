@@ -762,10 +762,19 @@ function incrementOption() {
 		if(mainStates.optionsOpen) {
 			if(courtDisplayed == CourtOptions.Indoor) {
 				courtDisplayed = CourtOptions.Beach;
+				backgroundMusic.pause();
+				backgroundMusic.src = "audio/Sweet Georgia Brown" + audioFormat;
+				playAndLoopMusic(backgroundMusic);
 			} else if(courtDisplayed == CourtOptions.Beach) {
 				courtDisplayed = CourtOptions.Fence;
+				backgroundMusic.pause();
+				backgroundMusic.src = "audio/fenceMusic" + audioFormat;
+				playAndLoopMusic(backgroundMusic);
 			} else if(courtDisplayed == CourtOptions.Fence) {
 				courtDisplayed = CourtOptions.Indoor;
+				backgroundMusic.pause();
+				backgroundMusic.src = "audio/Sweet Georgia Brown" + audioFormat;
+				playAndLoopMusic(backgroundMusic);
 			}
 		}
 	} else if(selectedOption == Options.Diff) {
@@ -790,10 +799,19 @@ function decrementOption() {
 		if(mainStates.optionsOpen) {
 			if(courtDisplayed == CourtOptions.Indoor) {
 				courtDisplayed = CourtOptions.Fence;
+				backgroundMusic.pause();
+				backgroundMusic.src = "audio/fenceMusic" + audioFormat;
+				playAndLoopMusic(backgroundMusic);
 			} else if(courtDisplayed == CourtOptions.Beach) {
 				courtDisplayed = CourtOptions.Indoor;
+				backgroundMusic.pause();
+				backgroundMusic.src = "audio/Sweet Georgia Brown" + audioFormat;
+				playAndLoopMusic(backgroundMusic);
 			} else if(courtDisplayed == CourtOptions.Fence) {
 				courtDisplayed = CourtOptions.Beach;
+				backgroundMusic.pause();
+				backgroundMusic.src = "audio/Sweet Georgia Brown" + audioFormat;
+				playAndLoopMusic(backgroundMusic);
 			}
 		}
 	} else if(selectedOption == Options.Diff) {

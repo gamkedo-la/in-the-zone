@@ -35,6 +35,7 @@ var shoe10 = new Audio();
 var shoeSounds = [shoe1, shoe2, shoe3, shoe4, shoe5, shoe6, shoe7, shoe8, shoe9, shoe10];
 
 var backgroundMusic = new Audio();
+var fenceMusic = new Audio();
 
 function setAudioFormat() {
   var audio = new Audio();
@@ -51,73 +52,73 @@ var audios = [{}];
 
 function loadAudios() {
   audios = [
-  {
+  {//0
     name: ballBouncing1,
     source: "audio/basketball_bounce" + audioFormat
   },
-  {
+  {//1
     name: ballBouncing2,
     source: "audio/basketball_bounce_ver2" + audioFormat
   },
-  {
+  {//2
     name: ballRebound1,
     source: "audio/basketball_rebound" + audioFormat
   },
-  {
+  {//3
     name: ballRebound2,
     source: "audio/basketball_rebound_ver2" + audioFormat
   },
-  {
+  {//4
     name: ballGrab,
     source: "audio/ballGrab" + audioFormat
   },
-  {
+  {//5
     name: shootingBall,
     source: "audio/shootingBall" + audioFormat
   },
-  {
+  {//6
     name: shoe1,
     source: "audio/shoe-1" + audioFormat
   },
-  {
+  {//7
     name: shoe2,
     source: "audio/shoe-2" + audioFormat
   },
-  {
+  {//8
     name: shoe3,
     source: "audio/shoe-3" + audioFormat
   },
-  {
+  {//9
     name: shoe4,
     source: "audio/shoe-4" + audioFormat
   },
-  {
+  {//10
     name: shoe5,
     source: "audio/shoe-5" + audioFormat
   },
-  {
+  {//11
     name: shoe6,
     source: "audio/shoe-6" + audioFormat
   },
-  {
+  {//12
     name: shoe7,
     source: "audio/shoe-7" + audioFormat
   },
-  {
+  {//13
     name: shoe8,
     source: "audio/shoe-8" + audioFormat
   },
-  {
+  {//14
     name: shoe9,
     source: "audio/shoe-9" + audioFormat
   },
-  {
+  {//15
     name: shoe10,
     source: "audio/shoe-10" + audioFormat
   },
-  {
+  {//16
     name: backgroundMusic,
-    source: "audio/Sweet Georgia Brown" + audioFormat
+    source: "audio/Sweet Georgia Brown" /* or audio/fenceMusic */ + audioFormat
   },
   {
     name: chainLinkFence,
