@@ -365,6 +365,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 								this.endOfShootingAnimationTickCount = 25;
 							}
 						}
+						this.tickCount = 0;
 						this.ballToHold.gotShotFrom = this.currentZone;
 						this.states.isIdle = false;
 						this.states.isShooting = true;
