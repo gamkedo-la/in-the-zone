@@ -247,17 +247,21 @@ function drawGameOver() {
 	} else if (character1.score == character2.score) {
 		winner = 0; //tie
 	}
-	colorRect(0, 0, canvas.width, canvas.height, "black");
+	colorRect(0, 0, canvas.width, canvas.height, "orange");
 	switch (winner) {
 		case 0:
 			colorText("The game ended with a tie", 350, 300, "white");
 			break;
 		case 1:
 			colorText("player1 has won", 350, 300, "white");
+			drawBitmapCenteredWithRotation(player1Victory, 600, 300, 0);
 			break;
 		case 2:
 		if (character2.isAI) {
 			drawBitmapCenteredWithRotation(gameOverSadPicture, 600, 300, 0);
+		}
+		else {
+			drawBitmapCenteredWithRotation(player2Victory, 600, 300, 0);
 		}
 			colorText("player2 has won", 350, 300, "white");
 			break;
