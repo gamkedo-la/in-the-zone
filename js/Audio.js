@@ -18,6 +18,7 @@ var mmAw = new Audio();
 var mmYeah = new Audio();
 var notEvenClose = new Audio();
 var clockTick = new Audio();
+var horn = new Audio();
 
 // floor shoe squeaks
 var shoe1 = new Audio();
@@ -169,6 +170,10 @@ function loadAudios() {
   {
     name: clockTick,
     source: "audio/clockTick" + audioFormat
+  },
+  {
+    name: horn,
+    source: "audio/horn" + audioFormat
   }
 
 

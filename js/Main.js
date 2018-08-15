@@ -172,6 +172,8 @@ function moveAll() {
 		character1.updateCenterOfFeet();
 		if (sec === 5 || sec === 4 || sec === 3 || sec === 2 || sec === 1) {
 			clockTick.play();
+		} else if (sec === 0) {
+			horn.play();
 		}
 		if(menuBallPos != MenuBall.Practice) {
 			character2.move();
