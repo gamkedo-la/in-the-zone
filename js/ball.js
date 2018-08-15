@@ -141,9 +141,9 @@ function ballClass(startingX, startingY) {
         thrownBallFX(this.x, this.z);
       }
 
-      if (this.x < HOOP_X + 5 && this.y < HOOP_Y + 5 &&
-        this.x > HOOP_X - 5 && this.y > HOOP_Y - 5 &&
-        this.z < HOOP_H + 10 && this.z > HOOP_H - 10 && this.goingIn) {
+      if (this.x < HOOP_X + 10 && this.y < HOOP_Y + 10 &&
+        this.x > HOOP_X - 10 && this.y > HOOP_Y - 10 &&
+        this.z < HOOP_H + 15 && this.z > HOOP_H - 15 && this.goingIn) {
         // We can come back to this if we think that score should be changed when ball touches the rim not ball is released
         //   if (this.gotShotFrom == 1 || this.gotShotFrom == 9 || this.gotShotFrom == 17 ||
         //     this.gotShotFrom == 24 || this.gotShotFrom == 25 || this.gotShotFrom == 26 ||
