@@ -6,6 +6,7 @@ var player1 = document.createElement("img");
 var player2 = document.createElement("img");
 var currySpriteSheet = document.createElement("img");
 var curry2SpriteSheet = document.createElement("img");
+var player1Animated = document.createElement("img");
 var dunkingPic = document.createElement("img");
 var player1DunkingSpriteSheet = document.createElement("img");
 var player2DunkingSpriteSheet = document.createElement("img");
@@ -76,6 +77,7 @@ function loadImages() {
 		{ varName: player2, theFile: "player2.png" },
 		{ varName: currySpriteSheet, theFile: "currySpriteSheet.png" },
 		{ varName: curry2SpriteSheet, theFile: "curry2SpriteSheet.png" },
+		{ varName: player1Animated, theFile: "player1_animated.png" },
 		{ varName: dunkingPic, theFile: "tempDunking.png" },
 		{ varName: player1DunkingSpriteSheet, theFile: "player1DunkingSpriteSheet.png" },
 		{ varName: player2DunkingSpriteSheet, theFile: "player2DunkingSpriteSheet.png" },

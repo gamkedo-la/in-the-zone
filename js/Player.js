@@ -74,6 +74,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 
 		if (isPlayer1) {
 			this.walkSprite = new SpriteSheetClass(currySpriteSheet, this.width, this.height);
+			this.runningSprite = new SpriteSheetClass(player1Animated, this.width, this.height);
 			this.dunkSprite = new SpriteSheetClass(player1DunkingSpriteSheet, this.width, this.height);
 		} else {
 			this.walkSprite = new SpriteSheetClass(curry2SpriteSheet, this.width, this.height);
@@ -851,8 +852,10 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 			}
 		}
 
-		var isMoving = ((this.x != nextX) || (this.y != nextY));
-		if (isMoving) walkFX(this.x, this.y); // dust on the floor / footsteps
+		this.isMoving = ((this.x != nextX) || (this.y != nextY));
+		if (this.isMoving) {
+			walkFX(this.x, this.y); // dust on the floor / footsteps
+		}
 
 		this.x = nextX;
 		this.y = nextY;
@@ -925,7 +928,17 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 		}
 		if (this.states.isIdle) {
 			if (isPlayer1) {
-				drawBitmapCenteredWithRotation(player1Pic, this.x, this.y, this.ang);
+				if(this.isMoving) {
+					if (mainStates.isPaused === false) {
+						this.tickCount += 2;
+						if (this.tickCount / this.ticksPerFrame >= this.framesAnim) {
+							this.tickCount = 0;
+						}
+					}
+					this.runningSprite.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.x, this.y, this.ang);
+				} else {
+					drawBitmapCenteredWithRotation(player1Pic, this.x, this.y, this.ang);
+				}
 			} else {
 				drawBitmapCenteredWithRotation(player2Pic, this.x, this.y, this.ang);
 			}
