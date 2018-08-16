@@ -453,28 +453,28 @@ function drawMainMenu() {
 		colorText("2 Players", menuX + 3 * menuWidth / 4 - 25, menuY + (menuHeight / 2) + 100, "white", 24, "left");
 		colorText("Practice", menuX + 3 * menuWidth / 4 - 25, menuY + (menuHeight / 2) + 130, "white", 24, "left");
 
-		colorText("Options", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 60, "white", 24, "left");
-		colorText("Credits", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 90, "white", 24, "left");
-		colorText("Help", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 120, "white", 24, "left");
+		colorText("Options", menuX + menuWidth / 2 - 15, menuY + (menuHeight / 2) + 70, "white", 24, "left");
+		colorText("Credits", menuX + menuWidth / 2 - 15, menuY + (menuHeight / 2) + 100, "white", 24, "left");
+		colorText("Help", menuX + menuWidth / 2 - 15, menuY + (menuHeight / 2) + 130, "white", 24, "left");
 
 		if (menuBallPos == MenuBall.SpeedOnePlayer) {
-			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 4 - 40, menuY + (menuHeight / 2) + 50, 0);
+			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 4 - 40, menuY + (menuHeight / 2) + 60, 0);
 		} else if (menuBallPos == MenuBall.SpeedTwoPlayer) {
-			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 4 - 40, menuY + (menuHeight / 2) + 80, 0);
+				drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 4 - 40, menuY + (menuHeight / 2) + 90, 0);
 		} else if (menuBallPos == MenuBall.SpeedPractice) {
-			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 4 - 40, menuY + (menuHeight / 2) + 110, 0);
+			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 4 - 40, menuY + (menuHeight / 2) + 120, 0);
 		} else if (menuBallPos == MenuBall.TurfOnePlayer) {
-			drawBitmapCenteredWithRotation(ballImage, menuX + 3 * menuWidth / 4 - 40, menuY + (menuHeight / 2) + 50, 0);
+			drawBitmapCenteredWithRotation(ballImage, menuX + 3 * menuWidth / 4 - 40, menuY + (menuHeight / 2) + 60, 0);
 		} else if (menuBallPos == MenuBall.TurfTwoPlayer) {
-			drawBitmapCenteredWithRotation(ballImage, menuX + 3 * menuWidth / 4 - 40, menuY + (menuHeight / 2) + 80, 0);
+			drawBitmapCenteredWithRotation(ballImage, menuX + 3 * menuWidth / 4 - 40, menuY + (menuHeight / 2) + 90, 0);
 		} else if (menuBallPos == MenuBall.TurfPractice) {
-			drawBitmapCenteredWithRotation(ballImage, menuX + 3 * menuWidth / 4 - 40, menuY + (menuHeight / 2) + 110, 0);
+			drawBitmapCenteredWithRotation(ballImage, menuX + 3 * menuWidth / 4 - 40, menuY + (menuHeight / 2) + 120, 0);
 		} else if (menuBallPos == MenuBall.Options) {
-			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 50, 0);
+			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 30, menuY + (menuHeight / 2) + 60, 0);
 		} else if (menuBallPos == MenuBall.Credits) {
-			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 80, 0);
+			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 30, menuY + (menuHeight / 2) + 90, 0);
 		} else if (menuBallPos == MenuBall.Help) {
-			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 110, 0);
+			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 30, menuY + (menuHeight / 2) + 120, 0);
 		}
 	}
 
