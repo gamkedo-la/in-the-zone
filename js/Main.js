@@ -438,20 +438,20 @@ function drawMainMenu() {
 
 		reboundFX(Math.random() * canvas.width, Math.random() * 100);
 
-		colorRect(menuX, menuY, menuWidth, menuHeight, "black", 0.5);
+		colorRect(menuX, menuY - 25, menuWidth, menuHeight, "black", 0.65);
 		drawBitmapCenteredWithRotation(inTheZoneLogo, canvas.width / 2, (canvas.height / 2) - 50, 0);
 		colorText("Press Enter to start game", canvas.width / 2, (canvas.height / 2) + 50, "white", 32, "center");
 
-		colorText("Speed Round", menuX + menuWidth / 4, (canvas.height / 2) + 95, "white", 28, "center");
-		colorText("Turf War", menuX + 3 * menuWidth / 4, (canvas.height / 2) + 95, "white", 28, "center");
+		colorText("Speed Round", menuX + menuWidth / 4 + 20, (canvas.height / 2) + 90, "white", 28, "center");
+		colorText("Turf War", menuX + 3 * menuWidth / 4, (canvas.height / 2) + 90, "white", 28, "center");
 
-		colorText("1 Player", menuX + menuWidth / 4 - 25, menuY + (menuHeight / 2) + 60, "white", 24, "left");
-		colorText("2 Players", menuX + menuWidth / 4 - 25, menuY + (menuHeight / 2) + 90, "white", 24, "left");
-		colorText("Practice", menuX + menuWidth / 4 - 25, menuY + (menuHeight / 2) + 120, "white", 24, "left");
+		colorText("1 Player", menuX + menuWidth / 4 - 25, menuY + (menuHeight / 2) + 70, "white", 24, "left");
+		colorText("2 Players", menuX + menuWidth / 4 - 25, menuY + (menuHeight / 2) + 100, "white", 24, "left");
+		colorText("Practice", menuX + menuWidth / 4 - 25, menuY + (menuHeight / 2) + 130, "white", 24, "left");
 
-		colorText("1 Player", menuX + 3 * menuWidth / 4 - 25, menuY + (menuHeight / 2) + 60, "white", 24, "left");
-		colorText("2 Players", menuX + 3 * menuWidth / 4 - 25, menuY + (menuHeight / 2) + 90, "white", 24, "left");
-		colorText("Practice", menuX + 3 * menuWidth / 4 - 25, menuY + (menuHeight / 2) + 120, "white", 24, "left");
+		colorText("1 Player", menuX + 3 * menuWidth / 4 - 25, menuY + (menuHeight / 2) + 70, "white", 24, "left");
+		colorText("2 Players", menuX + 3 * menuWidth / 4 - 25, menuY + (menuHeight / 2) + 100, "white", 24, "left");
+		colorText("Practice", menuX + 3 * menuWidth / 4 - 25, menuY + (menuHeight / 2) + 130, "white", 24, "left");
 
 		colorText("Options", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 60, "white", 24, "left");
 		colorText("Credits", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 90, "white", 24, "left");
