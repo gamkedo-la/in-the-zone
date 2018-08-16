@@ -436,6 +436,8 @@ function drawMainMenu() {
 		const menuWidth = canvas.width / 2;
 		const menuHeight = canvas.height / 2;
 
+		reboundFX(Math.random() * canvas.width, Math.random() * 100);
+
 		colorRect(menuX, menuY, menuWidth, menuHeight, "black", 0.5);
 		drawBitmapCenteredWithRotation(inTheZoneLogo, canvas.width / 2, (canvas.height / 2) - 50, 0);
 		colorText("Press Enter to start game", canvas.width / 2, (canvas.height / 2) + 50, "white", 32, "center");
