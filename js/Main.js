@@ -171,10 +171,10 @@ function moveAll() {
 		character1.updateEdgesOfFeet();
 		character1.updateCenterOfFeet();
 
-		if (sec === 5 || sec === 4 || sec === 3 || sec === 2 || sec === 1) {
-			clockTick.play();
-		} else if (sec === 0) {
-			horn.play();
+		if ((sec === 5 || sec === 4 || sec === 3 || sec === 2 || sec === 1) && (GameMode.Shootaround || GameMode.OneOnOne)) {
+				clockTick.play();
+		} else if ((sec === 0) && (GameMode.Shootaround || GameMode.OneOnOne)) {
+				horn.play();
 		}
 		if((menuBallPos != MenuBall.SpeedPractice) && (menuBallPos != MenuBall.TurfPractice)) {
 			character2.move();

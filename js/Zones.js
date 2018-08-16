@@ -356,6 +356,7 @@ drawZones = () => {
   }
 
   if((GameMode.AroundTheWorld) && (anyUnclaimed == false)) {
+        horn.play();
 	    aroundTheWorldIsOver = true;
   }
 }
