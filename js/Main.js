@@ -383,6 +383,7 @@ function drawCredits() {
 	colorText("Backspace to Main Menu", canvas.width - 125, canvas.height - 45, "white", 24, "right");
 	colorText("Up/Down Arrows to scroll", canvas.width - 125, canvas.height - 15, "white", 20, "right");
 	if (backspaceKey && mainStates.creditsOpen) {
+		creditsBaseY = 0.80 * canvas.height;
 		mainStates.menuOpen = true;
 		mainStates.creditsOpen = false;
 		backspaceKey = false;
