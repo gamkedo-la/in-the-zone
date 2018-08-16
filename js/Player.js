@@ -812,6 +812,12 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 				this.x > HOOP_X - 10 && this.y > HOOP_Y - 10 &&
 				this.jumpingHeight < HOOP_H + 30 && this.jumpingHeight > HOOP_H - 30 && !this.isDunkingEnded) {
 				if (this.ballToHold != null) {
+					if (character1.score < 0) {
+						character1.score = 0;
+					}
+					if (character2.score < 0) {
+						character2.score = 0;
+					}
 					player1Score = character1.score;
 					player2Score = character2.score;
 					this.ballToHold.ballPower = 5;

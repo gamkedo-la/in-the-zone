@@ -155,6 +155,12 @@ function ballClass(startingX, startingY) {
         //       console.log("Adding 2 points");//We never make here, scores are added in Zones.js, probably need to remove these two lines
         //     this.isShotBy.score += 2;
         //   }
+        if (character1.score < 0) {
+          character1.score = 0;
+        }
+        if (character2.score < 0) {
+          character2.score = 0;
+        }
         player1Score = character1.score;
         player2Score = character2.score;
 
