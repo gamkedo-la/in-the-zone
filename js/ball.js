@@ -107,7 +107,7 @@ function ballClass(startingX, startingY) {
       if (this.y < HOOP_Y) {
         this.beingShot = false;
         this.shootingY = Math.abs(this.shootingY / 2);
-        } else if (this.y > limits.maxY) {
+      } else if (this.y > limits.maxY) {
         this.beingShot = false;
         this.shootingY = -Math.abs(this.shootingY / 2);
         if (courtDisplayed === CourtOptions.Fence) {
@@ -158,12 +158,12 @@ function ballClass(startingX, startingY) {
         player1Score = character1.score;
         player2Score = character2.score;
 
-        if(aroundTheWorldIsOver) {
-	        mainStates.gameOver = true;
-		    mainStates.demo= false;
-		    mainStates.inGame= false;
-		    setPaused(false);
-		    mainStates.menuOpen = false;
+        if (aroundTheWorldIsOver) {
+          mainStates.gameOver = true;
+          mainStates.demo = false;
+          mainStates.inGame = false;
+          setPaused(false);
+          mainStates.menuOpen = false;
         }
 
         this.goingIn = false;
@@ -191,7 +191,7 @@ function ballClass(startingX, startingY) {
         else {
           ballRebound2.play();
         }
-        reboundFX(HOOP_X, HOOP_Y);
+        reboundFX(HOOP_X, HOOP_H);
       }
     } else { // not beingShot
       bouncingBallFX(this.x, this.z);
@@ -219,9 +219,9 @@ function ballClass(startingX, startingY) {
           dribbleYOffset = -15 - (this.isHeldBy.shootingTime / 2); // rise slowly near head height!
 
           if (this.isHeldBy.currentZone == 1 || this.isHeldBy.currentZone == 2 || this.isHeldBy.currentZone == 3 ||
-              this.isHeldBy.currentZone == 9 || this.isHeldBy.currentZone == 10)   dribbleXOffset = 20;
+            this.isHeldBy.currentZone == 9 || this.isHeldBy.currentZone == 10) dribbleXOffset = 20;
           if (this.isHeldBy.currentZone == 8 || this.isHeldBy.currentZone == 7 || this.isHeldBy.currentZone == 6 ||
-              this.isHeldBy.currentZone == 16 || this.isHeldBy.currentZone == 15)     dribbleXOffset = -20;
+            this.isHeldBy.currentZone == 16 || this.isHeldBy.currentZone == 15) dribbleXOffset = -20;
 
 
         }
@@ -293,7 +293,7 @@ function rebound(ball) {
   // reboundDirection[0] *= distanceFromHoop/3;
   // reboundDirection[1] *= distanceFromHoop/3;
 
-  reboundFX(this.x, this.y);
+  reboundFX(this.x, this.z);
 
   return reboundDirection;
 }

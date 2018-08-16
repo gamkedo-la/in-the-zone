@@ -75,7 +75,7 @@ function reboundFX(x, y) {
         startColorVar: [255, 255, 255, 1],
         endColor: [224, 68, 6, 0],
         endColorVar: [0, 0, 0, 0],
-        duration: 0.5,
+        duration: 0.1,
         emissionRate: 250,
         fadeAlpha: true,
         fadeSize: true,

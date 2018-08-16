@@ -259,6 +259,7 @@ function drawGameOver() {
 		case 1:
 			colorText("player1 has won", 350, 300, "white");
 			drawBitmapCenteredWithRotation(player1Victory, 600, 300 + celebrationWobble(), 0);
+			//twoPointsFX(Math.random() * canvas.width, Math.random() * 300);
 			break;
 		case 2:
 			if (character2.isAI) {
@@ -266,6 +267,7 @@ function drawGameOver() {
 			}
 			else {
 				drawBitmapCenteredWithRotation(player2Victory, 600, 300 + celebrationWobble(), 0);
+				//twoPointsFX(Math.random() * canvas.width, Math.random() * 300);
 			}
 			colorText("player2 has won", 350, 300, "white");
 			break;
