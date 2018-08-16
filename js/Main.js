@@ -355,11 +355,11 @@ function drawCredits() {
 
 	if (!mainStates.isPaused) {
 		if (upArrowKey) {
-			creditsBaseY -= 3;
+			creditsBaseY -= 6;
 		} else if (downArrowKey) {
-			creditsBaseY += 3;
+			creditsBaseY += 6;
 		} else {
-			creditsBaseY--;
+			creditsBaseY -= 3;
 		}
 	}
 
