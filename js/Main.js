@@ -171,9 +171,12 @@ function moveAll() {
 		character1.updateEdgesOfFeet();
 		character1.updateCenterOfFeet();
 
-		if ((sec === 5 || sec === 4 || sec === 3 || sec === 2 || sec === 1) && (GameMode.Shootaround || GameMode.OneOnOne)) {
+		if ((sec === 5 || sec === 4 || sec === 3 || sec === 2 || sec === 1) &&
+			(GameMode.Shootaround || GameMode.OneOnOne)) {
 			clockTick.play();
-		} else if ((sec === 0) && (GameMode.Shootaround || GameMode.OneOnOne)) {
+		} else if ((sec === 0) &&
+		           (GameMode.Shootaround || GameMode.OneOnOne) &&
+		           suddenDeathOvertime == false) {
 			horn.play();
 		}
 		if ((menuBallPos != MenuBall.SpeedPractice) && (menuBallPos != MenuBall.TurfPractice)) {
@@ -209,6 +212,10 @@ function drawAll() {
 		} else if (mainStates.isPaused) {
 			drawPausedMenu();
 		}
+	}
+
+	if (suddenDeathOvertime) {
+		drawSuddenDeathText();
 	}
 
 	if (mainStates.creditsOpen) {

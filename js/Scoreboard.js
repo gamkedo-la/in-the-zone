@@ -20,6 +20,8 @@ const TIMER_MIN_ONES_PLACE_NUMBER_POSITION_X = CANVAS_WIDTH - 63;
 const TIMER_SEC_TENS_PLACE_NUMBER_POSITION_X = CANVAS_WIDTH - 37;
 const TIMER_SEC_ONES_PLACE_NUMBER_POSITION_X = CANVAS_WIDTH - 24;
 
+const SUDDEN_DEATH_MAX_TIME_TO_SHOW_TEXT = 90; // 3 Seconds
+
 var min = 1;
 var sec = 0;
 
@@ -27,6 +29,8 @@ var frameNumber = 0;
 var numberArray = [number0, number1, number2, number3, number4, number5, number6, number7, number8, number9];
 var player1Score = 0;
 var player2Score = 0;
+var suddenDeathOvertime = false;
+var suddenDeathTextCounter = 0;
 
 function drawScoreboard() {
   var player1TensPlace = Math.floor(player1Score / 10);
@@ -50,9 +54,16 @@ function drawScoreboard() {
       if ((sec == 0 && min == 0) && (!GameMode.AroundTheWorld)) {
         min = 0;
         sec = 0;
-        mainStates.inGame = false;
-        mainStates.gameOver = true;
-        setPaused(false);
+
+        if (player1Score == player2Score) {
+          suddenDeathOvertime = true;
+        } else {
+          mainStates.inGame = false;
+          mainStates.gameOver = true;
+          suddenDeathOvertime = false;
+          setPaused(false);
+        }
+        
       } else if(GameMode.AroundTheWorld) {
 	      sec++;
 	      
@@ -95,4 +106,14 @@ function drawScoreboard() {
 
   drawBitmapCenteredWithRotation(numberArray[secondTensPlace], TIMER_SEC_TENS_PLACE_NUMBER_POSITION_X, TIMER_Y, 0);
   drawBitmapCenteredWithRotation(numberArray[secondOnesPlace], TIMER_SEC_ONES_PLACE_NUMBER_POSITION_X, TIMER_Y, 0);
+}
+
+function drawSuddenDeathText() {
+  if (suddenDeathTextCounter < SUDDEN_DEATH_MAX_TIME_TO_SHOW_TEXT) {
+    suddenDeathTextCounter++;
+    colorText("Sudden Death Overtime:", (canvas.width / 2) - 170, canvas.height / 2, 'white', '40');
+    colorText("Next Basket Wins!", (canvas.width / 2) - 120, (canvas.height / 2) + 50, 'white', '40');
+  } else {
+    return;
+  }
 }
