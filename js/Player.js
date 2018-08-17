@@ -995,9 +995,9 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 		}
 
 		if (this.shootingTime > 0) {
-			colorRect(this.x + this.shortPressedShotGoingInLimit, this.y + 20, this.longPressedShotGoingInLimit - this.shortPressedShotGoingInLimit, 10, "yellow");
-			colorRect(this.x + this.shootingPerfectTimeStart, this.y + 20, 1, 10, "blue");
-			colorRect(this.x, this.y + 20, this.shootingTime, 10, "red");
+			colorRect(this.x + (this.shortPressedShotGoingInLimit *2) , this.y + 20, (this.longPressedShotGoingInLimit - this.shortPressedShotGoingInLimit) * 2, 10, "yellow");
+			colorRect(this.x + (this.shootingPerfectTimeStart * 2), this.y + 20, (1) *2, 10, "black");
+			colorRect(this.x, this.y + 20, (this.shootingTime) *2, 10, "red");
 		}
 		//this.markCenterOfFeet();
 	}
