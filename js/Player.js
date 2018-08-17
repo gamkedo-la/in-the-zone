@@ -887,7 +887,9 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 		if (this.isMoving) {
 			walkFX(this.x, this.y); // dust on the floor / footsteps
 		}
-		if (this.x != nextX && this.y != nextY) {
+
+		// isDunking must be false or the players movement speed will be slowed and the dunk will never complete
+		if (this.x != nextX && this.y != nextY && this.isDunking == false) {
 			if (nextY > this.y) {
 				nextY -= PLAYER_MOVE_SPEED -5.13;
 			}
