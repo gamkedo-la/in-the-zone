@@ -161,8 +161,12 @@ function ballClass(startingX, startingY) {
         if (character2.score < 0) {
           character2.score = 0;
         }
-        player1Score = character1.score;
-        player2Score = character2.score;
+        if (this.isShotBy == character1) {
+          player1Score = character1.score;
+        }
+        if (this.isShotBy == character2) {
+          player2Score = character2.score;
+        }
 
         if (aroundTheWorldIsOver) {
           mainStates.gameOver = true;
