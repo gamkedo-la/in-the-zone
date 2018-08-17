@@ -5,6 +5,8 @@ const USE_SPOTLIGHTS = true; // make spotlights follow the players like they are
 const STREAK_EFFECT_THRESHOLD = 4; // value of player.streak before we start drawing "sparkles" coming from the player
 const MEGA_STREAK_EFFECT_THRESHOLD = 10; // player.streak for gratuitous amounts of particles
 
+const PERCENT_CHANCE_TO_PLAY_DUNK_SOUND = 0.6;
+
 var currentFrame = 0;
 var distanceToTheClosestBall;
 var zoneCounter = 0;
@@ -296,7 +298,10 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 						var b = HOOP_Y - this.y;
 						this.startingDistanceFromHoop = Math.sqrt(a * a + b * b);
 						//this.player1 ? player1DunkSound.play() : player2DunkSound.play()
-						player1DunkSound.play();
+						if (Math.random() <= PERCENT_CHANCE_TO_PLAY_DUNK_SOUND) { // 60% chance to play the sound
+							player1DunkSound.play();
+						}
+						
 
 
 					} else {
@@ -488,7 +493,9 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 							var a = HOOP_X - this.x;
 							var b = HOOP_Y - this.y;
 							this.startingDistanceFromHoop = Math.sqrt(a * a + b * b);
-							player2DunkSound.play();
+							if (Math.random() <= PERCENT_CHANCE_TO_PLAY_DUNK_SOUND) { // 60% chance to play the sound
+								player2DunkSound.play();
+							}
 
 						} else {
 							switch (this.shootingDifficulty) {
