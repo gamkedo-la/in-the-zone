@@ -995,9 +995,11 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 		}
 
 		if (this.shootingTime > 0) {
-			colorRect(this.x + (this.shortPressedShotGoingInLimit *2) , this.y + 20, (this.longPressedShotGoingInLimit - this.shortPressedShotGoingInLimit) * 2, 10, "yellow");
-			colorRect(this.x + (this.shootingPerfectTimeStart * 2), this.y + 20, (1) *2, 10, "#3af72a");
-			colorRect(this.x, this.y + 20, (this.shootingTime) *2, 10, "red");
+			var offset = 20; // This offset will help center the shot bar under the player
+			var barScaleSize = 2; // We are multiplying all of these values by 2 to increase the size of the shot bar
+			colorRect(this.x - offset + (this.shortPressedShotGoingInLimit * barScaleSize) , this.y + 20, (this.longPressedShotGoingInLimit - this.shortPressedShotGoingInLimit) * 2, 10, "yellow");
+			colorRect(this.x - offset + (this.shootingPerfectTimeStart * barScaleSize), this.y + 20, (1) * barScaleSize, 10, "#3af72a");
+			colorRect(this.x - offset, this.y + 20, (this.shootingTime) * barScaleSize, 10, "red");
 		}
 		//this.markCenterOfFeet();
 	}
