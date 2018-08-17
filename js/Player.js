@@ -887,6 +887,20 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 		if (this.isMoving) {
 			walkFX(this.x, this.y); // dust on the floor / footsteps
 		}
+		if (this.x != nextX && this.y != nextY) {
+			if (nextY > this.y) {
+				nextY -= PLAYER_MOVE_SPEED -5.13;
+			}
+			else if(nextY < this.y) {
+				nextY += PLAYER_MOVE_SPEED -5.13;
+			}
+			if (nextX > this.x) {
+				nextX -= PLAYER_MOVE_SPEED -5.13;
+			}
+			else if(nextX < this.x){
+				nextX += PLAYER_MOVE_SPEED -5.13;
+			}
+		}
 
 		this.x = nextX;
 		this.y = nextY;
