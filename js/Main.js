@@ -458,7 +458,7 @@ function drawMainMenu() {
 			pressEnterShown = !pressEnterShown;
 		}
 		if (pressEnterShown) {
-			colorText("Press Enter to start game", canvas.width / 2, (canvas.height / 2) + 50, "white", 32, "center");
+			colorText("Press Enter to start game", canvas.width / 2, (canvas.height / 2) + 55, "yellow", 32, "center");
 		}
 		colorText("Speed Round", menuX + menuWidth / 4 + 20 - lowerMenuHalfOffset, (canvas.height / 2) + 90, "white", 28, "center");
 		colorText("Turf War", menuX + 3 * menuWidth / 4 + 15 - lowerMenuHalfOffset + 20, (canvas.height / 2) + 90, "white", 28, "center");
