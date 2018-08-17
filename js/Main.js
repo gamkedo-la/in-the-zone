@@ -533,22 +533,23 @@ function drawPausedMenu() {
 	const menuY = canvas.height / 3;
 	const menuWidth = canvas.width / 2;
 	const menuHeight = canvas.height / 2;
+	const offsetToCenter = 20;
 
 	colorRect(menuX, menuY, menuWidth, menuHeight, "black", 0.5);
-	drawBitmapCenteredWithRotation(inTheZoneLogo, canvas.width / 2, (canvas.height / 2) - 50, 0);
-	colorText("Resume", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 60, "white", 24, "left");
-	colorText("Restart", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 90, "white", 24, "left");
-	colorText("Options", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 120, "white", 24, "left");
-	colorText("Main Menu", menuX + menuWidth / 2 - 25, menuY + (menuHeight / 2) + 150, "white", 24, "left");
+	drawBitmapCenteredWithRotation(inTheZoneLogo, canvas.width / 2, (canvas.height / 2) - 30, 0);
+	colorText("Resume", menuX + menuWidth / 2 - 25 - offsetToCenter, menuY + (menuHeight / 2) + 60, "white", 24, "left");
+	colorText("Restart", menuX + menuWidth / 2 - 25 - offsetToCenter, menuY + (menuHeight / 2) + 90, "white", 24, "left");
+	colorText("Options", menuX + menuWidth / 2 - 25 - offsetToCenter, menuY + (menuHeight / 2) + 120, "white", 24, "left");
+	colorText("Main Menu", menuX + menuWidth / 2 - 25 - offsetToCenter, menuY + (menuHeight / 2) + 150, "white", 24, "left");
 
 	if (pauseBallPos == PauseBall.Resume) {
-		drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 50, 0);
+		drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40 - offsetToCenter, menuY + (menuHeight / 2) + 50, 0);
 	} else if (pauseBallPos == PauseBall.Restart) {
-		drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 80, 0);
+		drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40 - offsetToCenter, menuY + (menuHeight / 2) + 80, 0);
 	} else if (pauseBallPos == PauseBall.Options) {
-		drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 110, 0);
+		drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40 - offsetToCenter, menuY + (menuHeight / 2) + 110, 0);
 	} else if (pauseBallPos == PauseBall.MainMenu) {
-		drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40, menuY + (menuHeight / 2) + 140, 0);
+		drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 40 - offsetToCenter, menuY + (menuHeight / 2) + 140, 0);
 	}
 
 	if (enterKey && mainStates.isPaused) {
