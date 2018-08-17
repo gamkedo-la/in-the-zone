@@ -59,7 +59,8 @@ const AIDifficulty = {
 }
 
 var selectedDifficulty = AIDifficulty.Easy;
-
+var pressEnterToStartCounter = 1;
+var pressEnterShown = false;
 var winner;
 
 var mainStates = {
@@ -333,8 +334,8 @@ function drawGameOver() {
 function drawCredits() {
 	const contributors = [
 		{ name: "Barıs Koklu", works: ['Game Lead', 'Core Gameplay', 'AI Drivers', 'Time Limit', 'Successful Shot Detection', 'Art Integration', 'Player Art & Animation'] },
-		{ name: "H Trayford", works: ['Menu Functionality', 'Demo Gameplay'] }
-
+		{ name: "H Trayford", works: ['Menu Functionality', 'Demo Gameplay'] },
+		{ name: "Brandon Trumpold", works: ['Tuning Shooting Mechanics', 'Sudden Death Overtime Implementation', 'UI Polish'] }
 		/*    {name:"Terrence McDonnell", works: ['Signs (Over 28 Designs)', 'Checkpoint Code', 'Crashing Animation Code', 'Menu Improvements', 'Finish Line Animation', 'Stage Ground Colors', 'Track Design (Skyline, Mountain, Forest)','Main Menu Animation']},
 			{name:"Artem Smirnov", works: ['Screen State Machine','City Skyline','Data Storage','End of Round Report','Level Select','Game Over Screen','Font Improvements','Dashboard Radio', 'Automatic Transmission']},
 			{name:"Adam A. Lohnes", works: ['Truck Model and Sprites','Semi Model and Sprites','Bus Model and Sprites']},
@@ -444,46 +445,54 @@ function drawMainMenu() {
 		const menuY = canvas.height / 3;
 		const menuWidth = canvas.width / 2;
 		const menuHeight = canvas.height / 2;
+		const lowerMenuHalfOffset = 25;
 
 		reboundFX(Math.random() * canvas.width, Math.random() * 100);
 
 		colorRect(menuX, menuY - 25, menuWidth, menuHeight, "black", 0.65);
 		drawBitmapCenteredWithRotation(inTheZoneLogo, canvas.width / 2, (canvas.height / 2) - 50, 0);
-		colorText("Press Enter to start game", canvas.width / 2, (canvas.height / 2) + 50, "white", 32, "center");
+		
+		pressEnterToStartCounter++;
+		// This means that every 10 frames, we will show the text, and then turn it off for 10 frames
+		if (pressEnterToStartCounter % 15 == 0) {
+			pressEnterShown = !pressEnterShown;
+		}
+		if (pressEnterShown) {
+			colorText("Press Enter to start game", canvas.width / 2, (canvas.height / 2) + 50, "white", 32, "center");
+		}
+		colorText("Speed Round", menuX + menuWidth / 4 + 20 - lowerMenuHalfOffset, (canvas.height / 2) + 90, "white", 28, "center");
+		colorText("Turf War", menuX + 3 * menuWidth / 4 + 15 - lowerMenuHalfOffset + 20, (canvas.height / 2) + 90, "white", 28, "center");
 
-		colorText("Speed Round", menuX + menuWidth / 4 + 20, (canvas.height / 2) + 90, "white", 28, "center");
-		colorText("Turf War", menuX + 3 * menuWidth / 4, (canvas.height / 2) + 90, "white", 28, "center");
+		colorText("1 Player", menuX + menuWidth / 4 - 25 - lowerMenuHalfOffset, menuY + (menuHeight / 2) + 70, "white", 24, "left");
+		colorText("2 Players", menuX + menuWidth / 4 - 25 - lowerMenuHalfOffset, menuY + (menuHeight / 2) + 100, "white", 24, "left");
+		colorText("Practice", menuX + menuWidth / 4 - 25 - lowerMenuHalfOffset, menuY + (menuHeight / 2) + 130, "white", 24, "left");
 
-		colorText("1 Player", menuX + menuWidth / 4 - 25, menuY + (menuHeight / 2) + 70, "white", 24, "left");
-		colorText("2 Players", menuX + menuWidth / 4 - 25, menuY + (menuHeight / 2) + 100, "white", 24, "left");
-		colorText("Practice", menuX + menuWidth / 4 - 25, menuY + (menuHeight / 2) + 130, "white", 24, "left");
+		colorText("1 Player", menuX + 3 * menuWidth / 4 - 25 - lowerMenuHalfOffset + 20, menuY + (menuHeight / 2) + 70, "white", 24, "left");
+		colorText("2 Players", menuX + 3 * menuWidth / 4 - 25 - lowerMenuHalfOffset + 20, menuY + (menuHeight / 2) + 100, "white", 24, "left");
+		colorText("Practice", menuX + 3 * menuWidth / 4 - 25 - lowerMenuHalfOffset + 20, menuY + (menuHeight / 2) + 130, "white", 24, "left");
 
-		colorText("1 Player", menuX + 3 * menuWidth / 4 - 25, menuY + (menuHeight / 2) + 70, "white", 24, "left");
-		colorText("2 Players", menuX + 3 * menuWidth / 4 - 25, menuY + (menuHeight / 2) + 100, "white", 24, "left");
-		colorText("Practice", menuX + 3 * menuWidth / 4 - 25, menuY + (menuHeight / 2) + 130, "white", 24, "left");
-
-		colorText("Options", menuX + menuWidth / 2 - 15, menuY + (menuHeight / 2) + 70, "white", 24, "left");
-		colorText("Credits", menuX + menuWidth / 2 - 15, menuY + (menuHeight / 2) + 100, "white", 24, "left");
-		colorText("Help", menuX + menuWidth / 2 - 15, menuY + (menuHeight / 2) + 130, "white", 24, "left");
+		colorText("Options", menuX + menuWidth / 2 - 15 - lowerMenuHalfOffset, menuY + (menuHeight / 2) + 70, "white", 24, "left");
+		colorText("Credits", menuX + menuWidth / 2 - 12 - lowerMenuHalfOffset, menuY + (menuHeight / 2) + 100, "white", 24, "left");
+		colorText("Help", menuX + menuWidth / 2 - 1 - lowerMenuHalfOffset, menuY + (menuHeight / 2) + 130, "white", 24, "left");
 
 		if (menuBallPos == MenuBall.SpeedOnePlayer) {
-			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 4 - 40, menuY + (menuHeight / 2) + 60, 0);
+			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 4 - 40 - lowerMenuHalfOffset, menuY + (menuHeight / 2) + 60, 0);
 		} else if (menuBallPos == MenuBall.SpeedTwoPlayer) {
-				drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 4 - 40, menuY + (menuHeight / 2) + 90, 0);
+				drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 4 - 40 - lowerMenuHalfOffset, menuY + (menuHeight / 2) + 90, 0);
 		} else if (menuBallPos == MenuBall.SpeedPractice) {
-			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 4 - 40, menuY + (menuHeight / 2) + 120, 0);
+			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 4 - 40 - lowerMenuHalfOffset, menuY + (menuHeight / 2) + 120, 0);
 		} else if (menuBallPos == MenuBall.TurfOnePlayer) {
-			drawBitmapCenteredWithRotation(ballImage, menuX + 3 * menuWidth / 4 - 40, menuY + (menuHeight / 2) + 60, 0);
+			drawBitmapCenteredWithRotation(ballImage, menuX + 3 * menuWidth / 4 - 20 - lowerMenuHalfOffset, menuY + (menuHeight / 2) + 60, 0);
 		} else if (menuBallPos == MenuBall.TurfTwoPlayer) {
-			drawBitmapCenteredWithRotation(ballImage, menuX + 3 * menuWidth / 4 - 40, menuY + (menuHeight / 2) + 90, 0);
+			drawBitmapCenteredWithRotation(ballImage, menuX + 3 * menuWidth / 4 - 20 - lowerMenuHalfOffset, menuY + (menuHeight / 2) + 90, 0);
 		} else if (menuBallPos == MenuBall.TurfPractice) {
-			drawBitmapCenteredWithRotation(ballImage, menuX + 3 * menuWidth / 4 - 40, menuY + (menuHeight / 2) + 120, 0);
+			drawBitmapCenteredWithRotation(ballImage, menuX + 3 * menuWidth / 4 - 20 - lowerMenuHalfOffset, menuY + (menuHeight / 2) + 120, 0);
 		} else if (menuBallPos == MenuBall.Options) {
-			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 30, menuY + (menuHeight / 2) + 60, 0);
+			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 30 - lowerMenuHalfOffset, menuY + (menuHeight / 2) + 60, 0);
 		} else if (menuBallPos == MenuBall.Credits) {
-			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 30, menuY + (menuHeight / 2) + 90, 0);
+			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 30 - lowerMenuHalfOffset, menuY + (menuHeight / 2) + 90, 0);
 		} else if (menuBallPos == MenuBall.Help) {
-			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 30, menuY + (menuHeight / 2) + 120, 0);
+			drawBitmapCenteredWithRotation(ballImage, menuX + menuWidth / 2 - 30 - lowerMenuHalfOffset, menuY + (menuHeight / 2) + 120, 0);
 		}
 	}
 
