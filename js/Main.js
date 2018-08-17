@@ -251,6 +251,7 @@ function celebrationWobble() {
 }
 
 function drawGameOver() {
+		suddenDeathTextCounter = 0;
 	if (character1.score > character2.score || character1.score >= 100) {
 		winner = 1; //character1 won
 	} else if (character2.score > character1.score || character2.score >= 100) {
