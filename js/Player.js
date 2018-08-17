@@ -618,7 +618,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 							this.ballToHold.goingIn = true;
 							this.ballToHold.isShotBy = this;
 							var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
-							this.ballToHold.ballPower = -16.5;
+							this.ballToHold.ballPower = -16.2;
 							console.log("perfect");
 							updateZones();
 						} else if (this.shootingTime < this.shootingPerfectTimeStart) { //player did not press enough
@@ -629,7 +629,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 								if (Math.floor(Math.random() * 10) + 9 <= this.shootingTime) {
 									this.ballToHold.goingIn = true;
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
-									this.ballToHold.ballPower = -16.5;
+									this.ballToHold.ballPower = -16.2;
 									console.log("short,yellow and lucky");
 									//ooLucky.play();
 									lucky.play();
@@ -659,7 +659,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 								if (this.shootingTime <= Math.floor(Math.random() * 10) + 9) {
 									this.ballToHold.goingIn = true;
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
-									this.ballToHold.ballPower = -16.5;
+									this.ballToHold.ballPower = -16;
 									console.log("long,yellow and lucky");
 									mmYeah.play();
 									updateZones();
@@ -750,7 +750,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 								if (Math.floor(Math.random() * 10) + 9 <= this.shootingTime) {
 									this.ballToHold.goingIn = true;
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
-									this.ballToHold.ballPower = -16;
+									this.ballToHold.ballPower = -16.2;
 									console.log("short,yellow and lucky");
 									updateZones();
 								} else {
@@ -776,7 +776,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 								if (this.shootingTime <= Math.floor(Math.random() * 10) + 9) {
 									this.ballToHold.goingIn = true;
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
-									this.ballToHold.ballPower = -16;
+									this.ballToHold.ballPower = -16.2;
 									console.log("long,yellow and lucky");
 									updateZones();
 								} else {
