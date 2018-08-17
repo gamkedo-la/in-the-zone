@@ -301,7 +301,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 						if (Math.random() <= PERCENT_CHANCE_TO_PLAY_DUNK_SOUND) { // 60% chance to play the sound
 							player1DunkSound.play();
 						}
-						
+
 
 
 					} else {
@@ -996,7 +996,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 
 		if (this.shootingTime > 0) {
 			colorRect(this.x + this.shortPressedShotGoingInLimit, this.y + 20, this.longPressedShotGoingInLimit - this.shortPressedShotGoingInLimit, 10, "yellow");
-			colorRect(this.x + this.shootingPerfectTimeStart, this.y + 20, 1, 10, "green");
+			colorRect(this.x + this.shootingPerfectTimeStart, this.y + 20, 1, 10, "blue");
 			colorRect(this.x, this.y + 20, this.shootingTime, 10, "red");
 		}
 		//this.markCenterOfFeet();

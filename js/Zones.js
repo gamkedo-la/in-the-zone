@@ -357,7 +357,13 @@ drawZones = () => {
 
   if((GameMode.AroundTheWorld) && (anyUnclaimed == false)) {
         horn.play();
-	    aroundTheWorldIsOver = true;
+				if (player1Score != player2Score) {
+					suddenDeathOvertime = false;
+					aroundTheWorldIsOver = true;
+				}
+				else {
+					suddenDeathOvertime = true;
+				}
   }
 }
 updateZones = () => {

@@ -167,6 +167,14 @@ function ballClass(startingX, startingY) {
         if (this.isShotBy == character2) {
           player2Score = character2.score;
         }
+        if (suddenDeathOvertime) {
+          mainStates.gameOver = true;
+          mainStates.demo = false;
+          mainStates.inGame = false;
+          setPaused(false);
+          mainStates.menuOpen = false;
+          suddenDeathOvertime = false;
+        }
 
         if (aroundTheWorldIsOver) {
           mainStates.gameOver = true;
