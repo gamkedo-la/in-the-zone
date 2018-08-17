@@ -534,6 +534,22 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 									this.endOfShootingAnimationTickCount = 25;
 								}
 							}
+							else {
+								if (this.currentZone == 1 || this.currentZone == 2 || this.currentZone == 3 ||
+									  this.currentZone == 9 || this.currentZone == 10) {
+									this.walkSprite = new SpriteSheetClass(shootingRightSpriteSheet, this.width, this.height);
+									this.endOfShootingAnimationTickCount = 30;
+								}
+								else if (this.currentZone == 8 || this.currentZone == 7 || this.currentZone == 6 ||
+									 			 this.currentZone == 16 || this.currentZone == 15) {
+									this.walkSprite = new SpriteSheetClass(shootingLeftSpriteSheet, this.width, this.height);
+									this.endOfShootingAnimationTickCount = 30;
+								}
+								else {
+									this.walkSprite = new SpriteSheetClass(currySpriteSheet, this.width, this.height);
+									this.endOfShootingAnimationTickCount = 25;
+								}
+							}
 							//console.log(random);
 							this.states.isIdle = false;
 							this.states.isShooting = true;
