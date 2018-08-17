@@ -996,7 +996,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 
 		if (this.shootingTime > 0) {
 			colorRect(this.x + (this.shortPressedShotGoingInLimit *2) , this.y + 20, (this.longPressedShotGoingInLimit - this.shortPressedShotGoingInLimit) * 2, 10, "yellow");
-			colorRect(this.x + (this.shootingPerfectTimeStart * 2), this.y + 20, (1) *2, 10, "black");
+			colorRect(this.x + (this.shootingPerfectTimeStart * 2), this.y + 20, (1) *2, 10, "#3af72a");
 			colorRect(this.x, this.y + 20, (this.shootingTime) *2, 10, "red");
 		}
 		//this.markCenterOfFeet();
