@@ -109,10 +109,15 @@ function drawScoreboard() {
 }
 
 function drawSuddenDeathText() {
+  var whereToPutText1X = (canvas.width / 2) - 170;
+  var whereToPutText1Y = canvas.height / 2;
+  var whereToPutText2X = (canvas.width / 2) - 120;
+  var whereToPutText2Y = canvas.height / 2 + 50;
+  
   if (suddenDeathTextCounter < SUDDEN_DEATH_MAX_TIME_TO_SHOW_TEXT) {
     suddenDeathTextCounter++;
-    colorText("Sudden Death Overtime:", (canvas.width / 2) - 170, canvas.height / 2, 'white', '40');
-    colorText("Next Basket Wins!", (canvas.width / 2) - 120, (canvas.height / 2) + 50, 'white', '40');
+    colorText("Sudden Death Overtime:", whereToPutText1X, whereToPutText1Y, 'white', '40');
+    colorText("Next Basket Wins!", whereToPutText2X, whereToPutText2Y, 'white', '40');
   } else {
     return;
   }
