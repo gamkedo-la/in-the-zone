@@ -2,6 +2,8 @@ const PLAYER_MOVE_SPEED = 7; // original speed was 5.0;
 const PLAYER_MOVE_SPEED_CHANGE = 3.0;
 const USE_SPOTLIGHTS = true; // make spotlights follow the players like they are rock stars
 
+const MAX_SHOOTING_TIME = 25;
+
 const STREAK_EFFECT_THRESHOLD = 4; // value of player.streak before we start drawing "sparkles" coming from the player
 const MEGA_STREAK_EFFECT_THRESHOLD = 10; // player.streak for gratuitous amounts of particles
 
@@ -345,12 +347,12 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 						}
 						if (isPlayer1) {
 							if (this.currentZone == 1 || this.currentZone == 2 || this.currentZone == 3 ||
-								  this.currentZone == 9 || this.currentZone == 10) {
+								this.currentZone == 9 || this.currentZone == 10) {
 								this.walkSprite = new SpriteSheetClass(shootingRightSpriteSheet, this.width, this.height);
 								this.endOfShootingAnimationTickCount = 30;
 							}
 							else if (this.currentZone == 8 || this.currentZone == 7 || this.currentZone == 6 ||
-								 			 this.currentZone == 16 || this.currentZone == 15) {
+								this.currentZone == 16 || this.currentZone == 15) {
 								this.walkSprite = new SpriteSheetClass(shootingLeftSpriteSheet, this.width, this.height);
 								this.endOfShootingAnimationTickCount = 30;
 							}
@@ -361,12 +363,12 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 						}
 						if (!isPlayer1) {
 							if (this.currentZone == 1 || this.currentZone == 2 || this.currentZone == 3 ||
-								  this.currentZone == 9 || this.currentZone == 10) {
+								this.currentZone == 9 || this.currentZone == 10) {
 								this.walkSprite = new SpriteSheetClass(shootingRightSpriteSheet2, this.width, this.height);
 								this.endOfShootingAnimationTickCount = 30;
 							}
 							else if (this.currentZone == 8 || this.currentZone == 7 || this.currentZone == 6 ||
-								 			 this.currentZone == 16 || this.currentZone == 15) {
+								this.currentZone == 16 || this.currentZone == 15) {
 								this.walkSprite = new SpriteSheetClass(shootingLeftSpriteSheet2, this.width, this.height);
 								this.endOfShootingAnimationTickCount = 30;
 							}
@@ -429,13 +431,13 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 							this.zonesToGo.push(arrayOfZones[randomSelection]);
 						}
 						for (var i = 0; i < arrayOfZones.length; i++) {
-							if(GameMode.Shootaround) {
+							if (GameMode.Shootaround) {
 								//prioritize the zones the other player holds.
 								if (arrayOfZones[i].isClaimedBy != this && arrayOfZones[i].isClaimedBy != null) {
 									console.log(arrayOfZones[i].zoneNumber);
 									zonesWithPriority.push(arrayOfZones[i]);
 								}
-							} else if(GameMode.AroundTheWorld) {
+							} else if (GameMode.AroundTheWorld) {
 								//prioritize the zones which are unclaimed
 								if (arrayOfZones[i].isClaimedBy == null) {
 									console.log(arrayOfZones[i].zoneNumber);
@@ -531,12 +533,12 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 							}
 							if (!isPlayer1) {
 								if (this.currentZone == 1 || this.currentZone == 2 || this.currentZone == 3 ||
-									  this.currentZone == 9 || this.currentZone == 10) {
+									this.currentZone == 9 || this.currentZone == 10) {
 									this.walkSprite = new SpriteSheetClass(shootingRightSpriteSheet2, this.width, this.height);
 									this.endOfShootingAnimationTickCount = 30;
 								}
 								else if (this.currentZone == 8 || this.currentZone == 7 || this.currentZone == 6 ||
-									 			 this.currentZone == 16 || this.currentZone == 15) {
+									this.currentZone == 16 || this.currentZone == 15) {
 									this.walkSprite = new SpriteSheetClass(shootingLeftSpriteSheet2, this.width, this.height);
 									this.endOfShootingAnimationTickCount = 30;
 								}
@@ -547,12 +549,12 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 							}
 							else {
 								if (this.currentZone == 1 || this.currentZone == 2 || this.currentZone == 3 ||
-									  this.currentZone == 9 || this.currentZone == 10) {
+									this.currentZone == 9 || this.currentZone == 10) {
 									this.walkSprite = new SpriteSheetClass(shootingRightSpriteSheet, this.width, this.height);
 									this.endOfShootingAnimationTickCount = 30;
 								}
 								else if (this.currentZone == 8 || this.currentZone == 7 || this.currentZone == 6 ||
-									 			 this.currentZone == 16 || this.currentZone == 15) {
+									this.currentZone == 16 || this.currentZone == 15) {
 									this.walkSprite = new SpriteSheetClass(shootingLeftSpriteSheet, this.width, this.height);
 									this.endOfShootingAnimationTickCount = 30;
 								}
@@ -602,8 +604,8 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 			if (!this.isAI) {
 				if (this.keyHeld_Shoot && this.ballToHold != null) {
 					this.shootingTime++;
-					if (this.shootingTime > 25) {
-						this.shootingTime = 25;
+					if (this.shootingTime > MAX_SHOOTING_TIME) {
+						this.shootingTime = MAX_SHOOTING_TIME;
 					}
 					if (this.shootingTime > this.shootingPerfectTimeStart + 1) {
 						this.tickCount = this.endOfShootingAnimationTickCount;
@@ -898,16 +900,16 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 		// isDunking must be false or the players movement speed will be slowed and the dunk will never complete
 		if (this.x != nextX && this.y != nextY && this.isDunking == false) {
 			if (nextY > this.y) {
-				nextY -= PLAYER_MOVE_SPEED -5.13;
+				nextY -= PLAYER_MOVE_SPEED - 5.13;
 			}
-			else if(nextY < this.y) {
-				nextY += PLAYER_MOVE_SPEED -5.13;
+			else if (nextY < this.y) {
+				nextY += PLAYER_MOVE_SPEED - 5.13;
 			}
 			if (nextX > this.x) {
-				nextX -= PLAYER_MOVE_SPEED -5.13;
+				nextX -= PLAYER_MOVE_SPEED - 5.13;
 			}
-			else if(nextX < this.x){
-				nextX += PLAYER_MOVE_SPEED -5.13;
+			else if (nextX < this.x) {
+				nextX += PLAYER_MOVE_SPEED - 5.13;
 			}
 		}
 
@@ -982,16 +984,16 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 			if (this.justShot && this.justShotTick <= 30) {
 				//console.log(this.justShotShootingTime);
 				this.justShotTick++
-				if (this.justShotTick > 30 ) {
+				if (this.justShotTick > 30) {
 					//console.log("hey");
 					this.justShotTick = 0;
 					this.justShotShootingTime = 0;
 					this.justShot = false;
 				}
-				if (this.justShotShootingTime == this.shootingPerfectTimeStart || this.justShotShootingTime == this.shootingPerfectTimeStart +1) {
+				if (this.justShotShootingTime == this.shootingPerfectTimeStart || this.justShotShootingTime == this.shootingPerfectTimeStart + 1) {
 					colorRect(this.x - 20, this.y + 20, (this.justShotShootingTime) * 2, 10, "#3af72a");
 				}
-				else if (this.justShotShootingTime > this.shortPressedShotGoingInLimit && this.justShotShootingTime < this.longPressedShotGoingInLimit ) {
+				else if (this.justShotShootingTime > this.shortPressedShotGoingInLimit && this.justShotShootingTime < this.longPressedShotGoingInLimit) {
 					colorRect(this.x - 20, this.y + 20, (this.justShotShootingTime) * 2, 10, "yellow");
 				}
 				else {
@@ -1001,7 +1003,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 		}
 		if (this.states.isIdle) {
 			if (isPlayer1) {
-				if(this.isMoving) {
+				if (this.isMoving) {
 					if (mainStates.isPaused === false) {
 						this.tickCount += 2;
 						if (this.tickCount / this.ticksPerFrame >= this.framesAnim) {
@@ -1013,7 +1015,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 					drawBitmapCenteredWithRotation(player1Pic, this.x, this.y, this.ang);
 				}
 			} else {
-				if(this.isMoving) {
+				if (this.isMoving) {
 					if (mainStates.isPaused === false) {
 						this.tickCount += 2;
 						if (this.tickCount / this.ticksPerFrame >= this.framesAnim) {
@@ -1034,10 +1036,10 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 					this.justShotShootingTime = 0;
 					this.justShot = false;
 				}
-				if (this.justShotShootingTime == this.shootingPerfectTimeStart || this.justShotShootingTime == this.shootingPerfectTimeStart +1) {
+				if (this.justShotShootingTime == this.shootingPerfectTimeStart || this.justShotShootingTime == this.shootingPerfectTimeStart + 1) {
 					colorRect(this.x - 20, this.y + 20, (this.justShotShootingTime) * 2, 10, "#3af72a");
 				}
-				else if (this.justShotShootingTime > this.shortPressedShotGoingInLimit && this.justShotShootingTime < this.longPressedShotGoingInLimit ) {
+				else if (this.justShotShootingTime > this.shortPressedShotGoingInLimit && this.justShotShootingTime < this.longPressedShotGoingInLimit) {
 					colorRect(this.x - 20, this.y + 20, (this.justShotShootingTime) * 2, 10, "yellow");
 				}
 				else {
@@ -1058,7 +1060,15 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 		if (this.shootingTime > 0) {
 			var offset = 20; // This offset will help center the shot bar under the player
 			var barScaleSize = 2; // We are multiplying all of these values by 2 to increase the size of the shot bar
-			colorRect(this.x - offset + (this.shortPressedShotGoingInLimit * barScaleSize) , this.y + 20, (this.longPressedShotGoingInLimit - this.shortPressedShotGoingInLimit) * barScaleSize, 10, "yellow");
+
+			// shot bar background border just for polish
+			var bgBorderSize = 2;
+			var bgBorderRGBA = "rgba(0,0,0,0.5)";
+			var bgWidth = 38 + (bgBorderSize * 2);
+			var bgHeight = 10 + (bgBorderSize * 2);
+			colorRect(this.x - offset - bgBorderSize, this.y + 20 - bgBorderSize, bgWidth, bgHeight, bgBorderRGBA);
+
+			colorRect(this.x - offset + (this.shortPressedShotGoingInLimit * barScaleSize), this.y + 20, (this.longPressedShotGoingInLimit - this.shortPressedShotGoingInLimit) * barScaleSize, 10, "yellow");
 			colorRect(this.x - offset + (this.shootingPerfectTimeStart * barScaleSize), this.y + 20, (1) * barScaleSize, 10, "#3af72a");
 			colorRect(this.x - offset, this.y + 20, (this.shootingTime) * barScaleSize, 10, "red");
 		}
