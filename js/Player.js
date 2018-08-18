@@ -1042,20 +1042,25 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 					this.nextCompliment = randomCompliment();
 					this.nextEncouragement = randomEncouragement();
 				}
+
+				var complimentAlpha = 1 - (this.justShotTick / 30);
+				if (this.justShotTick == 0) complimentAlpha = 0;
+				var complimentRGBA = "rgba(0,255,0," + complimentAlpha + ")";
+
 				if (this.justShotShootingTime == this.shootingPerfectTimeStart || this.justShotShootingTime == this.shootingPerfectTimeStart + 1) {
 					colorRect(this.x - 20 - 2, this.y + 20 - 2, 42, 14, "rgba(0,0,0,0.5)");
 					colorRect(this.x - 20, this.y + 20, (this.justShotShootingTime) * 2, 10, "#3af72a");
-					colorText(this.nextPerfectCompliment, this.x - 20, this.y + 40 + this.justShotTick, "rgba(0,255,0,0.5)", 9, true);
+					colorText(this.nextPerfectCompliment, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, 9, true);
 				}
 				else if (this.justShotShootingTime > this.shortPressedShotGoingInLimit && this.justShotShootingTime < this.longPressedShotGoingInLimit) {
 					colorRect(this.x - 20 - 2, this.y + 20 - 2, 42, 14, "rgba(0,0,0,0.5)");
 					colorRect(this.x - 20, this.y + 20, (this.justShotShootingTime) * 2, 10, "yellow");
-					colorText(this.nextCompliment, this.x - 20, this.y + 40 + this.justShotTick, "rgba(0,255,0,0.5)", 9, true);
+					colorText(this.nextCompliment, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, 9, true);
 				}
 				else {
 					colorRect(this.x - 20 - 2, this.y + 20 - 2, 42, 14, "rgba(0,0,0,0.5)");
 					colorRect(this.x - 20, this.y + 20, (this.justShotShootingTime) * 2, 10, "red");
-					colorText(this.nextEncouragement, this.x - 20, this.y + 40 + this.justShotTick, "rgba(0,255,0,0.5)", 9, true);
+					colorText(this.nextEncouragement, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, 9, true);
 				}
 			}
 		}
