@@ -979,6 +979,25 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 				this.incrementTick();
 			}
 			this.walkSprite.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.x, this.y, this.ang);
+			if (this.justShot && this.justShotTick <= 30) {
+				//console.log(this.justShotShootingTime);
+				this.justShotTick++
+				if (this.justShotTick > 30 ) {
+					//console.log("hey");
+					this.justShotTick = 0;
+					this.justShotShootingTime = 0;
+					this.justShot = false;
+				}
+				if (this.justShotShootingTime == this.shootingPerfectTimeStart || this.justShotShootingTime == this.shootingPerfectTimeStart +1) {
+					colorRect(this.x - 20, this.y + 20, (this.justShotShootingTime) * 2, 10, "#3af72a");
+				}
+				else if (this.justShotShootingTime > this.shortPressedShotGoingInLimit && this.justShotShootingTime < this.longPressedShotGoingInLimit ) {
+					colorRect(this.x - 20, this.y + 20, (this.justShotShootingTime) * 2, 10, "yellow");
+				}
+				else {
+					colorRect(this.x - 20, this.y + 20, (this.justShotShootingTime) * 2, 10, "red");
+				}
+			}
 		}
 		if (this.states.isIdle) {
 			if (isPlayer1) {
@@ -1007,10 +1026,11 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 				}
 			}
 			if (this.justShot && this.justShotTick <= 60) {
-				console.log(this.justShotShootingTime);
+				//console.log(this.justShotShootingTime);
 				this.justShotTick++
-				if (this.justShotTick > 60 ) {
-					console.log("hey");
+				if (this.justShotTick > 30) {
+					this.justShotTick = 0;
+					//console.log("hey");
 					this.justShotShootingTime = 0;
 					this.justShot = false;
 				}
