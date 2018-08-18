@@ -981,24 +981,6 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 			this.walkSprite.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.x, this.y, this.ang);
 		}
 		if (this.states.isIdle) {
-			if (this.justShot && this.justShotTick <= 60) {
-				console.log(this.justShotShootingTime);
-				this.justShotTick++
-				if (this.justShotTick > 60 ) {
-					console.log("hey");
-					this.justShotShootingTime = 0;
-					this.justShot = false;
-				}
-				if (this.justShotShootingTime == this.shootingPerfectTimeStart || this.justShotShootingTime == this.shootingPerfectTimeStart +1) {
-					colorRect(this.x - 20, this.y + 20, (this.justShotShootingTime) * 2, 10, "#3af72a");
-				}
-				else if (this.justShotShootingTime > this.shortPressedShotGoingInLimit && this.justShotShootingTime < this.longPressedShotGoingInLimit ) {
-					colorRect(this.x - 20, this.y + 20, (this.justShotShootingTime) * 2, 10, "yellow");
-				}
-				else {
-					colorRect(this.x - 20, this.y + 20, (this.justShotShootingTime) * 2, 10, "red");
-				}
-			}
 			if (isPlayer1) {
 				if(this.isMoving) {
 					if (mainStates.isPaused === false) {
@@ -1022,6 +1004,24 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 					this.runningSprite.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.x, this.y, this.ang);
 				} else {
 					drawBitmapCenteredWithRotation(player2Pic, this.x, this.y, this.ang);
+				}
+			}
+			if (this.justShot && this.justShotTick <= 60) {
+				console.log(this.justShotShootingTime);
+				this.justShotTick++
+				if (this.justShotTick > 60 ) {
+					console.log("hey");
+					this.justShotShootingTime = 0;
+					this.justShot = false;
+				}
+				if (this.justShotShootingTime == this.shootingPerfectTimeStart || this.justShotShootingTime == this.shootingPerfectTimeStart +1) {
+					colorRect(this.x - 20, this.y + 20, (this.justShotShootingTime) * 2, 10, "#3af72a");
+				}
+				else if (this.justShotShootingTime > this.shortPressedShotGoingInLimit && this.justShotShootingTime < this.longPressedShotGoingInLimit ) {
+					colorRect(this.x - 20, this.y + 20, (this.justShotShootingTime) * 2, 10, "yellow");
+				}
+				else {
+					colorRect(this.x - 20, this.y + 20, (this.justShotShootingTime) * 2, 10, "red");
 				}
 			}
 		}
