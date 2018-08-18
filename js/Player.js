@@ -23,6 +23,9 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 		this.topEdgeOfFeet = this.y + 59;
 		this.rightEdgeOfFeet = this.x + 39;
 		this.bottomEdgeOfFeet = this.y + 61;
+		this.nextPerfectCompliment = randomPerfectCompliment();
+		this.nextCompliment = randomCompliment();
+		this.nextEncouragement = randomEncouragement();
 
 		//	this.centerOfFeet = {"centerOfFeetX": this.x-4,"centerOfFeetY": this.y+30};
 		this.centerOfFeet = { x: this.x - 4, y: this.y + 30 };
@@ -1035,15 +1038,24 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 					//console.log("hey");
 					this.justShotShootingTime = 0;
 					this.justShot = false;
+					this.nextPerfectCompliment = randomPerfectCompliment();
+					this.nextCompliment = randomCompliment();
+					this.nextEncouragement = randomEncouragement();
 				}
 				if (this.justShotShootingTime == this.shootingPerfectTimeStart || this.justShotShootingTime == this.shootingPerfectTimeStart + 1) {
+					colorRect(this.x - 20 - 2, this.y + 20 - 2, 42, 14, "rgba(0,0,0,0.5)");
 					colorRect(this.x - 20, this.y + 20, (this.justShotShootingTime) * 2, 10, "#3af72a");
+					colorText(this.nextPerfectCompliment, this.x - 20, this.y + 40 + this.justShotTick, "rgba(0,255,0,0.5)", 9, true);
 				}
 				else if (this.justShotShootingTime > this.shortPressedShotGoingInLimit && this.justShotShootingTime < this.longPressedShotGoingInLimit) {
+					colorRect(this.x - 20 - 2, this.y + 20 - 2, 42, 14, "rgba(0,0,0,0.5)");
 					colorRect(this.x - 20, this.y + 20, (this.justShotShootingTime) * 2, 10, "yellow");
+					colorText(this.nextCompliment, this.x - 20, this.y + 40 + this.justShotTick, "rgba(0,255,0,0.5)", 9, true);
 				}
 				else {
+					colorRect(this.x - 20 - 2, this.y + 20 - 2, 42, 14, "rgba(0,0,0,0.5)");
 					colorRect(this.x - 20, this.y + 20, (this.justShotShootingTime) * 2, 10, "red");
+					colorText(this.nextEncouragement, this.x - 20, this.y + 40 + this.justShotTick, "rgba(0,255,0,0.5)", 9, true);
 				}
 			}
 		}
@@ -1074,4 +1086,19 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 		}
 		//this.markCenterOfFeet();
 	}
+}
+
+function randomCompliment() {
+	var items = ['NICE', 'GOOD', 'GREAT', 'SWEET', 'NOT BAD', 'WELL DONE', 'COOL', 'AWESOME', 'SUPER', 'QUALITY'];
+	return items[Math.floor(Math.random() * items.length)];
+}
+
+function randomPerfectCompliment() {
+	var items = ['PERFECT', 'FLAWLESS', 'PERFECT TIMING', 'NAILED IT', 'AMAZING', 'INCREDIBLE', 'FANTASTIC', 'BULLSEYE', 'PERFECTION'];
+	return items[Math.floor(Math.random() * items.length)];
+}
+
+function randomEncouragement() {
+	var items = ["DON'T GIVE UP", "NOTHIN' BUT AIR", 'BAD TIMING', ' TOO LATE', 'TOO EARLY', 'ALMOST'];
+	return items[Math.floor(Math.random() * items.length)];
 }
