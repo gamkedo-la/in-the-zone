@@ -333,9 +333,14 @@ function drawGameOver() {
 
 function drawCredits() {
 	const contributors = [
-		{ name: "Barıs Koklu", works: ['Game Lead', 'Core Gameplay', 'AI Drivers', 'Time Limit', 'Successful Shot Detection', 'Art Integration', 'Player Art & Animation'] },
-		{ name: "H Trayford", works: ['Menu Functionality', 'Demo Gameplay'] },
-		{ name: "Brandon Trumpold", works: ['Tuning Shooting Mechanics', 'Sudden Death Overtime Implementation', 'UI Polish'] }
+		{ name: "Barış Köklü", works: ['Game Lead','Core Gameplay','AI Drivers','Time Limit','Successful Shot Detection','Art Integration','Player Art & Animation','Scoreboard Art & Implementation','Dunking Art & Coding','Local Multiplayer','Game Over Screen','Credits Data Entry','Polishes & Bug Fixes'] },
+		{ name: "H Trayford", works: ['Menu Functionality','Demo Gameplay','Around The World Game Mode','Street Court Art & Implementation','Practice Mode','Game Over Screen Menu','Credits Functionality','Difficulty Settings','Player 2 Animations','Polishes & Bug Fixes'] },
+		{ name: "Christer McFunkypants Kaitila", works: ['Particle Effects', 'Gamepad Support','Shoe Sfx','Ball Dribbling','Spotlight','Ball Sprite & Shadow'] },
+    { name: "Stebs", works: ['Zones & Zone Detections','Background Musics For All Courts','Commentator, Ball Splash, Crowd Cheer & Horn SFX'] },
+    { name: "Oasis Rim", works: ['Game Logo','Player 2 Art','Beach Court Art','Core Main Menu'] },
+    { name: "Brandon Trumpold", works: ['Tuning Shooting Mechanics', 'Sudden Death Overtime Implementation', 'UI Polish' ]},
+    { name: "Ashlee Muscroft", works: ['Ball Coming Off the Rim Mechanics', 'Base Version Of The Court', 'Crowd Art' ]},
+    { name: "Marc Silva", works: ['Indoor Court Art', 'Crowd Cheering Art', 'Main Menu Polish' ]},
 		/*    {name:"Terrence McDonnell", works: ['Signs (Over 28 Designs)', 'Checkpoint Code', 'Crashing Animation Code', 'Menu Improvements', 'Finish Line Animation', 'Stage Ground Colors', 'Track Design (Skyline, Mountain, Forest)','Main Menu Animation']},
 			{name:"Artem Smirnov", works: ['Screen State Machine','City Skyline','Data Storage','End of Round Report','Level Select','Game Over Screen','Font Improvements','Dashboard Radio', 'Automatic Transmission']},
 			{name:"Adam A. Lohnes", works: ['Truck Model and Sprites','Semi Model and Sprites','Bus Model and Sprites']},
@@ -451,7 +456,7 @@ function drawMainMenu() {
 
 		colorRect(menuX, menuY - 25, menuWidth, menuHeight, "black", 0.65);
 		drawBitmapCenteredWithRotation(inTheZoneLogo, canvas.width / 2, (canvas.height / 2) - 50, 0);
-		
+
 		pressEnterToStartCounter++;
 		// This means that every 10 frames, we will show the text, and then turn it off for 10 frames
 		if (pressEnterToStartCounter % 15 == 0) {
