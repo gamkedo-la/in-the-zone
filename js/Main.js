@@ -341,6 +341,8 @@ function drawCredits() {
     { name: "Brandon Trumpold", works: ['Tuning Shooting Mechanics', 'Sudden Death Overtime Implementation', 'UI Polish' ]},
     { name: "Ashlee Muscroft", works: ['Ball Coming Off the Rim Mechanics', 'Base Version Of The Court', 'Crowd Art' ]},
     { name: "Marc Silva", works: ['Indoor Court Art', 'Crowd Cheering Art', 'Main Menu Polish' ]},
+    { name: "Renaud Marshall", works: ['Pause Functionality', 'Court Visibility Polish']},
+    { name: "Jaime Rivas", works: ['Ball Bouncing & Ball Coming Off The Rim']}
 		/*    {name:"Terrence McDonnell", works: ['Signs (Over 28 Designs)', 'Checkpoint Code', 'Crashing Animation Code', 'Menu Improvements', 'Finish Line Animation', 'Stage Ground Colors', 'Track Design (Skyline, Mountain, Forest)','Main Menu Animation']},
 			{name:"Artem Smirnov", works: ['Screen State Machine','City Skyline','Data Storage','End of Round Report','Level Select','Game Over Screen','Font Improvements','Dashboard Radio', 'Automatic Transmission']},
 			{name:"Adam A. Lohnes", works: ['Truck Model and Sprites','Semi Model and Sprites','Bus Model and Sprites']},
