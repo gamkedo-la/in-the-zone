@@ -2,6 +2,12 @@ const PLAYER_MOVE_SPEED = 7; // original speed was 5.0;
 const PLAYER_MOVE_SPEED_CHANGE = 3.0;
 const USE_SPOTLIGHTS = true; // make spotlights follow the players like they are rock stars
 
+const ENCOURAGE_PERFECT = true;
+const ENCOURAGE_MISS = false;
+const ENCOURAGE_SHORT = false;
+const ENCOURAGE_LONG = false;
+const ENCOURAGE_RED = false;
+
 const MAX_SHOOTING_TIME = 25;
 
 const STREAK_EFFECT_THRESHOLD = 4; // value of player.streak before we start drawing "sparkles" coming from the player
@@ -23,10 +29,11 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 		this.topEdgeOfFeet = this.y + 59;
 		this.rightEdgeOfFeet = this.x + 39;
 		this.bottomEdgeOfFeet = this.y + 61;
-		this.nextPerfectCompliment = randomPerfectCompliment();
-		this.nextShortEncouragement = randomShortPressedEncouragement();
-		this.nextLongEncouragement = randomLongPressedEncouragement();
-		this.nextRedEncouragement = randomRedEncouragement();
+
+		if (ENCOURAGE_PERFECT) this.nextPerfectCompliment = randomPerfectCompliment();
+		if (ENCOURAGE_SHORT) this.nextShortEncouragement = randomShortPressedEncouragement();
+		if (ENCOURAGE_LONG) this.nextLongEncouragement = randomLongPressedEncouragement();
+		if (ENCOURAGE_RED) this.nextRedEncouragement = randomRedEncouragement();
 
 		//	this.centerOfFeet = {"centerOfFeetX": this.x-4,"centerOfFeetY": this.y+30};
 		this.centerOfFeet = { x: this.x - 4, y: this.y + 30 };
@@ -1004,23 +1011,23 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 				if (this.justShotShootingTime == this.shootingPerfectTimeStart || this.justShotShootingTime == this.shootingPerfectTimeStart + 1) {
 					colorRect(this.x - 20 - 2, this.y + 20 - 2, 42, 14, "rgba(0,0,0,0.5)");
 					colorRect(this.x - 20, this.y + 20, (this.justShotShootingTime) * 2, 10, "#3af72a");
-					colorText(this.nextPerfectCompliment, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, 9, true);
+					if (ENCOURAGE_PERFECT) colorText(this.nextPerfectCompliment, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, 9, true);
 				}
 				else if (this.justShotShootingTime > this.shortPressedShotGoingInLimit && this.justShotShootingTime < this.longPressedShotGoingInLimit) {
 					colorRect(this.x - 20 - 2, this.y + 20 - 2, 42, 14, "rgba(0,0,0,0.5)");
 					colorRect(this.x - 20, this.y + 20, (this.justShotShootingTime) * 2, 10, "yellow");
 					//colorText(this.nextCompliment, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, 9, true);
 					if (this.justShotShootingTime > this.shootingPerfectTimeStart + 1) {
-						colorText(this.nextLongEncouragement, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, 9, true);
+						if (ENCOURAGE_LONG) colorText(this.nextLongEncouragement, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, 9, true);
 					}
 					else if (this.justShotShootingTime < this.shootingPerfectTimeStart) {
-						colorText(this.nextShortEncouragement, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, 9, true);
+						if (ENCOURAGE_SHORT) colorText(this.nextShortEncouragement, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, 9, true);
 					}
 				}
 				else {
 					colorRect(this.x - 20 - 2, this.y + 20 - 2, 42, 14, "rgba(0,0,0,0.5)");
 					colorRect(this.x - 20, this.y + 20, (this.justShotShootingTime) * 2, 10, "red");
-					colorText(this.nextRedEncouragement, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, 9, true);
+					if (ENCOURAGE_RED) colorText(this.nextRedEncouragement, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, 9, true);
 				}
 			}
 		}
@@ -1058,10 +1065,11 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 					//console.log("hey");
 					this.justShotShootingTime = 0;
 					this.justShot = false;
-					this.nextPerfectCompliment = randomPerfectCompliment();
-					this.nextShortEncouragement = randomShortPressedEncouragement();
-					this.nextLongEncouragement = randomLongPressedEncouragement();
-					this.nextRedEncouragement = randomRedEncouragement();
+
+					if (ENCOURAGE_PERFECT) this.nextPerfectCompliment = randomPerfectCompliment();
+					if (ENCOURAGE_SHORT) this.nextShortEncouragement = randomShortPressedEncouragement();
+					if (ENCOURAGE_LONG) this.nextLongEncouragement = randomLongPressedEncouragement();
+					if (ENCOURAGE_RED) this.nextRedEncouragement = randomRedEncouragement();
 				}
 
 				var complimentAlpha = 1 - (this.justShotTick / 30);
@@ -1071,23 +1079,23 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 				if (this.justShotShootingTime == this.shootingPerfectTimeStart || this.justShotShootingTime == this.shootingPerfectTimeStart + 1) {
 					colorRect(this.x - 20 - 2, this.y + 20 - 2, 42, 14, "rgba(0,0,0,0.5)");
 					colorRect(this.x - 20, this.y + 20, (this.justShotShootingTime) * 2, 10, "#3af72a");
-					colorText(this.nextPerfectCompliment, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, 9, true);
+					if (ENCOURAGE_PERFECT) colorText(this.nextPerfectCompliment, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, 9, true);
 				}
 				else if (this.justShotShootingTime > this.shortPressedShotGoingInLimit && this.justShotShootingTime < this.longPressedShotGoingInLimit) {
 					colorRect(this.x - 20 - 2, this.y + 20 - 2, 42, 14, "rgba(0,0,0,0.5)");
 					colorRect(this.x - 20, this.y + 20, (this.justShotShootingTime) * 2, 10, "yellow");
 					//colorText(this.nextCompliment, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, 9, true);
 					if (this.justShotShootingTime > this.shootingPerfectTimeStart + 1) {
-						colorText(this.nextLongEncouragement, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, 9, true);
+						if (ENCOURAGE_LONG) colorText(this.nextLongEncouragement, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, 9, true);
 					}
 					else if (this.justShotShootingTime < this.shootingPerfectTimeStart) {
-						colorText(this.nextShortEncouragement, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, 9, true);
+						if (ENCOURAGE_SHORT) colorText(this.nextShortEncouragement, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, 9, true);
 					}
 				}
 				else {
 					colorRect(this.x - 20 - 2, this.y + 20 - 2, 42, 14, "rgba(0,0,0,0.5)");
 					colorRect(this.x - 20, this.y + 20, (this.justShotShootingTime) * 2, 10, "red");
-					colorText(this.nextRedEncouragement, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, 9, true);
+					if (ENCOURAGE_RED) colorText(this.nextRedEncouragement, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, 9, true);
 				}
 			}
 		}
@@ -1121,20 +1129,24 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 }
 
 function randomShortPressedEncouragement() {
+	if (!ENCOURAGE_SHORT) return "";
 	var items = ['NOT BAD', 'ALMOST', 'TOO EARLY', 'NOT ENOUGH POWER'];
 	return items[Math.floor(Math.random() * items.length)];
 }
 function randomLongPressedEncouragement() {
+	if (!ENCOURAGE_LONG) return "";
 	var items = ['NOT BAD', 'ALMOST', 'TOO LATE', 'TOO MUCH POWER'];
 	return items[Math.floor(Math.random() * items.length)];
 }
 
 function randomPerfectCompliment() {
+	if (!ENCOURAGE_PERFECT) return "";
 	var items = ['PERFECT', 'FLAWLESS', 'PERFECT TIMING', 'NAILED IT', 'AMAZING', 'INCREDIBLE', 'FANTASTIC', 'BULLSEYE', 'PERFECTION'];
 	return items[Math.floor(Math.random() * items.length)];
 }
 
 function randomRedEncouragement() {
+	if (!ENCOURAGE_RED) return "";
 	var items = ["DON'T GIVE UP", "NOTHIN' BUT AIR", 'BAD TIMING'];
 	return items[Math.floor(Math.random() * items.length)];
 }
