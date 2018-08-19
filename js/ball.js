@@ -167,8 +167,9 @@ function ballClass(startingX, startingY) {
         if (this.isShotBy == character2) {
           player2Score = character2.score;
         }
-        if (suddenDeathOvertime) {
+        if ((mainStates.inGame) && (suddenDeathOvertime)) {
           mainStates.gameOver = true;
+		  console.log("GameOver 3");
           mainStates.demo = false;
           mainStates.inGame = false;
           setPaused(false);
@@ -178,6 +179,9 @@ function ballClass(startingX, startingY) {
 
         if (aroundTheWorldIsOver) {
           mainStates.gameOver = true;
+          aroundTheWorldIsOver = false;
+		  console.log("GameOver 4");
+          suddenDeathOvertime = false;
           mainStates.demo = false;
           mainStates.inGame = false;
           setPaused(false);

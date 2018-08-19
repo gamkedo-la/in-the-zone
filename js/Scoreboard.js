@@ -41,8 +41,10 @@ function drawScoreboard() {
   
   if (player1Score >= 100 || player2Score >= 100) {
     mainStates.gameOver = true;
-    mainStates.demo= false;
-    mainStates.inGame= false;
+    console.log("GameOver 1");
+    suddenDeathOvertime = false;
+    mainStates.demo = false;
+    mainStates.inGame = false;
     setPaused(false);
     mainStates.menuOpen = false;
   }
@@ -60,6 +62,7 @@ function drawScoreboard() {
         } else {
           mainStates.inGame = false;
           mainStates.gameOver = true;
+		  console.log("GameOver 2");
           suddenDeathOvertime = false;
           setPaused(false);
         }

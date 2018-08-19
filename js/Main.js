@@ -215,7 +215,7 @@ function drawAll() {
 		}
 	}
 
-	if (suddenDeathOvertime) {
+	if ((mainStates.inGame) && (suddenDeathOvertime)) {
 		drawSuddenDeathText();
 	}
 
@@ -948,6 +948,7 @@ function resetDemo() {
 
 function resetGame() {
 	mainStates.demo = false;
+	suddenDeathOvertime = false;
 
 	if ((menuBallPos == MenuBall.SpeedOnePlayer) || (menuBallPos == MenuBall.TurfOnePlayer)) {
 		character1 = new playerClass(75, 220, false, true);
