@@ -178,114 +178,114 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 		this.previousfacingDirection = this.facingDirection;
 
 		if (this.states.isIdle) {
-			if (this.ballToHold == null && GameMode.OneOnOne) {//defending. Being close to the other player makes his shots harder
-				if (this.x != character1.x) {
-					var distanceFromEachOther = Math.sqrt((character1.x - this.x) * (character1.x - this.x) + (character1.y - this.y) * (character1.y - this.y));
-				}
-				else {
-					var distanceFromEachOther = Math.sqrt((character2.x - this.x) * (character2.x - this.x) + (character2.y - this.y) * (character2.y - this.y));
-				}
-				if (this.isAI) {
-					if ((this.distanceFromHoop > character1.distanceFromHoop - 50 && ball1.isHeldBy == character1) || (this.distanceFromHoop > character2.distanceFromHoop - 50 && ball1.isHeldBy == character2)) {// only works with the ball1 since in one-on-one gamemode only ball1 will exist
-						console.log("i am not close enough to the rim to defend");
-						if (nextX != this.x && nextY != this.y) {
-							if (this.x < HOOP_X + 5) {
-								nextX += PLAYER_MOVE_SPEED * Math.cos(45);
-							}
-							if (this.y < HOOP_Y + 5) {
-								nextY += PLAYER_MOVE_SPEED * Math.cos(45);
-							}
-							if (this.x > HOOP_X - 5) {
-								nextX -= PLAYER_MOVE_SPEED * Math.cos(45);
-							}
-							if (this.y > HOOP_Y - 5) {
-								nextY -= PLAYER_MOVE_SPEED * Math.cos(45);
-							}
-						} else {
-							if (this.x < HOOP_X + 5) {
-								nextX += PLAYER_MOVE_SPEED;
-							}
-							if (this.y < HOOP_Y + 5) {
-								nextY += PLAYER_MOVE_SPEED;
-							}
-							if (this.x > HOOP_X - 5) {
-								nextX -= PLAYER_MOVE_SPEED;
-							}
-							if (this.y > HOOP_Y - 5) {
-								nextY -= PLAYER_MOVE_SPEED;
-							}
-						}
-					}
-					if (this.distanceFromHoop < character1.distanceFromHoop && ball1.isHeldBy == character1 && !this.closeEnoughToDefend) {
-						console.log("ses");
-						if (nextX != this.x && nextY != this.y) {
-							if (this.x < character1.x + 5) {
-								nextX += PLAYER_MOVE_SPEED * Math.cos(45);
-							}
-							if (this.y < character1.y + 5) {
-								nextY += PLAYER_MOVE_SPEED * Math.cos(45);
-							}
-							if (this.x > character1.x - 5) {
-								nextX -= PLAYER_MOVE_SPEED * Math.cos(45);
-							}
-							if (this.y > character1.y - 5) {
-								nextY -= PLAYER_MOVE_SPEED * Math.cos(45);
-							}
-						} else {
-							if (this.x < character1.x + 5) {
-								nextX += PLAYER_MOVE_SPEED;
-							}
-							if (this.y < character1.y + 5) {
-								nextY += PLAYER_MOVE_SPEED;
-							}
-							if (this.x > character1.x - 5) {
-								nextX -= PLAYER_MOVE_SPEED;
-							}
-							if (this.y > character1.y - 5) {
-								nextY -= PLAYER_MOVE_SPEED;
-							}
-						}
-					}
-					if (distanceFromEachOther < 50) {
-						console.log("hi");
-						this.closeEnoughToDefend = true;
-					}
-					if (distanceFromEachOther > 100) {
-						this.closeEnoughToDefend = false;
-					}
-				}
-				if (this.distanceFromHoop < character1.distanceFromHoop) {
-					if (distanceFromEachOther < 50) {
-						character1.shootingDifficulty = 3;
-					}
-					else if (distanceFromEachOther < 100) {
-						character1.shootingDifficulty = 2;
-					}
-					else if (distanceFromEachOther < 150) {
-						character1.shootingDifficulty = 1;
-					}
-					else {
-						character1.shootingDifficulty = 0;
-					}
-				}
-				else if (this.distanceFromHoop < character2.distanceFromHoop) {
-					if (distanceFromEachOther < 50) {
-						character2.shootingDifficulty = 3;
-					}
-					else if (distanceFromEachOther < 100) {
-						character2.shootingDifficulty = 2;
-					}
-					else if (distanceFromEachOther < 150) {
-						character2.shootingDifficulty = 1;
-					}
-					else {
-						character2.shootingDifficulty = 0;
-					}
-				}
-				else {
-					this.shootingDifficulty = 0;
-				}
-			}
+			// if (this.ballToHold == null && GameMode.OneOnOne) {//defending. Being close to the other player makes his shots harder
+			// 	if (this.x != character1.x) {
+			// 		var distanceFromEachOther = Math.sqrt((character1.x - this.x) * (character1.x - this.x) + (character1.y - this.y) * (character1.y - this.y));
+			// 	}
+			// 	else {
+			// 		var distanceFromEachOther = Math.sqrt((character2.x - this.x) * (character2.x - this.x) + (character2.y - this.y) * (character2.y - this.y));
+			// 	}
+			// 	if (this.isAI) {
+			// 		if ((this.distanceFromHoop > character1.distanceFromHoop - 50 && ball1.isHeldBy == character1) || (this.distanceFromHoop > character2.distanceFromHoop - 50 && ball1.isHeldBy == character2)) {// only works with the ball1 since in one-on-one gamemode only ball1 will exist
+			// 			console.log("i am not close enough to the rim to defend");
+			// 			if (nextX != this.x && nextY != this.y) {
+			// 				if (this.x < HOOP_X + 5) {
+			// 					nextX += PLAYER_MOVE_SPEED * Math.cos(45);
+			// 				}
+			// 				if (this.y < HOOP_Y + 5) {
+			// 					nextY += PLAYER_MOVE_SPEED * Math.cos(45);
+			// 				}
+			// 				if (this.x > HOOP_X - 5) {
+			// 					nextX -= PLAYER_MOVE_SPEED * Math.cos(45);
+			// 				}
+			// 				if (this.y > HOOP_Y - 5) {
+			// 					nextY -= PLAYER_MOVE_SPEED * Math.cos(45);
+			// 				}
+			// 			} else {
+			// 				if (this.x < HOOP_X + 5) {
+			// 					nextX += PLAYER_MOVE_SPEED;
+			// 				}
+			// 				if (this.y < HOOP_Y + 5) {
+			// 					nextY += PLAYER_MOVE_SPEED;
+			// 				}
+			// 				if (this.x > HOOP_X - 5) {
+			// 					nextX -= PLAYER_MOVE_SPEED;
+			// 				}
+			// 				if (this.y > HOOP_Y - 5) {
+			// 					nextY -= PLAYER_MOVE_SPEED;
+			// 				}
+			// 			}
+			// 		}
+			// 		if (this.distanceFromHoop < character1.distanceFromHoop && ball1.isHeldBy == character1 && !this.closeEnoughToDefend) {
+			// 			console.log("ses");
+			// 			if (nextX != this.x && nextY != this.y) {
+			// 				if (this.x < character1.x + 5) {
+			// 					nextX += PLAYER_MOVE_SPEED * Math.cos(45);
+			// 				}
+			// 				if (this.y < character1.y + 5) {
+			// 					nextY += PLAYER_MOVE_SPEED * Math.cos(45);
+			// 				}
+			// 				if (this.x > character1.x - 5) {
+			// 					nextX -= PLAYER_MOVE_SPEED * Math.cos(45);
+			// 				}
+			// 				if (this.y > character1.y - 5) {
+			// 					nextY -= PLAYER_MOVE_SPEED * Math.cos(45);
+			// 				}
+			// 			} else {
+			// 				if (this.x < character1.x + 5) {
+			// 					nextX += PLAYER_MOVE_SPEED;
+			// 				}
+			// 				if (this.y < character1.y + 5) {
+			// 					nextY += PLAYER_MOVE_SPEED;
+			// 				}
+			// 				if (this.x > character1.x - 5) {
+			// 					nextX -= PLAYER_MOVE_SPEED;
+			// 				}
+			// 				if (this.y > character1.y - 5) {
+			// 					nextY -= PLAYER_MOVE_SPEED;
+			// 				}
+			// 			}
+			// 		}
+			// 		if (distanceFromEachOther < 50) {
+			// 			console.log("hi");
+			// 			this.closeEnoughToDefend = true;
+			// 		}
+			// 		if (distanceFromEachOther > 100) {
+			// 			this.closeEnoughToDefend = false;
+			// 		}
+			// 	}
+			// 	if (this.distanceFromHoop < character1.distanceFromHoop) {
+			// 		if (distanceFromEachOther < 50) {
+			// 			character1.shootingDifficulty = 3;
+			// 		}
+			// 		else if (distanceFromEachOther < 100) {
+			// 			character1.shootingDifficulty = 2;
+			// 		}
+			// 		else if (distanceFromEachOther < 150) {
+			// 			character1.shootingDifficulty = 1;
+			// 		}
+			// 		else {
+			// 			character1.shootingDifficulty = 0;
+			// 		}
+			// 	}
+			// 	else if (this.distanceFromHoop < character2.distanceFromHoop) {
+			// 		if (distanceFromEachOther < 50) {
+			// 			character2.shootingDifficulty = 3;
+			// 		}
+			// 		else if (distanceFromEachOther < 100) {
+			// 			character2.shootingDifficulty = 2;
+			// 		}
+			// 		else if (distanceFromEachOther < 150) {
+			// 			character2.shootingDifficulty = 1;
+			// 		}
+			// 		else {
+			// 			character2.shootingDifficulty = 0;
+			// 		}
+			// 	}
+			// 	else {
+			// 		this.shootingDifficulty = 0;
+			// 	}
+			// }
 
 			if (!this.isAI) {
 				if (this.keyHeld_North) {
@@ -445,13 +445,13 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 							if (GameMode.Shootaround) {
 								//prioritize the zones the other player holds.
 								if (arrayOfZones[i].isClaimedBy != this && arrayOfZones[i].isClaimedBy != null) {
-									console.log(arrayOfZones[i].zoneNumber);
+									//console.log(arrayOfZones[i].zoneNumber);
 									zonesWithPriority.push(arrayOfZones[i]);
 								}
 							} else if (GameMode.AroundTheWorld) {
 								//prioritize the zones which are unclaimed
 								if (arrayOfZones[i].isClaimedBy == null) {
-									console.log(arrayOfZones[i].zoneNumber);
+									//console.log(arrayOfZones[i].zoneNumber);
 									zonesWithPriority.push(arrayOfZones[i]);
 								}
 							}
@@ -644,7 +644,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 							this.ballToHold.isShotBy = this;
 							var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
 							this.ballToHold.ballPower = -16.2;
-							console.log("perfect");
+							//console.log("perfect");
 							updateZones();
 						} else if (this.shootingTime < this.shootingPerfectTimeStart) { //player did not press enough
 							// console.log(this.shootingTime);
@@ -655,7 +655,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 									this.ballToHold.goingIn = true;
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
 									this.ballToHold.ballPower = -16.2;
-									console.log("short,yellow and lucky");
+									//console.log("short,yellow and lucky");
 									//ooLucky.play();
 									lucky.play();
 									updateZones();
@@ -664,7 +664,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 									this.streak = 0;
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
 									this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
-									console.log("yellow and unlucky");
+									//console.log("yellow and unlucky");
 									ooSoClose.play();
 								}
 							} else {
@@ -672,7 +672,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 								this.streak = 0;
 								var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
 								this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
-								console.log("way off");
+								//console.log("way off");
 								wayOff.play();
 							}
 
@@ -685,7 +685,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 									this.ballToHold.goingIn = true;
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
 									this.ballToHold.ballPower = -16;
-									console.log("long,yellow and lucky");
+									//console.log("long,yellow and lucky");
 									mmYeah.play();
 									updateZones();
 								} else {
@@ -693,7 +693,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 									this.streak = 0;
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
 									this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
-									console.log("yellow and unlucky");
+									//console.log("yellow and unlucky");
 									mmAw.play();
 								}
 							} else {
@@ -701,7 +701,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 								this.streak = 0;
 								var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
 								this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
-								console.log("way off");
+								//console.log("way off");
 								notEvenClose.play();
 							}
 						}
@@ -767,7 +767,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 							this.ballToHold.gotShotFrom = this.currentZone;
 							var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
 							this.ballToHold.ballPower = -16;
-							console.log("perfect");
+							//console.log("perfect");
 							updateZones();
 						} else if (this.shootingTime < this.shootingPerfectTimeStart) { //player did not press enough
 							// console.log(this.shootingTime);
@@ -778,21 +778,21 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 									this.ballToHold.goingIn = true;
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
 									this.ballToHold.ballPower = -16.2;
-									console.log("short,yellow and lucky");
+									//console.log("short,yellow and lucky");
 									updateZones();
 								} else {
 									this.ballToHold.goingIn = false;
 									this.streak = 0;
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
 									this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
-									console.log("yellow and unlucky");
+									//console.log("yellow and unlucky");
 								}
 							} else {
 								this.ballToHold.goingIn = false;
 								this.streak = 0;
 								var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
 								this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
-								console.log("way off");
+								//console.log("way off");
 							}
 
 
@@ -804,21 +804,21 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 									this.ballToHold.goingIn = true;
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X - this.x);
 									this.ballToHold.ballPower = -16.2;
-									console.log("long,yellow and lucky");
+									//console.log("long,yellow and lucky");
 									updateZones();
 								} else {
 									this.ballToHold.goingIn = false;
 									this.streak = 0;
 									var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
 									this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
-									console.log("yellow and unlucky");
+									//console.log("yellow and unlucky");
 								}
 							} else {
 								this.ballToHold.goingIn = false;
 								this.streak = 0;
 								var direction = Math.atan2(HOOP_Y - this.y, HOOP_X + (Math.floor(Math.random() * 51) - 25) - this.x);
 								this.ballToHold.ballPower = Math.floor(Math.random() * 2) - 16;
-								console.log("way off");
+								//console.log("way off");
 							}
 						}
 						// console.log(direction);
@@ -873,7 +873,7 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 					this.ballToHold.isHeldBy = null;
 				}
 				else {
-					console.log("crashed");
+					//console.log("crashed");
 				}
 				this.isDunkingEnded = true;
 			}

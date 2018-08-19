@@ -38,17 +38,17 @@ function drawScoreboard() {
 
   var player2TensPlace = Math.floor(player2Score / 10);
   var player2OnesPlace = player2Score % 10;
-  
+
   if (player1Score >= 100 || player2Score >= 100) {
     mainStates.gameOver = true;
-    console.log("GameOver 1");
+    //console.log("GameOver 1");
     suddenDeathOvertime = false;
     mainStates.demo = false;
     mainStates.inGame = false;
     setPaused(false);
     mainStates.menuOpen = false;
   }
-  
+
   if (mainStates.isPaused === false) {
     frameNumber++;
     if (frameNumber % 30 == 0) {
@@ -62,21 +62,21 @@ function drawScoreboard() {
         } else {
           mainStates.inGame = false;
           mainStates.gameOver = true;
-		  console.log("GameOver 2");
+		  //console.log("GameOver 2");
           suddenDeathOvertime = false;
           setPaused(false);
         }
-        
+
       } else if(GameMode.AroundTheWorld) {
 	      sec++;
-	      
+
 	      if(sec > 59) {
 		      sec = 0;
 		      min++;
 	      }
       } else {
         sec--;
-        
+
 	    if (sec <= 0 && min >= 1) {
 			sec = 59;
 	    	min--;
@@ -84,7 +84,7 @@ function drawScoreboard() {
       }
     }
   }
-  
+
   if(mainStates.demo && sec == 0) {
     sec = 30;
   }
@@ -116,7 +116,7 @@ function drawSuddenDeathText() {
   var whereToPutText1Y = canvas.height / 2;
   var whereToPutText2X = (canvas.width / 2) - 120;
   var whereToPutText2Y = canvas.height / 2 + 50;
-  
+
   if (suddenDeathTextCounter < SUDDEN_DEATH_MAX_TIME_TO_SHOW_TEXT) {
     suddenDeathTextCounter++;
     colorText("Sudden Death Overtime:", whereToPutText1X, whereToPutText1Y, 'white', '40');

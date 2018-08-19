@@ -333,7 +333,7 @@ function drawGameOver() {
 			mainStates.demo = true;
 			resetDemo();
 		} else if (gameOverBallPos == GameOverBall.MainMenu) {
-			console.log("going to main menu");
+			//console.log("going to main menu");
 			mainStates.menuOpen = true;
 			mainStates.gameOver = false;
 

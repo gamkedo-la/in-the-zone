@@ -115,7 +115,7 @@ function ballClass(startingX, startingY) {
         }
       }
       if (this.y <= 225 && courtDisplayed === CourtOptions.Fence) {
-        console.log("minY reached");
+        //console.log("minY reached");
         chainLinkFence.play();
       }
 
@@ -169,7 +169,7 @@ function ballClass(startingX, startingY) {
         }
         if ((mainStates.inGame) && (suddenDeathOvertime)) {
           mainStates.gameOver = true;
-		  console.log("GameOver 3");
+		  //console.log("GameOver 3");
           mainStates.demo = false;
           mainStates.inGame = false;
           setPaused(false);
@@ -180,7 +180,7 @@ function ballClass(startingX, startingY) {
         if (aroundTheWorldIsOver) {
           mainStates.gameOver = true;
           aroundTheWorldIsOver = false;
-		  console.log("GameOver 4");
+		  //console.log("GameOver 4");
           suddenDeathOvertime = false;
           mainStates.demo = false;
           mainStates.inGame = false;
@@ -194,7 +194,7 @@ function ballClass(startingX, startingY) {
         this.beingShot = false;
         crowdCheer.play();
         splash.play();
-        console.log("Yay!");
+        //console.log("Yay!");
       }
       else if (this.x < HOOP_X + 15 && this.y < HOOP_Y + 15 &&
         this.x > HOOP_X - 15 && this.y > HOOP_Y - 15 &&
@@ -204,7 +204,7 @@ function ballClass(startingX, startingY) {
 
         this.shootingX = reboundDirection[0] * this.ballPower;
         this.shootingY = reboundDirection[1] * this.ballPower;
-        console.log(this.shootingX + " , " + this.shootingY);
+        //console.log(this.shootingX + " , " + this.shootingY);
         this.beingShot = false;
         var random = Math.random();
         if (random > 0.5) {
@@ -311,7 +311,7 @@ function rebound(ball) {
   reboundDirection = normalize(reboundDirection[0], reboundDirection[1]);
 
   var distanceFromHoop = magnitude(shotDirection[0], shotDirection[1]);
-  console.log(distanceFromHoop);
+  //console.log(distanceFromHoop);
   // reboundDirection[0] *= distanceFromHoop/3;
   // reboundDirection[1] *= distanceFromHoop/3;
 
