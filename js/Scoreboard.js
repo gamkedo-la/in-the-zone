@@ -38,6 +38,12 @@ function drawScoreboard() {
 
   var player2TensPlace = Math.floor(player2Score / 10);
   var player2OnesPlace = player2Score % 10;
+  if (!mainStates.inGame) {
+    mainStates.demo = true;
+  }
+  else {
+    mainStates.demo = false;
+  }
 
   if (player1Score >= 100 || player2Score >= 100) {
     mainStates.gameOver = true;
@@ -53,7 +59,7 @@ function drawScoreboard() {
     frameNumber++;
     if (frameNumber % 30 == 0) {
       frameNumber = 0;
-      if ((sec == 0 && min == 0) && (!GameMode.AroundTheWorld)) {
+      if ((sec == 0 && min == 0) && (!GameMode.AroundTheWorld) && !mainStates.demo && mainStates.inGame) {
         min = 0;
         sec = 0;
 

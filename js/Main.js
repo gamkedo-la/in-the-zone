@@ -582,8 +582,12 @@ function drawPausedMenu() {
 		} else if (pauseBallPos == PauseBall.Restart) {
 			resetGame();
 		} else if (pauseBallPos == PauseBall.Options) {
+			mainStates.inGame = false;
+			mainStates.demo = true;
 			mainStates.optionsOpen = true;
 		} else if (pauseBallPos == PauseBall.MainMenu) {
+			mainStates.inGame = false;
+			mainStates.demo = true;
 			mainStates.menuOpen = true;
 		}
 	}
