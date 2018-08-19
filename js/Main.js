@@ -5,6 +5,17 @@ var player2Pic = player2;
 var ballArray = [];
 var ball1 = new ballClass(200, 550);
 var ball2 = new ballClass(950, 550);
+var supporter1 = new supporterClass(5,150,100);//TickStart,x,y
+var supporter2 = new supporterClass(10,225,100);//TickStart,x,y
+var supporter3 = new supporterClass(5,300,100);//TickStart,x,y
+var supporter4 = new supporterClass(15,700,100);//TickStart,x,y
+var supporter5 = new supporterClass(10,400,100);//TickStart,x,y
+var supporter6 = new supporterClass(5,120,120);//TickStart,x,y
+var supporter7 = new supporterClass(10,450,30);//TickStart,x,y
+var supporter8 = new supporterClass(5,530,20);//TickStart,x,y
+var supporter9 = new supporterClass(15,750,110);//TickStart,x,y
+var supporter10 = new supporterClass(10,950,50);//TickStart,x,y
+var supporters = [supporter1,supporter2,supporter3,supporter4,supporter5,supporter6,supporter7,supporter8,supporter9,supporter10];
 
 const MenuBall = {
 	SpeedOnePlayer: "Speed1Player",
@@ -237,6 +248,9 @@ function drawWorld() {
 	if ((mainStates.inGame) || (mainStates.demo)) {
 		if (courtDisplayed == CourtOptions.Indoor) {
 			drawBitmapCenteredWithRotation(basketballCourt, canvas.width / 2, canvas.height / 2, 0);
+			for (var i = 0; i < supporters.length; i++) {
+				supporters[i].draw();
+			}
 		} else if (courtDisplayed == CourtOptions.Beach) {
 			drawBitmapCenteredWithRotation(beachBasketballCourt, canvas.width / 2, canvas.height / 2, 0);
 		} else if (courtDisplayed == CourtOptions.Fence) {
@@ -1001,4 +1015,24 @@ function resetGame() {
 		min = 1;
 		sec = 0;
 	}
+}
+function supporterClass(TickStartCount,x,y){
+	this.x = x;
+	this.y = y;
+	this.spriteSheet = new SpriteSheetClass(crowdSpriteSheet ,64 ,64);
+	this.tickCount = TickStartCount
+	this.ticksPerFrame = 5;
+	this.frameRow = 0;
+	this.framesAnim = 3;
+	this.draw = function(){
+		this.incrementTick();
+		this.spriteSheet.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.x, this.y, 0);
+	}
+	this.incrementTick = function () {
+		this.tickCount++;
+
+		if (this.tickCount / this.ticksPerFrame >= this.framesAnim) {
+			this.tickCount = 0;
+		}
+	};
 }

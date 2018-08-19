@@ -22,6 +22,7 @@ var shootingLeftSpriteSheet2 = document.createElement("img");
 var shootingRightSpriteSheet2 = document.createElement("img");
 var player1Victory = document.createElement("img");
 var player2Victory = document.createElement("img");
+var crowdSpriteSheet = document.createElement("img");
 
 var scoreboard = document.createElement("img");
 var number0 = document.createElement("img");
@@ -73,6 +74,7 @@ function loadImages() {
 		{ varName: beachBasketballCourt, theFile: "courtBeach.png" },
 		{ varName: fenceBasketballCourt, theFile: "courtChainLink.png" },
 		{ varName: inTheZoneLogo, theFile: "InTheZoneLogo.png" },
+		{ varName: crowdSpriteSheet, theFile: "crowdSpriteSheet.png" },
 
 		{ varName: player1, theFile: "player1.png" },
 		{ varName: player2, theFile: "player2.png" },
