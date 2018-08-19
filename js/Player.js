@@ -24,8 +24,9 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 		this.rightEdgeOfFeet = this.x + 39;
 		this.bottomEdgeOfFeet = this.y + 61;
 		this.nextPerfectCompliment = randomPerfectCompliment();
-		this.nextCompliment = randomCompliment();
-		this.nextEncouragement = randomEncouragement();
+		this.nextShortEncouragement = randomShortPressedEncouragement();
+		this.nextLongEncouragement = randomLongPressedEncouragement();
+		this.nextRedEncouragement = randomRedEncouragement();
 
 		//	this.centerOfFeet = {"centerOfFeetX": this.x-4,"centerOfFeetY": this.y+30};
 		this.centerOfFeet = { x: this.x - 4, y: this.y + 30 };
@@ -1003,20 +1004,23 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 				if (this.justShotShootingTime == this.shootingPerfectTimeStart || this.justShotShootingTime == this.shootingPerfectTimeStart + 1) {
 					colorRect(this.x - 20 - 2, this.y + 20 - 2, 42, 14, "rgba(0,0,0,0.5)");
 					colorRect(this.x - 20, this.y + 20, (this.justShotShootingTime) * 2, 10, "#3af72a");
-					colorText(this.nextPerfectCompliment, this.x - 20 + 1, this.y + 40 + this.justShotTick + 1, complimentShadowRGBA, complimentFontsize, true);
-					colorText(this.nextPerfectCompliment, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, complimentFontsize, true);
+					colorText(this.nextPerfectCompliment, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, 9, true);
 				}
 				else if (this.justShotShootingTime > this.shortPressedShotGoingInLimit && this.justShotShootingTime < this.longPressedShotGoingInLimit) {
 					colorRect(this.x - 20 - 2, this.y + 20 - 2, 42, 14, "rgba(0,0,0,0.5)");
 					colorRect(this.x - 20, this.y + 20, (this.justShotShootingTime) * 2, 10, "yellow");
-					colorText(this.nextCompliment, this.x - 20 + 1, this.y + 40 + this.justShotTick + 1, complimentShadowRGBA, complimentFontsize, true);
-					colorText(this.nextCompliment, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, complimentFontsize, true);
+					//colorText(this.nextCompliment, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, 9, true);
+					if (this.justShotShootingTime > this.shootingPerfectTimeStart + 1) {
+						colorText(this.nextLongEncouragement, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, 9, true);
+					}
+					else if (this.justShotShootingTime < this.shootingPerfectTimeStart) {
+						colorText(this.nextShortEncouragement, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, 9, true);
+					}
 				}
 				else {
 					colorRect(this.x - 20 - 2, this.y + 20 - 2, 42, 14, "rgba(0,0,0,0.5)");
 					colorRect(this.x - 20, this.y + 20, (this.justShotShootingTime) * 2, 10, "red");
-					colorText(this.nextEncouragement, this.x - 20 + 1, this.y + 40 + this.justShotTick + 1, complimentShadowRGBA, complimentFontsize, true);
-					colorText(this.nextEncouragement, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, complimentFontsize, true);
+					colorText(this.nextRedEncouragement, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, 9, true);
 				}
 			}
 		}
@@ -1055,8 +1059,9 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 					this.justShotShootingTime = 0;
 					this.justShot = false;
 					this.nextPerfectCompliment = randomPerfectCompliment();
-					this.nextCompliment = randomCompliment();
-					this.nextEncouragement = randomEncouragement();
+					this.nextShortEncouragement = randomShortPressedEncouragement();
+					this.nextLongEncouragement = randomLongPressedEncouragement();
+					this.nextRedEncouragement = randomRedEncouragement();
 				}
 
 				var complimentAlpha = 1 - (this.justShotTick / 30);
@@ -1071,12 +1076,18 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 				else if (this.justShotShootingTime > this.shortPressedShotGoingInLimit && this.justShotShootingTime < this.longPressedShotGoingInLimit) {
 					colorRect(this.x - 20 - 2, this.y + 20 - 2, 42, 14, "rgba(0,0,0,0.5)");
 					colorRect(this.x - 20, this.y + 20, (this.justShotShootingTime) * 2, 10, "yellow");
-					colorText(this.nextCompliment, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, 9, true);
+					//colorText(this.nextCompliment, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, 9, true);
+					if (this.justShotShootingTime > this.shootingPerfectTimeStart + 1) {
+						colorText(this.nextLongEncouragement, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, 9, true);
+					}
+					else if (this.justShotShootingTime < this.shootingPerfectTimeStart) {
+						colorText(this.nextShortEncouragement, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, 9, true);
+					}
 				}
 				else {
 					colorRect(this.x - 20 - 2, this.y + 20 - 2, 42, 14, "rgba(0,0,0,0.5)");
 					colorRect(this.x - 20, this.y + 20, (this.justShotShootingTime) * 2, 10, "red");
-					colorText(this.nextEncouragement, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, 9, true);
+					colorText(this.nextRedEncouragement, this.x - 20, this.y + 40 + this.justShotTick, complimentRGBA, 9, true);
 				}
 			}
 		}
@@ -1109,8 +1120,12 @@ function playerClass(startingX, startingY, isAI, isPlayer1) {
 	}
 }
 
-function randomCompliment() {
-	var items = ['NICE', 'GOOD', 'GREAT', 'SWEET', 'NOT BAD', 'WELL DONE', 'COOL', 'AWESOME', 'SUPER', 'QUALITY'];
+function randomShortPressedEncouragement() {
+	var items = ['NOT BAD', 'ALMOST', 'TOO EARLY', 'NOT ENOUGH POWER'];
+	return items[Math.floor(Math.random() * items.length)];
+}
+function randomLongPressedEncouragement() {
+	var items = ['NOT BAD', 'ALMOST', 'TOO LATE', 'TOO MUCH POWER'];
 	return items[Math.floor(Math.random() * items.length)];
 }
 
@@ -1119,7 +1134,7 @@ function randomPerfectCompliment() {
 	return items[Math.floor(Math.random() * items.length)];
 }
 
-function randomEncouragement() {
-	var items = ["DON'T GIVE UP", "NOTHIN' BUT AIR", 'BAD TIMING', ' TOO LATE', 'TOO EARLY', 'ALMOST'];
+function randomRedEncouragement() {
+	var items = ["DON'T GIVE UP", "NOTHIN' BUT AIR", 'BAD TIMING'];
 	return items[Math.floor(Math.random() * items.length)];
 }
